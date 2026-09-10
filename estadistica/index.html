@@ -1,0 +1,1123 @@
+<!doctype html>
+<html lang="es" data-bs-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guía de Probabilidad y Estadística</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎲</text></svg>">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="../assets/guia.css" rel="stylesheet">
+</head>
+<body data-mode="scroll">
+
+<!-- Índice fijo a la derecha (desktop) -->
+<aside class="sidebar-lg">
+  <div class="d-flex justify-content-between align-items-start mb-4">
+    <div>
+      <a href="../index.html" class="text-decoration-none small text-body-secondary d-block mb-1">
+        <i class="bi bi-arrow-left"></i> Guías</a>
+      <span class="fw-semibold">Probabilidad y Estadística</span>
+      <span class="d-block small text-body-secondary">Descriptiva · Probabilidad · Regresión</span>
+    </div>
+    <button class="btn btn-sm border-0 theme-btn" title="Cambiar tema"><i class="bi bi-moon" data-lg="1"></i></button>
+  </div>
+  <nav class="nav flex-column gap-1 toc"></nav>
+</aside>
+
+<!-- Índice deslizable desde la derecha (mobile) -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="toc" style="max-width:17rem">
+  <div class="offcanvas-body d-flex flex-column justify-content-end pb-4">
+    <nav class="nav flex-column gap-1 toc"></nav>
+  </div>
+  <div class="offcanvas-header border-top">
+    <a href="../index.html" class="text-decoration-none small text-body-secondary">
+      <i class="bi bi-arrow-left"></i> Todas las guías</a>
+    <button class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+</div>
+
+<main class="container-lg px-3 px-lg-5 py-4" style="max-width:48rem">
+
+<header class="mb-5">
+  <h1 class="mb-2">Probabilidad y Estadística</h1>
+  <p class="mb-0 text-body-secondary">
+    Qué medida usar en cada caso, cómo se calcula y cómo se lee. Con la fórmula, el gráfico
+    y el equivalente en Python.
+  </p>
+</header>
+
+<!-- ═══════════ 01 ═══════════ -->
+<section id="s01" class="pb-5 mb-5 border-bottom" data-group="Descriptiva">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 01</p>
+  <h2 class="mb-3">Población, muestra y los dos enfoques</h2>
+  <p class="mb-4">Toda la materia se apoya en una distinción: describir lo que tenemos, o sacar conclusiones sobre lo que no.</p>
+
+  <h3 class="mt-4 mb-2">Los dos enfoques</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:8rem">Enfoque</th><th>Qué hace</th><th class="d-none d-sm-table-cell">Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">Descriptiva</td><td>Resume y presenta los datos que tenés</td><td class="d-none d-sm-table-cell">La nota promedio de este curso</td></tr>
+        <tr><td class="text-primary">Inferencial</td><td>Generaliza de la muestra a la población</td><td class="d-none d-sm-table-cell">La nota promedio de todos los cursos</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">Población y muestra</h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 130" width="100%" role="img" aria-label="De la población se extrae una muestra; de la muestra se infiere hacia la población">
+      <circle cx="85" cy="65" r="50" fill="var(--bs-primary)" opacity=".15"/>
+      <g fill="var(--bs-primary)" opacity=".55">
+        <circle cx="62" cy="45" r="4"/><circle cx="88" cy="38" r="4"/><circle cx="108" cy="55" r="4"/>
+        <circle cx="55" cy="70" r="4"/><circle cx="78" cy="62" r="4"/><circle cx="100" cy="80" r="4"/>
+        <circle cx="70" cy="90" r="4"/><circle cx="95" cy="98" r="4"/><circle cx="115" cy="75" r="4"/>
+      </g>
+      <circle cx="315" cy="65" r="34" fill="none" stroke="var(--bs-primary)" stroke-dasharray="4 3" opacity=".7"/>
+      <g fill="var(--bs-primary)"><circle cx="300" cy="55" r="4"/><circle cx="325" cy="62" r="4"/><circle cx="310" cy="78" r="4"/></g>
+      <path d="M140 52 h130" stroke="currentColor" opacity=".5" marker-end="url(#f)"/>
+      <path d="M270 84 h-130" stroke="currentColor" opacity=".5" marker-end="url(#f)"/>
+      <defs><marker id="f" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+        <path d="M0 0 L7 3.5 L0 7 z" fill="currentColor" opacity=".5"/></marker></defs>
+      <g font-size="9" fill="currentColor" text-anchor="middle">
+        <text x="85" y="128" opacity=".8">Población (N)</text>
+        <text x="315" y="128" opacity=".8">Muestra (n)</text>
+        <text x="205" y="46" opacity=".7">se extrae</text>
+        <text x="205" y="99" opacity=".7">se infiere</text>
+      </g>
+    </svg>
+    <figcaption class="mt-2 small text-body-secondary">
+      La notación cambia según de qué hablemos: la media poblacional es <code>μ</code> y la muestral <code>x̄</code>;
+      la varianza poblacional <code>σ²</code> y la muestral <code>s²</code>.
+    </figcaption>
+  </figure>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Antes de calcular nada, preguntate si tenés la población entera o una muestra. Eso decide si dividís
+    por <code>N</code> o por <code>n−1</code>, y si el resultado es un parámetro o una estimación.
+  </div>
+</section>
+
+<!-- ═══════════ 02 ═══════════ -->
+<section id="s02" class="pb-5 mb-5 border-bottom" data-group="Descriptiva">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 02</p>
+  <h2 class="mb-3">Tipos de variable</h2>
+  <p class="mb-4">El tipo de variable determina qué medidas y qué gráficos tenés permitido usar. Es la primera decisión y condiciona todas las demás.</p>
+
+  <h3 class="mt-4 mb-2">La clasificación</h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 155" width="100%" role="img" aria-label="Árbol de tipos de variable estadística">
+      <g fill="none" stroke="currentColor" opacity=".35">
+        <path d="M200 30 v14 M110 44 h180 M110 44 v14 M290 44 v14"/>
+        <path d="M55 76 h110 M55 76 v12 M165 76 v12"/>
+        <path d="M235 76 h110 M235 76 v12 M345 76 v12"/>
+        <path d="M110 62 v14 M290 62 v14"/>
+      </g>
+      <g text-anchor="middle" font-size="9">
+        <rect x="155" y="12" width="90" height="20" rx="3" fill="var(--bs-primary)" opacity=".2"/>
+        <text x="200" y="26" fill="currentColor">Variable</text>
+        <rect x="62" y="56" width="96" height="20" rx="3" fill="var(--bs-primary)" opacity=".15"/>
+        <text x="110" y="70" fill="currentColor">Cuantitativa</text>
+        <rect x="242" y="56" width="96" height="20" rx="3" fill="var(--bs-primary)" opacity=".15"/>
+        <text x="290" y="70" fill="currentColor">Cualitativa</text>
+        <g fill="currentColor" opacity=".85">
+          <text x="55" y="102">Discreta</text><text x="165" y="102">Continua</text>
+          <text x="235" y="102">Nominal</text><text x="345" y="102">Ordinal</text>
+        </g>
+        <g fill="currentColor" opacity=".55" font-size="8">
+          <text x="55" y="118">cantidad</text><text x="55" y="129">de hijos</text>
+          <text x="165" y="118">peso,</text><text x="165" y="129">altura</text>
+          <text x="235" y="118">color,</text><text x="235" y="129">estado civil</text>
+          <text x="345" y="118">medallas,</text><text x="345" y="129">satisfacción</text>
+        </g>
+      </g>
+    </svg>
+    <figcaption class="mt-2 small text-body-secondary">
+      Cualitativa <strong>nominal</strong>: las categorías no tienen orden.
+      <strong>Ordinal</strong>: sí lo tienen, pero la distancia entre ellas no es medible.
+    </figcaption>
+  </figure>
+
+  <h3 class="mt-4 mb-2">Qué podés hacer con cada una</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:7rem">Tipo</th><th>Medidas</th><th class="d-none d-sm-table-cell">Gráficos</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">Nominal</td><td>Moda, frecuencias</td><td class="d-none d-sm-table-cell">Barras, torta</td></tr>
+        <tr><td class="text-primary">Ordinal</td><td>Moda, mediana, cuartiles</td><td class="d-none d-sm-table-cell">Barras ordenadas</td></tr>
+        <tr><td class="text-primary">Discreta</td><td>Todas</td><td class="d-none d-sm-table-cell">Barras, bastones</td></tr>
+        <tr><td class="text-primary">Continua</td><td>Todas</td><td class="d-none d-sm-table-cell">Histograma, boxplot</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> Error común.</strong>
+    Promediar una variable ordinal. Que la satisfacción esté codificada 1–5 no la vuelve numérica:
+    la distancia entre "malo" y "regular" no es la misma que entre "bueno" y "muy bueno". Usá la mediana.
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Una variable numérica no siempre es cuantitativa. Un DNI, un código postal o el número de camiseta
+    son etiquetas: son nominales aunque estén escritas con dígitos.
+  </div>
+</section>
+
+<!-- ═══════════ 03 ═══════════ -->
+<section id="s03" class="pb-5 mb-5 border-bottom" data-group="Descriptiva">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 03</p>
+  <h2 class="mb-3">Tablas de frecuencia</h2>
+  <p class="mb-4">La forma estándar de resumir una variable: cuántas veces aparece cada valor, en absoluto y en relativo.</p>
+
+  <h3 class="mt-4 mb-2">Las cuatro columnas</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:5rem">Símbolo</th><th>Nombre</th><th>Qué es</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">fᵢ</td><td>Frecuencia absoluta</td><td>Cuántas veces aparece</td></tr>
+        <tr><td class="text-primary">Fᵢ</td><td>Absoluta acumulada</td><td>Suma de las fᵢ hasta esa fila</td></tr>
+        <tr><td class="text-primary">fᵢ/N</td><td>Relativa</td><td>Proporción sobre el total (suma 1)</td></tr>
+        <tr><td class="text-primary">Fᵢ/N</td><td>Relativa acumulada</td><td>Termina siempre en 1</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">Ejemplo — notas de 10 alumnos</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th>Nota</th><th>fᵢ</th><th>Fᵢ</th><th>fᵢ/N</th><th>Fᵢ/N</th></tr></thead>
+      <tbody>
+        <tr><td>2</td><td>2</td><td>2</td><td>0,2</td><td>0,2</td></tr>
+        <tr><td>3</td><td>2</td><td>4</td><td>0,2</td><td>0,4</td></tr>
+        <tr><td>4</td><td>4</td><td>8</td><td>0,4</td><td>0,8</td></tr>
+        <tr><td>5</td><td>2</td><td>10</td><td>0,2</td><td>1</td></tr>
+        <tr class="fw-semibold"><td>Total</td><td>10</td><td></td><td>1</td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">Datos agrupados en intervalos</h3>
+  <p class="mb-3">Cuando hay muchos datos o la variable es continua, se agrupa en clases. El procedimiento es siempre el mismo:</p>
+  <pre>1 · Cantidad de clases       c = redondear(1 + log₂ N)      <span class="cm">← regla de Sturges</span>
+2 · Rango                    rango = mayor valor − menor valor
+3 · Amplitud                 amplitud = rango / c
+4 · Marca de clase           Xᵢ = (límite inferior + límite superior) / 2</pre>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-info-circle"></i> Sobre los intervalos.</strong>
+    Se escriben <code>[a ; b)</code>: el corchete incluye, el paréntesis excluye. Solo el último
+    intervalo cierra con corchete, <code>[a ; b]</code>, para que el valor máximo quede adentro.
+    Con variables discretas conviene redondear los límites a valores que la variable pueda tomar realmente.
+  </div>
+
+  <h3 class="mt-4 mb-2">En Python</h3>
+  <pre>df['nota'].value_counts().sort_index()          <span class="cm"># fᵢ</span>
+df['nota'].value_counts(normalize=True)         <span class="cm"># fᵢ/N</span>
+df['nota'].value_counts().sort_index().cumsum() <span class="cm"># Fᵢ</span>
+
+pd.cut(df['peso'], bins=5)                      <span class="cm"># agrupar en 5 intervalos</span>
+pd.cut(df['peso'], bins=5).value_counts()       <span class="cm"># tabla de datos agrupados</span></pre>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Sturges es una sugerencia, no una obligación. Si el resultado da clases con formas raras,
+    probá con un número redondo cercano: el objetivo es que la tabla se lea bien.
+  </div>
+</section>
+
+<!-- ═══════════ 04 ═══════════ -->
+<section id="s04" class="pb-5 mb-5 border-bottom" data-group="Descriptiva">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 04</p>
+  <h2 class="mb-3">Qué gráfico usar</h2>
+  <p class="mb-4">La elección no es estética: depende del tipo de variable y de qué querés mostrar.</p>
+
+  <h3 class="mt-4 mb-2">Los cinco básicos</h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 120" width="100%" role="img" aria-label="Histograma, barras, torta, dispersión y serie de tiempo">
+      <g fill="var(--bs-primary)" opacity=".7">
+        <g transform="translate(12,26)">
+          <rect x="0"  y="44" width="13" height="26"/><rect x="13" y="26" width="13" height="44"/>
+          <rect x="26" y="12" width="13" height="58"/><rect x="39" y="30" width="13" height="40"/>
+          <rect x="52" y="52" width="13" height="18"/>
+        </g>
+        <g transform="translate(96,26)">
+          <rect x="2"  y="30" width="11" height="40"/><rect x="19" y="14" width="11" height="56"/>
+          <rect x="36" y="42" width="11" height="28"/><rect x="53" y="24" width="11" height="46"/>
+        </g>
+        <path d="M215 61 A29 29 0 1 1 197 34 z"/>
+        <path d="M215 61 L197 34 A29 29 0 0 0 215 32 z" opacity=".45"/>
+        <g transform="translate(258,26)">
+          <circle cx="6"  cy="58" r="3"/><circle cx="20" cy="46" r="3"/><circle cx="30" cy="50" r="3"/>
+          <circle cx="42" cy="32" r="3"/><circle cx="54" cy="26" r="3"/><circle cx="64" cy="14" r="3"/>
+        </g>
+      </g>
+      <polyline points="342,78 352,60 362,68 372,44 382,52 392,30" fill="none"
+                stroke="var(--bs-primary)" stroke-width="2" opacity=".8"/>
+      <g stroke="currentColor" opacity=".25">
+        <path d="M12 96 h65 M12 96 v-70"/><path d="M96 96 h68 M96 96 v-70"/>
+        <path d="M258 96 h68 M258 96 v-70"/><path d="M340 96 h56 M340 96 v-70"/>
+      </g>
+      <g font-size="8" fill="currentColor" opacity=".8" text-anchor="middle">
+        <text x="44" y="112">Histograma</text><text x="130" y="112">Barras</text>
+        <text x="204" y="112">Torta</text><text x="292" y="112">Dispersión</text>
+        <text x="368" y="112">Serie</text>
+      </g>
+    </svg>
+    <figcaption class="mt-2 small text-body-secondary">
+      El histograma va <strong>sin espacio</strong> entre barras porque el eje es continuo;
+      el gráfico de barras va <strong>con</strong> espacio porque las categorías son separadas. No es un detalle decorativo.
+    </figcaption>
+  </figure>
+
+  <h3 class="mt-4 mb-2">Cuál corresponde</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:9rem">Gráfico</th><th>Para</th><th class="d-none d-sm-table-cell">Cuidado con</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">Histograma</td><td>Una cuantitativa continua</td><td class="d-none d-sm-table-cell">La cantidad de clases cambia la forma</td></tr>
+        <tr><td class="text-primary">Barras</td><td>Una cualitativa</td><td class="d-none d-sm-table-cell">Empezar el eje Y arriba de cero</td></tr>
+        <tr><td class="text-primary">Torta</td><td>Partes de un total</td><td class="d-none d-sm-table-cell">Más de 5 categorías se vuelve ilegible</td></tr>
+        <tr><td class="text-primary">Dispersión</td><td>Dos cuantitativas</td><td class="d-none d-sm-table-cell">Muchos puntos se superponen</td></tr>
+        <tr><td class="text-primary">Serie de tiempo</td><td>Una variable en el tiempo</td><td class="d-none d-sm-table-cell">Intervalos temporales desiguales</td></tr>
+        <tr><td class="text-primary">Boxplot</td><td>Comparar grupos</td><td class="d-none d-sm-table-cell">Esconde distribuciones con dos picos</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Si dudás entre torta y barras, elegí barras. El ojo compara longitudes mucho mejor que ángulos.
+  </div>
+</section>
+
+<!-- ═══════════ 05 ═══════════ -->
+<section id="s05" class="pb-5 mb-5 border-bottom" data-group="Descriptiva">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 05</p>
+  <h2 class="mb-3">Tendencia central</h2>
+  <p class="mb-4">Dónde está el centro de los datos. Tres respuestas distintas a la misma pregunta, y no siempre coinciden.</p>
+
+  <h3 class="mt-4 mb-2">Las tres medidas</h3>
+  <pre>Media      x̄ = Σxᵢ / N                    <span class="cm">promedio aritmético</span>
+
+Mediana    ordenar los datos, y tomar:
+           N impar  → el valor en la posición (N+1)/2
+           N par    → el promedio de las posiciones N/2 y N/2+1
+
+Moda       el valor que más se repite</pre>
+
+  <h3 class="mt-4 mb-2">Por qué importa la diferencia</h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 140" width="100%" role="img" aria-label="Un valor atípico desplaza la media pero no la mediana">
+      <line x1="20" y1="70" x2="380" y2="70" stroke="currentColor" opacity=".3"/>
+      <g fill="var(--bs-primary)">
+        <circle cx="60" cy="70" r="5"/><circle cx="72" cy="70" r="5"/><circle cx="80" cy="70" r="5"/>
+        <circle cx="88" cy="70" r="5"/><circle cx="98" cy="70" r="5"/>
+      </g>
+      <circle cx="330" cy="70" r="5" fill="var(--bs-danger)"/>
+      <text x="330" y="92" font-size="8" fill="var(--bs-danger)" text-anchor="middle">150 kg</text>
+      <line x1="80" y1="44" x2="80" y2="70" stroke="currentColor" stroke-dasharray="3 3" opacity=".7"/>
+      <text x="80" y="38" font-size="9" fill="currentColor" text-anchor="middle" opacity=".85">mediana 60,6</text>
+      <line x1="185" y1="112" x2="185" y2="70" stroke="var(--bs-danger)" opacity=".8"/>
+      <text x="185" y="126" font-size="9" fill="var(--bs-danger)" text-anchor="middle">media 75,43</text>
+      <path d="M92 108 h84" stroke="var(--bs-danger)" opacity=".5" marker-end="url(#g)"/>
+      <defs><marker id="g" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+        <path d="M0 0 L7 3.5 L0 7 z" fill="var(--bs-danger)" opacity=".5"/></marker></defs>
+      <text x="134" y="104" font-size="8" fill="currentColor" text-anchor="middle" opacity=".6">la arrastra</text>
+    </svg>
+    <figcaption class="mt-2 small text-body-secondary">
+      Cinco pesos alrededor de 60 kg y uno de 150. La media salta a 75,43 — un valor que no describe
+      a nadie del grupo. La mediana casi no se mueve.
+    </figcaption>
+  </figure>
+
+  <h3 class="mt-4 mb-2">Cuál usar</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:7rem">Medida</th><th>Usala cuando</th><th class="d-none d-sm-table-cell">Limitación</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">Media</td><td>Los datos son simétricos y sin outliers</td><td class="d-none d-sm-table-cell">Muy sensible a valores extremos</td></tr>
+        <tr><td class="text-primary">Mediana</td><td>Hay outliers o asimetría</td><td class="d-none d-sm-table-cell">Ignora la magnitud de los valores</td></tr>
+        <tr><td class="text-primary">Moda</td><td>La variable es cualitativa</td><td class="d-none d-sm-table-cell">Puede no ser única, o no existir</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">En Python</h3>
+  <pre>df['peso'].mean()      <span class="cm"># media</span>
+df['peso'].median()    <span class="cm"># mediana</span>
+df['peso'].mode()      <span class="cm"># moda (puede devolver varias)</span>
+df['peso'].describe()  <span class="cm"># las tres, más dispersión y cuartiles</span></pre>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Cuando leas "el sueldo promedio", preguntá por la mediana. En variables con cola larga
+    — sueldos, precios, tiempos de espera — la media casi siempre exagera.
+  </div>
+</section>
+
+<!-- ═══════════ 06 ═══════════ -->
+<section id="s06" class="pb-5 mb-5 border-bottom" data-group="Descriptiva">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 06</p>
+  <h2 class="mb-3">Dispersión</h2>
+  <p class="mb-4">Dos grupos pueden tener la misma media y no parecerse en nada. La dispersión mide cuánto se alejan los datos de su centro.</p>
+
+  <h3 class="mt-4 mb-2">Las cuatro medidas</h3>
+  <pre>Rango        rango = mayor valor − menor valor
+
+Varianza     V(X) = Σ(xᵢ − x̄)² / N        <span class="cm">queda en unidades²</span>
+
+Desvío       σ = √V(X)                     <span class="cm">vuelve a las unidades originales</span>
+
+Coef. de     CV = σ / x̄                    <span class="cm">adimensional, se compara entre variables</span>
+variación    CV % = (σ / x̄) · 100</pre>
+
+  <h3 class="mt-4 mb-2">Misma media, distinta dispersión</h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 130" width="100%" role="img" aria-label="Dos distribuciones con la misma media y distinto desvío">
+      <g fill="var(--bs-primary)" opacity=".65">
+        <rect x="76"  y="86" width="13" height="18"/><rect x="90" y="60" width="13" height="44"/>
+        <rect x="104" y="30" width="13" height="74"/><rect x="118" y="58" width="13" height="46"/>
+        <rect x="132" y="88" width="13" height="16"/>
+      </g>
+      <g fill="var(--bs-primary)" opacity=".65">
+        <rect x="248" y="76" width="13" height="28"/><rect x="262" y="62" width="13" height="42"/>
+        <rect x="276" y="52" width="13" height="52"/><rect x="290" y="60" width="13" height="44"/>
+        <rect x="304" y="74" width="13" height="30"/><rect x="234" y="86" width="13" height="18"/>
+        <rect x="318" y="88" width="13" height="16"/>
+      </g>
+      <g stroke="currentColor" opacity=".3"><path d="M60 104 h100"/><path d="M225 104 h115"/></g>
+      <g stroke="var(--bs-primary)" stroke-dasharray="3 3" opacity=".8">
+        <path d="M110 24 v80"/><path d="M282 24 v80"/>
+      </g>
+      <g font-size="9" fill="currentColor" text-anchor="middle">
+        <text x="110" y="18" opacity=".85">x̄ = 50</text><text x="282" y="18" opacity=".85">x̄ = 50</text>
+        <text x="110" y="122" opacity=".7">σ = 4  ·  homogéneo</text>
+        <text x="282" y="122" opacity=".7">σ = 12  ·  heterogéneo</text>
+      </g>
+    </svg>
+    <figcaption class="mt-2 small text-body-secondary">
+      El promedio solo no alcanza para describir un conjunto: siempre va acompañado de su desvío.
+    </figcaption>
+  </figure>
+
+  <h3 class="mt-4 mb-2">Para qué sirve el coeficiente de variación</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th>Población</th><th>Media</th><th>σ</th><th>CV</th></tr></thead>
+      <tbody>
+        <tr><td>Ratones</td><td>15 g</td><td>5 g</td><td class="text-primary">0,33</td></tr>
+        <tr><td>Elefantes</td><td>5.000 kg</td><td>400 kg</td><td class="text-primary">0,08</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="mb-4">El desvío de los elefantes es 80 veces más grande, pero en relación a su tamaño son
+  <strong>más homogéneos</strong> que los ratones. Eso es lo que el CV deja ver y el desvío solo, no.</p>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-info-circle"></i> Por qué se eleva al cuadrado.</strong>
+    Si se sumaran las desviaciones sin elevarlas, los valores por encima de la media cancelarían
+    a los de abajo y el resultado sería siempre cero. El cuadrado las vuelve todas positivas —
+    y de paso le da más peso a los valores lejanos.
+  </div>
+
+  <h3 class="mt-4 mb-2">En Python</h3>
+  <pre>df['peso'].max() - df['peso'].min()   <span class="cm"># rango</span>
+df['peso'].var(ddof=0)                <span class="cm"># varianza poblacional (÷ N)</span>
+df['peso'].var()                      <span class="cm"># varianza muestral (÷ n−1) ← por defecto</span>
+df['peso'].std(ddof=0)                <span class="cm"># desvío estándar</span>
+df['peso'].std() / df['peso'].mean()  <span class="cm"># coeficiente de variación</span></pre>
+
+  <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> Ojo con pandas.</strong>
+    <code>var()</code> y <code>std()</code> dividen por <code>n−1</code> por defecto, no por <code>N</code>.
+    Si estás calculando sobre la población entera y querés que coincida con la fórmula de la clase,
+    pasá <code>ddof=0</code>.
+  </div>
+</section>
+
+<!-- ═══════════ 07 ═══════════ -->
+<section id="s07" class="pb-5 mb-5 border-bottom" data-group="Descriptiva">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 07</p>
+  <h2 class="mb-3">Posición relativa</h2>
+  <p class="mb-4">No dónde está el centro, sino en qué lugar del conjunto cae un valor determinado.</p>
+
+  <h3 class="mt-4 mb-2">Cuartiles y percentiles</h3>
+  <pre>Cuartil    posición de qₖ = k · 0,25 · (N + 1)      <span class="cm">k = 1, 2, 3</span>
+
+Percentil  posición de Pₚ = (p / 100) · (N + 1)     <span class="cm">p entre 0 y 100</span>
+
+En los dos casos: se ordenan los datos de menor a mayor. Si la posición
+da un entero, ese es el valor. Si no, se promedian los dos vecinos.</pre>
+
+  <p class="mb-4"><code>q₀</code> es el mínimo, <code>q₂</code> es la mediana y <code>q₄</code> el máximo.
+  El percentil 25 es <code>q₁</code>, el 50 es la mediana y el 75 es <code>q₃</code>.</p>
+
+  <h3 class="mt-4 mb-2">El boxplot los muestra todos</h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 125" width="100%" role="img" aria-label="Boxplot con mínimo, cuartiles, mediana, máximo y outliers">
+      <line x1="70" y1="64" x2="130" y2="64" stroke="currentColor" opacity=".55"/>
+      <line x1="250" y1="64" x2="310" y2="64" stroke="currentColor" opacity=".55"/>
+      <line x1="70" y1="52" x2="70" y2="76" stroke="currentColor" opacity=".55"/>
+      <line x1="310" y1="52" x2="310" y2="76" stroke="currentColor" opacity=".55"/>
+      <rect x="130" y="44" width="120" height="40" rx="2" fill="var(--bs-primary)" opacity=".28"/>
+      <rect x="130" y="44" width="120" height="40" rx="2" fill="none" stroke="var(--bs-primary)"/>
+      <line x1="182" y1="44" x2="182" y2="84" stroke="var(--bs-primary)" stroke-width="2.5"/>
+      <circle cx="345" cy="64" r="3.5" fill="var(--bs-danger)"/>
+      <circle cx="368" cy="64" r="3.5" fill="var(--bs-danger)"/>
+      <g font-size="9" fill="currentColor" opacity=".85" text-anchor="middle">
+        <text x="130" y="34">q₁</text><text x="182" y="34">q₂</text><text x="250" y="34">q₃</text>
+      </g>
+      <g font-size="8" fill="currentColor" opacity=".6" text-anchor="middle">
+        <text x="70" y="103">mínimo</text><text x="190" y="103">50% central (IQR)</text>
+        <text x="310" y="103">máximo</text><text x="356" y="103">outliers</text>
+      </g>
+      <path d="M130 92 h120" stroke="currentColor" opacity=".3"/>
+    </svg>
+    <figcaption class="mt-2 small text-body-secondary">
+      La caja contiene la mitad de los datos. Su ancho es el <strong>rango intercuartílico</strong>:
+      <code>IQR = q₃ − q₁</code>, una medida de dispersión que los outliers no afectan.
+    </figcaption>
+  </figure>
+
+  <h3 class="mt-4 mb-2">Detectar outliers con el IQR</h3>
+  <pre>límite inferior = q₁ − 1,5 · IQR
+límite superior = q₃ + 1,5 · IQR
+
+Todo valor fuera de esos límites se marca como atípico.</pre>
+
+  <h3 class="mt-4 mb-2">En Python</h3>
+  <pre>df['peso'].quantile([.25, .5, .75])   <span class="cm"># los tres cuartiles</span>
+df['peso'].quantile(.9)               <span class="cm"># percentil 90</span>
+df['peso'].rank(pct=True)             <span class="cm"># en qué percentil cae cada dato</span>
+sns.boxplot(df, x='peso')             <span class="cm"># el gráfico</span></pre>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Hay varios métodos para calcular cuartiles y dan resultados levemente distintos.
+    El de la clase usa <code>0,25·(N+1)</code>; pandas usa interpolación lineal. Con pocos datos
+    la diferencia se nota — no te preocupes si no coincide el último decimal.
+  </div>
+</section>
+
+<!-- ═══════════ 08 ═══════════ -->
+<section id="s08" class="pb-5 mb-5 border-bottom" data-group="Descriptiva">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 08</p>
+  <h2 class="mb-3">Forma de la distribución</h2>
+  <p class="mb-4">Si los datos se reparten parejo a los dos lados del centro, o si se amontonan de un lado.</p>
+
+  <h3 class="mt-4 mb-2">Los tres casos</h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 135" width="100%" role="img" aria-label="Asimetría negativa, simetría y asimetría positiva">
+      <g fill="var(--bs-primary)" opacity=".65">
+        <g transform="translate(14,30)">
+          <rect x="0"  y="60" width="12" height="14"/><rect x="13" y="50" width="12" height="24"/>
+          <rect x="26" y="34" width="12" height="40"/><rect x="39" y="16" width="12" height="58"/>
+          <rect x="52" y="6"  width="12" height="68"/><rect x="65" y="26" width="12" height="48"/>
+        </g>
+        <g transform="translate(152,30)">
+          <rect x="0"  y="56" width="12" height="18"/><rect x="13" y="36" width="12" height="38"/>
+          <rect x="26" y="10" width="12" height="64"/><rect x="39" y="10" width="12" height="64"/>
+          <rect x="52" y="36" width="12" height="38"/><rect x="65" y="56" width="12" height="18"/>
+        </g>
+        <g transform="translate(290,30)">
+          <rect x="0"  y="26" width="12" height="48"/><rect x="13" y="6"  width="12" height="68"/>
+          <rect x="26" y="16" width="12" height="58"/><rect x="39" y="34" width="12" height="40"/>
+          <rect x="52" y="50" width="12" height="24"/><rect x="65" y="60" width="12" height="14"/>
+        </g>
+      </g>
+      <g stroke="currentColor" opacity=".3">
+        <path d="M14 104 h77"/><path d="M152 104 h77"/><path d="M290 104 h77"/>
+      </g>
+      <g font-size="9" fill="currentColor" opacity=".85" text-anchor="middle">
+        <text x="52" y="22">Asimetría negativa</text>
+        <text x="190" y="22">Simétrica</text>
+        <text x="328" y="22">Asimetría positiva</text>
+      </g>
+      <g font-size="8" fill="currentColor" opacity=".65" text-anchor="middle">
+        <text x="52" y="119">media &lt; mediana &lt; moda</text>
+        <text x="190" y="119">media = mediana = moda</text>
+        <text x="328" y="119">moda &lt; mediana &lt; media</text>
+        <text x="52" y="131">γ₁ &lt; 0</text><text x="190" y="131">γ₁ = 0</text><text x="328" y="131">γ₁ &gt; 0</text>
+      </g>
+    </svg>
+    <figcaption class="mt-2 small text-body-secondary">
+      La cola larga indica el signo: si se estira hacia la derecha la asimetría es positiva,
+      aunque el amontonamiento esté a la izquierda.
+    </figcaption>
+  </figure>
+
+  <h3 class="mt-4 mb-2">Los tres coeficientes</h3>
+  <pre>Fisher      γ₁ = Σ(xᵢ − x̄)³ / (N · σ³)
+
+Pearson     Ap = (x̄ − moda) / σ
+
+Bowley–Yule A_BY = (q₃ + q₁ − 2q₂) / (q₃ − q₁)</pre>
+  <p class="mb-4">Los tres se leen igual: <strong>positivo</strong> → cola a la derecha,
+  <strong>cero</strong> → simétrica, <strong>negativo</strong> → cola a la izquierda.</p>
+
+  <h3 class="mt-4 mb-2">Cuál conviene</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:9rem">Coeficiente</th><th>Usalo cuando</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">Fisher</td><td>Es el estándar; lo devuelven todos los programas</td></tr>
+        <tr><td class="text-primary">Pearson</td><td>Querés un cálculo rápido a mano y hay una moda clara</td></tr>
+        <tr><td class="text-primary">Bowley–Yule</td><td>Hay outliers: se basa en cuartiles, no los sufre</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-info-circle"></i> Curtosis.</strong>
+    Mide qué tan pesadas son las colas comparadas con una normal.
+    <strong>Leptocúrtica</strong> (&gt; 0): pico alto y colas gruesas, más valores extremos de lo esperado.
+    <strong>Mesocúrtica</strong> (= 0): como la normal. <strong>Platicúrtica</strong> (&lt; 0): aplanada.
+  </div>
+
+  <h3 class="mt-4 mb-2">En Python</h3>
+  <pre>df['peso'].skew()      <span class="cm"># asimetría de Fisher</span>
+df['peso'].kurt()      <span class="cm"># curtosis (0 = normal)</span></pre>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    No hace falta calcular nada para detectar asimetría: si <code>media &gt; mediana</code>,
+    la cola está a la derecha. Es la comprobación de tres segundos.
+  </div>
+</section>
+
+<!-- ═══════════ 09 ═══════════ -->
+<section id="s09" class="pb-5 mb-5 border-bottom" data-group="Probabilidad">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 09</p>
+  <h2 class="mb-3">Probabilidad básica</h2>
+  <p class="mb-4">Un número entre 0 y 1 que mide qué tan posible es un resultado antes de observarlo.</p>
+
+  <h3 class="mt-4 mb-2">Definición y reglas</h3>
+  <pre>P(A) = casos favorables / casos posibles        <span class="cm">si todos son equiprobables</span>
+
+0 ≤ P(A) ≤ 1          P(espacio muestral) = 1
+
+Complemento     P(Aᶜ) = 1 − P(A)
+Unión           P(A ∪ B) = P(A) + P(B) − P(A ∩ B)
+Intersección    P(A ∩ B) = P(A) · P(B|A)
+Independientes  P(A ∩ B) = P(A) · P(B)
+Condicional     P(A|B) = P(A ∩ B) / P(B)</pre>
+
+  <h3 class="mt-4 mb-2">Unión e intersección</h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 120" width="100%" role="img" aria-label="Diagramas de Venn: unión, intersección y sucesos excluyentes">
+      <g opacity=".85">
+        <g transform="translate(20,14)">
+          <circle cx="34" cy="42" r="30" fill="var(--bs-primary)" opacity=".45"/>
+          <circle cx="62" cy="42" r="30" fill="var(--bs-primary)" opacity=".45"/>
+        </g>
+        <g transform="translate(150,14)">
+          <circle cx="34" cy="42" r="30" fill="var(--bs-primary)" opacity=".15"/>
+          <circle cx="62" cy="42" r="30" fill="var(--bs-primary)" opacity=".15"/>
+          <path d="M48 17.4 A30 30 0 0 1 48 66.6 A30 30 0 0 1 48 17.4 z" fill="var(--bs-primary)" opacity=".75"/>
+        </g>
+        <g transform="translate(285,14)">
+          <circle cx="28" cy="42" r="26" fill="var(--bs-primary)" opacity=".45"/>
+          <circle cx="86" cy="42" r="26" fill="var(--bs-primary)" opacity=".45"/>
+        </g>
+      </g>
+      <g font-size="9" fill="currentColor" text-anchor="middle" opacity=".85">
+        <text x="68" y="106">A ∪ B</text><text x="198" y="106">A ∩ B</text><text x="342" y="106">excluyentes</text>
+      </g>
+      <g font-size="8" fill="currentColor" text-anchor="middle" opacity=".6">
+        <text x="68" y="117">"A o B"</text><text x="198" y="117">"A y B"</text><text x="342" y="117">P(A ∩ B) = 0</text>
+      </g>
+    </svg>
+    <figcaption class="mt-2 small text-body-secondary">
+      En la unión se resta la intersección porque, al sumar P(A) y P(B), la zona compartida
+      se estaría contando dos veces.
+    </figcaption>
+  </figure>
+
+  <h3 class="mt-4 mb-2">Dos confusiones frecuentes</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:10rem">No es lo mismo</th><th>Diferencia</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">Excluyentes /<br>independientes</td><td>Excluyentes: no pueden pasar juntos. Independientes: uno no afecta al otro. Si son excluyentes, <strong>no</strong> son independientes</td></tr>
+        <tr><td class="text-primary">P(A|B) / P(B|A)</td><td>Invertirlas es el error clásico: P(fiebre|gripe) es alta, P(gripe|fiebre) no tanto</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-info-circle"></i> Teorema de Bayes.</strong>
+    Permite dar vuelta una condicional: <code>P(A|B) = P(B|A) · P(A) / P(B)</code>.
+    Sirve cuando conocés la probabilidad en un sentido y necesitás la del otro — por ejemplo,
+    pasar de "qué tan seguido el test da positivo en enfermos" a "qué tan probable es estar enfermo dado un positivo".
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Ante un problema con condicionales, armá una tabla de doble entrada con 1.000 casos.
+    Casi todos los ejercicios se resuelven contando, sin aplicar ninguna fórmula.
+  </div>
+</section>
+
+<!-- ═══════════ 10 ═══════════ -->
+<section id="s10" class="pb-5 mb-5 border-bottom" data-group="Probabilidad">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 10</p>
+  <h2 class="mb-3">Variables aleatorias</h2>
+  <p class="mb-4">Una variable cuyo valor depende del azar. Es el puente entre la probabilidad y la estadística descriptiva.</p>
+
+  <h3 class="mt-4 mb-2">Discretas y continuas</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:7rem">Tipo</th><th>Toma</th><th class="d-none d-sm-table-cell">Se describe con</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">Discreta</td><td>Valores contables</td><td class="d-none d-sm-table-cell">P(X = x), función de probabilidad</td></tr>
+        <tr><td class="text-primary">Continua</td><td>Infinitos valores en un intervalo</td><td class="d-none d-sm-table-cell">f(x), función de densidad</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> En las continuas, P(X = x) = 0.</strong>
+    No tiene sentido preguntar la probabilidad de que alguien mida exactamente 1,75000… m.
+    Solo se pregunta por intervalos: <code>P(1,70 &lt; X &lt; 1,80)</code>, que es el área bajo la curva.
+  </div>
+
+  <h3 class="mt-4 mb-2">Esperanza y varianza</h3>
+  <pre>Esperanza   E(X) = Σ xᵢ · P(xᵢ)          <span class="cm">la media teórica, μ</span>
+
+Varianza    V(X) = E(X²) − [E(X)]²      <span class="cm">σ² — la fórmula práctica</span>
+
+Desvío      σ = √V(X)</pre>
+  <p class="mb-4">La esperanza es el promedio que se obtendría repitiendo el experimento infinitas veces.
+  No tiene por qué ser un valor posible: la esperanza de un dado es 3,5.</p>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Las medidas de la unidad 1 y estas son la misma idea vista de dos lados: <code>x̄</code> es
+    lo que medís en los datos, <code>E(X)</code> es lo que el modelo predice.
+  </div>
+</section>
+
+<!-- ═══════════ 11 ═══════════ -->
+<section id="s11" class="pb-5 mb-5 border-bottom" data-group="Probabilidad">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 11</p>
+  <h2 class="mb-3">Distribuciones discretas</h2>
+  <p class="mb-4">Modelos ya estudiados que describen situaciones típicas. Identificar cuál corresponde es la mitad del ejercicio.</p>
+
+  <h3 class="mt-4 mb-2">Binomial y Poisson</h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 125" width="100%" role="img" aria-label="Forma de la distribución binomial y de la Poisson">
+      <g fill="var(--bs-primary)" opacity=".7">
+        <g transform="translate(26,24)">
+          <rect x="0"  y="66" width="14" height="12"/><rect x="16" y="46" width="14" height="32"/>
+          <rect x="32" y="20" width="14" height="58"/><rect x="48" y="14" width="14" height="64"/>
+          <rect x="64" y="34" width="14" height="44"/><rect x="80" y="58" width="14" height="20"/>
+          <rect x="96" y="72" width="14" height="6"/>
+        </g>
+        <g transform="translate(240,24)">
+          <rect x="0"  y="30" width="14" height="48"/><rect x="16" y="14" width="14" height="64"/>
+          <rect x="32" y="24" width="14" height="54"/><rect x="48" y="44" width="14" height="34"/>
+          <rect x="64" y="60" width="14" height="18"/><rect x="80" y="70" width="14" height="8"/>
+          <rect x="96" y="74" width="14" height="4"/>
+        </g>
+      </g>
+      <g stroke="currentColor" opacity=".3"><path d="M26 102 h110"/><path d="M240 102 h110"/></g>
+      <g font-size="9" fill="currentColor" text-anchor="middle" opacity=".85">
+        <text x="81" y="18">Binomial</text><text x="295" y="18">Poisson</text>
+      </g>
+      <g font-size="8" fill="currentColor" text-anchor="middle" opacity=".6">
+        <text x="81" y="118">n ensayos, éxito o fracaso</text>
+        <text x="295" y="118">eventos por unidad de tiempo</text>
+      </g>
+    </svg>
+    <figcaption class="mt-2 small text-body-secondary">
+      La binomial tiene un techo: no podés tener más de <code>n</code> éxitos.
+      La Poisson no lo tiene, aunque las probabilidades caen rápido.
+    </figcaption>
+  </figure>
+
+  <h3 class="mt-4 mb-2">Cuál usar</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:7rem">Distribución</th><th>Cuando</th><th class="d-none d-sm-table-cell">E(X) · V(X)</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">Bernoulli</td><td>Un solo intento con dos resultados</td><td class="d-none d-sm-table-cell">p · p(1−p)</td></tr>
+        <tr><td class="text-primary">Binomial</td><td>n intentos independientes, contás éxitos</td><td class="d-none d-sm-table-cell">np · np(1−p)</td></tr>
+        <tr><td class="text-primary">Poisson</td><td>Eventos raros en un intervalo fijo</td><td class="d-none d-sm-table-cell">λ · λ</td></tr>
+        <tr><td class="text-primary">Geométrica</td><td>Cuántos intentos hasta el primer éxito</td><td class="d-none d-sm-table-cell">1/p</td></tr>
+        <tr><td class="text-primary">Uniforme</td><td>Todos los valores igual de probables</td><td class="d-none d-sm-table-cell">(a+b)/2</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">Cómo reconocerlas en el enunciado</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:11rem">Si el problema dice…</th><th>Es</th></tr></thead>
+      <tbody>
+        <tr><td>"de 20 piezas, cuántas defectuosas"</td><td class="text-primary">Binomial (n = 20)</td></tr>
+        <tr><td>"llamadas por hora", "clientes por día"</td><td class="text-primary">Poisson (λ = tasa)</td></tr>
+        <tr><td>"hasta que salga el primero"</td><td class="text-primary">Geométrica</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">En Python</h3>
+  <pre>from scipy import stats
+
+stats.binom.pmf(k=3, n=20, p=0.1)   <span class="cm"># P(X = 3) exactamente</span>
+stats.binom.cdf(k=3, n=20, p=0.1)   <span class="cm"># P(X ≤ 3) acumulada</span>
+stats.poisson.pmf(k=2, mu=5)        <span class="cm"># P(X = 2) con λ = 5</span></pre>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    <code>pmf</code> es la probabilidad de un valor exacto; <code>cdf</code> la de "ese valor o menos".
+    Para "al menos k" usá <code>1 − cdf(k−1)</code>.
+  </div>
+</section>
+
+<!-- ═══════════ 12 ═══════════ -->
+<section id="s12" class="pb-5 mb-5 border-bottom" data-group="Probabilidad">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 12</p>
+  <h2 class="mb-3">Distribución normal</h2>
+  <p class="mb-4">La campana de Gauss. Aparece en todos lados porque cualquier variable que resulte de sumar muchos efectos pequeños tiende a esta forma.</p>
+
+  <h3 class="mt-4 mb-2">La regla 68 – 95 – 99,7</h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 145" width="100%" role="img" aria-label="Curva normal con los porcentajes de área a uno, dos y tres desvíos">
+      <path d="M30 108 C90 108 92 96 122 96 C152 96 152 24 200 24 C248 24 248 96 278 96 C308 96 310 108 370 108"
+            fill="var(--bs-primary)" opacity=".18"/>
+      <path d="M30 108 C90 108 92 96 122 96 C152 96 152 24 200 24 C248 24 248 96 278 96 C308 96 310 108 370 108"
+            fill="none" stroke="var(--bs-primary)" stroke-width="1.5"/>
+      <line x1="30" y1="108" x2="370" y2="108" stroke="currentColor" opacity=".3"/>
+      <g stroke="var(--bs-primary)" opacity=".5" stroke-dasharray="3 3">
+        <path d="M200 24 v84"/><path d="M143 108 v-52"/><path d="M257 108 v-52"/>
+        <path d="M115 108 v-16"/><path d="M285 108 v-16"/>
+      </g>
+      <g font-size="9" fill="currentColor" text-anchor="middle" opacity=".85">
+        <text x="200" y="122">μ</text><text x="143" y="122">−1σ</text><text x="257" y="122">+1σ</text>
+        <text x="115" y="122">−2σ</text><text x="285" y="122">+2σ</text>
+      </g>
+      <g font-size="9" fill="var(--bs-primary)" text-anchor="middle" font-weight="600">
+        <text x="200" y="72">68%</text>
+      </g>
+      <g font-size="8" fill="currentColor" text-anchor="middle" opacity=".7">
+        <text x="200" y="139">±2σ → 95%      ±3σ → 99,7%</text>
+      </g>
+    </svg>
+    <figcaption class="mt-2 small text-body-secondary">
+      Es simétrica: media, mediana y moda coinciden en el centro. Queda definida por dos números, μ y σ.
+    </figcaption>
+  </figure>
+
+  <h3 class="mt-4 mb-2">Estandarizar</h3>
+  <pre>z = (x − μ) / σ        <span class="cm">cuántos desvíos separan a x de la media</span></pre>
+  <p class="mb-4">Convierte cualquier normal en la <strong>normal estándar</strong> (μ = 0, σ = 1),
+  que es la que está tabulada. Un <code>z = 2</code> significa "dos desvíos por encima del promedio",
+  y eso se interpreta igual sin importar las unidades originales.</p>
+
+  <h3 class="mt-4 mb-2">En Python</h3>
+  <pre>from scipy import stats
+
+stats.norm.cdf(1.96)                   <span class="cm"># P(Z ≤ 1,96) = 0,975</span>
+stats.norm.cdf(x, loc=mu, scale=sigma) <span class="cm"># sin estandarizar a mano</span>
+stats.norm.ppf(0.95)                   <span class="cm"># el z que deja 95% a la izquierda</span></pre>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    La tabla y <code>cdf</code> siempre dan el área <em>a la izquierda</em>. Para el área a la derecha,
+    restá de 1; entre dos valores, restá las dos acumuladas.
+  </div>
+</section>
+
+<!-- ═══════════ 13 ═══════════ -->
+<section id="s13" class="pb-5 mb-5 border-bottom" data-group="Regresión">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 13</p>
+  <h2 class="mb-3">Correlación</h2>
+  <p class="mb-4">Antes de ajustar una recta hay que verificar que haya algo que ajustar. El diagrama de dispersión es el primer paso, siempre.</p>
+
+  <h3 class="mt-4 mb-2">Covarianza y coeficiente r</h3>
+  <pre>Covarianza    S_XY = Σ(xᵢ − x̄)(yᵢ − ȳ) / (n − 1)     <span class="cm">signo = dirección</span>
+
+Coeficiente   r = S_XY / (S_X · S_Y)                  <span class="cm">entre −1 y 1</span>
+de Pearson</pre>
+  <p class="mb-4">La covarianza dice la dirección pero su magnitud depende de las unidades.
+  Dividirla por los desvíos la vuelve adimensional: eso es <code>r</code>.</p>
+
+  <h3 class="mt-4 mb-2">Qué asociación hay</h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 125" width="100%" role="img" aria-label="Asociación positiva, negativa, nula y no lineal">
+      <g fill="var(--bs-primary)" opacity=".8">
+        <g transform="translate(18,24)">
+          <circle cx="6" cy="62" r="2.8"/><circle cx="18" cy="54" r="2.8"/><circle cx="27" cy="48" r="2.8"/>
+          <circle cx="37" cy="38" r="2.8"/><circle cx="47" cy="32" r="2.8"/><circle cx="57" cy="20" r="2.8"/>
+          <circle cx="66" cy="12" r="2.8"/><circle cx="33" cy="44" r="2.8"/><circle cx="53" cy="28" r="2.8"/>
+        </g>
+        <g transform="translate(118,24)">
+          <circle cx="6" cy="14" r="2.8"/><circle cx="18" cy="24" r="2.8"/><circle cx="28" cy="30" r="2.8"/>
+          <circle cx="38" cy="40" r="2.8"/><circle cx="48" cy="48" r="2.8"/><circle cx="58" cy="58" r="2.8"/>
+          <circle cx="67" cy="64" r="2.8"/><circle cx="33" cy="36" r="2.8"/><circle cx="53" cy="52" r="2.8"/>
+        </g>
+        <g transform="translate(218,24)">
+          <circle cx="8" cy="44" r="2.8"/><circle cx="22" cy="16" r="2.8"/><circle cx="34" cy="58" r="2.8"/>
+          <circle cx="46" cy="26" r="2.8"/><circle cx="58" cy="62" r="2.8"/><circle cx="66" cy="34" r="2.8"/>
+          <circle cx="16" cy="60" r="2.8"/><circle cx="52" cy="12" r="2.8"/><circle cx="40" cy="38" r="2.8"/>
+        </g>
+        <g transform="translate(318,24)">
+          <circle cx="6" cy="16" r="2.8"/><circle cx="17" cy="38" r="2.8"/><circle cx="28" cy="54" r="2.8"/>
+          <circle cx="38" cy="62" r="2.8"/><circle cx="48" cy="54" r="2.8"/><circle cx="59" cy="38" r="2.8"/>
+          <circle cx="70" cy="16" r="2.8"/>
+        </g>
+      </g>
+      <g stroke="currentColor" opacity=".25">
+        <path d="M18 94 h74 M18 94 v-70"/><path d="M118 94 h74 M118 94 v-70"/>
+        <path d="M218 94 h74 M218 94 v-70"/><path d="M318 94 h74 M318 94 v-70"/>
+      </g>
+      <g font-size="9" fill="currentColor" text-anchor="middle" opacity=".85">
+        <text x="55" y="18">Positiva</text><text x="155" y="18">Negativa</text>
+        <text x="255" y="18">Sin asociación</text><text x="355" y="18">No lineal</text>
+      </g>
+      <g font-size="8" fill="currentColor" text-anchor="middle" opacity=".65">
+        <text x="55" y="112">r ≈ 0,9</text><text x="155" y="112">r ≈ −0,9</text>
+        <text x="255" y="112">r ≈ 0</text><text x="355" y="112">r ≈ 0 (¡pero hay relación!)</text>
+      </g>
+    </svg>
+    <figcaption class="mt-2 small text-body-secondary">
+      El cuarto caso es el que justifica graficar siempre: <code>r</code> solo detecta relaciones
+      <strong>lineales</strong>. Un <code>r = 0</code> no significa que las variables sean independientes.
+    </figcaption>
+  </figure>
+
+  <h3 class="mt-4 mb-2">Cómo leer el valor</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:7rem">|r|</th><th>Asociación lineal</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">0,0 – 0,3</td><td>Débil o nula</td></tr>
+        <tr><td class="text-primary">0,3 – 0,7</td><td>Moderada</td></tr>
+        <tr><td class="text-primary">0,7 – 0,9</td><td>Fuerte</td></tr>
+        <tr><td class="text-primary">0,9 – 1,0</td><td>Muy fuerte</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">Alternativas</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:9rem">Coeficiente</th><th>Cuándo</th></tr></thead>
+      <tbody>
+        <tr><td class="font-monospace text-primary">Pearson</td><td>Relación lineal, sin outliers marcados</td></tr>
+        <tr><td class="font-monospace text-primary">Spearman</td><td>Relación creciente pero curva, o hay outliers</td></tr>
+        <tr><td class="font-monospace text-primary">Kendall</td><td>Muestras chicas con muchos empates</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> Correlación no es causalidad.</strong>
+    Que dos variables se muevan juntas no prueba que una cause la otra. Puede haber una tercera
+    variable detrás, o ser pura coincidencia.
+  </div>
+
+  <h3 class="mt-4 mb-2">En Python</h3>
+  <pre>df[['x','y']].cov()                <span class="cm"># covarianza</span>
+df['x'].corr(df['y'])              <span class="cm"># r de Pearson</span>
+df['x'].corr(df['y'], method='spearman')
+sns.scatterplot(df, x='x', y='y')  <span class="cm"># mirar SIEMPRE el gráfico</span></pre>
+</section>
+
+<!-- ═══════════ 14 ═══════════ -->
+<section id="s14" class="pb-5 mb-5 border-bottom" data-group="Regresión">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 14</p>
+  <h2 class="mb-3">Regresión lineal simple</h2>
+  <p class="mb-4">Resumir la relación entre dos variables con una recta, para poder estimar Y a partir de X.</p>
+
+  <h3 class="mt-4 mb-2">El modelo</h3>
+  <pre>Modelo teórico     y = β₀ + β₁x + ε
+
+Recta estimada     ŷ = b₀ + b₁x
+
+  β₀, β₁   parámetros poblacionales (desconocidos)
+  b₀, b₁   sus estimadores, calculados desde la muestra
+  ε        error: la parte de y que x no explica</pre>
+
+  <h3 class="mt-4 mb-2">Mínimos cuadrados</h3>
+  <p class="mb-3">Entre todas las rectas posibles se elige la que hace mínima la suma de los errores al cuadrado, <code>Σ(yᵢ − ŷᵢ)²</code>:</p>
+  <pre>b₁ = S_XY / S²_X = Σ(xᵢ − x̄)(yᵢ − ȳ) / Σ(xᵢ − x̄)²
+
+b₀ = ȳ − b₁·x̄       <span class="cm">la recta siempre pasa por (x̄, ȳ)</span></pre>
+
+  <h3 class="mt-4 mb-2">Qué minimiza exactamente</h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 140" width="100%" role="img" aria-label="Recta de regresión y los residuos verticales de cada punto">
+      <line x1="40" y1="112" x2="370" y2="112" stroke="currentColor" opacity=".3"/>
+      <line x1="40" y1="112" x2="40" y2="18" stroke="currentColor" opacity=".3"/>
+      <line x1="52" y1="100" x2="358" y2="30" stroke="var(--bs-primary)" stroke-width="1.8"/>
+      <g stroke="var(--bs-danger)" opacity=".65" stroke-dasharray="2 2">
+        <path d="M90 74 v14"/><path d="M140 62 v-16"/><path d="M190 74 v18"/>
+        <path d="M240 62 v-20"/><path d="M290 50 v14"/>
+      </g>
+      <g fill="var(--bs-primary)">
+        <circle cx="90" cy="88" r="3.5"/><circle cx="140" cy="46" r="3.5"/><circle cx="190" cy="92" r="3.5"/>
+        <circle cx="240" cy="42" r="3.5"/><circle cx="290" cy="64" r="3.5"/>
+      </g>
+      <text x="330" y="24" font-size="9" fill="var(--bs-primary)" text-anchor="middle">ŷ = b₀ + b₁x</text>
+      <text x="196" y="128" font-size="8" fill="var(--bs-danger)" text-anchor="middle">
+        residuos: distancia vertical entre el dato y la recta</text>
+      <text x="30" y="22" font-size="9" fill="currentColor" opacity=".7">y</text>
+      <text x="374" y="118" font-size="9" fill="currentColor" opacity=".7">x</text>
+    </svg>
+    <figcaption class="mt-2 small text-body-secondary">
+      Se minimiza la distancia <strong>vertical</strong>, no la perpendicular: el modelo busca
+      errar lo menos posible al predecir y.
+    </figcaption>
+  </figure>
+
+  <h3 class="mt-4 mb-2">Bondad de ajuste: R²</h3>
+  <pre>SCT = Σ(yᵢ − ȳ)²      <span class="cm">variabilidad total de y</span>
+SCR = Σ(ŷᵢ − ȳ)²      <span class="cm">la que explica la recta</span>
+SCE = Σ(yᵢ − ŷᵢ)²     <span class="cm">la que queda sin explicar</span>
+
+           SCT = SCR + SCE
+
+R² = SCR / SCT = 1 − SCE / SCT</pre>
+  <p class="mb-4">Se lee como porcentaje: un <code>R² = 0,85</code> significa que la recta explica
+  el 85% de la variabilidad de Y. En regresión simple, <code>R² = r²</code>.</p>
+
+  <h3 class="mt-4 mb-2">Interpretar los coeficientes</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:6rem">Término</th><th>Significa</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">b₁ &gt; 0</td><td>Al subir x, y sube en promedio</td></tr>
+        <tr><td class="text-primary">b₁ &lt; 0</td><td>Al subir x, y baja en promedio</td></tr>
+        <tr><td class="text-primary">b₁</td><td>Cuánto cambia y por cada unidad de x</td></tr>
+        <tr><td class="text-primary">b₀</td><td>Valor de y cuando x = 0 — a veces sin sentido real</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">Supuestos del modelo</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:9rem">Supuesto</th><th>Cómo se verifica</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">Linealidad</td><td>El diagrama de dispersión muestra una nube alargada</td></tr>
+        <tr><td class="text-primary">Independencia</td><td>Los residuos no siguen ningún patrón</td></tr>
+        <tr><td class="text-primary">Homocedasticidad</td><td>Los residuos tienen dispersión pareja en todo el rango</td></tr>
+        <tr><td class="text-primary">Normalidad</td><td>Los residuos se distribuyen normal con media cero</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> No extrapoles.</strong>
+    La recta vale dentro del rango de x que observaste. Estimar fuera de ese rango es suponer
+    que la relación se mantiene donde nunca la mediste.
+  </div>
+
+  <h3 class="mt-4 mb-2">En Python</h3>
+  <pre>import numpy as np
+from scipy import stats
+
+r = stats.linregress(df['x'], df['y'])
+r.slope        <span class="cm"># b₁</span>
+r.intercept    <span class="cm"># b₀</span>
+r.rvalue ** 2  <span class="cm"># R²</span>
+
+sns.regplot(df, x='x', y='y')     <span class="cm"># dispersión + recta ajustada</span></pre>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Un R² alto no valida el modelo. Revisá el gráfico de residuos: si dibujan una curva o un embudo,
+    la recta no es la herramienta correcta por más que el número dé bien.
+  </div>
+</section>
+
+<!-- ═══════════ 15 ═══════════ -->
+<section id="s15" data-group="Regresión">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 15</p>
+  <h2 class="mb-3">Formulario</h2>
+  <p class="mb-4">Todo lo anterior, junto, para repasar antes de un parcial.</p>
+
+  <h3 class="mt-4 mb-2">Descriptiva</h3>
+  <pre>x̄ = Σxᵢ / N                      media
+V(X) = Σ(xᵢ − x̄)² / N            varianza
+σ = √V(X)                        desvío estándar
+CV = σ / x̄                       coeficiente de variación
+rango = máx − mín                rango
+IQR = q₃ − q₁                    rango intercuartílico
+c = redondear(1 + log₂ N)        clases de Sturges
+Xᵢ = (Lᵢ + Lₛ) / 2               marca de clase</pre>
+
+  <h3 class="mt-4 mb-2">Forma</h3>
+  <pre>γ₁ = Σ(xᵢ − x̄)³ / (N·σ³)         asimetría de Fisher
+Ap = (x̄ − moda) / σ              asimetría de Pearson
+A_BY = (q₃ + q₁ − 2q₂)/(q₃ − q₁) asimetría de Bowley–Yule</pre>
+
+  <h3 class="mt-4 mb-2">Probabilidad</h3>
+  <pre>P(Aᶜ) = 1 − P(A)                 complemento
+P(A ∪ B) = P(A) + P(B) − P(A∩B)  unión
+P(A|B) = P(A ∩ B) / P(B)         condicional
+P(A|B) = P(B|A)·P(A) / P(B)      Bayes
+E(X) = Σ xᵢ·P(xᵢ)                esperanza
+V(X) = E(X²) − [E(X)]²           varianza
+z = (x − μ) / σ                  estandarización</pre>
+
+  <h3 class="mt-4 mb-2">Regresión</h3>
+  <pre>S_XY = Σ(xᵢ − x̄)(yᵢ − ȳ)/(n − 1) covarianza
+r = S_XY / (S_X · S_Y)           coeficiente de Pearson
+b₁ = S_XY / S²_X                 pendiente
+b₀ = ȳ − b₁x̄                     ordenada al origen
+ŷ = b₀ + b₁x                     recta estimada
+SCT = SCR + SCE                  descomposición
+R² = SCR/SCT = 1 − SCE/SCT       bondad de ajuste</pre>
+
+  <h3 class="mt-4 mb-2">El orden de trabajo</h3>
+  <div class="list-group list-group-flush mb-4">
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">01</span><span>Identificar el tipo de cada variable</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">02</span><span>Tabla de frecuencias y gráfico que corresponda</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">03</span><span>Tendencia central: media, mediana y moda</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">04</span><span>Dispersión: σ y CV</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">05</span><span>Cuartiles y boxplot: posición y outliers</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">06</span><span>Comparar media con mediana: asimetría</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">07</span><span>Si hay dos variables: dispersión y r</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">08</span><span>Si hay relación lineal: recta y R²</span></div>
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Casi todos los ejercicios se resuelven en ese orden. Cuando no sepas por dónde empezar,
+    empezá por el paso 1: el tipo de variable descarta la mitad de las opciones.
+  </div>
+</section>
+
+<footer class="pt-3 mt-4 border-top small text-body-secondary">By F. Suárez · 2026 · Saludos pal IFTS 24</footer>
+</main>
+
+<!-- Barra inferior (mobile) -->
+<div class="bottombar d-lg-none">
+  <div class="d-flex justify-content-between align-items-center py-2 px-3">
+    <span class="small text-body-secondary text-truncate me-2" id="crumb"></span>
+    <div class="d-flex gap-1 flex-shrink-0">
+      <button class="btn btn-sm border-0 theme-btn"><i class="bi bi-moon fs-5"></i></button>
+      <button class="btn btn-sm border-0" data-bs-toggle="offcanvas" data-bs-target="#toc">
+        <i class="bi bi-list fs-5"></i></button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/guia.js"></script>
+</body>
+</html>
