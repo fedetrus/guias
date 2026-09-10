@@ -1,0 +1,652 @@
+<!doctype html>
+<html lang="es" data-bs-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guía práctica de EDA</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="../assets/guia.css" rel="stylesheet">
+</head>
+<body data-mode="scroll">
+
+<!-- Índice fijo a la derecha (desktop) -->
+<aside class="sidebar-lg">
+  <div class="d-flex justify-content-between align-items-start mb-4">
+    <div>
+      <a href="../index.html" class="text-decoration-none small text-body-secondary d-block mb-1">
+        <i class="bi bi-arrow-left"></i> Guías</a>
+      <span class="fw-semibold">Análisis Exploratorio</span>
+      <span class="d-block small text-body-secondary">pandas + seaborn</span>
+    </div>
+    <button class="btn btn-sm border-0 theme-btn" title="Cambiar tema"><i class="bi bi-moon" data-lg="1"></i></button>
+  </div>
+  <nav class="nav flex-column gap-1 toc"></nav>
+</aside>
+
+<!-- Índice deslizable desde la derecha (mobile) -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="toc" style="max-width:17rem">
+  <div class="offcanvas-body d-flex flex-column justify-content-end pb-4">
+    <nav class="nav flex-column gap-1 toc"></nav>
+  </div>
+  <div class="offcanvas-header border-top">
+    <a href="../index.html" class="text-decoration-none small text-body-secondary">
+      <i class="bi bi-arrow-left"></i> Todas las guías</a>
+    <button class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+</div>
+
+<main class="container-lg px-3 px-lg-5 py-4" style="max-width:48rem">
+<header class="mb-5">
+  <h1 class="mb-2">Análisis Exploratorio de Datos</h1>
+  <p class="mb-0 text-body-secondary">Qué mirar en un dataset, con qué código, y qué usar cuando lo habitual no alcanza.</p>
+</header>
+
+<!-- 01 -->
+<section id="s01" class="pb-5 mb-5 border-bottom">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 01</p>
+  <h2 class="mb-3">Qué es el EDA</h2>
+  <p class="mb-4">Conocer los datos <em>antes</em> de modelarlos. No busca una respuesta: busca las preguntas correctas y los problemas que arruinarían todo lo que venga después.</p>
+
+  <h3 class="mb-2">El recorrido</h3>
+  <div class="table-responsive">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:8rem">Paso</th><th>Pregunta que responde</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">Estructura</td><td>¿Cuántas filas y columnas? ¿De qué tipo?</td></tr>
+        <tr><td class="text-primary">Calidad</td><td>¿Faltan datos? ¿Hay duplicados o errores?</td></tr>
+        <tr><td class="text-primary">Distribución</td><td>¿Cómo se reparte cada variable por separado?</td></tr>
+        <tr><td class="text-primary">Relación</td><td>¿Cómo se mueven las variables entre sí?</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    El EDA no es lineal. Cada hallazgo te hace volver un paso atrás: es normal y es la señal de que está funcionando.
+  </div>
+</section>
+
+<!-- ─────────── 02 ─────────── -->
+<section id="s02" class="pb-5 mb-5 border-bottom">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 02</p>
+  <h2 class="mb-3">Cargar y mirar</h2>
+  <p class="mb-4">Los primeros treinta segundos con un dataset nuevo: tamaño, aspecto de las filas y si se cargó bien.</p>
+
+  <h3 class="mb-2">Cómo se usa</h3>
+  <pre>import pandas as pd
+
+df = pd.read_csv('datos.csv')
+
+df.shape        <span class="cm"># (filas, columnas)</span>
+df.head()       <span class="cm"># primeras 5</span>
+df.tail()       <span class="cm"># últimas 5 → ¿se cortó la carga?</span>
+df.sample(5)    <span class="cm"># 5 al azar → más honesto que head()</span>
+df.columns      <span class="cm"># nombres reales de las columnas</span></pre>
+
+  <h3 class="mt-4 mb-2">Qué mirar</h3>
+  <div class="table-responsive">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:9rem">Síntoma</th><th>Qué suele significar</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">1 sola columna</td><td>separador equivocado → <code>sep=';'</code></td></tr>
+        <tr><td class="text-primary">Cabecera como fila</td><td><code>header=None</code> o filas de título → <code>skiprows=</code></td></tr>
+        <tr><td class="text-primary">Acentos rotos</td><td>codificación → <code>encoding='latin-1'</code></td></tr>
+        <tr><td class="text-primary">Números como texto</td><td>coma decimal → <code>decimal=','</code></td></tr>
+        <tr><td class="text-primary">Últimas filas vacías</td><td>pie de página en el archivo original</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">Alternativas</h3>
+  <div class="table-responsive">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:12rem">En vez de <code>read_csv</code></th><th>Cuándo</th></tr></thead>
+      <tbody>
+        <tr><td class="font-monospace text-primary">pd.read_excel()</td><td>el archivo es .xlsx (requiere <code>openpyxl</code>)</td></tr>
+        <tr><td class="font-monospace text-primary">pd.read_json()</td><td>viene de una API</td></tr>
+        <tr><td class="font-monospace text-primary">read_csv(nrows=1000)</td><td>el archivo es enorme y solo querés espiarlo</td></tr>
+        <tr><td class="font-monospace text-primary">sns.load_dataset()</td><td>estás practicando y no tenés datos propios</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Usá <code>sample()</code> además de <code>head()</code>: las primeras filas suelen estar ordenadas y no representan al resto.
+  </div>
+</section>
+
+<!-- ─────────── 03 ─────────── -->
+<section id="s03" class="pb-5 mb-5 border-bottom">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 03</p>
+  <h2 class="mb-3">Tipos de datos</h2>
+  <p class="mb-4">Pandas adivina el tipo de cada columna al cargar, y a veces se equivoca. Un tipo mal asignado hace que las estadísticas y los gráficos den cualquier cosa.</p>
+
+  <h3 class="mb-2">Cómo se usa</h3>
+  <pre>df.dtypes       <span class="cm"># tipo de cada columna</span>
+df.info()       <span class="cm"># tipos + nulos + memoria, todo junto</span>
+
+<span class="cm"># Corregir</span>
+df['fecha']  = pd.to_datetime(df['fecha'])
+df['precio'] = pd.to_numeric(df['precio'], errors='coerce')
+df['ciudad'] = df['ciudad'].astype('category')</pre>
+
+  <h3 class="mt-4 mb-2">Qué mirar</h3>
+  <div class="table-responsive">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:7rem">dtype</th><th>Es correcto para</th><th class="d-none d-sm-table-cell">Sospechá si…</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">int64</td><td>conteos, IDs</td><td class="d-none d-sm-table-cell">es un ID y lo vas a promediar</td></tr>
+        <tr><td class="text-primary">float64</td><td>medidas continuas</td><td class="d-none d-sm-table-cell">debería ser entero → hay nulos</td></tr>
+        <tr><td class="text-primary">object</td><td>texto libre</td><td class="d-none d-sm-table-cell">son números o fechas mal leídos</td></tr>
+        <tr><td class="text-primary">category</td><td>pocas etiquetas repetidas</td><td class="d-none d-sm-table-cell">—</td></tr>
+        <tr><td class="text-primary">datetime64</td><td>fechas y horas</td><td class="d-none d-sm-table-cell">quedó como object → no podés ordenar</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    <code>errors='coerce'</code> convierte lo que no puede parsear en <code>NaN</code> en lugar de fallar. Después contá esos nulos: te dicen cuántos valores estaban sucios.
+  </div>
+</section>
+
+<!-- ─────────── 04 ─────────── -->
+<section id="s04" class="pb-5 mb-5 border-bottom">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 04</p>
+  <h2 class="mb-3">Valores faltantes</h2>
+  <p class="mb-4">Cuántos faltan importa menos que <em>por qué</em> faltan. El patrón de los huecos suele ser información en sí mismo.</p>
+
+  <h3 class="mb-2">Cómo se usa</h3>
+  <pre>df.isnull().sum()                       <span class="cm"># cuántos por columna</span>
+df.isnull().sum() / len(df) * 100       <span class="cm"># en porcentaje</span>
+df.isnull().sum(axis=1).value_counts()  <span class="cm"># cuántos por fila</span></pre>
+
+  <h3 class="mt-4 mb-2">El patrón importa</h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 120" width="100%" role="img" aria-label="Tres patrones de faltantes: disperso, concentrado en una columna y en bloque de filas">
+      <g font-size="9" fill="currentColor" opacity=".8">
+        <text x="55" y="12" text-anchor="middle">Disperso</text>
+        <text x="200" y="12" text-anchor="middle">Una columna</text>
+        <text x="345" y="12" text-anchor="middle">Bloque de filas</text>
+      </g>
+      <!-- disperso -->
+      <g transform="translate(20,22)">
+        <rect width="70" height="72" fill="var(--bs-primary)" opacity=".18" rx="2"/>
+        <g fill="var(--bs-primary)"><rect x="14" y="8" width="12" height="8"/><rect x="42" y="24" width="12" height="8"/>
+        <rect x="0" y="40" width="12" height="8"/><rect x="56" y="56" width="12" height="8"/><rect x="28" y="64" width="12" height="8"/></g>
+      </g>
+      <!-- una columna -->
+      <g transform="translate(165,22)">
+        <rect width="70" height="72" fill="var(--bs-primary)" opacity=".18" rx="2"/>
+        <rect x="42" y="0" width="12" height="72" fill="var(--bs-primary)"/>
+      </g>
+      <!-- bloque -->
+      <g transform="translate(310,22)">
+        <rect width="70" height="72" fill="var(--bs-primary)" opacity=".18" rx="2"/>
+        <rect x="0" y="48" width="70" height="24" fill="var(--bs-primary)"/>
+      </g>
+      <g font-size="8" fill="currentColor" opacity=".65">
+        <text x="55" y="110" text-anchor="middle">errores al azar</text>
+        <text x="200" y="110" text-anchor="middle">campo opcional</text>
+        <text x="345" y="110" text-anchor="middle">falla de carga</text>
+      </g>
+    </svg>
+    <figcaption class="mt-2 opacity-75">Las celdas llenas son los faltantes. Cada forma pide una solución distinta.</figcaption>
+  </figure>
+
+  <h3 class="mt-4 mb-2">Alternativas</h3>
+  <div class="table-responsive">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:12rem">Estrategia</th><th>Cuándo</th></tr></thead>
+      <tbody>
+        <tr><td class="font-monospace text-primary">df.dropna()</td><td>faltan pocas filas y son al azar</td></tr>
+        <tr><td class="font-monospace text-primary">df.drop(columns=…)</td><td>la columna tiene más del 50% vacío</td></tr>
+        <tr><td class="font-monospace text-primary">fillna(df[c].median())</td><td>numérica con outliers</td></tr>
+        <tr><td class="font-monospace text-primary">fillna(df[c].mode()[0])</td><td>categórica</td></tr>
+        <tr><td class="font-monospace text-primary">fillna('Sin dato')</td><td>el hueco significa algo (no aplica, no respondió)</td></tr>
+        <tr><td class="font-monospace text-primary">fillna(method='ffill')</td><td>serie temporal ordenada</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Rellenar con la media achica artificialmente la dispersión. Si vas a imputar mucho, agregá una columna booleana que marque dónde había un hueco.
+  </div>
+</section>
+
+<!-- ─────────── 05 ─────────── -->
+<section id="s05" class="pb-5 mb-5 border-bottom">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 05</p>
+  <h2 class="mb-3">Estadísticas descriptivas</h2>
+  <p class="mb-4">Un resumen numérico de cada columna: dónde está el centro, cuánto se dispersa y hasta dónde llega.</p>
+
+  <h3 class="mb-2">Cómo se usa</h3>
+  <pre>df.describe()                      <span class="cm"># solo numéricas</span>
+df.describe().T                    <span class="cm"># una fila por variable → más legible</span>
+df.describe(include='all').T       <span class="cm"># numéricas + categóricas</span></pre>
+
+  <h3 class="mt-4 mb-2">Qué mirar</h3>
+  <div class="table-responsive">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:6.5rem">Métrica</th><th>Alerta si…</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">count</td><td>es menor que el total de filas → hay faltantes</td></tr>
+        <tr><td class="text-primary">std</td><td>vale 0 → columna constante, se puede descartar</td></tr>
+        <tr><td class="text-primary">min</td><td>es negativo donde no corresponde → error de carga</td></tr>
+        <tr><td class="text-primary">max</td><td>está muy lejos del 75% → outliers</td></tr>
+        <tr><td class="text-primary">mean vs 50%</td><td>difieren mucho → distribución sesgada</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">El caso típico</h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 145" width="100%" role="img" aria-label="Distribución sesgada: la mediana queda a la izquierda de la media">
+      <g fill="var(--bs-primary)" opacity=".75">
+        <rect x="20" y="112" width="26" height="24"/><rect x="50" y="72" width="26" height="64"/>
+        <rect x="80" y="40" width="26" height="96"/><rect x="110" y="58" width="26" height="78"/>
+        <rect x="140" y="84" width="26" height="52"/><rect x="170" y="100" width="26" height="36"/>
+        <rect x="200" y="114" width="26" height="22"/><rect x="230" y="124" width="26" height="12"/>
+        <rect x="260" y="130" width="26" height="6"/><rect x="350" y="131" width="26" height="5"/>
+      </g>
+      <line x1="20" y1="136" x2="390" y2="136" stroke="currentColor" opacity=".3"/>
+      <line x1="106" y1="18" x2="106" y2="136" stroke="currentColor" stroke-dasharray="3 3" opacity=".6"/>
+      <line x1="150" y1="18" x2="150" y2="136" stroke="currentColor" opacity=".6"/>
+      <text x="100" y="13" font-size="9" text-anchor="end" fill="currentColor" opacity=".8">mediana (50%)</text>
+      <text x="156" y="13" font-size="9" fill="currentColor" opacity=".8">media</text>
+      <text x="363" y="124" font-size="9" text-anchor="middle" fill="currentColor" opacity=".8">outlier</text>
+    </svg>
+    <figcaption class="mt-2 opacity-75">
+      Unos pocos valores altos arrastran la media hacia la derecha. La mediana sigue describiendo al caso típico.
+    </figcaption>
+  </figure>
+
+  <h3 class="mt-4 mb-2">Alternativas</h3>
+  <div class="table-responsive">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:12rem">En vez de <code>describe()</code></th><th>Cuándo</th></tr></thead>
+      <tbody>
+        <tr><td class="font-monospace text-primary">df.info()</td><td>querés tipos y nulos, no estadísticas</td></tr>
+        <tr><td class="font-monospace text-primary">df.value_counts()</td><td>la columna es categórica</td></tr>
+        <tr><td class="font-monospace text-primary">df.quantile([.01,.99])</td><td>necesitás cortes distintos a los cuartiles</td></tr>
+        <tr><td class="font-monospace text-primary">df.groupby(c).describe()</td><td>el resumen debe ser por grupo</td></tr>
+        <tr><td class="font-monospace text-primary">sns.boxplot()</td><td>preferís ver los cuartiles que leerlos</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Compará <code>mean</code> contra <code>50%</code>. Si difieren, resumí con la mediana, no con el promedio.
+  </div>
+</section>
+
+<!-- ─────────── 06 ─────────── -->
+<section id="s06" class="pb-5 mb-5 border-bottom">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 06</p>
+  <h2 class="mb-3">Variables categóricas</h2>
+  <p class="mb-4">Para las columnas de texto o etiquetas, la pregunta no es el promedio: es cuántas categorías hay y cómo se reparten.</p>
+
+  <h3 class="mb-2">Cómo se usa</h3>
+  <pre>df['col'].nunique()                    <span class="cm"># cuántas categorías distintas</span>
+df['col'].value_counts()               <span class="cm"># frecuencia de cada una</span>
+df['col'].value_counts(normalize=True) <span class="cm"># en proporción</span>
+
+pd.crosstab(df['a'], df['b'])          <span class="cm"># cruce de dos categóricas</span>
+sns.countplot(x='col', data=df)        <span class="cm"># lo mismo, en barras</span></pre>
+
+  <h3 class="mt-4 mb-2">Qué mirar</h3>
+  <div class="table-responsive">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:9rem">Hallazgo</th><th>Qué hacer</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">1 categoría</td><td>la columna no aporta nada: descartala</td></tr>
+        <tr><td class="text-primary">Casi tantas como filas</td><td>es un ID, no una categoría</td></tr>
+        <tr><td class="text-primary">Clase con 98%</td><td>dataset desbalanceado: cuidado al modelar</td></tr>
+        <tr><td class="text-primary">"SI", "Si", "sí"</td><td>normalizá: <code>.str.strip().str.lower()</code></td></tr>
+        <tr><td class="text-primary">Cola de raras</td><td>agrupalas en "Otros"</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    <code>value_counts()</code> ignora los nulos por defecto. Usá <code>dropna=False</code> para que aparezcan junto al resto.
+  </div>
+</section>
+
+<!-- ─────────── 07 ─────────── -->
+<section id="s07" class="pb-5 mb-5 border-bottom">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 07</p>
+  <h2 class="mb-3">Distribuciones</h2>
+  <p class="mb-4">La forma de una variable numérica: dónde se concentra, si es simétrica y si hay más de un pico.</p>
+
+  <h3 class="mb-2">Cómo se usa</h3>
+  <pre>import seaborn as sns
+
+sns.histplot(df, x='col', bins=30)          <span class="cm"># frecuencias</span>
+sns.histplot(df, x='col', kde=True)         <span class="cm"># + curva suavizada</span>
+sns.boxplot(df, x='col')                    <span class="cm"># cuartiles y outliers</span>
+sns.histplot(df, x='col', hue='grupo')      <span class="cm"># comparar grupos</span></pre>
+
+  <h3 class="mt-4 mb-2">Las formas y qué significan</h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 120" width="100%" role="img" aria-label="Cuatro formas de distribución: normal, sesgada, bimodal y uniforme">
+      <g fill="var(--bs-primary)" opacity=".75">
+        <g transform="translate(10,20)">
+          <rect x="8" y="52" width="9" height="18"/><rect x="19" y="34" width="9" height="36"/>
+          <rect x="30" y="14" width="9" height="56"/><rect x="41" y="8" width="9" height="62"/>
+          <rect x="52" y="20" width="9" height="50"/><rect x="63" y="40" width="9" height="30"/>
+          <rect x="74" y="56" width="9" height="14"/>
+        </g>
+        <g transform="translate(110,20)">
+          <rect x="8" y="14" width="9" height="56"/><rect x="19" y="6" width="9" height="64"/>
+          <rect x="30" y="26" width="9" height="44"/><rect x="41" y="42" width="9" height="28"/>
+          <rect x="52" y="52" width="9" height="18"/><rect x="63" y="60" width="9" height="10"/>
+          <rect x="74" y="64" width="9" height="6"/>
+        </g>
+        <g transform="translate(210,20)">
+          <rect x="8" y="40" width="9" height="30"/><rect x="19" y="12" width="9" height="58"/>
+          <rect x="30" y="34" width="9" height="36"/><rect x="41" y="54" width="9" height="16"/>
+          <rect x="52" y="30" width="9" height="40"/><rect x="63" y="10" width="9" height="60"/>
+          <rect x="74" y="44" width="9" height="26"/>
+        </g>
+        <g transform="translate(310,20)">
+          <rect x="8" y="24" width="9" height="46"/><rect x="19" y="20" width="9" height="50"/>
+          <rect x="30" y="26" width="9" height="44"/><rect x="41" y="22" width="9" height="48"/>
+          <rect x="52" y="25" width="9" height="45"/><rect x="63" y="21" width="9" height="49"/>
+          <rect x="74" y="24" width="9" height="46"/>
+        </g>
+      </g>
+      <g font-size="9" fill="currentColor" opacity=".8" text-anchor="middle">
+        <text x="56" y="14">Normal</text><text x="156" y="14">Sesgada</text>
+        <text x="256" y="14">Bimodal</text><text x="356" y="14">Uniforme</text>
+      </g>
+      <g font-size="8" fill="currentColor" opacity=".65" text-anchor="middle">
+        <text x="56" y="108">media ≈ mediana</text><text x="156" y="108">usá la mediana</text>
+        <text x="256" y="108">hay 2 grupos</text><text x="356" y="108">quizá sea un ID</text>
+      </g>
+    </svg>
+    <figcaption class="mt-2 opacity-75">Un histograma bimodal casi siempre esconde una variable categórica que no estás usando.</figcaption>
+  </figure>
+
+  <h3 class="mt-4 mb-2">Alternativas</h3>
+  <div class="table-responsive">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:11rem">Gráfico</th><th>Cuándo conviene</th></tr></thead>
+      <tbody>
+        <tr><td class="font-monospace text-primary">histplot</td><td>una variable, querés ver la forma real</td></tr>
+        <tr><td class="font-monospace text-primary">kdeplot</td><td>comparar 2–3 grupos superpuestos</td></tr>
+        <tr><td class="font-monospace text-primary">boxplot</td><td>comparar muchos grupos de un vistazo</td></tr>
+        <tr><td class="font-monospace text-primary">violinplot</td><td>el boxplot esconde la forma (bimodales)</td></tr>
+        <tr><td class="font-monospace text-primary">ecdfplot</td><td>no querés depender de la cantidad de bins</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Probá dos o tres valores de <code>bins</code>. Con muy pocos se pierden los picos; con demasiados, todo parece ruido.
+  </div>
+</section>
+
+<!-- ─────────── 08 ─────────── -->
+<section id="s08" class="pb-5 mb-5 border-bottom">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 08</p>
+  <h2 class="mb-3">Outliers</h2>
+  <p class="mb-4">Valores muy alejados del resto. Pueden ser errores de carga o los casos más interesantes del dataset: hay que mirarlos antes de decidir.</p>
+
+  <h3 class="mb-2">Cómo se usa</h3>
+  <pre><span class="cm"># Regla del rango intercuartílico (IQR)</span>
+q1, q3 = df['col'].quantile([.25, .75])
+iqr  = q3 - q1
+bajo, alto = q1 - 1.5*iqr, q3 + 1.5*iqr
+
+fuera = df[(df['col'] &lt; bajo) | (df['col'] &gt; alto)]
+print(len(fuera))
+fuera.head()    <span class="cm"># mirarlos SIEMPRE antes de tocar nada</span></pre>
+
+  <h3 class="mt-4 mb-2">Cómo se lee un boxplot</h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 120" width="100%" role="img" aria-label="Anatomía de un boxplot: bigotes, caja, mediana y outliers">
+      <line x1="70" y1="62" x2="130" y2="62" stroke="currentColor" opacity=".55"/>
+      <line x1="250" y1="62" x2="310" y2="62" stroke="currentColor" opacity=".55"/>
+      <line x1="70" y1="50" x2="70" y2="74" stroke="currentColor" opacity=".55"/>
+      <line x1="310" y1="50" x2="310" y2="74" stroke="currentColor" opacity=".55"/>
+      <rect x="130" y="42" width="120" height="40" fill="var(--bs-primary)" opacity=".28" rx="2"/>
+      <rect x="130" y="42" width="120" height="40" fill="none" stroke="var(--bs-primary)"/>
+      <line x1="182" y1="42" x2="182" y2="82" stroke="var(--bs-primary)" stroke-width="2.5"/>
+      <circle cx="345" cy="62" r="3.5" fill="var(--bs-primary)"/><circle cx="368" cy="62" r="3.5" fill="var(--bs-primary)"/>
+      <g font-size="9" fill="currentColor" opacity=".8" text-anchor="middle">
+        <text x="130" y="32">Q1</text><text x="182" y="32">mediana</text><text x="250" y="32">Q3</text>
+        <text x="190" y="103">caja = 50% central (IQR)</text>
+        <text x="356" y="103">outliers</text>
+        <text x="70" y="103">bigote</text>
+      </g>
+    </svg>
+    <figcaption class="mt-2 opacity-75">Los bigotes llegan hasta 1,5 × IQR. Todo lo que quede afuera se dibuja como punto suelto.</figcaption>
+  </figure>
+
+  <h3 class="mt-4 mb-2">Alternativas</h3>
+  <div class="table-responsive">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:11rem">Qué hacer</th><th>Cuándo</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">Dejarlo</td><td>es un valor real y válido (lo más común)</td></tr>
+        <tr><td class="text-primary">Corregirlo</td><td>es un error tipeado evidente (edad = 999)</td></tr>
+        <tr><td class="text-primary">Eliminarlo</td><td>es imposible y son muy pocos casos</td></tr>
+        <tr><td class="text-primary">Recortar (clip)</td><td>querés limitar el efecto sin perder la fila</td></tr>
+        <tr><td class="text-primary">Transformar</td><td>la cola es larga → <code>np.log1p()</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    En distribuciones sesgadas, el IQR marca outliers que son perfectamente normales. Es una regla, no un veredicto.
+  </div>
+</section>
+
+<!-- ─────────── 09 ─────────── -->
+<section id="s09" class="pb-5 mb-5 border-bottom">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 09</p>
+  <h2 class="mb-3">Relaciones entre variables</h2>
+  <p class="mb-4">Ya conocés cada columna por separado. Ahora: cómo se mueven juntas.</p>
+
+  <h3 class="mb-2">Cómo se usa</h3>
+  <pre><span class="cm"># numérica vs numérica</span>
+sns.scatterplot(df, x='a', y='b', hue='grupo')
+
+<span class="cm"># numérica vs categórica</span>
+df.groupby('grupo')['valor'].mean()
+sns.boxplot(df, x='grupo', y='valor')
+
+<span class="cm"># todo contra todo (pocas columnas)</span>
+sns.pairplot(df, hue='grupo')</pre>
+
+  <h3 class="mt-4 mb-2">Qué buscar en un scatter</h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 120" width="100%" role="img" aria-label="Cuatro patrones en diagramas de dispersión">
+      <g fill="var(--bs-primary)" opacity=".8">
+        <g transform="translate(15,22)">
+          <circle cx="8" cy="62" r="2.7"/><circle cx="20" cy="54" r="2.7"/><circle cx="28" cy="50" r="2.7"/>
+          <circle cx="38" cy="38" r="2.7"/><circle cx="48" cy="32" r="2.7"/><circle cx="58" cy="22" r="2.7"/>
+          <circle cx="68" cy="14" r="2.7"/><circle cx="34" cy="44" r="2.7"/><circle cx="54" cy="30" r="2.7"/>
+        </g>
+        <g transform="translate(115,22)">
+          <circle cx="8" cy="18" r="2.7"/><circle cx="20" cy="26" r="2.7"/><circle cx="30" cy="30" r="2.7"/>
+          <circle cx="40" cy="40" r="2.7"/><circle cx="50" cy="48" r="2.7"/><circle cx="60" cy="58" r="2.7"/>
+          <circle cx="70" cy="64" r="2.7"/><circle cx="34" cy="36" r="2.7"/><circle cx="56" cy="50" r="2.7"/>
+        </g>
+        <g transform="translate(215,22)">
+          <circle cx="10" cy="44" r="2.7"/><circle cx="24" cy="18" r="2.7"/><circle cx="36" cy="56" r="2.7"/>
+          <circle cx="48" cy="28" r="2.7"/><circle cx="60" cy="62" r="2.7"/><circle cx="68" cy="34" r="2.7"/>
+          <circle cx="18" cy="60" r="2.7"/><circle cx="54" cy="12" r="2.7"/><circle cx="40" cy="38" r="2.7"/>
+        </g>
+        <g transform="translate(315,22)">
+          <circle cx="10" cy="56" r="2.7"/><circle cx="20" cy="58" r="2.7"/><circle cx="16" cy="48" r="2.7"/>
+          <circle cx="26" cy="52" r="2.7"/><circle cx="56" cy="20" r="2.7"/><circle cx="66" cy="16" r="2.7"/>
+          <circle cx="60" cy="28" r="2.7"/><circle cx="70" cy="26" r="2.7"/><circle cx="50" cy="24" r="2.7"/>
+        </g>
+      </g>
+      <g stroke="currentColor" opacity=".25">
+        <path d="M15 92 h78 M15 92 v-70"/><path d="M115 92 h78 M115 92 v-70"/>
+        <path d="M215 92 h78 M215 92 v-70"/><path d="M315 92 h78 M315 92 v-70"/>
+      </g>
+      <g font-size="9" fill="currentColor" opacity=".8" text-anchor="middle">
+        <text x="54" y="14">Positiva</text><text x="154" y="14">Negativa</text>
+        <text x="254" y="14">Sin relación</text><text x="354" y="14">Dos grupos</text>
+      </g>
+      <g font-size="8" fill="currentColor" opacity=".65" text-anchor="middle">
+        <text x="54" y="110">sube con</text><text x="154" y="110">baja con</text>
+        <text x="254" y="110">independientes</text><text x="354" y="110">falta una variable</text>
+      </g>
+    </svg>
+    <figcaption class="mt-2 opacity-75">Si los puntos forman grupos separados, hay una categoría que explica la separación: probá con <code>hue</code>.</figcaption>
+  </figure>
+
+  <h3 class="mt-4 mb-2">Alternativas</h3>
+  <div class="table-responsive">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:11rem">Gráfico</th><th>Cuándo conviene</th></tr></thead>
+      <tbody>
+        <tr><td class="font-monospace text-primary">scatterplot</td><td>dos numéricas, pocos puntos</td></tr>
+        <tr><td class="font-monospace text-primary">hexbin / kdeplot</td><td>miles de puntos: el scatter se satura</td></tr>
+        <tr><td class="font-monospace text-primary">lineplot</td><td>el eje X es tiempo</td></tr>
+        <tr><td class="font-monospace text-primary">barplot</td><td>comparar un promedio entre categorías</td></tr>
+        <tr><td class="font-monospace text-primary">pairplot</td><td>exploración inicial, menos de 6 columnas</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    <code>pairplot</code> con muchas columnas tarda muchísimo y no se lee. Filtrá primero las que te interesan.
+  </div>
+</section>
+
+<!-- ─────────── 10 ─────────── -->
+<section id="s10" class="pb-5 mb-5 border-bottom">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 10</p>
+  <h2 class="mb-3">Correlación</h2>
+  <p class="mb-4">Un número entre −1 y 1 que resume qué tan juntas se mueven dos variables numéricas.</p>
+
+  <h3 class="mb-2">Cómo se usa</h3>
+  <pre>num  = df.select_dtypes(include='number')
+corr = num.corr()
+
+sns.heatmap(corr, annot=True, cmap='coolwarm', vmin=-1, vmax=1)
+
+<span class="cm"># solo contra la variable objetivo, ordenado</span>
+corr['objetivo'].sort_values(ascending=False)</pre>
+
+  <h3 class="mt-4 mb-2">Cómo leer el valor</h3>
+  <div class="table-responsive">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:7rem">|r|</th><th>Interpretación</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">0,0 – 0,3</td><td>débil: prácticamente no hay relación lineal</td></tr>
+        <tr><td class="text-primary">0,3 – 0,7</td><td>moderada: hay tendencia, con dispersión</td></tr>
+        <tr><td class="text-primary">0,7 – 0,9</td><td>fuerte: se predicen bastante bien entre sí</td></tr>
+        <tr><td class="text-primary">&gt; 0,9</td><td>redundante: sacá una de las dos</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">Lo que la correlación no ve</h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 120" width="100%" role="img" aria-label="Relación en U con correlación cero y relación lineal fuerte">
+      <g stroke="currentColor" opacity=".25"><path d="M30 92 h130 M30 92 v-70"/><path d="M230 92 h130 M230 92 v-70"/></g>
+      <g fill="var(--bs-primary)" opacity=".8">
+        <circle cx="40" cy="30" r="3"/><circle cx="55" cy="48" r="3"/><circle cx="70" cy="66" r="3"/>
+        <circle cx="90" cy="76" r="3"/><circle cx="110" cy="66" r="3"/><circle cx="125" cy="48" r="3"/>
+        <circle cx="142" cy="30" r="3"/>
+        <circle cx="240" cy="78" r="3"/><circle cx="258" cy="70" r="3"/><circle cx="276" cy="60" r="3"/>
+        <circle cx="294" cy="52" r="3"/><circle cx="312" cy="42" r="3"/><circle cx="330" cy="34" r="3"/>
+        <circle cx="348" cy="26" r="3"/>
+      </g>
+      <g font-size="9" fill="currentColor" opacity=".8" text-anchor="middle">
+        <text x="95" y="14">Relación clara en U</text><text x="295" y="14">Relación lineal</text>
+      </g>
+      <g font-size="9" fill="currentColor" opacity=".85" text-anchor="middle" font-weight="600">
+        <text x="95" y="110">r ≈ 0</text><text x="295" y="110">r ≈ 0,97</text>
+      </g>
+    </svg>
+    <figcaption class="mt-2 opacity-75">Ambos gráficos tienen una relación evidente, pero <code>corr()</code> solo detecta la de la derecha. Graficá siempre.</figcaption>
+  </figure>
+
+  <h3 class="mt-4 mb-2">Alternativas</h3>
+  <div class="table-responsive">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:12rem">Método</th><th>Cuándo</th></tr></thead>
+      <tbody>
+        <tr><td class="font-monospace text-primary">corr()</td><td>Pearson: relación lineal, sin outliers fuertes</td></tr>
+        <tr><td class="font-monospace text-primary">corr('spearman')</td><td>relación monótona pero curva, o hay outliers</td></tr>
+        <tr><td class="font-monospace text-primary">pd.crosstab()</td><td>las dos variables son categóricas</td></tr>
+        <tr><td class="font-monospace text-primary">groupby().mean()</td><td>una categórica y una numérica</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Correlación no es causalidad, y <code>r = 0</code> no significa "sin relación": significa "sin relación <em>lineal</em>".
+  </div>
+</section>
+
+<!-- ─────────── 11 ─────────── -->
+<section id="s11">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 11</p>
+  <h2 class="mb-3">Checklist</h2>
+  <p class="mb-4">El recorrido mínimo para cualquier dataset nuevo, en orden.</p>
+
+  <div class="list-group list-group-flush mb-4">
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">01</span><span><code>shape</code>, <code>head</code>, <code>sample</code> — tamaño y aspecto</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">02</span><span><code>info</code>, <code>dtypes</code> — tipos correctos</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">03</span><span><code>duplicated().sum()</code> — filas repetidas</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">04</span><span><code>isnull().sum()</code> — cuántos faltan y dónde</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">05</span><span><code>describe().T</code> — rangos imposibles</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">06</span><span><code>value_counts()</code> en cada categórica</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">07</span><span><code>histplot</code> / <code>boxplot</code> por variable</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">08</span><span><code>corr()</code> + <code>heatmap</code> — relaciones</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">09</span><span>Anotar hallazgos y decisiones tomadas</span></div>
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Escribí lo que encontrás mientras lo encontrás. Un EDA sin conclusiones escritas es un notebook con gráficos lindos.
+  </div>
+</section>
+<footer class="pt-3 mt-4 border-top small text-body-secondary">By F. Suárez · 2026 · Saludos pal IFTS 24</footer>
+</main>
+
+<!-- Barra inferior (mobile) -->
+<div class="bottombar d-lg-none">
+  <div class="d-flex justify-content-between align-items-center py-2 px-3">
+    <span class="small text-body-secondary text-truncate me-2" id="crumb"></span>
+    <div class="d-flex gap-1 flex-shrink-0">
+      <button class="btn btn-sm border-0 theme-btn"><i class="bi bi-moon fs-5"></i></button>
+      <button class="btn btn-sm border-0" data-bs-toggle="offcanvas" data-bs-target="#toc">
+        <i class="bi bi-list fs-5"></i></button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/guia.js"></script>
+</body>
+</html>

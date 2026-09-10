@@ -1,0 +1,928 @@
+<!doctype html>
+<html lang="es" data-bs-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guía básica de Python</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐍</text></svg>">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="../assets/guia.css" rel="stylesheet">
+</head>
+<body data-mode="panels">
+
+<!-- Índice fijo a la derecha (desktop) -->
+<aside class="sidebar-lg">
+  <div class="d-flex justify-content-between align-items-start mb-4">
+    <div>
+      <a href="../index.html" class="text-decoration-none small text-body-secondary d-block mb-1">
+        <i class="bi bi-arrow-left"></i> Guías</a>
+      <span class="fw-semibold">Guía básica de Python</span>
+      <span class="d-block small text-body-secondary">Compatible con Python 3.6+</span>
+    </div>
+    <button class="btn btn-sm border-0 theme-btn" title="Cambiar tema"><i class="bi bi-moon" data-lg="1"></i></button>
+  </div>
+  <nav class="nav flex-column gap-1 toc"></nav>
+</aside>
+
+<!-- Índice deslizable desde la derecha (mobile) -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="toc" style="max-width:17rem">
+  <div class="offcanvas-body d-flex flex-column justify-content-end pb-4">
+    <nav class="nav flex-column gap-1 toc"></nav>
+  </div>
+  <div class="offcanvas-header border-top">
+    <a href="../index.html" class="text-decoration-none small text-body-secondary">
+      <i class="bi bi-arrow-left"></i> Todas las guías</a>
+    <button class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+</div>
+
+<main class="container-lg px-3 px-lg-5 py-4" style="max-width:48rem">
+<section id="sec-tipos">
+<p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Módulo 01</p>
+    <h2 class="mb-3">Tipos de datos</h2>
+    <p class="mb-4">Python asigna el tipo automáticamente según el valor. Conocer los tipos evita errores al operar y al mostrar datos.</p>
+<!-- Tabla tipos básicos -->
+    <h3 class="mt-4 mb-2">Los 4 tipos básicos</h3>
+    <div class="table-responsive mb-4"><table class="table table-sm align-middle">
+      <thead>
+        <tr><th>Tipo</th><th>Ejemplo</th><th>Descripción</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>int</code></td><td><code>42</code></td><td>Número entero, sin decimales</td></tr>
+        <tr><td><code>float</code></td><td><code>3.14</code></td><td>Número con punto decimal</td></tr>
+        <tr><td><code>str</code></td><td><code>"hola"</code></td><td>Texto, siempre entre comillas simples o dobles</td></tr>
+        <tr><td><code>bool</code></td><td><code>True / False</code></td><td>Verdadero o falso — con mayúscula inicial</td></tr>
+      </tbody>
+    </table></div>
+
+    <!-- Código tipos -->
+    <h3 class="mt-4 mb-2">Declarar y verificar tipos</h3>
+    <pre>nombre  = "Ana"          <span class="cm"># str</span>
+edad    = 21             <span class="cm"># int</span>
+precio  = 99.9           <span class="cm"># float</span>
+activo  = True           <span class="cm"># bool</span>
+
+print(type(nombre))      <span class="cm"># &lt;class 'str'&gt;</span>
+print(type(edad))        <span class="cm"># &lt;class 'int'&gt;</span></pre>
+      <pre class="out mt-2 mb-4">&gt; &lt;class 'str'&gt;
+&gt; &lt;class 'int'&gt;</pre>
+
+      <!-- Conversiones -->
+      <h3 class="mt-4 mb-2">Conversión de tipos</h3>
+      <pre>int("10")        <span class="cm"># str  → int     : 10</span>
+float("3.5")     <span class="cm"># str  → float   : 3.5</span>
+str(42)          <span class="cm"># int  → str     : "42"</span>
+bool(0)          <span class="cm"># int  → bool    : False  (0 es False, cualquier otro número es True)</span>
+bool("")         <span class="cm"># str  → bool    : False  (cadena vacía es False)</span></pre>
+      <pre class="out mt-2 mb-4"># No hay salida — son conversiones que se guardan en variables</pre>
+
+      <!-- input + f-strings -->
+      <h3 class="mt-4 mb-2">input() y f-strings</h3>
+      <pre>nombre = input("¿Cómo te llamás? ")   <span class="cm"># siempre devuelve str</span>
+edad   = int(input("¿Cuántos años? "))  <span class="cm"># convertimos a int</span>
+
+<span class="cm"># f-string: insertar variables dentro del texto con { }</span>
+print(f"Hola {nombre}, tenés {edad} años.")</pre>
+    <pre class="out mt-2 mb-4">&gt; Hola Ana, tenés 21 años.</pre>
+
+    <!-- Tips -->
+    <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 my-4"><p><strong class="text-primary"><i class="bi bi-lightbulb"></i> Tip clave:</strong> <code>input()</code> <em>siempre</em> devuelve <code>str</code>. Si necesitás operar con el valor, convertilo: <code>int(input(...))</code> o <code>float(input(...))</code>.</p></div>
+    <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4"><p><strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> Error común:</strong> Nunca sumes un <code>int</code> con un <code>str</code> directamente. <code>21 + "años"</code> lanza <code>TypeError</code>. Convertí primero.</p></div>
+<!-- Operadores matemáticos -->
+<h3 class="mt-4 mb-2">Operadores matemáticos</h3>
+<div class="table-responsive mb-4"><table class="table table-sm align-middle">
+  <thead>
+    <tr><th>Operador</th><th>Operación</th><th>Ejemplo</th><th>Resultado</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>+</code></td><td>Suma</td><td><code>5 + 3</code></td><td><code>8</code></td></tr>
+    <tr><td><code>-</code></td><td>Resta</td><td><code>5 - 3</code></td><td><code>2</code></td></tr>
+    <tr><td><code>*</code></td><td>Multiplicación</td><td><code>5 * 3</code></td><td><code>15</code></td></tr>
+    <tr><td><code>/</code></td><td>División (siempre devuelve float)</td><td><code>10 / 3</code></td><td><code>3.333...</code></td></tr>
+    <tr><td><code>//</code></td><td>División entera (cociente)</td><td><code>10 // 3</code></td><td><code>3</code></td></tr>
+    <tr><td><code>%</code></td><td>Módulo (resto)</td><td><code>10 % 3</code></td><td><code>1</code></td></tr>
+    <tr><td><code>**</code></td><td>Potencia</td><td><code>2 ** 8</code></td><td><code>256</code></td></tr>
+  </tbody>
+</table></div>
+
+<pre>minutos = 130 // 60    <span class="cm"># cociente  → 2</span>
+segundos = 130 % 60   <span class="cm"># resto     → 10</span>
+print(f"{minutos} min y {segundos} seg")
+
+es_par = 8 % 2 == 0   <span class="cm"># True si el resto es 0</span>
+print(es_par)          <span class="cm"># True</span>
+
+area = 3.1416 * 5 ** 2  <span class="cm"># potencia antes que multiplicación</span></pre>
+<pre class="out mt-2 mb-4">&gt; 2 min y 10 seg
+&gt; True</pre>
+
+<div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 my-4"><p><strong class="text-primary"><i class="bi bi-lightbulb"></i> Orden de operaciones:</strong> Python respeta el orden matemático — primero <code>**</code>, luego <code>* / // %</code>, luego <code>+ -</code>. Usá paréntesis para forzar el orden que necesitás.</p></div>
+
+  <!-- ══════════════════════════════════════════
+       MÓDULO 2 — CONDICIONALES
+  ══════════════════════════════════════════ -->
+</section>
+
+<section id="sec-cond">
+<p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Módulo 02</p>
+    <h2 class="mb-3">Condicionales</h2>
+    <p class="mb-4">Ejecutar código solo cuando se cumple una condición. Python evalúa de arriba hacia abajo y corre el <em>primer</em> bloque que coincida.</p>
+<!-- Operadores -->
+    <h3 class="mt-4 mb-2">Operadores de comparación y lógicos</h3>
+    <div class="table-responsive mb-4"><table class="table table-sm align-middle">
+      <thead><tr><th>Operador</th><th>Significado</th><th>Ejemplo</th><th>Resultado</th></tr></thead>
+      <tbody>
+        <tr><td><code>==</code></td><td>Igual a</td><td><code>5 == 5</code></td><td><code>True</code></td></tr>
+        <tr><td><code>!=</code></td><td>Distinto de</td><td><code>5 != 3</code></td><td><code>True</code></td></tr>
+        <tr><td><code>&gt;</code> <code>&lt;</code></td><td>Mayor / menor</td><td><code>8 &gt; 3</code></td><td><code>True</code></td></tr>
+        <tr><td><code>&gt;=</code> <code>&lt;=</code></td><td>Mayor o igual / menor o igual</td><td><code>5 &gt;= 5</code></td><td><code>True</code></td></tr>
+        <tr><td><code>and</code></td><td>Ambas condiciones verdaderas</td><td><code>5 &gt; 0 and 5 &lt; 10</code></td><td><code>True</code></td></tr>
+        <tr><td><code>or</code></td><td>Al menos una verdadera</td><td><code>5 &gt; 10 or 5 &lt; 10</code></td><td><code>True</code></td></tr>
+        <tr><td><code>not</code></td><td>Invierte el resultado</td><td><code>not True</code></td><td><code>False</code></td></tr>
+      </tbody>
+    </table></div>
+
+    <!-- Estructura -->
+    <h3 class="mt-4 mb-2">Estructura básica</h3>
+    <pre>nota = 75
+
+if nota >= 90:
+    print("Sobresaliente")
+elif nota >= 60:
+    print("Aprobado")
+else:
+    print("Desaprobado")</pre>
+    <pre class="out mt-2 mb-4">&gt; Aprobado</pre>
+
+    <!-- Ejemplo con and -->
+    <h3 class="mt-4 mb-2">Usando and / or</h3>
+    <pre>temperatura = 22
+
+if temperatura >= 18 and temperatura <= 30:
+    print("Temperatura agradable")
+elif temperatura &lt; 18 or temperatura &gt; 35:
+    print("Temperatura extrema")
+else:
+    print("Algo de calor")</pre>
+    <pre class="out mt-2 mb-4">&gt; Temperatura agradable</pre>
+
+    <!-- Ejemplo práctico -->
+    <h3 class="mt-4 mb-2">Ejemplo práctico — edad canina</h3>
+    <pre>años = int(input("Edad del perro: "))
+
+if años &lt; 0:
+    print("Dato inválido.")
+else:
+    perruna = años * 7
+    print(f"Tu perro tiene {perruna} años perrunos.")</pre>
+    <pre class="out mt-2 mb-4">&gt; (ingresás 4) → Tu perro tiene 28 años perrunos.
+&gt; (ingresás -2) → Dato inválido.</pre>
+
+    <!-- Validación contraseña -->
+    <h3 class="mt-4 mb-2">Ejemplo práctico — validador de contraseña</h3>
+    <pre>clave = input("Ingresá la contraseña: ")
+
+if clave == "Python":
+    print("Acceso concedido.")
+else:
+    print("Acceso denegado, intentá de nuevo.")</pre>
+    <pre class="out mt-2 mb-4">&gt; (ingresás "Python") → Acceso concedido.
+&gt; (ingresás "python") → Acceso denegado, intentá de nuevo.</pre>
+
+    <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 my-4"><p><strong class="text-primary"><i class="bi bi-lightbulb"></i> Tip:</strong> El <code>else</code> no lleva condición — es el "en cualquier otro caso". Solo puede haber uno y va al final.</p></div>
+    <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4"><p><strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> Error clásico:</strong> <code>=</code> asigna un valor, <code>==</code> compara. Escribir <code>if clave = "Python"</code> es un error de sintaxis.</p></div>
+  
+
+  <!-- ══════════════════════════════════════════
+       MÓDULO 3 — BUCLES
+  ══════════════════════════════════════════ -->
+</section>
+
+<section id="sec-bucles">
+<p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Módulo 03</p>
+    <h2 class="mb-3">Bucles</h2>
+    <p class="mb-4">Repetir un bloque de código. <code>for</code> cuando sabés cuántas veces repetir, <code>while</code> cuando repetís según una condición.</p>
+<!-- FOR básico -->
+    <h3 class="mt-4 mb-2">for — iterar sobre una lista o cadena</h3>
+    <pre>frutas = ["manzana", "banana", "pera"]
+
+for fruta in frutas:
+    print(fruta)</pre>
+    <pre class="out mt-2 mb-4">&gt; manzana
+&gt; banana
+&gt; pera</pre>
+
+    <!-- range -->
+    <h3 class="mt-4 mb-2">for con range() — las tres formas</h3>
+    <pre>range(5)          <span class="cm"># 0, 1, 2, 3, 4           — desde 0, 5 veces</span>
+range(1, 6)       <span class="cm"># 1, 2, 3, 4, 5           — desde 1 hasta 5 (6 no incluido)</span>
+range(0, 20, 2)   <span class="cm"># 0, 2, 4, 6 ... 18       — de 2 en 2</span>
+range(10, 0, -1)  <span class="cm"># 10, 9, 8 ... 1          — de 10 a 1 (cuenta regresiva)</span>
+
+for i in range(1, 6):
+    print(i)</pre>
+    <pre class="out mt-2 mb-4">&gt; 1
+&gt; 2
+&gt; 3
+&gt; 4
+&gt; 5</pre>
+
+    <!-- WHILE -->
+    <h3 class="mt-4 mb-2">while — repetir según condición</h3>
+    <pre>contador = 1
+
+while contador &lt;= 5:
+    print(f"Vuelta {contador}")
+    contador += 1          <span class="cm"># sin esto: bucle infinito!</span></pre>
+    <pre class="out mt-2 mb-4">&gt; Vuelta 1
+&gt; Vuelta 2
+&gt; Vuelta 3
+&gt; Vuelta 4
+&gt; Vuelta 5</pre>
+
+    <!-- break y continue -->
+    <h3 class="mt-4 mb-2">break y continue</h3>
+    <pre><span class="cm"># break: sale del bucle inmediatamente</span>
+for i in range(10):
+    if i == 5:
+        break
+    print(i)
+<span class="cm"># imprime: 0 1 2 3 4</span>
+
+<span class="cm"># continue: salta esta vuelta y sigue con la siguiente</span>
+for i in range(6):
+    if i == 3:
+        continue
+    print(i)
+<span class="cm"># imprime: 0 1 2 4 5</span></pre>
+    <pre class="out mt-2 mb-4">&gt; 0 1 2 3 4
+&gt; 0 1 2 4 5</pre>
+
+    <!-- Algoritmos clasicos -->
+<h3 class="mt-4 mb-2">Algoritmos clásicos</h3>
+
+    <div class="card my-4"><div class="card-header small fw-semibold">Números pares del 1 al 20</div><div class="card-body"><pre><span class="cm"># Opción A — con if dentro del for</span>
+for n in range(1, 21):
+    if n % 2 == 0:
+        print(n, end=" ")
+
+<span class="cm"># Opción B — con range de paso 2 (más pythonico)</span>
+for n in range(2, 21, 2):
+    print(n, end=" ")</pre>
+<pre class="out mt-2 mb-4">&gt; 2 4 6 8 10 12 14 16 18 20</pre></div></div>
+
+    <div class="card my-4"><div class="card-header small fw-semibold">Suma de números — manual vs built-in</div><div class="card-body"><pre>numeros = [5, 12, 3, 8, 20]
+
+<span class="cm"># Opción A — acumulador manual</span>
+total = 0
+for n in numeros:
+    total += n
+print(total)   <span class="cm"># 48</span>
+
+<span class="cm"># Opción B — con sum() (más directo)</span>
+print(sum(numeros))   <span class="cm"># 48</span></pre>
+<pre class="out mt-2 mb-4">&gt; 48</pre></div></div>
+
+    <div class="card my-4"><div class="card-header small fw-semibold">Máximo y mínimo — manual vs built-in</div><div class="card-body"><pre>numeros = [5, 12, 3, 8, 20]
+
+<span class="cm"># Opción A — manual</span>
+maximo = numeros[0]        <span class="cm"># arrancamos con el primero</span>
+for n in numeros:
+    if n > maximo:
+        maximo = n
+print(maximo)   <span class="cm"># 20</span>
+
+<span class="cm"># Opción B — con max() y min()</span>
+print(max(numeros))   <span class="cm"># 20</span>
+print(min(numeros))   <span class="cm"># 3</span></pre>
+<pre class="out mt-2 mb-4">&gt; 20
+&gt; 20  /  3</pre></div></div>
+
+    <div class="card my-4"><div class="card-header small fw-semibold">Serie Fibonacci (de clase)</div><div class="card-body"><pre>serie = [0, 1]
+uno = 0
+dos = 1
+tres = 0
+
+while tres &lt; 100:
+    tres = uno + dos
+    if tres &lt; 100:
+        serie.append(tres)
+    uno = dos
+    dos = tres
+
+print(serie)</pre>
+<pre class="out mt-2 mb-4">&gt; [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]</pre></div></div>
+
+    <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 my-4"><p><strong class="text-primary"><i class="bi bi-lightbulb"></i> ¿for o while?</strong><br>
+      Usá <code>for</code> cuando sabés exactamente cuántas veces repetir (recorrer una lista, hacer algo N veces).<br>
+      Usá <code>while</code> cuando repetís hasta que algo cambie (validar input, esperar una condición).</p></div>
+    <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4"><p><strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> Bucle infinito:</strong> En un <code>while</code>, siempre asegurate de que la condición pueda volverse <code>False</code>. Si olvidás actualizar la variable, el programa corre para siempre.</p></div>
+  
+
+  <!-- ══════════════════════════════════════════
+       MÓDULO 4 — MANEJO DE ERRORES
+  ══════════════════════════════════════════ -->
+</section>
+
+<section id="sec-errores">
+<p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Módulo 04</p>
+    <h2 class="mb-3">Manejo de errores</h2>
+    <p class="mb-4"><code>try / except</code> captura errores antes de que rompan el programa. En vez de un mensaje de error feo, mostrás uno propio.</p>
+<!-- try/except básico -->
+    <h3 class="mt-4 mb-2">Estructura básica</h3>
+    <pre>try:
+    numero = int(input("Ingresá un número: "))
+    print(f"El doble es {numero * 2}")
+except ValueError:
+    print("Eso no es un número válido.")</pre>
+    <pre class="out mt-2 mb-4">&gt; (ingresás "abc") → Eso no es un número válido.
+&gt; (ingresás 5)     → El doble es 10</pre>
+
+    <!-- Múltiples except -->
+    <h3 class="mt-4 mb-2">Capturar distintos tipos de error</h3>
+    <pre>try:
+    a = int(input("Dividendo: "))
+    b = int(input("Divisor:   "))
+    print(a / b)
+except ValueError:
+    print("Ingresá solo números enteros.")
+except ZeroDivisionError:
+    print("No se puede dividir por cero.")</pre>
+    <pre class="out mt-2 mb-4">&gt; (b = 0)    → No se puede dividir por cero.
+&gt; (b = "x")  → Ingresá solo números enteros.</pre>
+
+    <!-- Errores comunes -->
+    <h3 class="mt-4 mb-2">Errores más comunes</h3>
+    <div class="table-responsive mb-4"><table class="table table-sm align-middle">
+      <thead><tr><th>Error</th><th>Cuándo ocurre</th></tr></thead>
+      <tbody>
+        <tr><td><code>ValueError</code></td><td>Convertís un valor incompatible: <code>int("hola")</code></td></tr>
+        <tr><td><code>ZeroDivisionError</code></td><td>Dividís por cero: <code>10 / 0</code></td></tr>
+        <tr><td><code>TypeError</code></td><td>Operás tipos incompatibles: <code>"3" + 5</code></td></tr>
+        <tr><td><code>IndexError</code></td><td>Accedés a un índice que no existe: <code>lista[99]</code></td></tr>
+        <tr><td><code>KeyError</code></td><td>Accedés a una clave que no existe en un dict</td></tr>
+      </tbody>
+    </table></div>
+
+    <!-- Patrón while + try -->
+    <h3 class="mt-4 mb-2">Patrón clave: while + try — pedir hasta que sea válido</h3>
+    <pre>valido = True
+
+while valido:
+    try:
+        numero = float(input("Ingresá un número: "))
+        valido = False       <span class="cm"># si llega acá, fue válido → sale del while</span>
+    except ValueError:
+        print("No es un número. Intentá de nuevo.")
+
+print(f"Ingresaste: {numero}")</pre>
+    <pre class="out mt-2 mb-4">&gt; Ingresá un número: abc
+&gt; No es un número. Intentá de nuevo.
+&gt; Ingresá un número: 3.14
+&gt; Ingresaste: 3.14</pre>
+
+    <!-- Ejemplo del ejercicio de temperatura -->
+    <h3 class="mt-4 mb-2">Ejemplo de clase — conversor Celsius (con validación)</h3>
+    <pre>valido = True
+
+while valido:
+    try:
+        gCelsius = float(input("Temperatura en Celsius: "))
+        valido = False
+    except ValueError:
+        print("Debés escribir un número.")
+
+gFar = 1.8 * gCelsius + 32
+print(f"Equivale a {gFar} °F")</pre>
+    <pre class="out mt-2 mb-4">&gt; Temperatura en Celsius: veinte
+&gt; Debés escribir un número.
+&gt; Temperatura en Celsius: 100
+&gt; Equivale a 212.0 °F</pre>
+
+    <!-- Patrón alternativo con while True -->
+    <h3 class="mt-4 mb-2">Variante con while True + break</h3>
+    <pre>while True:
+    try:
+        edad = int(input("Ingresá tu edad: "))
+        break        <span class="cm"># si no hubo error, sale del bucle</span>
+    except ValueError:
+        print("Solo números enteros, por favor.")
+
+print(f"Tenés {edad} años.")</pre>
+    <pre class="out mt-2 mb-4">&gt; Ingresá tu edad: veinte
+&gt; Solo números enteros, por favor.
+&gt; Ingresá tu edad: 20
+&gt; Tenés 20 años.</pre>
+
+    <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 my-4"><p><strong class="text-primary"><i class="bi bi-lightbulb"></i> Tip:</strong> El bloque <code>try</code> se ejecuta línea por línea. Al primer error, salta al <code>except</code> correspondiente. Las líneas siguientes dentro del <code>try</code> no se ejecutan.</p></div>
+    <div class="border-start border-3 bg-body-secondary rounded p-3 my-4"><p><strong><i class="bi bi-info-circle"></i> while True vs variable booleana:</strong> Ambas formas son válidas. <code>while True + break</code> es más común en Python. La variable booleana es más explícita para principiantes.</p></div>
+  
+
+  <!-- ══════════════════════════════════════════
+       MÓDULO 5 — ESTRUCTURAS DE DATOS
+  ══════════════════════════════════════════ -->
+</section>
+
+<section id="sec-estructuras">
+<p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Módulo 05</p>
+    <h2 class="mb-3">Estructuras de datos</h2>
+    <p class="mb-4">Para guardar colecciones de valores. Cada estructura tiene reglas distintas: mutable o inmutable, con clave o sin clave.</p>
+<!-- ── LISTAS ── -->
+    <p class="fw-semibold text-primary border-top pt-3 mt-5 mb-3">📋 Listas</p>
+    <p class="mb-3">Colección <strong>ordenada y mutable</strong> (se puede modificar). Se declara con corchetes <code>[]</code>.</p>
+
+    <h3 class="mt-4 mb-2">Crear, acceder, recorrer</h3>
+    <pre>meses = ["Enero", "Febrero", "Marzo", "Abril"]
+
+print(meses[0])    <span class="cm"># Enero     — primer elemento (índice 0)</span>
+print(meses[-1])   <span class="cm"># Abril     — último elemento (índice negativo)</span>
+print(meses[1:3])  <span class="cm"># ["Febrero", "Marzo"]  — slice: desde 1 hasta 2 (3 no incluido)</span>
+
+for mes in meses:
+    print(mes)</pre>
+    <pre class="out mt-2 mb-4">&gt; Enero
+&gt; Abril
+&gt; ['Febrero', 'Marzo']</pre>
+
+    <h3 class="mt-4 mb-2">Métodos principales de las listas</h3>
+    <div class="table-responsive mb-4"><table class="table table-sm align-middle">
+      <thead><tr><th>Método</th><th>Qué hace</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td><code>.append(x)</code></td><td>Agrega <code>x</code> al final</td><td><code>lista.append("Mayo")</code></td></tr>
+        <tr><td><code>.insert(i, x)</code></td><td>Inserta <code>x</code> en la posición <code>i</code></td><td><code>lista.insert(0, "Enero")</code></td></tr>
+        <tr><td><code>.pop()</code></td><td>Elimina y devuelve el último elemento</td><td><code>lista.pop()</code></td></tr>
+        <tr><td><code>.pop(i)</code></td><td>Elimina y devuelve el elemento en posición <code>i</code></td><td><code>lista.pop(2)</code></td></tr>
+        <tr><td><code>.remove(x)</code></td><td>Elimina la primera ocurrencia de <code>x</code></td><td><code>lista.remove("Marzo")</code></td></tr>
+        <tr><td><code>.sort()</code></td><td>Ordena la lista en su lugar (modifica la original)</td><td><code>lista.sort()</code></td></tr>
+        <tr><td><code>.reverse()</code></td><td>Invierte el orden en su lugar</td><td><code>lista.reverse()</code></td></tr>
+        <tr><td><code>.index(x)</code></td><td>Devuelve el índice de la primera ocurrencia de <code>x</code></td><td><code>lista.index("Marzo")</code></td></tr>
+        <tr><td><code>.count(x)</code></td><td>Cuenta cuántas veces aparece <code>x</code></td><td><code>lista.count("Enero")</code></td></tr>
+        <tr><td><code>len(lista)</code></td><td>Cantidad de elementos (función built-in)</td><td><code>len(lista)</code></td></tr>
+        <tr><td><code>x in lista</code></td><td>Verifica si <code>x</code> está en la lista</td><td><code>"Mayo" in lista</code></td></tr>
+      </tbody>
+    </table></div>
+
+    <h3 class="mt-4 mb-2">Ejemplo completo con listas</h3>
+    <pre>numeros = [5, 12, 3, 8, 20, 3]
+
+numeros.append(7)           <span class="cm"># [5, 12, 3, 8, 20, 3, 7]</span>
+numeros.insert(0, 1)        <span class="cm"># [1, 5, 12, 3, 8, 20, 3, 7]</span>
+numeros.remove(3)           <span class="cm"># elimina el primer 3: [1, 5, 12, 8, 20, 3, 7]</span>
+numeros.sort()              <span class="cm"># [1, 3, 5, 7, 8, 12, 20]</span>
+
+print(numeros)
+print(f"Cantidad: {len(numeros)}")
+print(f"Mayor:    {max(numeros)}")
+print(f"Menor:    {min(numeros)}")
+print(f"Suma:     {sum(numeros)}")</pre>
+    <pre class="out mt-2 mb-4">&gt; [1, 3, 5, 7, 8, 12, 20]
+&gt; Cantidad: 7
+&gt; Mayor:    20
+&gt; Menor:    1
+&gt; Suma:     56</pre>
+<!-- ── TUPLAS ── -->
+    <p class="fw-semibold text-primary border-top pt-3 mt-5 mb-3">📌 Tuplas</p>
+    <p class="mb-3">Colección <strong>ordenada e inmutable</strong> (no se puede modificar una vez creada). Se declara con paréntesis <code>()</code>.</p>
+
+    <h3 class="mt-4 mb-2">Crear, acceder, desempaquetar</h3>
+    <pre>coordenadas = (40.7128, -74.0060)   <span class="cm"># latitud, longitud Nueva York</span>
+colores_rgb = (255, 128, 0)         <span class="cm"># naranja</span>
+
+print(coordenadas[0])    <span class="cm"># 40.7128</span>
+print(coordenadas[1])    <span class="cm"># -74.006</span>
+
+<span class="cm"># Desempaquetado: asignar cada valor a una variable</span>
+lat, lon = coordenadas
+print(f"Latitud: {lat}, Longitud: {lon}")
+
+<span class="cm"># Contar y buscar (las listas también tienen estos)</span>
+print(colores_rgb.count(0))    <span class="cm"># 1</span>
+print(colores_rgb.index(128))  <span class="cm"># 1</span></pre>
+    <pre class="out mt-2 mb-4">&gt; 40.7128
+&gt; Latitud: 40.7128, Longitud: -74.006</pre>
+
+    <div class="border-start border-3 bg-body-secondary rounded p-3 my-4"><p><strong><i class="bi bi-info-circle"></i> ¿Cuándo usar tupla en vez de lista?</strong><br>
+      Cuando los datos <em>no deben cambiar</em>: coordenadas, colores RGB, fechas, constantes. La tupla es más eficiente y comunica la intención de "estos valores no se modifican".</p></div>
+<!-- ── DICCIONARIOS ── -->
+    <p class="fw-semibold text-primary border-top pt-3 mt-5 mb-3">📖 Diccionarios</p>
+    <p class="mb-3">Colección de pares <strong>clave: valor</strong>. Se accede por clave, no por índice. Se declara con llaves <code>{}</code>.</p>
+
+    <h3 class="mt-4 mb-2">Crear, acceder, modificar</h3>
+    <pre>alumno = {
+    "nombre": "Ana",
+    "edad":   21,
+    "nota":   8.5
+}
+
+print(alumno["nombre"])       <span class="cm"># Ana       — acceso por clave</span>
+alumno["edad"] = 22           <span class="cm"># modificar valor existente</span>
+alumno["carrera"] = "Sistemas"# agregar nueva clave
+del alumno["nota"]            <span class="cm"># eliminar una clave</span>
+
+print(alumno)</pre>
+    <pre class="out mt-2 mb-4">&gt; Ana
+&gt; {'nombre': 'Ana', 'edad': 22, 'carrera': 'Sistemas'}</pre>
+
+    <h3 class="mt-4 mb-2">Métodos del diccionario</h3>
+    <pre>alumno = {"nombre": "Ana", "edad": 21, "nota": 8.5}
+
+print(alumno.keys())          <span class="cm"># dict_keys(['nombre', 'edad', 'nota'])</span>
+print(alumno.values())        <span class="cm"># dict_values(['Ana', 21, 8.5])</span>
+print(alumno.items())         <span class="cm"># pares clave-valor como tuplas</span>
+
+<span class="cm"># .get() — accede sin lanzar KeyError si la clave no existe</span>
+print(alumno.get("carrera", "No asignada"))   <span class="cm"># No asignada</span>
+
+<span class="cm"># Recorrer el diccionario</span>
+for clave, valor in alumno.items():
+    print(f"{clave}: {valor}")</pre>
+    <pre class="out mt-2 mb-4">&gt; No asignada
+&gt; nombre: Ana
+&gt; edad: 21
+&gt; nota: 8.5</pre>
+
+    <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 my-4"><p><strong class="text-primary"><i class="bi bi-lightbulb"></i> Tip:</strong> Preferí <code>.get("clave")</code> sobre <code>dict["clave"]</code> cuando no estás seguro de que la clave existe. <code>dict["clave"]</code> lanza <code>KeyError</code> si no la encuentra; <code>.get()</code> devuelve <code>None</code> o el valor por defecto que le pases.</p></div>
+<!-- Tabla comparativa -->
+    <h3 class="mt-4 mb-2">¿Cuál usar?</h3>
+    <div class="table-responsive mb-4"><table class="table table-sm align-middle">
+      <thead><tr><th>Estructura</th><th>Mutable</th><th>Acceso</th><th>Úsala cuando...</th></tr></thead>
+      <tbody>
+        <tr><td><code>list</code></td><td>✅ Sí</td><td>Por índice numérico</td><td>La colección puede cambiar (agregar, quitar)</td></tr>
+        <tr><td><code>tuple</code></td><td>❌ No</td><td>Por índice numérico</td><td>Los datos son fijos (coordenadas, constantes)</td></tr>
+        <tr><td><code>dict</code></td><td>✅ Sí</td><td>Por clave con nombre</td><td>Necesitás etiquetar los datos (nombre, edad, etc.)</td></tr>
+      </tbody>
+    </table></div>
+  
+
+  <!-- ══════════════════════════════════════════
+       MÓDULO 6 — FUNCIONES
+  ══════════════════════════════════════════ -->
+</section>
+
+<section id="sec-funciones">
+<p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Módulo 06</p>
+    <h2 class="mb-3">Funciones</h2>
+    <p class="mb-4">Bloques de código reutilizables. Se definen con <code>def</code>, reciben parámetros y pueden devolver resultados con <code>return</code>.</p>
+<!-- def + return básico -->
+    <h3 class="mt-4 mb-2">Estructura básica</h3>
+    <pre>def saludar(nombre):
+    mensaje = f"Hola, {nombre}!"
+    return mensaje
+
+resultado = saludar("Ana")
+print(resultado)</pre>
+    <pre class="out mt-2 mb-4">&gt; Hola, Ana!</pre>
+
+    <!-- Parámetros -->
+    <h3 class="mt-4 mb-2">Varios parámetros</h3>
+    <pre>def sumar(a, b):
+    return a + b
+
+def area_rectangulo(base, altura):
+    return base * altura
+
+print(sumar(5, 3))                  <span class="cm"># 8</span>
+print(area_rectangulo(10, 4))       <span class="cm"># 40</span></pre>
+    <pre class="out mt-2 mb-4">&gt; 8
+&gt; 40</pre>
+
+    <!-- Default args -->
+    <h3 class="mt-4 mb-2">Parámetros con valor por defecto</h3>
+    <pre>def saludar(nombre, idioma="español"):
+    if idioma == "español":
+        return f"Hola, {nombre}!"
+    elif idioma == "inglés":
+        return f"Hello, {nombre}!"
+
+print(saludar("Ana"))               <span class="cm"># usa el default</span>
+print(saludar("Tom", "inglés"))     <span class="cm"># sobreescribe el default</span></pre>
+    <pre class="out mt-2 mb-4">&gt; Hola, Ana!
+&gt; Hello, Tom!</pre>
+
+    <!-- Múltiples returns -->
+    <h3 class="mt-4 mb-2">Devolver múltiples valores</h3>
+    <pre>def minmax(lista):
+    return min(lista), max(lista)   <span class="cm"># devuelve una tupla</span>
+
+minimo, maximo = minmax([5, 12, 3, 8, 20])
+print(f"Mínimo: {minimo}, Máximo: {maximo}")</pre>
+    <pre class="out mt-2 mb-4">&gt; Mínimo: 3, Máximo: 20</pre>
+<!-- Ejemplos práctico -->
+    <h3 class="mt-4 mb-2">Ejemplo práctico — área del círculo</h3>
+    <pre>def area_circulo(radio):
+    PI = 3.1416
+    return PI * radio ** 2
+
+print(area_circulo(5))     <span class="cm"># 78.54</span>
+print(area_circulo(10))    <span class="cm"># 314.16</span></pre>
+    <pre class="out mt-2 mb-4">&gt; 78.54
+&gt; 314.16</pre>
+
+    <h3 class="mt-4 mb-2">Ejemplo práctico — calculadora de factura con IVA</h3>
+    <pre>def calcular_factura(total, iva=21):
+    impuesto = total * (iva / 100)
+    return total + impuesto
+
+print(calcular_factura(1000))         <span class="cm"># IVA 21% por defecto → 1210.0</span>
+print(calcular_factura(1000, iva=10)) # IVA 10%             → 1100.0</pre>
+    <pre class="out mt-2 mb-4">&gt; 1210.0
+&gt; 1100.0</pre>
+<!-- Built-ins recap -->
+    <h3 class="mt-4 mb-2">Funciones built-in más usadas</h3>
+    <div class="table-responsive mb-4"><table class="table table-sm align-middle">
+      <thead><tr><th>Función</th><th>Qué hace</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td><code>print()</code></td><td>Muestra en pantalla</td><td><code>print("hola")</code></td></tr>
+        <tr><td><code>input()</code></td><td>Pide dato al usuario (devuelve str)</td><td><code>input("Nombre: ")</code></td></tr>
+        <tr><td><code>int() float() str()</code></td><td>Convierten tipos</td><td><code>int("5")</code></td></tr>
+        <tr><td><code>type()</code></td><td>Devuelve el tipo de un valor</td><td><code>type(3.14)</code></td></tr>
+        <tr><td><code>len()</code></td><td>Longitud de lista o cadena</td><td><code>len("hola")</code> → 4</td></tr>
+        <tr><td><code>range()</code></td><td>Genera secuencia de números</td><td><code>range(1, 10, 2)</code></td></tr>
+        <tr><td><code>sum()</code></td><td>Suma todos los elementos de una lista</td><td><code>sum([1,2,3])</code> → 6</td></tr>
+        <tr><td><code>max() / min()</code></td><td>Mayor / menor de una lista</td><td><code>max([3,1,5])</code> → 5</td></tr>
+        <tr><td><code>sorted()</code></td><td>Devuelve lista ordenada sin modificar la original</td><td><code>sorted([3,1,2])</code></td></tr>
+        <tr><td><code>abs()</code></td><td>Valor absoluto</td><td><code>abs(-7)</code> → 7</td></tr>
+        <tr><td><code>round()</code></td><td>Redondea un número</td><td><code>round(3.1416, 2)</code> → 3.14</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 my-4"><p><strong class="text-primary"><i class="bi bi-lightbulb"></i> Tip:</strong> Una función sin <code>return</code> devuelve <code>None</code> automáticamente. Si guardás el resultado en una variable y después lo imprimís, verás <code>None</code>. Revisá siempre que la función tenga su <code>return</code>.</p></div>
+    <div class="border-start border-3 bg-body-secondary rounded p-3 my-4"><p><strong><i class="bi bi-info-circle"></i> Buena práctica:</strong> Una función debería hacer <em>una sola cosa</em>. Si tu función tiene 40 líneas y hace 5 cosas distintas, dividila en funciones más pequeñas.</p></div>
+  
+
+  <!-- ══════════════════════════════════════════
+     MÓDULO 7 — LIBRERÍA RANDOM
+══════════════════════════════════════════ -->
+</section>
+
+<section id="sec-random">
+<p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Módulo 07</p>
+  <h2 class="mb-3">Librería random</h2>
+  <p class="mb-4">Python viene con módulos listos para usar. <code>random</code> genera valores aleatorios — útil para juegos, simulaciones y sorteos.</p>
+<h3 class="mt-4 mb-2">Importar el módulo</h3>
+  <pre>import random          <span class="cm"># importás el módulo completo</span>
+from random import randint  <span class="cm"># importás solo lo que necesitás</span></pre>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4"><p><strong><i class="bi bi-info-circle"></i> ¿Qué es import?</strong> Python no carga todo su contenido de una vez. Los módulos son archivos de funciones extra que activás con <code>import</code>. <code>random</code> ya viene instalado con Python — no necesitás instalar nada.</p></div>
+
+  <h3 class="mt-4 mb-2">Métodos principales</h3>
+    <div>
+      <div class="table-responsive mb-4"><table class="table table-sm align-middle">
+        <thead>
+          <tr><th>Método</th><th>Qué hace</th><th>Ejemplo</th><th>Resultado posible</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>random.random()</code></td><td>Float entre 0.0 y 1.0</td><td><code>random.random()</code></td><td><code>0.7342</code></td></tr>
+          <tr><td><code>random.randint(a, b)</code></td><td>Entero entre a y b, <strong>ambos incluidos</strong></td><td><code>random.randint(1, 6)</code></td><td><code>4</code></td></tr>
+          <tr><td><code>random.choice(seq)</code></td><td>Elige un elemento al azar de una lista o cadena</td><td><code>random.choice(["A","B","C"])</code></td><td><code>"B"</code></td></tr>
+          <tr><td><code>random.choices(seq, k=n)</code></td><td>Elige n elementos <strong>con</strong> repetición</td><td><code>random.choices([1,2,3], k=2)</code></td><td><code>[2, 2]</code></td></tr>
+          <tr><td><code>random.sample(seq, k)</code></td><td>Elige k elementos <strong>sin</strong> repetición</td><td><code>random.sample([1,2,3,4], 2)</code></td><td><code>[3, 1]</code></td></tr>
+          <tr><td><code>random.shuffle(lista)</code></td><td>Mezcla la lista en su lugar (modifica la original)</td><td><code>random.shuffle(cartas)</code></td><td><code>None</code> — modifica directo</td></tr>
+          <tr><td><code>random.uniform(a, b)</code></td><td>Float aleatorio entre a y b</td><td><code>random.uniform(1.0, 10.0)</code></td><td><code>7.231</code></td></tr>
+          <tr><td><code>random.seed(n)</code></td><td>Fija el punto de partida — resultados reproducibles</td><td><code>random.seed(42)</code></td><td>Siempre el mismo resultado</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+  <h3 class="mt-4 mb-2">Ejemplos básicos</h3>
+  <pre>import random
+
+<span class="cm"># Dado de 6 caras</span>
+dado = random.randint(1, 6)
+print(f"Tiraste un {dado}")
+
+<span class="cm"># Elegir ganador de una lista</span>
+participantes = ["Ana", "Luis", "María", "Carlos"]
+ganador = random.choice(participantes)
+print(f"El ganador es: {ganador}")
+
+<span class="cm"># Mezclar una baraja</span>
+cartas = ["A", "2", "3", "4", "5", "6", "7", "J", "Q", "K"]
+random.shuffle(cartas)
+print(cartas)</pre>
+  <pre class="out mt-2 mb-4">&gt; Tiraste un 4
+&gt; El ganador es: María
+&gt; ['Q', '3', 'A', '7', 'K', '2', '6', '5', 'J', '4']</pre>
+
+  <h3 class="mt-4 mb-2">choice vs sample vs choices</h3>
+  <pre>numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+random.choice(numeros)          <span class="cm"># 1 elemento al azar</span>
+random.sample(numeros, 3)       <span class="cm"># 3 elementos SIN repetir → [4, 9, 1]</span>
+random.choices(numeros, k=3)    <span class="cm"># 3 elementos CON repetir → [4, 4, 9]</span></pre>
+  <pre class="out mt-2 mb-4">&gt; 7
+&gt; [4, 9, 1]
+&gt; [4, 4, 9]</pre>
+<div class="card my-4"><div class="card-header small fw-semibold">Algoritmo clásico — número secreto</div><div class="card-body"><pre>import random
+
+secreto   = random.randint(1, 100)
+intentos  = 0
+
+print("Adiviná el número entre 1 y 100.")
+
+while True:
+    try:
+        intento = int(input("Tu número: "))
+        intentos += 1
+    except ValueError:
+        print("Ingresá un número entero.")
+        continue
+
+    if intento < secreto:
+        print("Más grande.")
+    elif intento > secreto:
+        print("Más chico.")
+    else:
+        print(f"¡Correcto! Lo adivinaste en {intentos} intentos.")
+        break</pre>
+<pre class="out mt-2 mb-4">&gt; Adiviná el número entre 1 y 100.
+&gt; Tu número: 50  → Más grande.
+&gt; Tu número: 75  → Más chico.
+&gt; Tu número: 63  → ¡Correcto! Lo adivinaste en 3 intentos.</pre></div></div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 my-4"><p><strong class="text-primary"><i class="bi bi-lightbulb"></i> Tip — seed():</strong> <code>random.seed(42)</code> hace que los números "aleatorios" sean siempre los mismos. Útil para testear tu código — si el resultado cambia cada vez, es difícil verificar si funciona bien.</p></div>
+  <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4"><p><strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> shuffle() no devuelve nada:</strong> <code>resultado = random.shuffle(lista)</code> guarda <code>None</code>, no la lista mezclada. <code>shuffle</code> modifica la lista original directamente — no hay que asignarlo.</p></div>
+
+  <!-- ══════════════════════════════════════════
+       INTEGRADOR 1 — CONVERSOR DE TEMPERATURA
+  ══════════════════════════════════════════ -->
+</section>
+
+<section id="sec-int1" data-group="Integradores">
+<p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Ejercicio integrador</p>
+    <h2 class="mb-3">⚡ Conversor de temperatura</h2>
+    <p class="mb-4">Convierte Celsius a Fahrenheit con validación de entrada. Sigue pidiendo mientras el usuario ingrese algo inválido.</p>
+
+    <div class="d-flex flex-wrap gap-2 mb-4">
+      <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">while</span>
+      <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">try / except</span>
+      <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">if / else</span>
+      <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">def / return</span>
+      <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">ValueError</span>
+    </div>
+<h3 class="mt-4 mb-2">Código completo</h3>
+    <pre>def celsius_a_fahrenheit(c):
+    return 1.8 * c + 32
+
+while True:
+    try:
+        grados = float(input("Temperatura en Celsius: "))
+        break                         <span class="cm"># entrada válida → salir del bucle</span>
+    except ValueError:
+        print("Ingresá un número válido.")
+
+resultado = celsius_a_fahrenheit(grados)
+print(f"{grados} °C equivalen a {resultado} °F")</pre>
+
+    <pre class="out mt-2 mb-4">&gt; Temperatura en Celsius: veinte
+&gt; Ingresá un número válido.
+&gt; Temperatura en Celsius: 100
+&gt; 100.0 °C equivalen a 212.0 °F</pre>
+
+    <div class="card my-4"><div class="card-header small fw-semibold">¿Por qué se usó cada cosa?</div><div class="card-body"><p>• <strong>def</strong> — encapsulamos la fórmula para poder reutilizarla sin reescribirla.<br>
+        • <strong>while True + break</strong> — repetimos el pedido de input hasta que sea válido.<br>
+        • <strong>try / except ValueError</strong> — capturamos el error de <code>float("veinte")</code> sin que el programa explote.<br>
+        • <strong>f-string</strong> — mostramos ambos valores en un mensaje claro.</p></div></div>
+  
+
+  <!-- ══════════════════════════════════════════
+       INTEGRADOR 2 — CONTADOR DE VOCALES
+  ══════════════════════════════════════════ -->
+</section>
+
+<section id="sec-int2" data-group="Integradores">
+<p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Ejercicio integrador</p>
+    <h2 class="mb-3">⚡ Contador de vocales</h2>
+    <p class="mb-4">El usuario ingresa una frase. El programa cuenta cuántas vocales tiene, ignorando mayúsculas/minúsculas.</p>
+
+    <div class="d-flex flex-wrap gap-2 mb-4">
+      <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">for</span>
+      <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">if / in</span>
+      <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">str</span>
+      <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">acumulador</span>
+    </div>
+<h3 class="mt-4 mb-2">Código completo</h3>
+    <pre>frase   = input("Escribí una frase: ")
+vocales = "aeiouáéíóú"
+contador = 0
+
+for letra in frase.lower():      <span class="cm"># .lower() para no distinguir mayúsculas</span>
+    if letra in vocales:
+        contador += 1
+
+print(f'La frase "{frase}" tiene {contador} vocales.')</pre>
+
+    <pre class="out mt-2 mb-4">&gt; Escribí una frase: Hola Mundo
+&gt; La frase "Hola Mundo" tiene 4 vocales.</pre>
+
+    <!-- Versión con pares/impares -->
+    <h3 class="mt-4 mb-2">Versión extendida — también cuenta consonantes</h3>
+    <pre>frase     = input("Escribí una frase: ")
+vocales   = "aeiouáéíóú"
+cnt_voc   = 0
+cnt_cons  = 0
+
+for letra in frase.lower():
+    if letra.isalpha():           <span class="cm"># ignoramos espacios, números, puntuación</span>
+        if letra in vocales:
+            cnt_voc += 1
+        else:
+            cnt_cons += 1
+
+print(f"Vocales: {cnt_voc}")
+print(f"Consonantes: {cnt_cons}")</pre>
+
+    <pre class="out mt-2 mb-4">&gt; Escribí una frase: Hola Mundo
+&gt; Vocales: 4
+&gt; Consonantes: 5</pre>
+
+    <div class="card my-4"><div class="card-header small fw-semibold">¿Por qué se usó cada cosa?</div><div class="card-body"><p>• <strong>for sobre str</strong> — en Python podés iterar una cadena letra por letra directamente.<br>
+        • <strong>.lower()</strong> — convierte todo a minúsculas para que "A" y "a" cuenten igual.<br>
+        • <strong>in vocales</strong> — forma compacta de preguntar si la letra está en la cadena de vocales.<br>
+        • <strong>.isalpha()</strong> — descarta espacios, números y signos de puntuación.</p></div></div>
+  
+
+  <!-- ══════════════════════════════════════════
+       INTEGRADOR 3 — LISTA DEL SUPERMERCADO
+  ══════════════════════════════════════════ -->
+</section>
+
+<section id="sec-int3" data-group="Integradores">
+<p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Ejercicio integrador</p>
+    <h2 class="mb-3">⚡ Lista del supermercado</h2>
+    <p class="mb-4">El usuario agrega productos a una lista. Al terminar, la muestra ordenada alfabéticamente. Puede seguir agregando o salir escribiendo "listo".</p>
+
+    <div class="d-flex flex-wrap gap-2 mb-4">
+      <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">while</span>
+      <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">list</span>
+      <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">.append()</span>
+      <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">.sort()</span>
+      <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">if / break</span>
+    </div>
+<h3 class="mt-4 mb-2">Código completo</h3>
+    <pre>lista = []
+
+print("Ingresá productos. Escribí 'listo' para terminar.\n")
+
+while True:
+    producto = input("Producto: ").strip()   <span class="cm"># .strip() elimina espacios extra</span>
+
+    if producto.lower() == "listo":
+        break
+
+    if producto == "":
+        print("No ingresaste nada.")
+        continue
+
+    lista.append(producto)
+    print(f"  ✔ '{producto}' agregado. Total: {len(lista)} producto(s)")
+
+if len(lista) == 0:
+    print("La lista está vacía.")
+else:
+    lista.sort()
+    print(f"\nLista final ({len(lista)} productos):")
+    for i, item in enumerate(lista, start=1):   <span class="cm"># enumerate da índice + valor</span>
+        print(f"  {i}. {item}")</pre>
+
+    <pre class="out mt-2 mb-4">&gt; Producto: leche
+&gt;   ✔ 'leche' agregado. Total: 1 producto(s)
+&gt; Producto: pan
+&gt;   ✔ 'pan' agregado. Total: 2 producto(s)
+&gt; Producto: arroz
+&gt;   ✔ 'arroz' agregado. Total: 3 producto(s)
+&gt; Producto: listo
+&gt;
+&gt; Lista final (3 productos):
+&gt;   1. arroz
+&gt;   2. leche
+&gt;   3. pan</pre>
+
+    <div class="card my-4"><div class="card-header small fw-semibold">¿Por qué se usó cada cosa?</div><div class="card-body"><p>• <strong>while True + break</strong> — el usuario controla cuándo terminar; no sabemos de antemano cuántos productos va a ingresar.<br>
+        • <strong>.strip()</strong> — limpia espacios al inicio y al final que el usuario pueda ingresar accidentalmente.<br>
+        • <strong>continue</strong> — si el campo está vacío, saltamos esta vuelta sin agregar nada a la lista.<br>
+        • <strong>.sort()</strong> — ordena la lista en su lugar antes de mostrarla.<br>
+        • <strong>enumerate(lista, start=1)</strong> — da el índice y el valor a la vez; con <code>start=1</code> el conteo empieza en 1 (más natural para mostrar).</p></div></div>
+</section>
+<footer class="pt-3 mt-4 border-top small text-body-secondary">By F. Suárez · 2026 · Saludos pal IFTS 24</footer>
+</main>
+
+<!-- Barra inferior (mobile) -->
+<div class="bottombar d-lg-none">
+  <div class="d-flex justify-content-between align-items-center py-2 px-3">
+    <span class="small text-body-secondary text-truncate me-2" id="crumb"></span>
+    <div class="d-flex gap-1 flex-shrink-0">
+      <button class="btn btn-sm border-0 theme-btn"><i class="bi bi-moon fs-5"></i></button>
+      <button class="btn btn-sm border-0" data-bs-toggle="offcanvas" data-bs-target="#toc">
+        <i class="bi bi-list fs-5"></i></button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/guia.js"></script>
+</body>
+</html>
+
