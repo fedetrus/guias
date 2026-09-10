@@ -1,0 +1,855 @@
+<!doctype html>
+<html lang="es" data-bs-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guía de NumPy</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔢</text></svg>">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="../assets/guia.css" rel="stylesheet">
+</head>
+<body data-mode="scroll">
+
+<aside class="sidebar-lg">
+  <div class="d-flex justify-content-between align-items-start mb-4">
+    <div>
+      <a href="../index.html" class="text-decoration-none small text-body-secondary d-block mb-1">
+        <i class="bi bi-arrow-left"></i> Guías</a>
+      <span class="fw-semibold">NumPy</span>
+      <span class="d-block small text-body-secondary">Cálculo con arrays</span>
+    </div>
+    <button class="btn btn-sm border-0 theme-btn" title="Cambiar tema"><i class="bi bi-moon" data-lg="1"></i></button>
+  </div>
+  <nav class="nav flex-column gap-1 toc"></nav>
+</aside>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="toc" style="max-width:17rem">
+  <div class="offcanvas-body d-flex flex-column justify-content-end pb-4">
+    <nav class="nav flex-column gap-1 toc"></nav>
+  </div>
+  <div class="offcanvas-header border-top">
+    <a href="../index.html" class="text-decoration-none small text-body-secondary">
+      <i class="bi bi-arrow-left"></i> Todas las guías</a>
+    <button class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+</div>
+
+<main class="container-lg px-3 px-lg-5 py-4" style="max-width:48rem">
+
+<header class="mb-5">
+  <h1 class="mb-2">NumPy</h1>
+  <p class="mb-0 text-body-secondary">
+    La base de todo el cálculo numérico en Python: arrays, operaciones vectorizadas y álgebra lineal.
+    Debajo de pandas, scikit-learn y matplotlib está esto.
+  </p>
+</header>
+
+<section id="s01" class="pb-5 mb-5 border-bottom" data-group="Fundamentos">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 01</p>
+  <h2 class="mb-3">Qué es un array</h2>
+  <p class="mb-4">Una lista de Python guarda objetos sueltos repartidos por la memoria. Un array de NumPy guarda números del mismo tipo, uno al lado del otro. Esa sola diferencia lo cambia todo.</p>
+
+  <h3 class="mt-4 mb-2">Lista contra array</h3>
+  <pre>import numpy as np
+
+nums = [1, 2, 3, 4]        <span class="cm"># lista de Python</span>
+arr  = np.array([1, 2, 3, 4])   <span class="cm"># array de NumPy</span>
+
+<span class="cm"># Multiplicar por 2</span>
+[n * 2 for n in nums]      <span class="cm"># hay que recorrer</span>
+arr * 2                    <span class="cm"># array([2, 4, 6, 8]) — de una</span></pre>
+
+  <h3 class="mt-4 mb-2">En qué se diferencian</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:8rem"></th><th>Lista</th><th>Array</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">Contenido</td><td>Cualquier cosa, mezclada</td><td>Un solo tipo</td></tr>
+        <tr><td class="text-primary">Tamaño</td><td>Crece y se achica</td><td>Fijo al crearlo</td></tr>
+        <tr><td class="text-primary">Memoria</td><td>Dispersa, con overhead</td><td>Un bloque contiguo</td></tr>
+        <tr><td class="text-primary">Operar</td><td>Con bucles</td><td>Sobre el array entero</td></tr>
+        <tr><td class="text-primary">Velocidad</td><td>Base</td><td>10 a 100 veces más rápido</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-info-circle"></i> Por qué es tan rápido.</strong>
+    Los datos están juntos en memoria y todos son del mismo tipo, así que NumPy delega el cálculo
+    a código C compilado que procesa el bloque completo. No hay un bucle de Python interpretando
+    valor por valor. A eso se le llama <strong>vectorizar</strong>.
+  </div>
+
+  <h3 class="mt-4 mb-2">Dónde aparece</h3>
+  <p class="mb-4">Casi nunca lo vas a usar solo. Un DataFrame de pandas guarda sus columnas como
+  arrays de NumPy, scikit-learn recibe y devuelve arrays, y matplotlib grafica arrays.
+  Entender NumPy es entender qué pasa abajo de todo lo demás.</p>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    La regla que resume la librería entera: <strong>si escribís un <code>for</code> sobre un array,
+    casi seguro hay una forma de evitarlo</strong>. Buscala antes de seguir.
+  </div>
+</section>
+
+<section id="s02" class="pb-5 mb-5 border-bottom" data-group="Fundamentos">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 02</p>
+  <h2 class="mb-3">Crear arrays</h2>
+  <p class="mb-4">Desde datos que ya tenés, o generados desde cero.</p>
+
+  <h3 class="mt-4 mb-2">Recetario</h3>
+  <pre><span class="cm"># Desde datos</span>
+np.array([1, 2, 3])                  <span class="cm"># 1 dimensión</span>
+np.array([[1, 2], [3, 4]])           <span class="cm"># 2 dimensiones</span>
+np.array([1, 2, 3], dtype=float)     <span class="cm"># forzando el tipo</span>
+
+<span class="cm"># Rellenos</span>
+np.zeros(5)                          <span class="cm"># [0. 0. 0. 0. 0.]</span>
+np.ones((2, 3))                      <span class="cm"># matriz 2x3 de unos</span>
+np.full((2, 2), 7)                   <span class="cm"># todo 7</span>
+np.eye(3)                            <span class="cm"># identidad 3x3</span>
+
+<span class="cm"># Secuencias</span>
+np.arange(0, 10, 2)                  <span class="cm"># [0 2 4 6 8] — el 10 NO entra</span>
+np.linspace(0, 1, 5)                 <span class="cm"># [0. 0.25 0.5 0.75 1.] — el 1 SÍ entra</span>
+
+<span class="cm"># Al azar (API moderna)</span>
+rng = np.random.default_rng(42)
+rng.random(5)                        <span class="cm"># 5 valores entre 0 y 1</span>
+rng.integers(1, 7, size=10)          <span class="cm"># 10 tiradas de dado</span>
+rng.normal(0, 1, 100)                <span class="cm"># 100 valores normales</span></pre>
+
+  <h3 class="mt-4 mb-2">arange o linspace</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:8rem">Función</th><th>Se le indica</th><th class="d-none d-sm-table-cell">El final</th></tr></thead>
+      <tbody>
+        <tr><td class="font-monospace text-primary">arange</td><td>El paso entre valores</td><td class="d-none d-sm-table-cell">Queda afuera</td></tr>
+        <tr><td class="font-monospace text-primary">linspace</td><td>Cuántos valores querés</td><td class="d-none d-sm-table-cell">Queda adentro</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> No uses <code>arange</code> con decimales.</strong>
+    <code>np.arange(0, 1, 0.1)</code> puede darte 10 u 11 elementos según cómo redondee la suma
+    de flotantes. Para pasos decimales, <code>linspace</code>, que te garantiza la cantidad exacta.
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Usá <code>default_rng(semilla)</code> y no <code>np.random.seed()</code>. Es la API recomendada
+    desde NumPy 1.17: cada generador es independiente, así que tu código no se ve afectado por
+    lo que hagan otras librerías con el azar global.
+  </div>
+</section>
+
+<section id="s03" class="pb-5 mb-5 border-bottom" data-group="Fundamentos">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 03</p>
+  <h2 class="mb-3">Forma y tipo</h2>
+  <p class="mb-4">Todo array tiene una forma — cuántas dimensiones y de qué tamaño — y un tipo único para todos sus valores. La mayoría de los errores de NumPy son errores de forma.</p>
+
+  <h3 class="mt-4 mb-2">Anatomía</h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 165" width="100%" role="img" aria-label="Array de 3 por 4 con sus ejes y atributos">
+      <g stroke="currentColor" opacity=".25" fill="none">
+        <rect x="70" y="34" width="168" height="84"/>
+        <path d="M70 62 h168 M70 90 h168 M112 34 v84 M154 34 v84 M196 34 v84"/>
+      </g>
+      <g font-size="9" fill="currentColor" opacity=".75" text-anchor="middle">
+        <text x="91" y="53">1</text><text x="133" y="53">2</text><text x="175" y="53">3</text><text x="217" y="53">4</text>
+        <text x="91" y="81">5</text><text x="133" y="81">6</text><text x="175" y="81">7</text><text x="217" y="81">8</text>
+        <text x="91" y="109">9</text><text x="133" y="109">10</text><text x="175" y="109">11</text><text x="217" y="109">12</text>
+      </g>
+      <path d="M56 38 V114" stroke="var(--bs-primary)" opacity=".7" marker-end="url(#n1)"/>
+      <path d="M74 24 H234" stroke="var(--bs-primary)" opacity=".7" marker-end="url(#n1)"/>
+      <defs><marker id="n1" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+        <path d="M0 0 L7 3.5 L0 7 z" fill="var(--bs-primary)" opacity=".7"/></marker></defs>
+      <text x="40" y="78" font-size="9" fill="var(--bs-primary)" text-anchor="middle" font-family="monospace">axis 0</text>
+      <text x="154" y="16" font-size="9" fill="var(--bs-primary)" text-anchor="middle" font-family="monospace">axis 1</text>
+      <g font-size="9" font-family="monospace" fill="currentColor" opacity=".7">
+        <text x="258" y="50">.shape → (3, 4)</text>
+        <text x="258" y="66">.ndim  → 2</text>
+        <text x="258" y="82">.size  → 12</text>
+        <text x="258" y="98">.dtype → int64</text>
+      </g>
+      <text x="200" y="145" font-size="8" fill="currentColor" opacity=".6" text-anchor="middle">
+        axis 0 recorre las filas (hacia abajo) · axis 1 recorre las columnas (hacia la derecha)</text>
+      <text x="200" y="158" font-size="8" fill="currentColor" opacity=".6" text-anchor="middle">
+        shape se lee siempre (filas, columnas)</text>
+    </svg>
+    <figcaption class="mt-2 small text-body-secondary">
+      Los ejes se numeran desde afuera hacia adentro. En 2D, <code>axis 0</code> son las filas
+      y <code>axis 1</code> las columnas — importa para agregar y para hacer broadcasting.
+    </figcaption>
+  </figure>
+
+  <h3 class="mt-4 mb-2">Recetario</h3>
+  <pre>a.shape        <span class="cm"># (3, 4)</span>
+a.ndim         <span class="cm"># 2 dimensiones</span>
+a.size         <span class="cm"># 12 elementos en total</span>
+a.dtype        <span class="cm"># int64</span>
+
+<span class="cm"># Cambiar la forma</span>
+a.reshape(4, 3)      <span class="cm"># mismos datos, otra forma</span>
+a.reshape(2, -1)     <span class="cm"># el -1 se calcula solo: queda (2, 6)</span>
+a.ravel()            <span class="cm"># aplanar a 1D (vista si se puede)</span>
+a.flatten()          <span class="cm"># aplanar a 1D (siempre copia)</span>
+a.T                  <span class="cm"># transponer</span>
+
+<span class="cm"># Cambiar el tipo</span>
+a.astype(float)
+a.astype(np.int32)</pre>
+
+  <h3 class="mt-4 mb-2">Los tipos que vas a ver</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:8rem">dtype</th><th>Guarda</th><th class="d-none d-sm-table-cell">Ojo con</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">int64</td><td>Enteros</td><td class="d-none d-sm-table-cell">No admite <code>NaN</code></td></tr>
+        <tr><td class="text-primary">float64</td><td>Decimales</td><td class="d-none d-sm-table-cell">El default para cálculos</td></tr>
+        <tr><td class="text-primary">bool</td><td>True / False</td><td class="d-none d-sm-table-cell">Suma como 1 y 0</td></tr>
+        <tr><td class="text-primary">object</td><td>Cualquier cosa</td><td class="d-none d-sm-table-cell">Perdés toda la velocidad</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> Un array entero no acepta decimales.</strong>
+    <code>a = np.array([1, 2, 3]); a[0] = 1.9</code> guarda <code>1</code>, sin aviso: trunca.
+    Si vas a trabajar con decimales, creá el array como <code>float</code> desde el principio.
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Cuando algo falla, imprimí <code>.shape</code> antes que nada. El 90% de los errores de NumPy
+    son dos arrays cuyas formas no encajan, y el mensaje de error casi siempre te dice
+    exactamente cuáles.
+  </div>
+</section>
+
+<section id="s04" class="pb-5 mb-5 border-bottom" data-group="Acceder">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 04</p>
+  <h2 class="mb-3">Indexar y cortar</h2>
+  <p class="mb-4">Sacar un elemento, una fila, una submatriz. La sintaxis se parece a las listas, con una diferencia que sorprende: los cortes no copian.</p>
+
+  <h3 class="mt-4 mb-2">Recetario</h3>
+  <pre><span class="cm"># 1 dimensión — igual que una lista</span>
+a[0]         <span class="cm"># primero</span>
+a[-1]        <span class="cm"># último</span>
+a[1:4]       <span class="cm"># del 1 al 3</span>
+a[::2]       <span class="cm"># salteando de a 2</span>
+a[::-1]      <span class="cm"># al revés</span>
+
+<span class="cm"># 2 dimensiones — [fila, columna]</span>
+m[0, 2]      <span class="cm"># fila 0, columna 2</span>
+m[1]         <span class="cm"># fila 1 entera</span>
+m[:, 0]      <span class="cm"># columna 0 entera</span>
+m[0:2, 1:3]  <span class="cm"># submatriz</span>
+m[:, -1]     <span class="cm"># última columna</span></pre>
+
+  <h3 class="mt-4 mb-2">Vista o copia</h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 150" width="100%" role="img" aria-label="Un corte comparte memoria con el array original; modificarlo cambia el original">
+      <text x="88" y="20" font-size="9" fill="currentColor" opacity=".85" text-anchor="middle" font-family="monospace">a</text>
+      <g stroke="currentColor" opacity=".25" fill="none">
+        <rect x="20" y="28" width="136" height="24"/>
+        <path d="M54 28 v24 M88 28 v24 M122 28 v24"/>
+      </g>
+      <g font-size="9" fill="currentColor" opacity=".75" text-anchor="middle">
+        <text x="37" y="44">1</text><text x="71" y="44">2</text><text x="105" y="44">3</text><text x="139" y="44">4</text>
+      </g>
+      <rect x="54" y="28" width="68" height="24" fill="var(--bs-primary)" opacity=".25"/>
+      <text x="88" y="70" font-size="9" fill="var(--bs-primary)" text-anchor="middle" font-family="monospace">b = a[1:3]</text>
+      <path d="M88 76 v14" stroke="currentColor" opacity=".4" marker-end="url(#n4)"/>
+      <defs><marker id="n4" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+        <path d="M0 0 L7 3.5 L0 7 z" fill="currentColor" opacity=".4"/></marker></defs>
+      <text x="88" y="106" font-size="9" fill="currentColor" opacity=".85" text-anchor="middle" font-family="monospace">b[0] = 99</text>
+      <g stroke="currentColor" opacity=".25" fill="none">
+        <rect x="240" y="28" width="136" height="24"/>
+        <path d="M274 28 v24 M308 28 v24 M342 28 v24"/>
+      </g>
+      <g font-size="9" fill="currentColor" opacity=".75" text-anchor="middle">
+        <text x="257" y="44">1</text><text x="325" y="44">3</text><text x="359" y="44">4</text>
+      </g>
+      <text x="291" y="44" font-size="9" fill="var(--bs-danger)" text-anchor="middle" font-weight="600">99</text>
+      <text x="308" y="20" font-size="9" fill="currentColor" opacity=".85" text-anchor="middle" font-family="monospace">a — ¡cambió!</text>
+      <path d="M170 40 h58" stroke="var(--bs-danger)" opacity=".55" marker-end="url(#n5)"/>
+      <defs><marker id="n5" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+        <path d="M0 0 L7 3.5 L0 7 z" fill="var(--bs-danger)" opacity=".55"/></marker></defs>
+      <text x="200" y="132" font-size="8" fill="currentColor" opacity=".6" text-anchor="middle">
+        el corte no copia: b apunta a la misma memoria que a</text>
+      <text x="200" y="145" font-size="8" fill="var(--bs-primary)" text-anchor="middle" font-family="monospace">
+        b = a[1:3].copy()  →  independiente</text>
+    </svg>
+    <figcaption class="mt-2 small text-body-secondary">
+      Es a propósito: evita duplicar memoria al trabajar con arrays grandes. Pero si no lo sabés,
+      terminás modificando datos sin querer.
+    </figcaption>
+  </figure>
+
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:11rem">Operación</th><th>Devuelve</th></tr></thead>
+      <tbody>
+        <tr><td class="font-monospace text-primary">a[1:3]</td><td>Vista — comparte memoria</td></tr>
+        <tr><td class="font-monospace text-primary">a.reshape(2,2)</td><td>Vista</td></tr>
+        <tr><td class="font-monospace text-primary">a.T</td><td>Vista</td></tr>
+        <tr><td class="font-monospace text-primary">a[[0, 2]]</td><td>Copia — índices sueltos</td></tr>
+        <tr><td class="font-monospace text-primary">a[a &gt; 2]</td><td>Copia — máscara booleana</td></tr>
+        <tr><td class="font-monospace text-primary">a.copy()</td><td>Copia, explícita</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Ante la duda, <code>.copy()</code>. Cuesta memoria pero te ahorra el bug más difícil de rastrear
+    de NumPy: un array que cambia solo porque alguien modificó un corte suyo tres funciones más allá.
+  </div>
+</section>
+
+<section id="s05" class="pb-5 mb-5 border-bottom" data-group="Acceder">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 05</p>
+  <h2 class="mb-3">Filtrar con máscaras</h2>
+  <p class="mb-4">Seleccionar elementos por una condición en vez de por su posición. Es la forma idiomática de filtrar y la base del filtrado de pandas.</p>
+
+  <h3 class="mt-4 mb-2">Recetario</h3>
+  <pre>a = np.array([1, 5, 3, 8, 2])
+
+<span class="cm"># La condición devuelve un array de booleanos</span>
+a &gt; 3                     <span class="cm"># [False True False True False]</span>
+
+<span class="cm"># Usarlo como índice devuelve los que cumplen</span>
+a[a &gt; 3]                  <span class="cm"># [5 8]</span>
+
+<span class="cm"># Combinar: & y | con paréntesis obligatorios</span>
+a[(a &gt; 2) &amp; (a &lt; 8)]      <span class="cm"># [5 3]</span>
+a[(a &lt; 2) | (a &gt; 7)]      <span class="cm"># [1 8]</span>
+a[~(a &gt; 3)]               <span class="cm"># ~ niega: [1 3 2]</span>
+
+<span class="cm"># Asignar sobre la selección</span>
+a[a &lt; 0] = 0              <span class="cm"># pisar los negativos</span>
+
+<span class="cm"># Reemplazar según condición, sin modificar</span>
+np.where(a &gt; 3, <span class="kw">'alto'</span>, <span class="kw">'bajo'</span>)
+np.where(a &gt; 3, a, 0)     <span class="cm"># deja el valor o pone 0</span>
+np.clip(a, 0, 5)          <span class="cm"># recorta a un rango</span>
+
+<span class="cm"># Preguntas rápidas</span>
+(a &gt; 3).sum()             <span class="cm"># cuántos cumplen — True vale 1</span>
+(a &gt; 3).any()             <span class="cm"># ¿alguno?</span>
+(a &gt; 3).all()             <span class="cm"># ¿todos?</span>
+np.argmax(a)              <span class="cm"># posición del máximo</span>
+np.where(a &gt; 3)[0]        <span class="cm"># posiciones que cumplen</span></pre>
+
+  <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> <code>and</code> y <code>or</code> no funcionan.</strong>
+    <code>a[(a &gt; 2) and (a &lt; 8)]</code> lanza
+    <code>ValueError: truth value of an array is ambiguous</code>. Python quiere reducir el array
+    a un solo <code>True</code> o <code>False</code> y no puede. Van <code>&amp;</code> y
+    <code>|</code>, y cada condición entre paréntesis porque tienen menos prioridad que
+    <code>&gt;</code> y <code>&lt;</code>.
+  </div>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-info-circle"></i> Tip.</strong>
+    Una máscara es un array como cualquier otro: podés guardarla, reusarla y combinarla.
+    <code class="d-block mt-2">altos = a &gt; 3<br>pares = a % 2 == 0<br>a[altos &amp; pares]</code>
+    Además sirve para indexar <em>otro</em> array de la misma forma, que es como se filtran
+    dos columnas relacionadas a la vez.
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    <code>a[a &gt; 3]</code> devuelve una copia, así que modificarla no toca el original.
+    Pero <code>a[a &gt; 3] = 0</code> sí modifica: la asignación sobre una máscara escribe
+    en el array real.
+  </div>
+</section>
+
+<section id="s06" class="pb-5 mb-5 border-bottom" data-group="Operar">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 06</p>
+  <h2 class="mb-3">Operaciones vectorizadas</h2>
+  <p class="mb-4">Aplicar un cálculo a todos los elementos escribiéndolo una sola vez. Es lo que hace a NumPy rápido y lo que hace al código corto.</p>
+
+  <h3 class="mt-4 mb-2">Recetario</h3>
+  <pre>a = np.array([1, 2, 3, 4])
+b = np.array([10, 20, 30, 40])
+
+<span class="cm"># Con un número: se aplica a cada elemento</span>
+a + 10        <span class="cm"># [11 12 13 14]</span>
+a * 2         <span class="cm"># [2 4 6 8]</span>
+a ** 2        <span class="cm"># [1 4 9 16]</span>
+
+<span class="cm"># Entre arrays: elemento por elemento, en la misma posición</span>
+a + b         <span class="cm"># [11 22 33 44]</span>
+a * b         <span class="cm"># [10 40 90 160]</span>
+
+<span class="cm"># Funciones matemáticas (ufuncs)</span>
+np.sqrt(a)    np.exp(a)     np.log(a)
+np.abs(a)     np.round(a, 2)
+np.sin(a)     np.floor(a)   np.ceil(a)
+
+<span class="cm"># Comparaciones: devuelven booleanos</span>
+a &gt; 2         <span class="cm"># [False False True True]</span>
+a == b        <span class="cm"># elemento por elemento</span>
+np.array_equal(a, b)   <span class="cm"># ¿son iguales como un todo?</span></pre>
+
+  <h3 class="mt-4 mb-2">Por qué importa</h3>
+  <pre><span class="cm"># Lo mismo, dos formas</span>
+resultado = [x**2 + 1 <span class="kw">for</span> x <span class="kw">in</span> lista]     <span class="cm"># bucle de Python</span>
+resultado = arr**2 + 1                    <span class="cm"># vectorizado</span>
+
+<span class="cm"># Con un millón de elementos, el segundo es unas 50 veces más rápido</span>
+<span class="cm"># y además se lee como la fórmula matemática que representa</span></pre>
+
+  <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> <code>*</code> no es multiplicación de matrices.</strong>
+    Entre dos arrays 2D, <code>a * b</code> multiplica elemento por elemento.
+    El producto matricial es <code>a @ b</code>. Es un error silencioso: si las formas coinciden,
+    devuelve un resultado válido pero equivocado.
+  </div>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-info-circle"></i> Sobre <code>NaN</code>.</strong>
+    <code>np.nan</code> se propaga: cualquier cuenta que lo toque devuelve <code>NaN</code>,
+    y <code>np.nan == np.nan</code> es <code>False</code>. Se detecta con <code>np.isnan(a)</code>
+    y se ignora en los cálculos usando las variantes <code>np.nanmean</code>,
+    <code>np.nansum</code>, <code>np.nanmax</code>.
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Escribí la fórmula como la escribirías en papel. <code>(x - x.mean()) / x.std()</code>
+    estandariza un array entero, sin bucles ni índices, y es literalmente la fórmula de la
+    puntuación z.
+  </div>
+</section>
+
+<section id="s07" class="pb-5 mb-5 border-bottom" data-group="Operar">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 07</p>
+  <h2 class="mb-3">Broadcasting</h2>
+  <p class="mb-4">La regla que permite operar arrays de distinta forma sin repetir datos a mano. Es el mecanismo más potente de NumPy y el que más confunde al principio.</p>
+
+  <h3 class="mt-4 mb-2">Cómo funciona</h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 150" width="100%" role="img" aria-label="Una columna y una fila se combinan y producen una matriz">
+      <g stroke="currentColor" opacity=".25" fill="none">
+        <rect x="24" y="46" width="26" height="60"/><path d="M24 66 h26 M24 86 h26"/>
+        <rect x="96" y="24" width="78" height="20"/><path d="M122 24 v20 M148 24 v20"/>
+        <rect x="240" y="46" width="78" height="60"/>
+        <path d="M240 66 h78 M240 86 h78 M266 46 v60 M292 46 v60"/>
+      </g>
+      <g font-size="9" fill="currentColor" opacity=".75" text-anchor="middle">
+        <text x="37" y="60">1</text><text x="37" y="80">2</text><text x="37" y="100">3</text>
+        <text x="109" y="38">10</text><text x="135" y="38">20</text><text x="161" y="38">30</text>
+      </g>
+      <g font-size="9" fill="var(--bs-primary)" text-anchor="middle" font-weight="600">
+        <text x="253" y="60">11</text><text x="279" y="60">21</text><text x="305" y="60">31</text>
+        <text x="253" y="80">12</text><text x="279" y="80">22</text><text x="305" y="80">32</text>
+        <text x="253" y="100">13</text><text x="279" y="100">23</text><text x="305" y="100">33</text>
+      </g>
+      <text x="68" y="80" font-size="12" fill="currentColor" opacity=".6" text-anchor="middle">+</text>
+      <text x="207" y="80" font-size="12" fill="currentColor" opacity=".6" text-anchor="middle">=</text>
+      <g font-size="8" fill="currentColor" opacity=".6" text-anchor="middle" font-family="monospace">
+        <text x="37" y="122">(3, 1)</text><text x="135" y="122">(1, 3)</text><text x="279" y="122">(3, 3)</text>
+      </g>
+      <text x="200" y="142" font-size="8" fill="currentColor" opacity=".6" text-anchor="middle">
+        cada dimensión de tamaño 1 se estira para igualar a la otra</text>
+    </svg>
+    <figcaption class="mt-2 small text-body-secondary">
+      NumPy no copia los datos para estirarlos: recorre el array chico varias veces.
+      Por eso el broadcasting no cuesta memoria extra.
+    </figcaption>
+  </figure>
+
+  <h3 class="mt-4 mb-2">La regla</h3>
+  <p class="mb-3">Se comparan las formas <strong>de derecha a izquierda</strong>. Dos dimensiones
+  son compatibles si son iguales, o si alguna vale 1.</p>
+  <pre>(3, 4)  +  (4,)     →  (3, 4)   <span class="cm">✓ la fila se repite en cada fila</span>
+(3, 1)  +  (1, 4)   →  (3, 4)   <span class="cm">✓ las dos se estiran</span>
+(3, 4)  +  (3,)     →  ERROR    <span class="cm">✗ 4 contra 3, y ninguno es 1</span>
+(3, 4)  +  (3, 1)   →  (3, 4)   <span class="cm">✓ la columna se repite</span></pre>
+
+  <h3 class="mt-4 mb-2">Para qué sirve en la práctica</h3>
+  <pre><span class="cm"># Centrar cada columna: restar el promedio de su columna</span>
+m - m.mean(axis=0)
+
+<span class="cm"># Centrar cada fila: hay que convertir el vector en columna</span>
+m - m.mean(axis=1).reshape(-1, 1)
+m - m.mean(axis=1, keepdims=True)     <span class="cm"># más directo</span>
+
+<span class="cm"># Estandarizar todas las columnas de un saque</span>
+(m - m.mean(axis=0)) / m.std(axis=0)
+
+<span class="cm"># Tabla de multiplicar sin bucles</span>
+np.arange(1, 6).reshape(-1, 1) * np.arange(1, 6)</pre>
+
+  <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> El error que vas a ver.</strong>
+    <code>operands could not be broadcast together with shapes (3,4) (3,)</code>.
+    Traducido: querés operar por filas pero el vector se está alineando con las columnas.
+    La solución casi siempre es <code>keepdims=True</code> o un <code>.reshape(-1, 1)</code>
+    para convertirlo en columna.
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Escribí las dos formas alineadas a la derecha y comparalas de a pares.
+    Si en cada posición los números son iguales o alguno es 1, la operación va a andar.
+    Si no, ya sabés cuál dimensión arreglar.
+  </div>
+</section>
+
+<section id="s08" class="pb-5 mb-5 border-bottom" data-group="Operar">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 08</p>
+  <h2 class="mb-3">Agregar y el parámetro axis</h2>
+  <p class="mb-4">Resumir un array en menos números: la suma, el promedio, el máximo. En 2D hay que decidir si se resume por filas o por columnas, y ahí entra <code>axis</code>.</p>
+
+  <h3 class="mt-4 mb-2">Qué colapsa cada eje</h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 160" width="100%" role="img" aria-label="axis igual a cero suma por columnas, axis igual a uno suma por filas">
+      <g stroke="currentColor" opacity=".25" fill="none">
+        <rect x="30" y="40" width="84" height="60"/>
+        <path d="M30 60 h84 M30 80 h84 M58 40 v60 M86 40 v60"/>
+        <rect x="222" y="40" width="84" height="60"/>
+        <path d="M222 60 h84 M222 80 h84 M250 40 v60 M278 40 v60"/>
+      </g>
+      <g font-size="9" fill="currentColor" opacity=".7" text-anchor="middle">
+        <text x="44" y="54">1</text><text x="72" y="54">2</text><text x="100" y="54">3</text>
+        <text x="44" y="74">4</text><text x="72" y="74">5</text><text x="100" y="74">6</text>
+        <text x="44" y="94">7</text><text x="72" y="94">8</text><text x="100" y="94">9</text>
+        <text x="236" y="54">1</text><text x="264" y="54">2</text><text x="292" y="54">3</text>
+        <text x="236" y="74">4</text><text x="264" y="74">5</text><text x="292" y="74">6</text>
+        <text x="236" y="94">7</text><text x="264" y="94">8</text><text x="292" y="94">9</text>
+      </g>
+      <g stroke="var(--bs-primary)" opacity=".5" fill="none">
+        <path d="M44 44 v52" marker-end="url(#x8)"/><path d="M72 44 v52" marker-end="url(#x8)"/>
+        <path d="M100 44 v52" marker-end="url(#x8)"/>
+        <path d="M228 54 h72" marker-end="url(#x8)"/><path d="M228 74 h72" marker-end="url(#x8)"/>
+        <path d="M228 94 h72" marker-end="url(#x8)"/>
+      </g>
+      <defs><marker id="x8" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+        <path d="M0 0 L6 3 L0 6 z" fill="var(--bs-primary)" opacity=".5"/></marker></defs>
+      <g stroke="currentColor" opacity=".25" fill="none">
+        <rect x="30" y="108" width="84" height="20"/><path d="M58 108 v20 M86 108 v20"/>
+        <rect x="316" y="40" width="30" height="60"/><path d="M316 60 h30 M316 80 h30"/>
+      </g>
+      <g font-size="9" fill="var(--bs-primary)" text-anchor="middle" font-weight="600">
+        <text x="44" y="122">12</text><text x="72" y="122">15</text><text x="100" y="122">18</text>
+        <text x="331" y="54">6</text><text x="331" y="74">15</text><text x="331" y="94">24</text>
+      </g>
+      <g font-size="9" fill="currentColor" opacity=".85" text-anchor="middle" font-family="monospace">
+        <text x="72" y="28">m.sum(axis=0)</text><text x="278" y="28">m.sum(axis=1)</text>
+      </g>
+      <g font-size="8" fill="currentColor" opacity=".6" text-anchor="middle">
+        <text x="72" y="144">baja por las filas</text><text x="278" y="144">recorre las columnas</text>
+        <text x="72" y="155">un valor por columna</text><text x="278" y="155">un valor por fila</text>
+      </g>
+    </svg>
+    <figcaption class="mt-2 small text-body-secondary">
+      <code>axis</code> indica el eje que <strong>desaparece</strong>, no el que se conserva.
+      Con <code>axis=0</code> se van las filas y queda un valor por columna.
+    </figcaption>
+  </figure>
+
+  <h3 class="mt-4 mb-2">Recetario</h3>
+  <pre><span class="cm"># Sobre todo el array</span>
+m.sum()      m.mean()     m.std()
+m.min()      m.max()      m.prod()
+
+<span class="cm"># Por eje</span>
+m.sum(axis=0)    <span class="cm"># un total por columna</span>
+m.mean(axis=1)   <span class="cm"># un promedio por fila</span>
+
+<span class="cm"># Posiciones en vez de valores</span>
+m.argmin()       m.argmax()
+m.argsort()      <span class="cm"># las posiciones que lo dejarían ordenado</span>
+
+<span class="cm"># Acumulados</span>
+a.cumsum()       a.cumprod()
+
+<span class="cm"># Ignorando NaN</span>
+np.nanmean(a)    np.nansum(a)    np.nanmax(a)
+
+<span class="cm"># Otros útiles</span>
+np.unique(a)                    <span class="cm"># valores distintos, ordenados</span>
+np.unique(a, return_counts=<span class="kw">True</span>)  <span class="cm"># y cuántas veces aparece cada uno</span>
+np.sort(a)                      <span class="cm"># copia ordenada</span>
+np.percentile(a, [25, 50, 75])  <span class="cm"># cuartiles</span></pre>
+
+  <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> <code>std()</code> divide por N.</strong>
+    NumPy usa <code>ddof=0</code> por defecto, o sea el desvío <em>poblacional</em>.
+    pandas usa <code>ddof=1</code>, el <em>muestral</em>. Los mismos datos dan resultados distintos
+    en una y otra librería. Si necesitás el muestral en NumPy: <code>a.std(ddof=1)</code>.
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    La regla para no confundirse nunca más: mirá la forma del resultado.
+    Si <code>m</code> tiene forma <code>(3, 4)</code>, entonces <code>m.sum(axis=0)</code>
+    devuelve 4 valores y <code>m.sum(axis=1)</code> devuelve 3. Desaparece el eje que nombraste.
+  </div>
+</section>
+
+<section id="s09" class="pb-5 mb-5 border-bottom" data-group="Operar">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 09</p>
+  <h2 class="mb-3">Álgebra lineal</h2>
+  <p class="mb-4">Producto de matrices, sistemas de ecuaciones, inversas. Es lo que corre por debajo de una regresión lineal o de una red neuronal.</p>
+
+  <h3 class="mt-4 mb-2">Recetario</h3>
+  <pre><span class="cm"># Producto matricial — usá el operador @</span>
+A @ B
+np.matmul(A, B)      <span class="cm"># lo mismo</span>
+np.dot(A, B)         <span class="cm"># lo mismo en 2D</span>
+
+<span class="cm"># Ojo con la diferencia</span>
+A * B                <span class="cm"># elemento por elemento, NO es matricial</span>
+
+<span class="cm"># Operaciones sobre matrices</span>
+A.T                       <span class="cm"># transpuesta</span>
+np.linalg.inv(A)          <span class="cm"># inversa</span>
+np.linalg.det(A)          <span class="cm"># determinante</span>
+np.linalg.matrix_rank(A)  <span class="cm"># rango</span>
+np.trace(A)               <span class="cm"># traza</span>
+
+<span class="cm"># Resolver A·x = b</span>
+x = np.linalg.solve(A, b)     <span class="cm"># preferí esto…</span>
+x = np.linalg.inv(A) @ b      <span class="cm"># …antes que esto</span>
+
+<span class="cm"># Autovalores y autovectores</span>
+valores, vectores = np.linalg.eig(A)
+
+<span class="cm"># Norma y producto punto</span>
+np.linalg.norm(v)
+np.dot(u, v)</pre>
+
+  <h3 class="mt-4 mb-2">Las formas tienen que encajar</h3>
+  <pre>(m, n) @ (n, p)  →  (m, p)     <span class="cm">✓ el n del medio debe coincidir</span>
+(2, 3) @ (3, 4)  →  (2, 4)     <span class="cm">✓</span>
+(2, 3) @ (2, 3)  →  ERROR      <span class="cm">✗ 3 contra 2</span></pre>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-info-circle"></i> Un ejemplo con sentido — regresión por mínimos cuadrados.</strong>
+    La solución cerrada de una regresión lineal es una línea de NumPy:
+    <code class="d-block mt-2">beta = np.linalg.solve(X.T @ X, X.T @ y)</code>
+    Es exactamente la fórmula que se ve en Probabilidad y Estadística, escrita tal cual.
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Nunca calcules la inversa para resolver un sistema. <code>solve</code> es más rápido y
+    numéricamente más estable: <code>inv</code> acumula error de redondeo, sobre todo con
+    matrices grandes o mal condicionadas.
+  </div>
+</section>
+
+<section id="s10" class="pb-5 mb-5 border-bottom" data-group="Cierre">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 10</p>
+  <h2 class="mb-3">Números aleatorios</h2>
+  <p class="mb-4">Simular, muestrear y generar datos de prueba. Con una semilla fija, los resultados se pueden reproducir.</p>
+
+  <h3 class="mt-4 mb-2">Recetario</h3>
+  <pre>rng = np.random.default_rng(42)     <span class="cm"># la semilla hace reproducible todo lo que sigue</span>
+
+<span class="cm"># Distribuciones</span>
+rng.random(5)                  <span class="cm"># uniforme entre 0 y 1</span>
+rng.integers(1, 7, size=10)    <span class="cm"># enteros: 1 a 6, el 7 no entra</span>
+rng.normal(170, 8, 100)        <span class="cm"># normal con media 170 y desvío 8</span>
+rng.uniform(10, 20, 5)         <span class="cm"># uniforme en un rango</span>
+rng.binomial(n=10, p=0.5, size=100)
+rng.poisson(lam=3, size=100)
+
+<span class="cm"># Muestrear</span>
+rng.choice([<span class="kw">'a'</span>, <span class="kw">'b'</span>, <span class="kw">'c'</span>], size=5)               <span class="cm"># con reposición</span>
+rng.choice(a, size=5, replace=<span class="kw">False</span>)          <span class="cm"># sin reposición</span>
+rng.choice([<span class="kw">'a'</span>, <span class="kw">'b'</span>], size=10, p=[0.8, 0.2])   <span class="cm"># con probabilidades</span>
+rng.shuffle(a)                                 <span class="cm"># mezcla en el lugar</span>
+rng.permutation(a)                             <span class="cm"># devuelve mezclado, sin tocar el original</span></pre>
+
+  <h3 class="mt-4 mb-2">Una simulación completa</h3>
+  <pre><span class="cm"># ¿Cuál es la probabilidad de sacar al menos un 6 en 4 tiradas?</span>
+rng = np.random.default_rng(42)
+
+tiradas = rng.integers(1, 7, size=(100_000, 4))   <span class="cm"># 100.000 experimentos de 4 dados</span>
+exito   = (tiradas == 6).any(axis=1)              <span class="cm"># ¿alguno fue 6, en cada fila?</span>
+exito.mean()                                      <span class="cm"># ≈ 0.518</span>
+
+<span class="cm"># El valor teórico es 1 − (5/6)⁴ ≈ 0.5177</span></pre>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-info-circle"></i> Por qué <code>default_rng</code> y no <code>np.random.seed</code>.</strong>
+    El viejo <code>np.random.seed()</code> configura un estado global compartido por todo el proceso:
+    si una librería que usás también genera azar, tus resultados dejan de ser reproducibles.
+    Un <code>Generator</code> es un objeto tuyo, independiente de lo que haga el resto.
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Poné la semilla siempre que estés desarrollando o mostrando resultados. Sin ella, cada
+    ejecución da números distintos y no podés distinguir un cambio en tu código de la variación
+    normal del azar.
+  </div>
+</section>
+
+<section id="s11" class="pb-5 mb-5 border-bottom" data-group="Cierre">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 11</p>
+  <h2 class="mb-3">NumPy y pandas</h2>
+  <p class="mb-4">No compiten: pandas está construido sobre NumPy. Saber cuándo bajar de uno al otro te ahorra vueltas.</p>
+
+  <h3 class="mt-4 mb-2">Cómo se relacionan</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:8rem"></th><th>NumPy</th><th>pandas</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">Estructura</td><td><code>ndarray</code></td><td><code>Series</code> y <code>DataFrame</code></td></tr>
+        <tr><td class="text-primary">Etiquetas</td><td>No: solo posiciones</td><td>Sí: índice y nombres de columna</td></tr>
+        <tr><td class="text-primary">Tipos</td><td>Uno para todo el array</td><td>Uno por columna</td></tr>
+        <tr><td class="text-primary">Fuerte en</td><td>Cálculo numérico y matrices</td><td>Datos tabulares heterogéneos</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">Ir y volver</h3>
+  <pre><span class="cm"># De pandas a NumPy</span>
+df.to_numpy()             <span class="cm"># todo el DataFrame</span>
+df[<span class="kw">'precio'</span>].to_numpy()   <span class="cm"># una columna</span>
+df[<span class="kw">'precio'</span>].values      <span class="cm"># lo mismo, forma antigua</span>
+
+<span class="cm"># De NumPy a pandas</span>
+pd.Series(arr)
+pd.DataFrame(matriz, columns=[<span class="kw">'a'</span>, <span class="kw">'b'</span>, <span class="kw">'c'</span>])
+
+<span class="cm"># Funciones de NumPy aplicadas a columnas de pandas</span>
+df[<span class="kw">'nivel'</span>] = np.where(df[<span class="kw">'precio'</span>] &gt; 500, <span class="kw">'alto'</span>, <span class="kw">'bajo'</span>)
+df[<span class="kw">'log'</span>]   = np.log1p(df[<span class="kw">'monto'</span>])
+df[<span class="kw">'cap'</span>]   = np.clip(df[<span class="kw">'monto'</span>], 0, 1000)</pre>
+
+  <h3 class="mt-4 mb-2">Cuándo usar cuál</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:8rem">Usá</th><th>Cuando</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">pandas</td><td>Los datos tienen columnas con nombre y tipos distintos</td></tr>
+        <tr><td class="text-primary">pandas</td><td>Necesitás agrupar, cruzar tablas o manejar fechas</td></tr>
+        <tr><td class="text-primary">NumPy</td><td>Es todo numérico y del mismo tipo</td></tr>
+        <tr><td class="text-primary">NumPy</td><td>Hay álgebra lineal o matrices de por medio</td></tr>
+        <tr><td class="text-primary">NumPy</td><td>Vas a pasarle los datos a scikit-learn</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> Al convertir se pierden las etiquetas.</strong>
+    <code>df.to_numpy()</code> devuelve solo los números: se van los nombres de columna y el índice.
+    Y si el DataFrame mezcla texto con números, el array resultante queda como <code>object</code>
+    y perdés toda la velocidad. Convertí solo las columnas numéricas que vas a usar.
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    En el trabajo real casi nunca elegís uno u otro: leés con pandas, limpiás con pandas,
+    y bajás a NumPy solo para el cálculo pesado o para entregarle los datos a un modelo.
+  </div>
+</section>
+
+<section id="s12" data-group="Cierre">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 12</p>
+  <h2 class="mb-3">Recetario final</h2>
+  <p class="mb-4">Lo que más se repite, junto.</p>
+
+  <h3 class="mt-4 mb-2">Los comandos de todos los días</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:13rem">Comando</th><th>Hace</th></tr></thead>
+      <tbody>
+        <tr><td class="font-monospace text-primary">np.array(lista)</td><td>Crear desde datos</td></tr>
+        <tr><td class="font-monospace text-primary">np.arange / linspace</td><td>Generar secuencias</td></tr>
+        <tr><td class="font-monospace text-primary">a.shape</td><td>Ver la forma — lo primero al depurar</td></tr>
+        <tr><td class="font-monospace text-primary">a.reshape(-1, 1)</td><td>Convertir en columna</td></tr>
+        <tr><td class="font-monospace text-primary">a[a &gt; 0]</td><td>Filtrar por condición</td></tr>
+        <tr><td class="font-monospace text-primary">np.where(c, x, y)</td><td>Elegir según condición</td></tr>
+        <tr><td class="font-monospace text-primary">a.mean(axis=0)</td><td>Promedio por columna</td></tr>
+        <tr><td class="font-monospace text-primary">A @ B</td><td>Producto matricial</td></tr>
+        <tr><td class="font-monospace text-primary">a.copy()</td><td>Copiar de verdad</td></tr>
+        <tr><td class="font-monospace text-primary">default_rng(42)</td><td>Azar reproducible</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">Recetas cortas</h3>
+  <pre><span class="cm"># Estandarizar (puntuación z)</span>
+z = (a - a.mean()) / a.std()
+
+<span class="cm"># Normalizar entre 0 y 1</span>
+n = (a - a.min()) / (a.max() - a.min())
+
+<span class="cm"># Reemplazar los NaN por el promedio</span>
+a[np.isnan(a)] = np.nanmean(a)
+
+<span class="cm"># Los 5 valores más grandes</span>
+np.sort(a)[-5:]
+
+<span class="cm"># Las posiciones de los 5 más grandes</span>
+np.argsort(a)[-5:]
+
+<span class="cm"># Contar cuántas veces aparece cada valor</span>
+valores, veces = np.unique(a, return_counts=<span class="kw">True</span>)
+
+<span class="cm"># Distancia euclídea entre dos puntos</span>
+np.linalg.norm(p1 - p2)
+
+<span class="cm"># Matriz de ceros con la misma forma que otra</span>
+np.zeros_like(a)</pre>
+
+  <h3 class="mt-4 mb-2">Los errores que más se repiten</h3>
+  <div class="list-group list-group-flush mb-4">
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">01</span><span>Modificar un corte sin saber que es una vista del original</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">02</span><span>Usar <code>and</code> / <code>or</code> en vez de <code>&amp;</code> / <code>|</code> al filtrar</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">03</span><span>Confundir <code>*</code> con <code>@</code> en matrices</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">04</span><span>Equivocar <code>axis=0</code> con <code>axis=1</code></span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">05</span><span>Asignar decimales a un array de enteros y que se trunquen</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">06</span><span>Comparar contra <code>np.nan</code> con <code>==</code></span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">07</span><span>Olvidar que <code>std()</code> usa <code>ddof=0</code>, distinto de pandas</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">08</span><span>Recorrer con un <code>for</code> lo que se resuelve vectorizado</span></div>
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Las tres preguntas que resuelven casi cualquier problema con NumPy:
+    ¿qué forma tiene?, ¿de qué tipo es?, ¿es una vista o una copia?
+    Con <code>.shape</code>, <code>.dtype</code> y un <code>.copy()</code> preventivo
+    se despeja la enorme mayoría de los errores.
+  </div>
+</section>
+
+<footer class="pt-3 mt-4 border-top small text-body-secondary">By F. Suárez · 2026 · Saludos pal IFTS 24</footer>
+</main>
+
+<div class="bottombar d-lg-none">
+  <div class="d-flex justify-content-between align-items-center py-2 px-3">
+    <span class="small text-body-secondary text-truncate me-2" id="crumb"></span>
+    <div class="d-flex gap-1 flex-shrink-0">
+      <button class="btn btn-sm border-0 theme-btn"><i class="bi bi-moon fs-5"></i></button>
+      <button class="btn btn-sm border-0" data-bs-toggle="offcanvas" data-bs-target="#toc">
+        <i class="bi bi-list fs-5"></i></button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/guia.js"></script>
+</body>
+</html>

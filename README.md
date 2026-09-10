@@ -14,6 +14,7 @@ con ejemplos, tablas de referencia y alternativas.
 | [Probabilidad y Estadística](https://fedetrus.github.io/guias/estadistica/) | Descriptiva, probabilidad y regresión lineal simple · 15 secciones |
 | [pandas](https://fedetrus.github.io/guias/pandas/) | Cargar, seleccionar, transformar, agrupar y combinar datos · 14 secciones |
 | [SQL](https://fedetrus.github.io/guias/sql/) | Consultas, joins, agregaciones y ventanas, en PostgreSQL y SQL Server a la vez · 13 secciones |
+| [NumPy](https://fedetrus.github.io/guias/numpy/) | Arrays, vectorización, broadcasting y álgebra lineal · 12 secciones |
 
 ## Estructura
 
@@ -26,7 +27,8 @@ con ejemplos, tablas de referencia y alternativas.
 ├── eda/index.html
 ├── estadistica/index.html
 ├── pandas/index.html
-└── sql/index.html
+├── sql/index.html
+└── numpy/index.html
 ```
 
 Todo es HTML estático sobre [Bootstrap 5.3](https://getbootstrap.com/). No hay build ni dependencias:
