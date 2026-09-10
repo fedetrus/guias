@@ -13,6 +13,7 @@ con ejemplos, tablas de referencia y alternativas.
 | [Análisis Exploratorio de Datos](https://fedetrus.github.io/guias/eda/) | pandas y seaborn: tipos, faltantes, distribuciones, outliers y correlación · 11 secciones |
 | [Probabilidad y Estadística](https://fedetrus.github.io/guias/estadistica/) | Descriptiva, probabilidad y regresión lineal simple · 15 secciones |
 | [pandas](https://fedetrus.github.io/guias/pandas/) | Cargar, seleccionar, transformar, agrupar y combinar datos · 14 secciones |
+| [SQL](https://fedetrus.github.io/guias/sql/) | Consultas, joins, agregaciones y ventanas, en PostgreSQL y SQL Server a la vez · 13 secciones |
 
 ## Estructura
 
@@ -24,7 +25,8 @@ con ejemplos, tablas de referencia y alternativas.
 ├── python/index.html
 ├── eda/index.html
 ├── estadistica/index.html
-└── pandas/index.html
+├── pandas/index.html
+└── sql/index.html
 ```
 
 Todo es HTML estático sobre [Bootstrap 5.3](https://getbootstrap.com/). No hay build ni dependencias:

@@ -1,0 +1,1319 @@
+<!doctype html>
+<html lang="es" data-bs-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guía de SQL</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗄️</text></svg>">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="../assets/guia.css" rel="stylesheet">
+</head>
+<body data-mode="scroll">
+
+<aside class="sidebar-lg">
+  <div class="d-flex justify-content-between align-items-start mb-4">
+    <div>
+      <a href="../index.html" class="text-decoration-none small text-body-secondary d-block mb-1">
+        <i class="bi bi-arrow-left"></i> Guías</a>
+      <span class="fw-semibold">SQL</span>
+      <span class="d-block small text-body-secondary">Consultas sobre bases relacionales</span>
+    </div>
+    <button class="btn btn-sm border-0 theme-btn" title="Cambiar tema"><i class="bi bi-moon" data-lg="1"></i></button>
+  </div>
+  <nav class="nav flex-column gap-1 toc"></nav>
+</aside>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="toc" style="max-width:17rem">
+  <div class="offcanvas-body d-flex flex-column justify-content-end pb-4">
+    <nav class="nav flex-column gap-1 toc"></nav>
+  </div>
+  <div class="offcanvas-header border-top">
+    <a href="../index.html" class="text-decoration-none small text-body-secondary">
+      <i class="bi bi-arrow-left"></i> Todas las guías</a>
+    <button class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+</div>
+
+<main class="container-lg px-3 px-lg-5 py-4" style="max-width:48rem">
+
+<header class="mb-5">
+  <h1 class="mb-2">SQL</h1>
+  <p class="mb-0 text-body-secondary">
+    Consultar bases relacionales, en PostgreSQL y SQL Server a la vez. El código va en un solo
+    bloque cuando corre igual en los dos motores, y en dos columnas cuando cambia.
+  </p>
+</header>
+
+<section id="s01" class="pb-5 mb-5 border-bottom" data-group="Fundamentos">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 01</p>
+  <h2 class="mb-3">Los dos motores</h2>
+  <p class="mb-4">SQL es un estándar, pero ningún motor lo implementa igual. Estas dos son las bases relacionales más usadas fuera del mundo web chico, y lo que aprendas en una te sirve casi entero en la otra.</p>
+
+  <h3 class="mt-4 mb-2">Qué es cada una</h3>
+  <div class="row g-3 mb-4">
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-header small fw-semibold"><i class="bi bi-database"></i> PostgreSQL</div>
+        <div class="card-body">
+          <p class="mb-2">Motor libre y gratuito, mantenido por una comunidad desde 1996. Corre en
+          Linux, Windows y Mac. Es el más apegado al estándar SQL y el más extensible: se le agregan
+          capacidades con extensiones, como PostGIS para datos geográficos.</p>
+          <p class="mb-0 small text-body-secondary">Consola: <code>psql</code> · Interfaz: pgAdmin, DBeaver · Puerto 5432</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-header small fw-semibold"><i class="bi bi-database"></i> SQL Server</div>
+        <div class="card-body">
+          <p class="mb-2">Motor de Microsoft, comercial, con una edición Express gratuita y limitada.
+          Su dialecto se llama <strong>T-SQL</strong>. Muy presente en empresas que ya trabajan con
+          tecnología Microsoft, por lo bien que se integra con .NET, Excel, Power BI y Azure.</p>
+          <p class="mb-0 small text-body-secondary">Consola: <code>sqlcmd</code> · Interfaz: SSMS, Azure Data Studio · Puerto 1433</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="mt-4 mb-2">Ventajas y desventajas</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:7rem"></th><th>PostgreSQL</th><th>SQL Server</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">Costo</td><td>Gratis, sin límites</td><td>Licencia paga; Express gratis hasta 10 GB</td></tr>
+        <tr><td class="text-primary">A favor</td><td>Estándar, extensible, excelente con JSON y datos geográficos</td><td>Herramientas muy pulidas, integración con el stack Microsoft</td></tr>
+        <tr><td class="text-primary">En contra</td><td>Administración más artesanal, menos interfaz gráfica</td><td>Atado a un proveedor, y el dialecto se aleja del estándar</td></tr>
+        <tr><td class="text-primary">Se usa en</td><td>Startups, ciencia de datos, aplicaciones web</td><td>Empresas grandes, sistemas de gestión, reportería corporativa</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-info-circle"></i> Cuál elegir.</strong>
+    Si arrancás de cero y podés elegir, PostgreSQL: es gratis, es estándar y lo que aprendas se
+    traslada mejor a cualquier otro motor. Si trabajás en una empresa que ya corre SQL Server,
+    la decisión está tomada y no es mala: la herramienta es sólida.
+  </div>
+
+  <h3 class="mt-4 mb-2">Lo que es igual en los dos</h3>
+  <p class="mb-3">La estructura de una consulta y casi todos los operadores. Esto corre idéntico:</p>
+  <pre><span class="kw">SELECT</span> c.nombre, <span class="kw">COUNT</span>(*) <span class="kw">AS</span> compras, <span class="kw">SUM</span>(v.monto) <span class="kw">AS</span> total
+<span class="kw">FROM</span> ventas v
+<span class="kw">INNER JOIN</span> clientes c <span class="kw">ON</span> v.id_cliente = c.id
+<span class="kw">WHERE</span> v.fecha &gt;= <span class="kw">'2026-01-01'</span>
+  <span class="kw">AND</span> v.monto <span class="kw">IS NOT NULL</span>
+<span class="kw">GROUP BY</span> c.nombre
+<span class="kw">HAVING</span> <span class="kw">SUM</span>(v.monto) &gt; 1000
+<span class="kw">ORDER BY</span> total <span class="kw">DESC</span>;</pre>
+
+  <h3 class="mt-4 mb-2">Lo que cambia</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:9rem">Para</th><th>PostgreSQL</th><th>SQL Server</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">Limitar filas</td><td><code>LIMIT 10</code></td><td><code>TOP 10</code></td></tr>
+        <tr><td class="text-primary">Unir texto</td><td><code>a || b</code></td><td><code>a + b</code></td></tr>
+        <tr><td class="text-primary">Fecha de hoy</td><td><code>CURRENT_DATE</code></td><td><code>GETDATE()</code></td></tr>
+        <tr><td class="text-primary">Reemplazar NULL</td><td><code>COALESCE(x, 0)</code></td><td><code>ISNULL(x, 0)</code></td></tr>
+        <tr><td class="text-primary">Convertir tipo</td><td><code>x::int</code></td><td><code>CAST(x AS int)</code></td></tr>
+        <tr><td class="text-primary">Buscar sin distinguir mayúsculas</td><td><code>ILIKE</code></td><td><code>LIKE</code> (ya no distingue)</td></tr>
+        <tr><td class="text-primary">Verdadero / falso</td><td><code>BOOLEAN</code></td><td><code>BIT</code> (0 y 1)</td></tr>
+        <tr><td class="text-primary">Id autoincremental</td><td><code>GENERATED … AS IDENTITY</code></td><td><code>IDENTITY(1,1)</code></td></tr>
+        <tr><td class="text-primary">Comillas de identificador</td><td><code>"tabla"</code></td><td><code>[tabla]</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">La misma consulta en los dos dialectos</h3>
+  <div class="row g-3 mb-4">
+    <div class="col-md-6">
+      <p class="small fw-semibold text-primary mb-2">PostgreSQL</p>
+      <pre><span class="kw">SELECT</span> nombre || <span class="kw">' '</span> || apellido <span class="kw">AS</span> completo,
+       <span class="kw">COALESCE</span>(saldo, 0) <span class="kw">AS</span> saldo
+<span class="kw">FROM</span> clientes
+<span class="kw">WHERE</span> nombre <span class="kw">ILIKE</span> <span class="kw">'ana%'</span>
+<span class="kw">ORDER BY</span> alta <span class="kw">DESC</span>
+<span class="kw">LIMIT</span> 10;</pre>
+    </div>
+    <div class="col-md-6">
+      <p class="small fw-semibold text-primary mb-2">SQL Server</p>
+      <pre><span class="kw">SELECT TOP</span> 10
+       nombre + <span class="kw">' '</span> + apellido <span class="kw">AS</span> completo,
+       <span class="kw">ISNULL</span>(saldo, 0) <span class="kw">AS</span> saldo
+<span class="kw">FROM</span> clientes
+<span class="kw">WHERE</span> nombre <span class="kw">LIKE</span> <span class="kw">'ana%'</span>
+<span class="kw">ORDER BY</span> alta <span class="kw">DESC</span>;</pre>
+    </div>
+  </div>
+
+  <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> La diferencia que más sorprende.</strong>
+    <p class="mb-1 mt-2">En PostgreSQL, comparar texto <strong>distingue mayúsculas</strong>:
+    <code>WHERE ciudad = 'cordoba'</code> no encuentra <code>'Córdoba'</code> ni <code>'CORDOBA'</code>.</p>
+    <p class="mb-0">En SQL Server, con la configuración habitual, <strong>no distingue</strong>: esas tres
+    formas se consideran iguales. Una consulta que anda en un motor puede devolver cero filas en el otro
+    sin dar ningún error.</p>
+  </div>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-info-circle"></i> Cómo leer esta guía.</strong>
+    Cuando veas <strong>un solo bloque</strong> de código, corre igual en los dos motores — que es
+    la mayoría de los casos. Cuando veas <strong>dos columnas</strong>, ahí hay una diferencia real
+    de dialecto y conviene prestarle atención.
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Aprendé el SQL estándar y tratá las diferencias como lo que son: detalles de traducción.
+    Si sabés consultar en uno, en el otro te faltan diez palabras, no un idioma nuevo.
+  </div>
+</section>
+
+<section id="s02" class="pb-5 mb-5 border-bottom" data-group="Fundamentos">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 02</p>
+  <h2 class="mb-3">Estructura de una consulta</h2>
+  <p class="mb-4">Toda consulta se arma con las mismas cláusulas, siempre en el mismo orden de escritura. Pero el motor no las ejecuta en ese orden, y entender eso resuelve la mitad de los errores.</p>
+
+  <h3 class="mt-4 mb-2">Cómo se escribe</h3>
+  <pre><span class="kw">SELECT</span>   columnas
+<span class="kw">FROM</span>     tabla
+<span class="kw">JOIN</span>     otra <span class="kw">ON</span> condición
+<span class="kw">WHERE</span>    filtro de filas
+<span class="kw">GROUP BY</span> columnas de agrupación
+<span class="kw">HAVING</span>   filtro de grupos
+<span class="kw">ORDER BY</span> columnas de orden;</pre>
+
+  <h3 class="mt-4 mb-2">Cómo se ejecuta</h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 236" width="100%" role="img" aria-label="Orden real de ejecución de las cláusulas de una consulta">
+      <g font-size="9" font-family="monospace">
+        <g>
+          <rect x="30" y="8" width="120" height="22" rx="3" fill="var(--bs-primary)" opacity=".22"/>
+          <text x="90" y="23" fill="currentColor" text-anchor="middle">FROM / JOIN</text>
+          <text x="162" y="23" fill="currentColor" opacity=".6" font-family="inherit">traer y cruzar las tablas</text>
+        </g>
+        <g>
+          <rect x="30" y="38" width="120" height="22" rx="3" fill="var(--bs-primary)" opacity=".22"/>
+          <text x="90" y="53" fill="currentColor" text-anchor="middle">WHERE</text>
+          <text x="162" y="53" fill="currentColor" opacity=".6" font-family="inherit">descartar filas</text>
+        </g>
+        <g>
+          <rect x="30" y="68" width="120" height="22" rx="3" fill="var(--bs-primary)" opacity=".22"/>
+          <text x="90" y="83" fill="currentColor" text-anchor="middle">GROUP BY</text>
+          <text x="162" y="83" fill="currentColor" opacity=".6" font-family="inherit">juntar filas en grupos</text>
+        </g>
+        <g>
+          <rect x="30" y="98" width="120" height="22" rx="3" fill="var(--bs-primary)" opacity=".22"/>
+          <text x="90" y="113" fill="currentColor" text-anchor="middle">HAVING</text>
+          <text x="162" y="113" fill="currentColor" opacity=".6" font-family="inherit">descartar grupos</text>
+        </g>
+        <g>
+          <rect x="30" y="128" width="120" height="22" rx="3" fill="var(--bs-primary)" opacity=".45"/>
+          <text x="90" y="143" fill="currentColor" text-anchor="middle">SELECT</text>
+          <text x="162" y="143" fill="currentColor" opacity=".6" font-family="inherit">elegir columnas y crear alias</text>
+        </g>
+        <g>
+          <rect x="30" y="158" width="120" height="22" rx="3" fill="var(--bs-primary)" opacity=".22"/>
+          <text x="90" y="173" fill="currentColor" text-anchor="middle">ORDER BY</text>
+          <text x="162" y="173" fill="currentColor" opacity=".6" font-family="inherit">ordenar el resultado</text>
+        </g>
+        <g>
+          <rect x="30" y="188" width="120" height="22" rx="3" fill="var(--bs-primary)" opacity=".22"/>
+          <text x="90" y="203" fill="currentColor" text-anchor="middle">LIMIT / TOP</text>
+          <text x="162" y="203" fill="currentColor" opacity=".6" font-family="inherit">recortar la cantidad</text>
+        </g>
+      </g>
+      <path d="M18 12 V206" stroke="var(--bs-primary)" opacity=".4" marker-end="url(#e)"/>
+      <defs><marker id="e" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+        <path d="M0 0 L7 3.5 L0 7 z" fill="var(--bs-primary)" opacity=".4"/></marker></defs>
+      <text x="200" y="228" font-size="8" fill="currentColor" opacity=".6" text-anchor="middle">
+        el SELECT es de los últimos: por eso sus alias no existen todavía en el WHERE</text>
+    </svg>
+    <figcaption class="mt-2 small text-body-secondary">
+      Se escribe empezando por <code>SELECT</code>, pero se ejecuta empezando por <code>FROM</code>.
+      El motor primero junta y filtra las filas, y recién al final decide qué columnas mostrar.
+    </figcaption>
+  </figure>
+
+  <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> Por eso esto falla.</strong>
+    <pre class="mt-2 mb-2"><span class="kw">SELECT</span> precio * cantidad <span class="kw">AS</span> total
+<span class="kw">FROM</span> ventas
+<span class="kw">WHERE</span> total &gt; 1000;   <span class="cm">-- ✗ column "total" does not exist</span></pre>
+    Cuando corre el <code>WHERE</code>, el alias <code>total</code> todavía no fue creado.
+    Hay que repetir la expresión: <code>WHERE precio * cantidad &gt; 1000</code>.
+    En el <code>ORDER BY</code>, en cambio, el alias sí funciona, porque va después del <code>SELECT</code>.
+  </div>
+
+  <h3 class="mt-4 mb-2">Convenciones de escritura</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:11rem">Práctica</th><th>Por qué</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">Palabras clave en MAYÚSCULA</td><td>Separa de un vistazo la sintaxis de tus tablas y columnas</td></tr>
+        <tr><td class="text-primary">Una cláusula por línea</td><td>Hace legible una consulta larga y facilita comentar partes</td></tr>
+        <tr><td class="text-primary">Alias cortos de tabla</td><td><code>ventas v</code> evita repetir y previene ambigüedades</td></tr>
+        <tr><td class="text-primary">Evitar <code>SELECT *</code></td><td>Trae columnas que no usás y se rompe si cambia la tabla</td></tr>
+        <tr><td class="text-primary">Terminar con <code>;</code></td><td>Obligatorio si mandás varias sentencias juntas</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Cuando una consulta no anda, leela en orden de <em>ejecución</em>, no de escritura:
+    qué tablas hay, qué filas sobreviven al filtro, cómo se agrupan y recién ahí qué se muestra.
+  </div>
+</section>
+
+<section id="s03" class="pb-5 mb-5 border-bottom" data-group="Consultar">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 03</p>
+  <h2 class="mb-3">Filtrar con WHERE</h2>
+  <p class="mb-4">Quedarse con las filas que cumplen una condición. Es la cláusula que más impacta en el rendimiento y en que el resultado sea el correcto.</p>
+
+  <h3 class="mt-4 mb-2">Recetario</h3>
+  <pre><span class="cm">-- Comparación</span>
+<span class="kw">WHERE</span> monto &gt; 1000
+<span class="kw">WHERE</span> estado = <span class="kw">'activo'</span>
+<span class="kw">WHERE</span> monto &lt;&gt; 0              <span class="cm">-- distinto (también vale !=)</span>
+
+<span class="cm">-- Combinar condiciones</span>
+<span class="kw">WHERE</span> monto &gt; 1000 <span class="kw">AND</span> estado = <span class="kw">'activo'</span>
+<span class="kw">WHERE</span> (ciudad = <span class="kw">'CABA'</span> <span class="kw">OR</span> ciudad = <span class="kw">'Rosario'</span>) <span class="kw">AND</span> activo
+
+<span class="cm">-- Pertenencia y rangos</span>
+<span class="kw">WHERE</span> ciudad <span class="kw">IN</span> (<span class="kw">'CABA'</span>, <span class="kw">'Rosario'</span>, <span class="kw">'Córdoba'</span>)
+<span class="kw">WHERE</span> monto <span class="kw">BETWEEN</span> 100 <span class="kw">AND</span> 500        <span class="cm">-- incluye los dos extremos</span>
+<span class="kw">WHERE</span> fecha &gt;= <span class="kw">'2026-01-01'</span> <span class="kw">AND</span> fecha &lt; <span class="kw">'2026-02-01'</span>
+
+<span class="cm">-- Texto</span>
+<span class="kw">WHERE</span> nombre <span class="kw">LIKE</span> <span class="kw">'Ana%'</span>            <span class="cm">-- empieza con Ana</span>
+<span class="kw">WHERE</span> mail <span class="kw">LIKE</span> <span class="kw">'%@gmail.com'</span>       <span class="cm">-- termina con</span>
+<span class="kw">WHERE</span> cod <span class="kw">LIKE</span> <span class="kw">'A_2'</span>                <span class="cm">-- _ es exactamente un carácter</span>
+
+<span class="cm">-- Nulos</span>
+<span class="kw">WHERE</span> telefono <span class="kw">IS NULL</span>
+<span class="kw">WHERE</span> telefono <span class="kw">IS NOT NULL</span>
+
+<span class="cm">-- Negar</span>
+<span class="kw">WHERE</span> <span class="kw">NOT</span> estado = <span class="kw">'baja'</span>
+<span class="kw">WHERE</span> ciudad <span class="kw">NOT IN</span> (<span class="kw">'CABA'</span>, <span class="kw">'Rosario'</span>)</pre>
+
+  <h3 class="mt-4 mb-2">Diferencias entre motores</h3>
+  <div class="row g-3 mb-4">
+    <div class="col-md-6">
+      <p class="small fw-semibold text-primary mb-2">PostgreSQL</p>
+      <pre><span class="cm">-- Distingue mayúsculas</span>
+<span class="kw">WHERE</span> ciudad = <span class="kw">'CABA'</span>
+
+<span class="cm">-- Para ignorarlas: ILIKE</span>
+<span class="kw">WHERE</span> ciudad <span class="kw">ILIKE</span> <span class="kw">'caba'</span>
+<span class="kw">WHERE</span> <span class="kw">LOWER</span>(ciudad) = <span class="kw">'caba'</span></pre>
+    </div>
+    <div class="col-md-6">
+      <p class="small fw-semibold text-primary mb-2">SQL Server</p>
+      <pre><span class="cm">-- No distingue (config. habitual)</span>
+<span class="kw">WHERE</span> ciudad = <span class="kw">'caba'</span>
+<span class="cm">-- encuentra 'CABA' igual</span>
+
+<span class="cm">-- No existe ILIKE</span>
+<span class="kw">WHERE</span> <span class="kw">LOWER</span>(ciudad) = <span class="kw">'caba'</span></pre>
+    </div>
+  </div>
+
+  <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> Los tres errores clásicos.</strong>
+    <p class="mb-1 mt-2"><strong>1. Comparar contra <code>NULL</code> con <code>=</code>.</strong>
+    <code>WHERE telefono = NULL</code> no devuelve nada nunca, ni siquiera error.
+    <code>NULL</code> significa "desconocido" y no es igual a nada. Va <code>IS NULL</code>.</p>
+    <p class="mb-1"><strong>2. Olvidar los paréntesis al mezclar <code>AND</code> y <code>OR</code>.</strong>
+    <code>AND</code> se evalúa primero, así que <code>a = 1 OR b = 2 AND c = 3</code> significa
+    <code>a = 1 OR (b = 2 AND c = 3)</code>, que rara vez es lo que querías.</p>
+    <p class="mb-0"><strong>3. <code>NOT IN</code> con una lista que contiene <code>NULL</code>.</strong>
+    Devuelve cero filas siempre. Si la lista viene de una subconsulta, filtrá los nulos ahí
+    o usá <code>NOT EXISTS</code>.</p>
+  </div>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-info-circle"></i> Tip — rangos de fechas.</strong>
+    Preferí <code>fecha &gt;= '2026-01-01' AND fecha &lt; '2026-02-01'</code> antes que
+    <code>BETWEEN '2026-01-01' AND '2026-01-31'</code>. Si la columna guarda hora además de fecha,
+    el <code>BETWEEN</code> deja afuera todo lo que pasó el 31 después de medianoche.
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Evitá envolver la columna en una función dentro del <code>WHERE</code>:
+    <code>WHERE YEAR(fecha) = 2026</code> obliga al motor a recorrer toda la tabla.
+    <code>WHERE fecha &gt;= '2026-01-01' AND fecha &lt; '2027-01-01'</code> devuelve lo mismo
+    y puede usar el índice.
+  </div>
+</section>
+
+<section id="s04" class="pb-5 mb-5 border-bottom" data-group="Consultar">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 04</p>
+  <h2 class="mb-3">Ordenar y limitar</h2>
+  <p class="mb-4">Presentar el resultado en un orden determinado y quedarse con las primeras filas. Acá está la diferencia de sintaxis más visible entre los dos motores.</p>
+
+  <h3 class="mt-4 mb-2">Ordenar — igual en los dos</h3>
+  <pre><span class="kw">ORDER BY</span> monto <span class="kw">DESC</span>
+<span class="kw">ORDER BY</span> ciudad <span class="kw">ASC</span>, monto <span class="kw">DESC</span>     <span class="cm">-- varias claves</span>
+<span class="kw">ORDER BY</span> total <span class="kw">DESC</span>                  <span class="cm">-- el alias del SELECT acá sí vale</span>
+<span class="kw">ORDER BY</span> 2 <span class="kw">DESC</span>                      <span class="cm">-- por posición: evitalo, es frágil</span></pre>
+
+  <h3 class="mt-4 mb-2">Limitar — acá cambia</h3>
+  <div class="row g-3 mb-4">
+    <div class="col-md-6">
+      <p class="small fw-semibold text-primary mb-2">PostgreSQL</p>
+      <pre><span class="kw">SELECT</span> * <span class="kw">FROM</span> ventas
+<span class="kw">ORDER BY</span> monto <span class="kw">DESC</span>
+<span class="kw">LIMIT</span> 10;
+
+<span class="cm">-- Paginar: saltear 20</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> ventas
+<span class="kw">ORDER BY</span> monto <span class="kw">DESC</span>
+<span class="kw">LIMIT</span> 10 <span class="kw">OFFSET</span> 20;</pre>
+    </div>
+    <div class="col-md-6">
+      <p class="small fw-semibold text-primary mb-2">SQL Server</p>
+      <pre><span class="kw">SELECT TOP</span> 10 * <span class="kw">FROM</span> ventas
+<span class="kw">ORDER BY</span> monto <span class="kw">DESC</span>;
+
+<span class="cm">-- Paginar: saltear 20</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> ventas
+<span class="kw">ORDER BY</span> monto <span class="kw">DESC</span>
+<span class="kw">OFFSET</span> 20 <span class="kw">ROWS</span>
+<span class="kw">FETCH NEXT</span> 10 <span class="kw">ROWS ONLY</span>;</pre>
+    </div>
+  </div>
+
+  <h3 class="mt-4 mb-2">Dónde van los nulos</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:9rem">Motor</th><th>Por defecto</th><th class="d-none d-sm-table-cell">Para cambiarlo</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">PostgreSQL</td><td>Los <code>NULL</code> van al final en <code>ASC</code></td><td class="d-none d-sm-table-cell"><code>NULLS FIRST</code> / <code>NULLS LAST</code></td></tr>
+        <tr><td class="text-primary">SQL Server</td><td>Los <code>NULL</code> van al principio en <code>ASC</code></td><td class="d-none d-sm-table-cell">Un <code>CASE</code> auxiliar en el <code>ORDER BY</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> Limitar sin ordenar no tiene sentido.</strong>
+    Sin <code>ORDER BY</code>, "las primeras 10 filas" son las que el motor devuelva primero, y eso
+    puede cambiar entre ejecuciones. Si querés las 10 más grandes, ordená. En SQL Server el
+    <code>OFFSET … FETCH</code> directamente exige <code>ORDER BY</code>.
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Para paginar de forma consistente, ordená por algo único. Si hay empates en la columna de orden,
+    las filas repetidas pueden aparecer en dos páginas o en ninguna: agregá el id como segundo criterio.
+  </div>
+</section>
+
+<section id="s05" class="pb-5 mb-5 border-bottom" data-group="Consultar">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 05</p>
+  <h2 class="mb-3">Funciones y NULL</h2>
+  <p class="mb-4">Transformar valores dentro de la consulta. Es donde más se separan los dialectos, así que conviene tener la tabla de equivalencias a mano.</p>
+
+  <h3 class="mt-4 mb-2">Texto</h3>
+  <div class="row g-3 mb-4">
+    <div class="col-md-6">
+      <p class="small fw-semibold text-primary mb-2">PostgreSQL</p>
+      <pre><span class="kw">LENGTH</span>(nombre)
+<span class="kw">UPPER</span>(nombre) / <span class="kw">LOWER</span>(nombre)
+<span class="kw">SUBSTRING</span>(nombre, 1, 3)
+<span class="kw">TRIM</span>(nombre)
+nombre || <span class="kw">' '</span> || apellido
+<span class="kw">POSITION</span>(<span class="kw">'@'</span> <span class="kw">IN</span> mail)</pre>
+    </div>
+    <div class="col-md-6">
+      <p class="small fw-semibold text-primary mb-2">SQL Server</p>
+      <pre><span class="kw">LEN</span>(nombre)
+<span class="kw">UPPER</span>(nombre) / <span class="kw">LOWER</span>(nombre)
+<span class="kw">SUBSTRING</span>(nombre, 1, 3)
+<span class="kw">TRIM</span>(nombre)
+nombre + <span class="kw">' '</span> + apellido
+<span class="kw">CHARINDEX</span>(<span class="kw">'@'</span>, mail)</pre>
+    </div>
+  </div>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-info-circle"></i> Tip — <code>CONCAT</code> funciona en los dos.</strong>
+    <code>CONCAT(nombre, ' ', apellido)</code> evita elegir entre <code>||</code> y <code>+</code>,
+    y además ignora los <code>NULL</code> en vez de convertir todo el resultado en <code>NULL</code>.
+    Si querés código portable entre motores, usalo.
+  </div>
+
+  <h3 class="mt-4 mb-2">Fechas</h3>
+  <div class="row g-3 mb-4">
+    <div class="col-md-6">
+      <p class="small fw-semibold text-primary mb-2">PostgreSQL</p>
+      <pre><span class="kw">CURRENT_DATE</span>
+<span class="kw">NOW</span>()
+<span class="kw">EXTRACT</span>(<span class="kw">YEAR FROM</span> fecha)
+<span class="kw">DATE_TRUNC</span>(<span class="kw">'month'</span>, fecha)
+fecha + <span class="kw">INTERVAL</span> <span class="kw">'7 days'</span>
+fin - inicio        <span class="cm">-- días</span></pre>
+    </div>
+    <div class="col-md-6">
+      <p class="small fw-semibold text-primary mb-2">SQL Server</p>
+      <pre><span class="kw">CAST</span>(<span class="kw">GETDATE</span>() <span class="kw">AS DATE</span>)
+<span class="kw">GETDATE</span>()
+<span class="kw">YEAR</span>(fecha)
+<span class="kw">DATEFROMPARTS</span>(<span class="kw">YEAR</span>(f), <span class="kw">MONTH</span>(f), 1)
+<span class="kw">DATEADD</span>(<span class="kw">DAY</span>, 7, fecha)
+<span class="kw">DATEDIFF</span>(<span class="kw">DAY</span>, inicio, fin)</pre>
+    </div>
+  </div>
+
+  <h3 class="mt-4 mb-2">Nulos y condicionales</h3>
+  <pre><span class="cm">-- COALESCE y NULLIF funcionan en los dos motores</span>
+<span class="kw">COALESCE</span>(telefono, <span class="kw">'sin dato'</span>)      <span class="cm">-- el primer valor no nulo</span>
+<span class="kw">COALESCE</span>(movil, fijo, <span class="kw">'sin dato'</span>)    <span class="cm">-- admite varios</span>
+<span class="kw">NULLIF</span>(divisor, 0)                  <span class="cm">-- evita dividir por cero</span>
+
+<span class="cm">-- CASE: el if/else de SQL, idéntico en ambos</span>
+<span class="kw">SELECT</span> nombre,
+       <span class="kw">CASE WHEN</span> monto &gt; 1000 <span class="kw">THEN</span> <span class="kw">'alto'</span>
+            <span class="kw">WHEN</span> monto &gt; 500  <span class="kw">THEN</span> <span class="kw">'medio'</span>
+            <span class="kw">ELSE</span> <span class="kw">'bajo'</span>
+       <span class="kw">END</span> <span class="kw">AS</span> categoria
+<span class="kw">FROM</span> ventas;</pre>
+
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:11rem">Para</th><th>PostgreSQL</th><th>SQL Server</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">Reemplazar NULL</td><td><code>COALESCE(x, 0)</code></td><td><code>ISNULL(x, 0)</code> o <code>COALESCE</code></td></tr>
+        <tr><td class="text-primary">Convertir tipo</td><td><code>x::int</code> o <code>CAST</code></td><td><code>CAST(x AS int)</code></td></tr>
+        <tr><td class="text-primary">Convertir sin fallar</td><td>—</td><td><code>TRY_CAST(x AS int)</code></td></tr>
+        <tr><td class="text-primary">Redondear</td><td><code>ROUND(x, 2)</code></td><td><code>ROUND(x, 2)</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> El NULL contagia.</strong>
+    Cualquier operación con <code>NULL</code> da <code>NULL</code>:
+    <code>100 + NULL</code> es <code>NULL</code>, y <code>'Ana' || NULL</code> también.
+    Si una columna calculada te da vacía sin motivo, buscá el nulo escondido y envolvelo
+    en <code>COALESCE</code>.
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    <code>COALESCE</code> y <code>CASE</code> son estándar y andan en los dos motores.
+    Si escribís pensando en ellos en vez de en <code>ISNULL</code> o <code>IIF</code>,
+    tus consultas se mudan de motor sin tocar nada.
+  </div>
+</section>
+<section id="s06" class="pb-5 mb-5 border-bottom" data-group="Consultar">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 06</p>
+  <h2 class="mb-3">Combinar tablas con JOIN</h2>
+  <p class="mb-4">En una base relacional los datos están repartidos en varias tablas a propósito. El <code>JOIN</code> los vuelve a juntar en el momento de consultarlos, cruzando por una columna en común.</p>
+
+  <h3 class="mt-4 mb-2">La forma base</h3>
+  <pre><span class="kw">SELECT</span> v.id, c.nombre, v.monto
+<span class="kw">FROM</span> ventas v
+<span class="kw">LEFT JOIN</span> clientes c <span class="kw">ON</span> v.id_cliente = c.id;</pre>
+  <p class="mb-4">Se lee: partí de <code>ventas</code>, traé <code>clientes</code>, y emparejá las filas
+  donde <code>id_cliente</code> coincida con <code>id</code>. La tabla del <code>FROM</code> es la izquierda;
+  la del <code>JOIN</code>, la derecha.</p>
+
+  <h3 class="mt-4 mb-2">Qué pasa fila por fila</h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 240" width="100%" role="img" aria-label="Dos tablas y el resultado de un LEFT JOIN, con NULL en la fila sin pareja">
+      <g font-size="9" fill="currentColor" opacity=".85" text-anchor="middle" font-weight="600">
+        <text x="100" y="32">ventas</text><text x="300" y="32">clientes</text>
+      </g>
+      <g stroke="currentColor" opacity=".25" fill="none">
+        <rect x="40" y="40" width="120" height="76"/>
+        <path d="M40 60 h120 M40 78 h120 M40 97 h120 M100 40 v76"/>
+        <rect x="240" y="40" width="120" height="58"/>
+        <path d="M240 60 h120 M240 79 h120 M300 40 v58"/>
+      </g>
+      <g font-size="9" text-anchor="middle">
+        <g fill="currentColor" opacity=".8" font-weight="600">
+          <text x="70" y="54">id_cli</text><text x="130" y="54">monto</text>
+          <text x="270" y="54">id</text><text x="330" y="54">nombre</text>
+        </g>
+        <g fill="currentColor" opacity=".7">
+          <text x="70" y="73">1</text><text x="130" y="73">100</text>
+          <text x="70" y="92">2</text><text x="130" y="92">200</text>
+          <text x="70" y="111">3</text><text x="130" y="111">50</text>
+          <text x="270" y="73">1</text><text x="330" y="73">Ana</text>
+          <text x="270" y="92">2</text><text x="330" y="92">Beto</text>
+        </g>
+      </g>
+      <g stroke="currentColor" opacity=".4" fill="none">
+        <path d="M100 128 L150 156" marker-end="url(#j)"/>
+        <path d="M300 108 L250 156" marker-end="url(#j)"/>
+      </g>
+      <defs><marker id="j" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+        <path d="M0 0 L7 3.5 L0 7 z" fill="currentColor" opacity=".4"/></marker></defs>
+      <text x="200" y="150" font-size="9" fill="currentColor" opacity=".85" text-anchor="middle" font-weight="600">LEFT JOIN</text>
+      <g stroke="currentColor" opacity=".25" fill="none">
+        <rect x="110" y="160" width="180" height="76"/>
+        <path d="M110 180 h180 M110 198 h180 M110 217 h180 M170 160 v76 M230 160 v76"/>
+      </g>
+      <g font-size="9" text-anchor="middle">
+        <g fill="currentColor" opacity=".8" font-weight="600">
+          <text x="140" y="174">id_cli</text><text x="200" y="174">nombre</text><text x="260" y="174">monto</text>
+        </g>
+        <g fill="currentColor" opacity=".7">
+          <text x="140" y="193">1</text><text x="200" y="193">Ana</text><text x="260" y="193">100</text>
+          <text x="140" y="212">2</text><text x="200" y="212">Beto</text><text x="260" y="212">200</text>
+          <text x="140" y="231">3</text><text x="260" y="231">50</text>
+        </g>
+        <text x="200" y="231" fill="var(--bs-danger)" font-weight="600">NULL</text>
+      </g>
+    </svg>
+    <figcaption class="mt-2 small text-body-secondary">
+      La venta 3 no tiene cliente que le corresponda. Con <code>LEFT JOIN</code> la fila igual
+      aparece y las columnas de la derecha quedan en <code>NULL</code>. Con <code>INNER JOIN</code>
+      esa venta desaparecería del resultado.
+    </figcaption>
+  </figure>
+
+  <h3 class="mt-4 mb-2">Los cuatro tipos</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:8rem">Tipo</th><th>Devuelve</th><th class="d-none d-sm-table-cell">Usalo para</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">INNER JOIN</td><td>Solo las filas que coinciden en ambas</td><td class="d-none d-sm-table-cell">Cuando la pareja es obligatoria</td></tr>
+        <tr><td class="text-primary">LEFT JOIN</td><td>Todas las de la izquierda, coincidan o no</td><td class="d-none d-sm-table-cell">Agregar datos sin perder filas</td></tr>
+        <tr><td class="text-primary">RIGHT JOIN</td><td>Igual, pero al revés</td><td class="d-none d-sm-table-cell">Poco usado: se da vuelta el LEFT</td></tr>
+        <tr><td class="text-primary">FULL JOIN</td><td>Todo, de las dos</td><td class="d-none d-sm-table-cell">Comparar dos fuentes</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">Recetario</h3>
+  <pre><span class="cm">-- Cruce simple</span>
+<span class="kw">SELECT</span> v.*, c.nombre
+<span class="kw">FROM</span> ventas v
+<span class="kw">INNER JOIN</span> clientes c <span class="kw">ON</span> v.id_cliente = c.id;
+
+<span class="cm">-- Varias tablas encadenadas</span>
+<span class="kw">SELECT</span> v.id, c.nombre, p.descripcion
+<span class="kw">FROM</span> ventas v
+<span class="kw">LEFT JOIN</span> clientes  c <span class="kw">ON</span> v.id_cliente  = c.id
+<span class="kw">LEFT JOIN</span> productos p <span class="kw">ON</span> v.id_producto = p.id;
+
+<span class="cm">-- Buscar huérfanos: ventas sin cliente cargado</span>
+<span class="kw">SELECT</span> v.*
+<span class="kw">FROM</span> ventas v
+<span class="kw">LEFT JOIN</span> clientes c <span class="kw">ON</span> v.id_cliente = c.id
+<span class="kw">WHERE</span> c.id <span class="kw">IS NULL</span>;
+
+<span class="cm">-- JOIN con condición extra</span>
+<span class="kw">SELECT</span> v.id, c.nombre
+<span class="kw">FROM</span> ventas v
+<span class="kw">LEFT JOIN</span> clientes c
+       <span class="kw">ON</span> v.id_cliente = c.id
+      <span class="kw">AND</span> c.activo = <span class="kw">TRUE</span>;
+
+<span class="cm">-- La tabla consigo misma (jerarquías)</span>
+<span class="kw">SELECT</span> e.nombre <span class="kw">AS</span> empleado, j.nombre <span class="kw">AS</span> jefe
+<span class="kw">FROM</span> empleados e
+<span class="kw">LEFT JOIN</span> empleados j <span class="kw">ON</span> e.id_jefe = j.id;</pre>
+
+  <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> Los tres errores clásicos.</strong>
+    <p class="mb-1 mt-2"><strong>1. Filtrar la tabla derecha en el <code>WHERE</code>.</strong>
+    Poner <code>WHERE c.activo = TRUE</code> convierte tu <code>LEFT JOIN</code> en un
+    <code>INNER JOIN</code> sin que te des cuenta: las filas sin pareja tienen <code>NULL</code>
+    ahí y el filtro las descarta. Si la condición es parte del cruce, va en el <code>ON</code>.</p>
+    <p class="mb-1"><strong>2. Olvidar el <code>ON</code>.</strong>
+    Sin condición de cruce se combina cada fila con todas las de la otra tabla. Con 1.000 y 1.000
+    filas te da un millón de resultados.</p>
+    <p class="mb-0"><strong>3. Que se multipliquen las filas.</strong>
+    Si la clave está repetida en la tabla derecha, cada coincidencia genera una fila.
+    Contá antes: <code>SELECT id, COUNT(*) FROM clientes GROUP BY id HAVING COUNT(*) &gt; 1;</code></p>
+  </div>
+
+  <h3 class="mt-4 mb-2">Diferencias entre motores</h3>
+  <p class="mb-3">En el <code>JOIN</code> en sí no hay ninguna: la sintaxis es idéntica en PostgreSQL
+  y en SQL Server, incluido <code>FULL OUTER JOIN</code>. Lo que cambia es lo que suele acompañarlo,
+  cuando querés quedarte con las primeras filas del cruce:</p>
+  <div class="row g-3 mb-4">
+    <div class="col-md-6">
+      <p class="small fw-semibold text-primary mb-2">PostgreSQL</p>
+      <pre><span class="kw">SELECT</span> c.nombre, <span class="kw">SUM</span>(v.monto) <span class="kw">AS</span> total
+<span class="kw">FROM</span> ventas v
+<span class="kw">JOIN</span> clientes c <span class="kw">ON</span> v.id_cliente = c.id
+<span class="kw">GROUP BY</span> c.nombre
+<span class="kw">ORDER BY</span> total <span class="kw">DESC</span>
+<span class="kw">LIMIT</span> 5;</pre>
+    </div>
+    <div class="col-md-6">
+      <p class="small fw-semibold text-primary mb-2">SQL Server</p>
+      <pre><span class="kw">SELECT TOP</span> 5
+       c.nombre, <span class="kw">SUM</span>(v.monto) <span class="kw">AS</span> total
+<span class="kw">FROM</span> ventas v
+<span class="kw">JOIN</span> clientes c <span class="kw">ON</span> v.id_cliente = c.id
+<span class="kw">GROUP BY</span> c.nombre
+<span class="kw">ORDER BY</span> total <span class="kw">DESC</span>;</pre>
+    </div>
+  </div>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-info-circle"></i> Nota.</strong>
+    <code>INNER JOIN</code> y <code>JOIN</code> a secas son lo mismo en los dos motores, igual que
+    <code>LEFT JOIN</code> y <code>LEFT OUTER JOIN</code>. Escribir la palabra completa es más claro
+    para quien lea la consulta después.
+  </div>
+
+  <h3 class="mt-4 mb-2">Alternativas</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:10rem">En vez de JOIN</th><th>Cuándo conviene</th></tr></thead>
+      <tbody>
+        <tr><td class="font-monospace text-primary">EXISTS</td><td>Solo querés saber si hay coincidencia, sin traer columnas</td></tr>
+        <tr><td class="font-monospace text-primary">IN (subconsulta)</td><td>Filtrar por una lista corta de valores</td></tr>
+        <tr><td class="font-monospace text-primary">UNION ALL</td><td>Apilar filas de dos tablas, no cruzarlas</td></tr>
+        <tr><td class="font-monospace text-primary">WITH … AS</td><td>La consulta creció: partirla en pasos con nombre</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-info-circle"></i> Tip — usá alias siempre.</strong>
+    <code>ventas v</code> y <code>clientes c</code> te ahorran escribir y, sobre todo, evitan el
+    error <code>column reference "id" is ambiguous</code> cuando las dos tablas tienen una columna
+    con el mismo nombre. Con alias siempre queda claro de cuál hablás.
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Ante la duda, <code>LEFT JOIN</code>. Conserva todas las filas de tu tabla principal y los
+    <code>NULL</code> que aparecen te muestran dónde faltan datos. El <code>INNER JOIN</code>
+    borra esas filas en silencio, y ese silencio es el que te hace perder registros sin notarlo.
+  </div>
+</section>
+
+
+<section id="s07" class="pb-5 mb-5 border-bottom" data-group="Consultar">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 07</p>
+  <h2 class="mb-3">Agrupar con GROUP BY</h2>
+  <p class="mb-4">Colapsar muchas filas en una por categoría, calculando un total, un promedio o un conteo. Es la base de cualquier reporte.</p>
+
+  <h3 class="mt-4 mb-2">Dónde filtra cada cláusula</h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 130" width="100%" role="img" aria-label="Las filas pasan por WHERE, luego se agrupan y finalmente HAVING filtra los grupos">
+      <g font-size="9" text-anchor="middle">
+        <rect x="8" y="40" width="76" height="34" rx="3" fill="var(--bs-primary)" opacity=".2"/>
+        <text x="46" y="55" fill="currentColor">1.000</text><text x="46" y="68" fill="currentColor" opacity=".7">filas</text>
+        <rect x="112" y="40" width="76" height="34" rx="3" fill="var(--bs-primary)" opacity=".2"/>
+        <text x="150" y="55" fill="currentColor">600</text><text x="150" y="68" fill="currentColor" opacity=".7">filas</text>
+        <rect x="216" y="40" width="76" height="34" rx="3" fill="var(--bs-primary)" opacity=".2"/>
+        <text x="254" y="55" fill="currentColor">8</text><text x="254" y="68" fill="currentColor" opacity=".7">grupos</text>
+        <rect x="320" y="40" width="72" height="34" rx="3" fill="var(--bs-primary)" opacity=".45"/>
+        <text x="356" y="55" fill="currentColor">3</text><text x="356" y="68" fill="currentColor" opacity=".7">grupos</text>
+      </g>
+      <g stroke="currentColor" opacity=".4" fill="none">
+        <path d="M88 57 h20" marker-end="url(#g7)"/><path d="M192 57 h20" marker-end="url(#g7)"/>
+        <path d="M296 57 h20" marker-end="url(#g7)"/>
+      </g>
+      <defs><marker id="g7" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+        <path d="M0 0 L7 3.5 L0 7 z" fill="currentColor" opacity=".4"/></marker></defs>
+      <g font-size="8" fill="var(--bs-primary)" text-anchor="middle" font-family="monospace">
+        <text x="98" y="30">WHERE</text><text x="202" y="30">GROUP BY</text><text x="308" y="30">HAVING</text>
+      </g>
+      <g font-size="8" fill="currentColor" opacity=".55" text-anchor="middle">
+        <text x="98" y="94">filtra filas</text><text x="202" y="94">junta</text><text x="308" y="94">filtra grupos</text>
+      </g>
+      <text x="200" y="120" font-size="8" fill="currentColor" opacity=".6" text-anchor="middle">
+        WHERE actúa antes de agrupar; HAVING, después</text>
+    </svg>
+    <figcaption class="mt-2 small text-body-secondary">
+      Por eso <code>WHERE</code> no puede usar <code>SUM()</code>: cuando se ejecuta, los grupos
+      todavía no existen. Ese filtro va en <code>HAVING</code>.
+    </figcaption>
+  </figure>
+
+  <h3 class="mt-4 mb-2">Recetario</h3>
+  <pre><span class="cm">-- Las cinco funciones de agregación</span>
+<span class="kw">SELECT</span> <span class="kw">COUNT</span>(*)      <span class="kw">AS</span> filas,
+       <span class="kw">COUNT</span>(mail)   <span class="kw">AS</span> con_mail,   <span class="cm">-- COUNT de columna ignora NULL</span>
+       <span class="kw">SUM</span>(monto)     <span class="kw">AS</span> total,
+       <span class="kw">AVG</span>(monto)     <span class="kw">AS</span> promedio,
+       <span class="kw">MIN</span>(monto)     <span class="kw">AS</span> minimo,
+       <span class="kw">MAX</span>(monto)     <span class="kw">AS</span> maximo
+<span class="kw">FROM</span> ventas;
+
+<span class="cm">-- Por categoría</span>
+<span class="kw">SELECT</span> ciudad, <span class="kw">COUNT</span>(*) <span class="kw">AS</span> ventas, <span class="kw">SUM</span>(monto) <span class="kw">AS</span> total
+<span class="kw">FROM</span> ventas
+<span class="kw">GROUP BY</span> ciudad
+<span class="kw">ORDER BY</span> total <span class="kw">DESC</span>;
+
+<span class="cm">-- Filtrar antes y después de agrupar</span>
+<span class="kw">SELECT</span> ciudad, <span class="kw">SUM</span>(monto) <span class="kw">AS</span> total
+<span class="kw">FROM</span> ventas
+<span class="kw">WHERE</span> fecha &gt;= <span class="kw">'2026-01-01'</span>      <span class="cm">-- filas: antes de agrupar</span>
+<span class="kw">GROUP BY</span> ciudad
+<span class="kw">HAVING</span> <span class="kw">SUM</span>(monto) &gt; 10000       <span class="cm">-- grupos: después</span>
+<span class="kw">ORDER BY</span> total <span class="kw">DESC</span>;
+
+<span class="cm">-- Agrupar por varias columnas</span>
+<span class="kw">SELECT</span> ciudad, vendedor, <span class="kw">SUM</span>(monto) <span class="kw">AS</span> total
+<span class="kw">FROM</span> ventas
+<span class="kw">GROUP BY</span> ciudad, vendedor;
+
+<span class="cm">-- Contar valores distintos</span>
+<span class="kw">SELECT</span> <span class="kw">COUNT</span>(<span class="kw">DISTINCT</span> id_cliente) <span class="kw">AS</span> clientes <span class="kw">FROM</span> ventas;</pre>
+
+  <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> Todo lo del SELECT va en el GROUP BY.</strong>
+    <p class="mb-1 mt-2">Si seleccionás una columna que no está agregada, tiene que estar en el
+    <code>GROUP BY</code>. Los dos motores fallan con
+    <code>column "x" must appear in the GROUP BY clause</code> o su equivalente.</p>
+    <p class="mb-0">Y ojo con <code>COUNT(*)</code> contra <code>COUNT(columna)</code>: el primero
+    cuenta filas, el segundo cuenta valores no nulos. En una columna con nulos dan distinto.</p>
+  </div>
+
+  <h3 class="mt-4 mb-2">WHERE o HAVING</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:8rem">Cláusula</th><th>Filtra</th><th class="d-none d-sm-table-cell">Puede usar</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">WHERE</td><td>Filas, antes de agrupar</td><td class="d-none d-sm-table-cell">Columnas comunes</td></tr>
+        <tr><td class="text-primary">HAVING</td><td>Grupos, después de agrupar</td><td class="d-none d-sm-table-cell">Funciones de agregación</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Si la condición se puede escribir en el <code>WHERE</code>, escribila ahí: filtrar antes de
+    agrupar significa agrupar menos filas, y eso es más rápido. Dejá el <code>HAVING</code>
+    solo para lo que depende del resultado agregado.
+  </div>
+</section>
+
+<section id="s08" class="pb-5 mb-5 border-bottom" data-group="Consultar">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 08</p>
+  <h2 class="mb-3">Subconsultas y CTE</h2>
+  <p class="mb-4">Usar el resultado de una consulta dentro de otra. Sirve para resolver en pasos lo que no entra en una sola sentencia.</p>
+
+  <h3 class="mt-4 mb-2">Las tres formas</h3>
+  <pre><span class="cm">-- 1. Subconsulta que devuelve UN valor</span>
+<span class="kw">SELECT</span> nombre, monto
+<span class="kw">FROM</span> ventas
+<span class="kw">WHERE</span> monto &gt; (<span class="kw">SELECT</span> <span class="kw">AVG</span>(monto) <span class="kw">FROM</span> ventas);
+
+<span class="cm">-- 2. Subconsulta que devuelve UNA LISTA</span>
+<span class="kw">SELECT</span> *
+<span class="kw">FROM</span> clientes
+<span class="kw">WHERE</span> id <span class="kw">IN</span> (<span class="kw">SELECT</span> id_cliente <span class="kw">FROM</span> ventas <span class="kw">WHERE</span> monto &gt; 5000);
+
+<span class="cm">-- 3. Subconsulta como tabla (hay que ponerle alias)</span>
+<span class="kw">SELECT</span> ciudad, total
+<span class="kw">FROM</span> (<span class="kw">SELECT</span> ciudad, <span class="kw">SUM</span>(monto) <span class="kw">AS</span> total
+      <span class="kw">FROM</span> ventas <span class="kw">GROUP BY</span> ciudad) t
+<span class="kw">WHERE</span> total &gt; 10000;</pre>
+
+  <h3 class="mt-4 mb-2">CTE: lo mismo, pero legible</h3>
+  <p class="mb-3">Un <code>WITH</code> le pone nombre a cada paso y se lee de arriba hacia abajo.
+  Funciona igual en los dos motores y es la forma recomendada cuando la consulta crece:</p>
+  <pre><span class="kw">WITH</span> ventas_2026 <span class="kw">AS</span> (
+    <span class="kw">SELECT</span> * <span class="kw">FROM</span> ventas <span class="kw">WHERE</span> fecha &gt;= <span class="kw">'2026-01-01'</span>
+),
+totales <span class="kw">AS</span> (
+    <span class="kw">SELECT</span> ciudad, <span class="kw">SUM</span>(monto) <span class="kw">AS</span> total
+    <span class="kw">FROM</span> ventas_2026
+    <span class="kw">GROUP BY</span> ciudad
+)
+<span class="kw">SELECT</span> ciudad, total
+<span class="kw">FROM</span> totales
+<span class="kw">WHERE</span> total &gt; 10000
+<span class="kw">ORDER BY</span> total <span class="kw">DESC</span>;</pre>
+
+  <h3 class="mt-4 mb-2">EXISTS, la más eficiente para "¿hay alguno?"</h3>
+  <pre><span class="cm">-- Clientes que compraron alguna vez</span>
+<span class="kw">SELECT</span> c.*
+<span class="kw">FROM</span> clientes c
+<span class="kw">WHERE EXISTS</span> (<span class="kw">SELECT</span> 1 <span class="kw">FROM</span> ventas v <span class="kw">WHERE</span> v.id_cliente = c.id);
+
+<span class="cm">-- Clientes que nunca compraron</span>
+<span class="kw">SELECT</span> c.*
+<span class="kw">FROM</span> clientes c
+<span class="kw">WHERE NOT EXISTS</span> (<span class="kw">SELECT</span> 1 <span class="kw">FROM</span> ventas v <span class="kw">WHERE</span> v.id_cliente = c.id);</pre>
+
+  <h3 class="mt-4 mb-2">Cuál usar</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:10rem">Forma</th><th>Cuándo</th></tr></thead>
+      <tbody>
+        <tr><td class="font-monospace text-primary">WITH … AS</td><td>Por defecto: la consulta tiene más de un paso</td></tr>
+        <tr><td class="font-monospace text-primary">EXISTS</td><td>Solo importa si hay coincidencia, no los datos</td></tr>
+        <tr><td class="font-monospace text-primary">IN (subconsulta)</td><td>Lista corta y sin nulos</td></tr>
+        <tr><td class="font-monospace text-primary">JOIN</td><td>Necesitás columnas de la otra tabla</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> <code>NOT IN</code> y los nulos.</strong>
+    Si la subconsulta de un <code>NOT IN</code> devuelve aunque sea un <code>NULL</code>,
+    el resultado es cero filas. Siempre. Usá <code>NOT EXISTS</code>, que no tiene ese problema.
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Ante una consulta que no te sale, partila en CTE. Cada <code>WITH</code> lo podés probar por
+    separado hasta que devuelva lo que esperás, y después encadenarlos.
+  </div>
+</section>
+
+<section id="s09" class="pb-5 mb-5 border-bottom" data-group="Consultar">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 09</p>
+  <h2 class="mb-3">Funciones de ventana</h2>
+  <p class="mb-4">Calcular un valor agregado sin perder el detalle de cada fila. Es lo que permite responder "cuánto representa esta venta sobre el total de su ciudad" en una sola consulta.</p>
+
+  <h3 class="mt-4 mb-2">La diferencia con GROUP BY</h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 145" width="100%" role="img" aria-label="GROUP BY colapsa las filas, OVER las conserva y agrega una columna">
+      <g font-size="8" text-anchor="middle">
+        <text x="98" y="18" fill="currentColor" opacity=".85" font-weight="600" font-family="monospace">GROUP BY</text>
+        <text x="292" y="18" fill="currentColor" opacity=".85" font-weight="600" font-family="monospace">OVER (PARTITION BY)</text>
+      </g>
+      <g stroke="currentColor" opacity=".25" fill="none">
+        <rect x="24" y="30" width="70" height="72"/><path d="M24 48 h70 M24 66 h70 M24 84 h70"/>
+        <rect x="128" y="48" width="70" height="36"/><path d="M128 66 h70"/>
+        <rect x="222" y="30" width="70" height="72"/><path d="M222 48 h70 M222 66 h70 M222 84 h70"/>
+        <rect x="322" y="30" width="56" height="72"/><path d="M322 48 h56 M322 66 h56 M322 84 h56"/>
+      </g>
+      <g font-size="8" fill="currentColor" opacity=".7" text-anchor="middle">
+        <text x="42" y="43">A</text><text x="42" y="61">A</text><text x="42" y="79">B</text><text x="42" y="97">B</text>
+        <text x="76" y="43">10</text><text x="76" y="61">20</text><text x="76" y="79">4</text><text x="76" y="97">6</text>
+        <text x="146" y="61">A</text><text x="146" y="79">B</text>
+        <text x="180" y="61">30</text><text x="180" y="79">10</text>
+        <text x="240" y="43">A</text><text x="240" y="61">A</text><text x="240" y="79">B</text><text x="240" y="97">B</text>
+        <text x="274" y="43">10</text><text x="274" y="61">20</text><text x="274" y="79">4</text><text x="274" y="97">6</text>
+      </g>
+      <g font-size="8" fill="var(--bs-primary)" text-anchor="middle" font-weight="600">
+        <text x="350" y="43">30</text><text x="350" y="61">30</text><text x="350" y="79">10</text><text x="350" y="97">10</text>
+      </g>
+      <g stroke="currentColor" opacity=".4" fill="none">
+        <path d="M100 66 h20" marker-end="url(#w9)"/><path d="M298 66 h18" marker-end="url(#w9)"/>
+      </g>
+      <defs><marker id="w9" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+        <path d="M0 0 L7 3.5 L0 7 z" fill="currentColor" opacity=".4"/></marker></defs>
+      <g font-size="8" fill="currentColor" opacity=".6" text-anchor="middle">
+        <text x="110" y="120">4 filas → 2</text>
+        <text x="300" y="120">4 filas → 4, con el total al lado</text>
+      </g>
+    </svg>
+    <figcaption class="mt-2 small text-body-secondary">
+      <code>GROUP BY</code> colapsa: perdés el detalle. <code>OVER</code> conserva todas las filas
+      y agrega el cálculo como una columna más.
+    </figcaption>
+  </figure>
+
+  <h3 class="mt-4 mb-2">Recetario — igual en los dos motores</h3>
+  <pre><span class="cm">-- Total de la ciudad al lado de cada venta</span>
+<span class="kw">SELECT</span> id, ciudad, monto,
+       <span class="kw">SUM</span>(monto) <span class="kw">OVER</span> (<span class="kw">PARTITION BY</span> ciudad) <span class="kw">AS</span> total_ciudad
+<span class="kw">FROM</span> ventas;
+
+<span class="cm">-- Numerar y rankear</span>
+<span class="kw">SELECT</span> nombre, monto,
+       <span class="kw">ROW_NUMBER</span>() <span class="kw">OVER</span> (<span class="kw">ORDER BY</span> monto <span class="kw">DESC</span>) <span class="kw">AS</span> puesto,
+       <span class="kw">RANK</span>()       <span class="kw">OVER</span> (<span class="kw">ORDER BY</span> monto <span class="kw">DESC</span>) <span class="kw">AS</span> rank_con_empates
+<span class="kw">FROM</span> ventas;
+
+<span class="cm">-- El top 3 de cada ciudad</span>
+<span class="kw">WITH</span> ranking <span class="kw">AS</span> (
+    <span class="kw">SELECT</span> *, <span class="kw">ROW_NUMBER</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION BY</span> ciudad
+                                <span class="kw">ORDER BY</span> monto <span class="kw">DESC</span>) <span class="kw">AS</span> pos
+    <span class="kw">FROM</span> ventas
+)
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> ranking <span class="kw">WHERE</span> pos &lt;= 3;
+
+<span class="cm">-- Comparar con la fila anterior</span>
+<span class="kw">SELECT</span> mes, total,
+       <span class="kw">LAG</span>(total) <span class="kw">OVER</span> (<span class="kw">ORDER BY</span> mes) <span class="kw">AS</span> mes_anterior,
+       total - <span class="kw">LAG</span>(total) <span class="kw">OVER</span> (<span class="kw">ORDER BY</span> mes) <span class="kw">AS</span> variacion
+<span class="kw">FROM</span> resumen_mensual;
+
+<span class="cm">-- Acumulado</span>
+<span class="kw">SELECT</span> fecha, monto,
+       <span class="kw">SUM</span>(monto) <span class="kw">OVER</span> (<span class="kw">ORDER BY</span> fecha) <span class="kw">AS</span> acumulado
+<span class="kw">FROM</span> ventas;</pre>
+
+  <h3 class="mt-4 mb-2">Las que más se usan</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:10rem">Función</th><th>Devuelve</th></tr></thead>
+      <tbody>
+        <tr><td class="font-monospace text-primary">ROW_NUMBER()</td><td>1, 2, 3… sin empates</td></tr>
+        <tr><td class="font-monospace text-primary">RANK()</td><td>Empata y saltea: 1, 1, 3</td></tr>
+        <tr><td class="font-monospace text-primary">DENSE_RANK()</td><td>Empata sin saltear: 1, 1, 2</td></tr>
+        <tr><td class="font-monospace text-primary">LAG() / LEAD()</td><td>El valor de la fila anterior o siguiente</td></tr>
+        <tr><td class="font-monospace text-primary">SUM() OVER</td><td>Total del grupo, o acumulado si hay ORDER BY</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> No se pueden usar en el WHERE.</strong>
+    Las funciones de ventana se calculan después del <code>WHERE</code> y del <code>GROUP BY</code>.
+    Para filtrar por un <code>ROW_NUMBER()</code> hay que calcularlo en un CTE y filtrar afuera,
+    como en el ejemplo del top 3.
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Leé <code>OVER (PARTITION BY x ORDER BY y)</code> como "para cada <code>x</code>, ordenando por
+    <code>y</code>". <code>PARTITION BY</code> es el <code>GROUP BY</code> de la ventana, y
+    <code>ORDER BY</code> define si el cálculo es del grupo entero o acumulado hasta esa fila.
+  </div>
+</section>
+
+<section id="s10" class="pb-5 mb-5 border-bottom" data-group="Modificar">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 10</p>
+  <h2 class="mb-3">Insertar, actualizar y borrar</h2>
+  <p class="mb-4">Las tres sentencias que modifican datos. A diferencia de un <code>SELECT</code>, acá un error deja consecuencias.</p>
+
+  <h3 class="mt-4 mb-2">Recetario — igual en los dos motores</h3>
+  <pre><span class="cm">-- Insertar</span>
+<span class="kw">INSERT INTO</span> clientes (nombre, ciudad, alta)
+<span class="kw">VALUES</span> (<span class="kw">'Ana'</span>, <span class="kw">'CABA'</span>, <span class="kw">'2026-03-01'</span>);
+
+<span class="cm">-- Varias filas de una vez</span>
+<span class="kw">INSERT INTO</span> clientes (nombre, ciudad)
+<span class="kw">VALUES</span> (<span class="kw">'Ana'</span>, <span class="kw">'CABA'</span>),
+       (<span class="kw">'Beto'</span>, <span class="kw">'Rosario'</span>);
+
+<span class="cm">-- Insertar el resultado de una consulta</span>
+<span class="kw">INSERT INTO</span> resumen (ciudad, total)
+<span class="kw">SELECT</span> ciudad, <span class="kw">SUM</span>(monto) <span class="kw">FROM</span> ventas <span class="kw">GROUP BY</span> ciudad;
+
+<span class="cm">-- Actualizar</span>
+<span class="kw">UPDATE</span> clientes
+<span class="kw">SET</span> ciudad = <span class="kw">'CABA'</span>, activo = <span class="kw">TRUE</span>
+<span class="kw">WHERE</span> id = 42;
+
+<span class="cm">-- Borrar</span>
+<span class="kw">DELETE FROM</span> clientes <span class="kw">WHERE</span> id = 42;</pre>
+
+  <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> Sin WHERE, afecta todo.</strong>
+    <p class="mb-1 mt-2"><code>UPDATE clientes SET activo = FALSE;</code> da de baja a todos.
+    <code>DELETE FROM clientes;</code> vacía la tabla. Ninguna de las dos pide confirmación.</p>
+    <p class="mb-0"><strong>Costumbre que salva:</strong> escribí primero el <code>SELECT</code> con
+    ese mismo <code>WHERE</code>. Si devuelve las filas que esperabas, recién ahí cambiás
+    <code>SELECT *</code> por <code>UPDATE</code> o <code>DELETE</code>.</p>
+  </div>
+
+  <h3 class="mt-4 mb-2">Diferencias entre motores</h3>
+  <div class="row g-3 mb-4">
+    <div class="col-md-6">
+      <p class="small fw-semibold text-primary mb-2">PostgreSQL</p>
+      <pre><span class="cm">-- Ver lo que se insertó</span>
+<span class="kw">INSERT INTO</span> clientes (nombre)
+<span class="kw">VALUES</span> (<span class="kw">'Ana'</span>)
+<span class="kw">RETURNING</span> id;
+
+<span class="cm">-- UPDATE con otra tabla</span>
+<span class="kw">UPDATE</span> ventas v
+<span class="kw">SET</span> zona = c.zona
+<span class="kw">FROM</span> clientes c
+<span class="kw">WHERE</span> v.id_cliente = c.id;
+
+<span class="cm">-- Transacción</span>
+<span class="kw">BEGIN</span>;
+  <span class="kw">UPDATE</span> …;
+<span class="kw">COMMIT</span>;   <span class="cm">-- o ROLLBACK;</span></pre>
+    </div>
+    <div class="col-md-6">
+      <p class="small fw-semibold text-primary mb-2">SQL Server</p>
+      <pre><span class="cm">-- Ver lo que se insertó</span>
+<span class="kw">INSERT INTO</span> clientes (nombre)
+<span class="kw">OUTPUT INSERTED</span>.id
+<span class="kw">VALUES</span> (<span class="kw">'Ana'</span>);
+
+<span class="cm">-- UPDATE con otra tabla</span>
+<span class="kw">UPDATE</span> v
+<span class="kw">SET</span> v.zona = c.zona
+<span class="kw">FROM</span> ventas v
+<span class="kw">JOIN</span> clientes c <span class="kw">ON</span> v.id_cliente = c.id;
+
+<span class="cm">-- Transacción</span>
+<span class="kw">BEGIN TRANSACTION</span>;
+  <span class="kw">UPDATE</span> …;
+<span class="kw">COMMIT</span>;   <span class="cm">-- o ROLLBACK;</span></pre>
+    </div>
+  </div>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-info-circle"></i> Tip — probá dentro de una transacción.</strong>
+    Abrí la transacción, corré el <code>UPDATE</code>, verificá con un <code>SELECT</code> que
+    quedó como querías, y recién ahí <code>COMMIT</code>. Si algo salió mal,
+    <code>ROLLBACK</code> deja todo como estaba.
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    <code>DELETE</code> borra filas y se puede filtrar; <code>TRUNCATE</code> vacía la tabla entera
+    de un saque y es mucho más rápido, pero no admite <code>WHERE</code> ni se deshace con la misma
+    facilidad. Para limpiar una tabla de trabajo, <code>TRUNCATE</code>; para todo lo demás,
+    <code>DELETE</code> con <code>WHERE</code>.
+  </div>
+</section>
+
+<section id="s11" class="pb-5 mb-5 border-bottom" data-group="Modificar">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 11</p>
+  <h2 class="mb-3">Crear tablas</h2>
+  <p class="mb-4">Definir la estructura: qué columnas hay, de qué tipo, y qué reglas garantizan que los datos tengan sentido.</p>
+
+  <h3 class="mt-4 mb-2">Una tabla con sus restricciones</h3>
+  <div class="row g-3 mb-4">
+    <div class="col-md-6">
+      <p class="small fw-semibold text-primary mb-2">PostgreSQL</p>
+      <pre><span class="kw">CREATE TABLE</span> clientes (
+  id      <span class="kw">INT GENERATED ALWAYS AS IDENTITY</span>
+          <span class="kw">PRIMARY KEY</span>,
+  nombre  <span class="kw">VARCHAR</span>(100) <span class="kw">NOT NULL</span>,
+  mail    <span class="kw">VARCHAR</span>(150) <span class="kw">UNIQUE</span>,
+  saldo   <span class="kw">NUMERIC</span>(12,2) <span class="kw">DEFAULT</span> 0,
+  activo  <span class="kw">BOOLEAN</span> <span class="kw">DEFAULT TRUE</span>,
+  alta    <span class="kw">DATE</span> <span class="kw">DEFAULT CURRENT_DATE</span>
+);</pre>
+    </div>
+    <div class="col-md-6">
+      <p class="small fw-semibold text-primary mb-2">SQL Server</p>
+      <pre><span class="kw">CREATE TABLE</span> clientes (
+  id      <span class="kw">INT IDENTITY</span>(1,1)
+          <span class="kw">PRIMARY KEY</span>,
+  nombre  <span class="kw">VARCHAR</span>(100) <span class="kw">NOT NULL</span>,
+  mail    <span class="kw">VARCHAR</span>(150) <span class="kw">UNIQUE</span>,
+  saldo   <span class="kw">DECIMAL</span>(12,2) <span class="kw">DEFAULT</span> 0,
+  activo  <span class="kw">BIT</span> <span class="kw">DEFAULT</span> 1,
+  alta    <span class="kw">DATE</span> <span class="kw">DEFAULT</span> <span class="kw">GETDATE</span>()
+);</pre>
+    </div>
+  </div>
+
+  <h3 class="mt-4 mb-2">Tipos de dato equivalentes</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:9rem">Para guardar</th><th>PostgreSQL</th><th>SQL Server</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">Texto corto</td><td><code>VARCHAR(n)</code></td><td><code>VARCHAR(n)</code> / <code>NVARCHAR(n)</code></td></tr>
+        <tr><td class="text-primary">Texto largo</td><td><code>TEXT</code></td><td><code>VARCHAR(MAX)</code></td></tr>
+        <tr><td class="text-primary">Entero</td><td><code>INTEGER</code> / <code>BIGINT</code></td><td><code>INT</code> / <code>BIGINT</code></td></tr>
+        <tr><td class="text-primary">Decimal exacto</td><td><code>NUMERIC(p,s)</code></td><td><code>DECIMAL(p,s)</code></td></tr>
+        <tr><td class="text-primary">Verdadero/falso</td><td><code>BOOLEAN</code></td><td><code>BIT</code></td></tr>
+        <tr><td class="text-primary">Fecha y hora</td><td><code>TIMESTAMP</code></td><td><code>DATETIME2</code></td></tr>
+        <tr><td class="text-primary">JSON</td><td><code>JSONB</code></td><td><code>NVARCHAR(MAX)</code> + funciones JSON</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">Claves y relaciones</h3>
+  <pre><span class="cm">-- Clave foránea: garantiza que el cliente exista</span>
+<span class="kw">CREATE TABLE</span> ventas (
+  id          <span class="kw">INT PRIMARY KEY</span>,
+  id_cliente  <span class="kw">INT</span> <span class="kw">NOT NULL</span> <span class="kw">REFERENCES</span> clientes(id),
+  monto       <span class="kw">NUMERIC</span>(12,2) <span class="kw">CHECK</span> (monto &gt;= 0),
+  fecha       <span class="kw">DATE</span> <span class="kw">NOT NULL</span>
+);
+
+<span class="cm">-- Modificar una tabla existente</span>
+<span class="kw">ALTER TABLE</span> clientes <span class="kw">ADD</span> telefono <span class="kw">VARCHAR</span>(30);
+<span class="kw">ALTER TABLE</span> clientes <span class="kw">DROP COLUMN</span> telefono;
+<span class="kw">DROP TABLE</span> clientes;</pre>
+
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:9rem">Restricción</th><th>Garantiza</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">PRIMARY KEY</td><td>Identifica cada fila: único y no nulo</td></tr>
+        <tr><td class="text-primary">FOREIGN KEY</td><td>El valor existe en la otra tabla</td></tr>
+        <tr><td class="text-primary">UNIQUE</td><td>No se repite</td></tr>
+        <tr><td class="text-primary">NOT NULL</td><td>Siempre tiene valor</td></tr>
+        <tr><td class="text-primary">CHECK</td><td>Cumple una condición</td></tr>
+        <tr><td class="text-primary">DEFAULT</td><td>Valor si no se especifica</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Las restricciones no son burocracia: son la única garantía real de que los datos van a seguir
+    teniendo sentido dentro de un año. Lo que no declarás en la tabla, tarde o temprano se rompe
+    desde alguna aplicación.
+  </div>
+</section>
+
+<section id="s12" class="pb-5 mb-5 border-bottom" data-group="Modificar">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 12</p>
+  <h2 class="mb-3">Índices y rendimiento</h2>
+  <p class="mb-4">Cuando una consulta tarda, casi siempre es porque el motor está leyendo la tabla entera. Un índice es un atajo para encontrar filas sin recorrer todo.</p>
+
+  <h3 class="mt-4 mb-2">Crear un índice — igual en los dos</h3>
+  <pre><span class="kw">CREATE INDEX</span> idx_ventas_fecha <span class="kw">ON</span> ventas(fecha);
+<span class="kw">CREATE INDEX</span> idx_ventas_cli <span class="kw">ON</span> ventas(id_cliente);
+<span class="kw">CREATE INDEX</span> idx_compuesto <span class="kw">ON</span> ventas(ciudad, fecha);   <span class="cm">-- el orden importa</span>
+<span class="kw">DROP INDEX</span> idx_ventas_fecha;</pre>
+
+  <h3 class="mt-4 mb-2">Qué conviene indexar</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:9rem">Indexar</th><th>No indexar</th></tr></thead>
+      <tbody>
+        <tr><td>Columnas del <code>WHERE</code> frecuente</td><td>Tablas chicas: leerlas entera es más rápido</td></tr>
+        <tr><td>Claves foráneas usadas en <code>JOIN</code></td><td>Columnas con pocos valores distintos</td></tr>
+        <tr><td>Columnas del <code>ORDER BY</code> habitual</td><td>Tablas con muchísima escritura</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">Ver qué está haciendo el motor</h3>
+  <div class="row g-3 mb-4">
+    <div class="col-md-6">
+      <p class="small fw-semibold text-primary mb-2">PostgreSQL</p>
+      <pre><span class="kw">EXPLAIN ANALYZE</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> ventas
+<span class="kw">WHERE</span> fecha &gt;= <span class="kw">'2026-01-01'</span>;
+
+<span class="cm">-- Buscá en la salida:</span>
+<span class="cm">--   Seq Scan  → lee todo (mal)</span>
+<span class="cm">--   Index Scan → usa el índice</span></pre>
+    </div>
+    <div class="col-md-6">
+      <p class="small fw-semibold text-primary mb-2">SQL Server</p>
+      <pre><span class="kw">SET STATISTICS IO ON</span>;
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> ventas
+<span class="kw">WHERE</span> fecha &gt;= <span class="kw">'2026-01-01'</span>;
+
+<span class="cm">-- O el plan gráfico en SSMS:</span>
+<span class="cm">--   Table Scan → lee todo (mal)</span>
+<span class="cm">--   Index Seek → usa el índice</span></pre>
+    </div>
+  </div>
+
+  <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> El índice se anula si envolvés la columna.</strong>
+    <code>WHERE YEAR(fecha) = 2026</code> obliga a calcular la función en cada fila, así que el
+    índice sobre <code>fecha</code> queda inservible. Reescribilo como un rango:
+    <code>WHERE fecha &gt;= '2026-01-01' AND fecha &lt; '2027-01-01'</code>. Lo mismo con
+    <code>LIKE '%texto%'</code>: el comodín al principio impide usar el índice.
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Los índices aceleran la lectura y frenan la escritura, porque hay que mantenerlos en cada
+    <code>INSERT</code> y <code>UPDATE</code>. No indexes por las dudas: medí primero cuál consulta
+    es lenta, y creá el índice que esa consulta necesita.
+  </div>
+</section>
+
+<section id="s13" data-group="Cierre">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 13</p>
+  <h2 class="mb-3">Recetario y equivalencias</h2>
+  <p class="mb-4">La tabla de traducción completa y las consultas que más vas a repetir.</p>
+
+  <h3 class="mt-4 mb-2">PostgreSQL ↔ SQL Server</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:10rem">Para</th><th>PostgreSQL</th><th>SQL Server</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">Limitar filas</td><td><code>LIMIT 10</code></td><td><code>TOP 10</code></td></tr>
+        <tr><td class="text-primary">Paginar</td><td><code>LIMIT 10 OFFSET 20</code></td><td><code>OFFSET 20 ROWS FETCH NEXT 10 ROWS ONLY</code></td></tr>
+        <tr><td class="text-primary">Unir texto</td><td><code>a || b</code></td><td><code>a + b</code></td></tr>
+        <tr><td class="text-primary">Largo de texto</td><td><code>LENGTH(x)</code></td><td><code>LEN(x)</code></td></tr>
+        <tr><td class="text-primary">Buscar en texto</td><td><code>POSITION('a' IN x)</code></td><td><code>CHARINDEX('a', x)</code></td></tr>
+        <tr><td class="text-primary">Ignorar mayúsculas</td><td><code>ILIKE</code></td><td><code>LIKE</code></td></tr>
+        <tr><td class="text-primary">Fecha de hoy</td><td><code>CURRENT_DATE</code></td><td><code>CAST(GETDATE() AS DATE)</code></td></tr>
+        <tr><td class="text-primary">Extraer el año</td><td><code>EXTRACT(YEAR FROM f)</code></td><td><code>YEAR(f)</code></td></tr>
+        <tr><td class="text-primary">Sumar días</td><td><code>f + INTERVAL '7 days'</code></td><td><code>DATEADD(DAY, 7, f)</code></td></tr>
+        <tr><td class="text-primary">Diferencia de días</td><td><code>fin - inicio</code></td><td><code>DATEDIFF(DAY, inicio, fin)</code></td></tr>
+        <tr><td class="text-primary">Reemplazar NULL</td><td><code>COALESCE(x, 0)</code></td><td><code>ISNULL(x, 0)</code></td></tr>
+        <tr><td class="text-primary">Convertir tipo</td><td><code>x::int</code></td><td><code>CAST(x AS int)</code></td></tr>
+        <tr><td class="text-primary">Autoincremental</td><td><code>GENERATED ALWAYS AS IDENTITY</code></td><td><code>IDENTITY(1,1)</code></td></tr>
+        <tr><td class="text-primary">Booleano</td><td><code>BOOLEAN</code></td><td><code>BIT</code></td></tr>
+        <tr><td class="text-primary">Ver lo insertado</td><td><code>RETURNING id</code></td><td><code>OUTPUT INSERTED.id</code></td></tr>
+        <tr><td class="text-primary">Comillas de nombre</td><td><code>"tabla"</code></td><td><code>[tabla]</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">Consultas que siempre se repiten</h3>
+  <pre><span class="cm">-- Cuántas filas hay y cuántos duplicados</span>
+<span class="kw">SELECT</span> <span class="kw">COUNT</span>(*) <span class="kw">FROM</span> tabla;
+<span class="kw">SELECT</span> id, <span class="kw">COUNT</span>(*) <span class="kw">FROM</span> tabla <span class="kw">GROUP BY</span> id <span class="kw">HAVING</span> <span class="kw">COUNT</span>(*) &gt; 1;
+
+<span class="cm">-- Cuántos nulos tiene una columna</span>
+<span class="kw">SELECT</span> <span class="kw">COUNT</span>(*) <span class="kw">FROM</span> tabla <span class="kw">WHERE</span> col <span class="kw">IS NULL</span>;
+
+<span class="cm">-- Qué valores distintos hay y con qué frecuencia</span>
+<span class="kw">SELECT</span> col, <span class="kw">COUNT</span>(*) <span class="kw">AS</span> veces
+<span class="kw">FROM</span> tabla <span class="kw">GROUP BY</span> col <span class="kw">ORDER BY</span> veces <span class="kw">DESC</span>;
+
+<span class="cm">-- Filas de una tabla que no tienen pareja en la otra</span>
+<span class="kw">SELECT</span> a.* <span class="kw">FROM</span> a
+<span class="kw">LEFT JOIN</span> b <span class="kw">ON</span> a.id = b.id_a
+<span class="kw">WHERE</span> b.id_a <span class="kw">IS NULL</span>;
+
+<span class="cm">-- El registro más reciente de cada grupo</span>
+<span class="kw">WITH</span> r <span class="kw">AS</span> (
+  <span class="kw">SELECT</span> *, <span class="kw">ROW_NUMBER</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION BY</span> id_cliente
+                              <span class="kw">ORDER BY</span> fecha <span class="kw">DESC</span>) <span class="kw">AS</span> n
+  <span class="kw">FROM</span> ventas
+)
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> r <span class="kw">WHERE</span> n = 1;</pre>
+
+  <h3 class="mt-4 mb-2">Los errores que más se repiten</h3>
+  <div class="list-group list-group-flush mb-4">
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">01</span><span><code>UPDATE</code> o <code>DELETE</code> sin <code>WHERE</code></span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">02</span><span>Comparar contra <code>NULL</code> con <code>=</code> en vez de <code>IS NULL</code></span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">03</span><span>Usar un alias del <code>SELECT</code> dentro del <code>WHERE</code></span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">04</span><span>Filtrar la tabla derecha de un <code>LEFT JOIN</code> en el <code>WHERE</code></span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">05</span><span>Mezclar <code>AND</code> y <code>OR</code> sin paréntesis</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">06</span><span><code>NOT IN</code> contra una subconsulta que devuelve nulos</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">07</span><span>Envolver la columna en una función y anular el índice</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">08</span><span><code>JOIN</code> sin verificar si se multiplicaron las filas</span></div>
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Escribí pensando en el SQL estándar y usá las particularidades de cada motor solo cuando
+    hagan falta. Un <code>COALESCE</code> en vez de un <code>ISNULL</code>, o un
+    <code>CASE</code> en vez de un <code>IIF</code>, no te cuestan nada hoy y te ahorran
+    reescribir todo el día que cambies de base.
+  </div>
+</section>
+<footer class="pt-3 mt-4 border-top small text-body-secondary">By F. Suárez · 2026 · Saludos pal IFTS 24</footer>
+</main>
+
+<div class="bottombar d-lg-none">
+  <div class="d-flex justify-content-between align-items-center py-2 px-3">
+    <span class="small text-body-secondary text-truncate me-2" id="crumb"></span>
+    <div class="d-flex gap-1 flex-shrink-0">
+      <button class="btn btn-sm border-0 theme-btn"><i class="bi bi-moon fs-5"></i></button>
+      <button class="btn btn-sm border-0" data-bs-toggle="offcanvas" data-bs-target="#toc">
+        <i class="bi bi-list fs-5"></i></button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/guia.js"></script>
+</body>
+</html>
