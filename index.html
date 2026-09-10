@@ -64,13 +64,13 @@ const GUIAS = [
     area: 'Estadística', temas: ['media / σ / CV', 'cuartiles', 'normal', 'regresión'],
     partes: '15 secciones', estado: 'lista',
   },
-  /* ── Borrá o completá estas tres ── */
   {
-    url: '', emoji: '🐼', titulo: 'pandas',
+    url: 'pandas/index.html', emoji: '🐼', titulo: 'pandas',
     resumen: 'Selección, filtrado, groupby, merge y limpieza de datos.',
     area: 'Datos', temas: ['loc / iloc', 'groupby', 'merge'],
-    partes: '', estado: 'pendiente',
+    partes: '14 secciones', estado: 'lista',
   },
+  /* ── Borrá o completá estas dos ── */
   {
     url: '', emoji: '🔢', titulo: 'NumPy',
     resumen: 'Arrays, operaciones vectorizadas y broadcasting.',
@@ -97,7 +97,7 @@ const filtros = document.getElementById('filtros');
 /* ── Tarjeta ── */
 const tarjeta = g => {
   const e     = ESTADO[g.estado];
-  const viva  = g.estado === 'lista';
+  const viva  = Boolean(g.url);          // se puede abrir si tiene destino
   const temas = g.temas.map(t =>
     `<span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">${t}</span>`).join('');
 

@@ -12,6 +12,7 @@ con ejemplos, tablas de referencia y alternativas.
 | [Python](https://fedetrus.github.io/guias/python/) | Tipos, condicionales, bucles, errores, estructuras y funciones · 10 módulos |
 | [Análisis Exploratorio de Datos](https://fedetrus.github.io/guias/eda/) | pandas y seaborn: tipos, faltantes, distribuciones, outliers y correlación · 11 secciones |
 | [Probabilidad y Estadística](https://fedetrus.github.io/guias/estadistica/) | Descriptiva, probabilidad y regresión lineal simple · 15 secciones |
+| [pandas](https://fedetrus.github.io/guias/pandas/) | Cargar, seleccionar, transformar, agrupar y combinar datos · 14 secciones |
 
 ## Estructura
 
@@ -22,7 +23,8 @@ con ejemplos, tablas de referencia y alternativas.
 │   └── guia.js         índice, sección activa y tema claro/oscuro
 ├── python/index.html
 ├── eda/index.html
-└── estadistica/index.html
+├── estadistica/index.html
+└── pandas/index.html
 ```
 
 Todo es HTML estático sobre [Bootstrap 5.3](https://getbootstrap.com/). No hay build ni dependencias:
