@@ -15,6 +15,7 @@ con ejemplos, tablas de referencia y alternativas.
 | [pandas](https://fedetrus.github.io/guias/pandas/) | Cargar, seleccionar, transformar, agrupar y combinar datos · 14 secciones |
 | [SQL](https://fedetrus.github.io/guias/sql/) | Consultas, joins, agregaciones y ventanas, en PostgreSQL y SQL Server a la vez · 13 secciones |
 | [NumPy](https://fedetrus.github.io/guias/numpy/) | Arrays, vectorización, broadcasting y álgebra lineal · 12 secciones |
+| [Git y GitHub](https://fedetrus.github.io/guias/git/) | Commits, ramas, pull requests y el flujo de un equipo, enfocada en Windows · 14 secciones |
 
 ## Estructura
 
@@ -28,7 +29,8 @@ con ejemplos, tablas de referencia y alternativas.
 ├── estadistica/index.html
 ├── pandas/index.html
 ├── sql/index.html
-└── numpy/index.html
+├── numpy/index.html
+└── git/index.html
 ```
 
 Todo es HTML estático sobre [Bootstrap 5.3](https://getbootstrap.com/). No hay build ni dependencias:

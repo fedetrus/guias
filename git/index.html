@@ -1,0 +1,1447 @@
+<!doctype html>
+<html lang="es" data-bs-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guía de Git y GitHub</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="../assets/guia.css" rel="stylesheet">
+</head>
+<body data-mode="scroll">
+
+<aside class="sidebar-lg">
+  <div class="d-flex justify-content-between align-items-start mb-4">
+    <div>
+      <a href="../index.html" class="text-decoration-none small text-body-secondary d-block mb-1">
+        <i class="bi bi-arrow-left"></i> Guías</a>
+      <span class="fw-semibold">Git y GitHub</span>
+      <span class="d-block small text-body-secondary">Versionar y compartir código</span>
+    </div>
+    <button class="btn btn-sm border-0 theme-btn" title="Cambiar tema"><i class="bi bi-moon" data-lg="1"></i></button>
+  </div>
+  <nav class="nav flex-column gap-1 toc"></nav>
+</aside>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="toc" style="max-width:17rem">
+  <div class="offcanvas-body d-flex flex-column justify-content-end pb-4">
+    <nav class="nav flex-column gap-1 toc"></nav>
+  </div>
+  <div class="offcanvas-header border-top">
+    <a href="../index.html" class="text-decoration-none small text-body-secondary">
+      <i class="bi bi-arrow-left"></i> Todas las guías</a>
+    <button class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+</div>
+
+<main class="container-lg px-3 px-lg-5 py-4" style="max-width:48rem">
+
+<header class="mb-5">
+  <h1 class="mb-2">Git y GitHub</h1>
+  <p class="mb-3 text-body-secondary">
+    Git guarda la historia de tu proyecto en tu PC; GitHub la publica en la nube para que otros
+    la vean y colaboren. Primero lo que pasa en tu máquina, después lo que pasa en GitHub, y al
+    final el flujo de trabajo de todos los días. Pensada para Windows, con la nota para Linux
+    donde cambia algo.
+  </p>
+  <div class="border-start border-3 bg-body-secondary rounded p-3">
+    <strong><i class="bi bi-info-circle"></i> Cómo leer esta guía.</strong>
+    Cada bloque dice dónde ocurre lo que explica:
+    <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal mx-1"><i class="bi bi-pc-display"></i> LOCAL · tu PC</span>
+    es tu computadora, nadie más lo ve;
+    <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal mx-1"><i class="bi bi-cloud"></i> REMOTO · GitHub</span>
+    es la copia en la nube, la que ven tus compañeros. Nada viaja de una a la otra hasta que
+    vos lo pedís.
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     GIT
+     ═══════════════════════════════════════════════════════════════ -->
+
+<section id="s01" class="pb-5 mb-5 border-bottom" data-group="Git">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 01</p>
+  <h2 class="mb-3">Instalar Git y elegir la terminal</h2>
+  <p class="mb-4">Git es un programa que se instala en tu PC y se usa escribiendo comandos. No necesita internet ni cuenta en ningún lado: eso viene después, con GitHub.</p>
+
+  <h3 class="mt-4 mb-2">Instalar <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal ms-1"><i class="bi bi-pc-display"></i> local</span></h3>
+  <div class="row g-3 mb-4">
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-header small fw-semibold"><i class="bi bi-windows"></i> Windows</div>
+        <div class="card-body">
+          <p class="mb-2">Bajá <strong>Git for Windows</strong> de
+          <a href="https://git-scm.com/download/win">git-scm.com</a> y hacé <em>Siguiente</em> a
+          todo. Trae dos cosas: el comando <code>git</code> y una terminal llamada
+          <strong>Git Bash</strong>.</p>
+          <p class="mb-0 small text-body-secondary">Si en la instalación pregunta por "line endings", dejá la opción por defecto (<em>Checkout Windows-style, commit Unix-style</em>).</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-header small fw-semibold"><i class="bi bi-ubuntu"></i> Linux</div>
+        <div class="card-body">
+          <p class="mb-2">Casi siempre ya viene instalado. Si no:</p>
+          <pre><span class="cm"># Ubuntu / Debian</span>
+sudo apt install git
+<span class="cm"># Fedora</span>
+sudo dnf install git</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="mt-4 mb-2">Qué terminal usar en Windows</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:9rem">Terminal</th><th>Comentario</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">Git Bash</td><td>La recomendada. Usa los mismos comandos que Linux y Mac (<code>ls</code>, <code>cd</code>, <code>pwd</code>), así que todo tutorial de internet te sirve tal cual</td></tr>
+        <tr><td class="text-primary">Terminal de VS Code</td><td>La misma Git Bash, pero adentro del editor. Abrila con <kbd>Ctrl</kbd>+<kbd>ñ</kbd> (o <kbd>Ctrl</kbd>+<kbd>`</kbd> en teclado inglés) y elegí "Git Bash" en el desplegable</td></tr>
+        <tr><td class="text-primary">PowerShell / CMD</td><td>Funcionan, <code>git</code> es el mismo. Pero los comandos del sistema cambian (<code>dir</code> en vez de <code>ls</code>) y algunos ejemplos de internet no corren igual</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-info-circle"></i> Cómo se ven las rutas en Git Bash.</strong>
+    Tu carpeta <code>C:\Users\Ana\Documents</code> aparece como <code>/c/Users/Ana/Documents</code>,
+    con barras al derecho. Para ir a la carpeta del proyecto:
+    <code>cd /c/Users/Ana/Documents/proyecto</code>. Un atajo: en el Explorador de Windows, click
+    derecho sobre la carpeta → <em>Open Git Bash here</em>, y ya estás parado ahí.
+  </div>
+
+  <h3 class="mt-4 mb-2">Configurar tu nombre <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal ms-1"><i class="bi bi-pc-display"></i> local</span></h3>
+  <p class="mb-3">Git firma cada commit con un nombre y un mail. Se configura una sola vez por PC, en cualquier terminal, y corre igual en Windows y Linux:</p>
+  <pre>git config --global user.name  "Ana Pérez"
+git config --global user.email "ana@ejemplo.com"
+git config --global init.defaultBranch main   <span class="cm"># rama inicial: main</span>
+
+git config --list                             <span class="cm"># ver qué quedó guardado</span></pre>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-info-circle"></i> Usá el mismo mail que en GitHub.</strong>
+    Todavía no la necesitás, pero cuando te crees la cuenta en GitHub, que sea con este mismo
+    mail: así los commits que hagas en tu PC aparecen con tu nombre y tu foto cuando los subas.
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Instalá Git for Windows, usá Git Bash (suelta o dentro de VS Code) y configurá nombre y mail
+    una vez. Con eso ya tenés todo lo de la primera mitad de la guía: no hace falta cuenta,
+    ni internet, ni GitHub.
+  </div>
+</section>
+
+<section id="s02" class="pb-5 mb-5 border-bottom" data-group="Git">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 02</p>
+  <h2 class="mb-3">Las tres zonas</h2>
+  <p class="mb-4">Git no guarda "la última versión": guarda una foto cada vez que se lo pedís. Para entender cualquier comando alcanza con saber en cuál de tres lugares está tu archivo en cada momento. Los tres lugares están en tu PC.</p>
+
+  <h3 class="mt-4 mb-2">Qué es cada una <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal ms-1"><i class="bi bi-pc-display"></i> local</span></h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 210" width="100%" role="img" aria-label="Las tres zonas de Git, todas dentro de tu PC: directorio de trabajo, staging y repositorio, con los comandos add y commit que mueven archivos entre ellas">
+      <defs><marker id="g1" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+        <path d="M0 0 L7 3.5 L0 7 z" fill="var(--bs-primary)" opacity=".7"/></marker></defs>
+      <!-- caja exterior: todo es local -->
+      <rect x="6" y="6" width="388" height="176" rx="6" fill="var(--bs-primary)" opacity=".06"/>
+      <rect x="6" y="6" width="388" height="176" rx="6" fill="none" stroke="var(--bs-primary)" opacity=".5" stroke-dasharray="4 3"/>
+      <text x="16" y="22" font-size="9" font-weight="600" fill="var(--bs-primary)">LOCAL · tu PC</text>
+      <text x="384" y="22" font-size="8" fill="var(--bs-primary)" opacity=".8" text-anchor="end">nada de esto sube a internet</text>
+      <!-- las tres zonas -->
+      <g stroke="currentColor" opacity=".3" fill="var(--bs-body-bg)">
+        <rect x="20"  y="38" width="106" height="108" rx="4"/>
+        <rect x="147" y="38" width="106" height="108" rx="4"/>
+        <rect x="274" y="38" width="106" height="108" rx="4"/>
+      </g>
+      <g font-size="9" fill="currentColor" text-anchor="middle" font-weight="600">
+        <text x="73"  y="56">Trabajo</text>
+        <text x="200" y="56">Staging</text>
+        <text x="327" y="56">Repositorio</text>
+      </g>
+      <g font-size="8" fill="currentColor" opacity=".65" text-anchor="middle">
+        <text x="73"  y="74">tus archivos,</text><text x="73"  y="86">como los editás</text>
+        <text x="200" y="74">lo que entra en</text><text x="200" y="86">el próximo commit</text>
+        <text x="327" y="74">la historia:</text><text x="327" y="86">todos los commits</text>
+      </g>
+      <g font-size="9" font-family="monospace" fill="currentColor" opacity=".8" text-anchor="middle">
+        <text x="73"  y="126">app.py ✎</text>
+        <text x="200" y="126">app.py</text>
+        <text x="327" y="126">c3 ← c2 ← c1</text>
+      </g>
+      <!-- flechas y comandos -->
+      <path d="M128 92 h13" stroke="var(--bs-primary)" opacity=".7" marker-end="url(#g1)"/>
+      <path d="M255 92 h13" stroke="var(--bs-primary)" opacity=".7" marker-end="url(#g1)"/>
+      <g font-size="9" font-family="monospace" fill="var(--bs-primary)" text-anchor="middle" font-weight="600">
+        <text x="136" y="168">git add</text>
+        <text x="263" y="168">git commit</text>
+      </g>
+      <path d="M136 156 v-58" stroke="var(--bs-primary)" opacity=".3" stroke-dasharray="2 2"/>
+      <path d="M263 156 v-58" stroke="var(--bs-primary)" opacity=".3" stroke-dasharray="2 2"/>
+      <text x="200" y="200" font-size="8" fill="currentColor" opacity=".6" text-anchor="middle">
+        editar → elegir qué entra → sacar la foto · cada foto es un commit</text>
+    </svg>
+    <figcaption class="mt-2 small text-body-secondary">
+      Las tres zonas viven en la carpeta del proyecto, en tu PC. El paso del medio es lo que
+      confunde al principio: <code>add</code> no guarda nada, solo <em>prepara</em>. Recién
+      <code>commit</code> escribe en la historia. GitHub todavía no aparece por ningún lado.
+    </figcaption>
+  </figure>
+
+  <h3 class="mt-4 mb-2">Los cuatro comandos del día a día <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal ms-1"><i class="bi bi-pc-display"></i> local</span></h3>
+  <p class="mb-3">Parado en la carpeta del proyecto, en Git Bash. Corren idéntico en Windows y Linux:</p>
+  <pre>git init                     <span class="cm"># crear el repositorio (una vez por proyecto)</span>
+git status                   <span class="cm"># ¿en qué zona está cada archivo?</span>
+git add app.py               <span class="cm"># mandar un archivo al staging</span>
+git add .                    <span class="cm"># mandar todo lo modificado</span>
+git commit -m "Agrega el promedio"   <span class="cm"># sacar la foto</span></pre>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-info-circle"></i> ¿Dónde quedó guardado?</strong>
+    <code>git init</code> crea una carpeta oculta <code>.git</code> adentro de la del proyecto.
+    Ahí está toda la historia. En Windows no se ve salvo que actives "Elementos ocultos" en el
+    Explorador; no la toques ni la borres: sin ella, el proyecto deja de ser un repositorio.
+  </div>
+
+  <h3 class="mt-4 mb-2">Leer git status</h3>
+  <p class="mb-3">Es el comando que más vas a tirar. Te dice, por zona, qué archivos tenés y qué comando corresponde:</p>
+  <pre>git status</pre>
+  <pre class="out">On branch main
+Changes to be committed:            <span class="cm">← en staging, va en el próximo commit</span>
+        modified:   app.py
+
+Changes not staged for commit:      <span class="cm">← modificado, todavía sin add</span>
+        modified:   README.md
+
+Untracked files:                    <span class="cm">← archivo nuevo, Git ni lo mira aún</span>
+        datos.csv</pre>
+
+  <h3 class="mt-4 mb-2">Qué hace cada comando con las zonas</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:13rem">Comando</th><th>Mueve</th></tr></thead>
+      <tbody>
+        <tr><td class="font-monospace text-primary">git add archivo</td><td>Trabajo → Staging</td></tr>
+        <tr><td class="font-monospace text-primary">git restore --staged archivo</td><td>Staging → Trabajo (deshace el add, no toca el archivo)</td></tr>
+        <tr><td class="font-monospace text-primary">git commit -m "…"</td><td>Staging → Repositorio</td></tr>
+        <tr><td class="font-monospace text-primary">git restore archivo</td><td>Descarta los cambios del trabajo y vuelve al último commit</td></tr>
+        <tr><td class="font-monospace text-primary">git diff</td><td>Muestra la diferencia entre Trabajo y Staging</td></tr>
+        <tr><td class="font-monospace text-primary">git diff --staged</td><td>Muestra la diferencia entre Staging y el último commit</td></tr>
+        <tr><td class="font-monospace text-primary">git log --oneline</td><td>Lista los commits del repositorio, uno por línea</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> <code>git restore archivo</code> no tiene deshacer.</strong>
+    Tira los cambios que no commiteaste y no hay forma de recuperarlos. Antes de usarlo,
+    <code>git diff</code> para ver qué estás por perder.
+  </div>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-windows"></i> Si en Windows ves "LF will be replaced by CRLF".</strong>
+    Es un aviso, no un error. Windows y Linux terminan las líneas de texto con caracteres
+    distintos y Git los está convirtiendo para que a nadie le aparezca todo el archivo como
+    "modificado". Se puede seguir tranquilo. Si te molesta el mensaje:
+    <code>git config --global core.autocrlf true</code> (en Linux sería <code>input</code>).
+  </div>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-info-circle"></i> Qué es un commit.</strong>
+    Una foto completa del proyecto, con autor, fecha, mensaje y un identificador de 40 caracteres
+    (el <em>hash</em>, tipo <code>a3f9c1e</code> en corto). Nunca se modifica: si te equivocaste,
+    hacés otro commit que corrige. Por eso Git es tan seguro: lo commiteado no se pierde.
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Commiteá chico y seguido. Un commit por cada cambio con sentido propio ("agrega la carga del
+    CSV", "corrige el promedio") y no uno gigante al final del día. Es gratis, queda en tu PC,
+    y cuando algo se rompa vas a poder ver exactamente en qué paso pasó.
+  </div>
+</section>
+
+<section id="s03" class="pb-5 mb-5 border-bottom" data-group="Git">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 03</p>
+  <h2 class="mb-3">Leer la historia</h2>
+  <p class="mb-4">Después de unos commits, el valor de Git está en poder mirar hacia atrás: qué cambió, cuándo y quién. Y en decirle qué archivos no tiene que mirar nunca.</p>
+
+  <h3 class="mt-4 mb-2">git log <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal ms-1"><i class="bi bi-pc-display"></i> local</span></h3>
+  <pre>git log                      <span class="cm"># todo: hash largo, autor, fecha, mensaje</span>
+git log --oneline            <span class="cm"># una línea por commit, lo que más se usa</span>
+git log --oneline -5         <span class="cm"># los últimos cinco</span>
+git log --oneline --graph    <span class="cm"># con el dibujo de las ramas</span>
+git log -- app.py            <span class="cm"># solo los commits que tocaron ese archivo</span></pre>
+  <pre class="out">a3f9c1e (HEAD -&gt; main) Agrega el promedio
+7b21d04 Carga el CSV con pandas
+c0ffee1 Primer commit</pre>
+  <p class="mb-3">Se lee de arriba hacia abajo: el más nuevo primero. <code>HEAD</code> es "donde estás parado", casi siempre el último commit de la rama actual. Si el listado es largo, se sale con <kbd>q</kbd>.</p>
+
+  <h3 class="mt-4 mb-2">git diff: qué cambió exactamente</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:14rem">Comando</th><th>Compara</th></tr></thead>
+      <tbody>
+        <tr><td class="font-monospace text-primary">git diff</td><td>Lo que editaste y todavía no hiciste <code>add</code></td></tr>
+        <tr><td class="font-monospace text-primary">git diff --staged</td><td>Lo que ya está en staging contra el último commit: lo que va a entrar</td></tr>
+        <tr><td class="font-monospace text-primary">git diff a3f9c1e 7b21d04</td><td>Dos commits entre sí</td></tr>
+        <tr><td class="font-monospace text-primary">git show a3f9c1e</td><td>Un commit: su mensaje y todo lo que cambió</td></tr>
+        <tr><td class="font-monospace text-primary">git show HEAD~1</td><td>El commit anterior al actual (<code>~2</code>, dos atrás, etc.)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <pre>git diff</pre>
+  <pre class="out">--- a/app.py
++++ b/app.py
+@@ -3,4 +3,4 @@
+ datos = pd.read_csv("ventas.csv")
+-promedio = datos.sum() / len(datos)
++promedio = datos["monto"].mean()
+ print(promedio)</pre>
+  <p class="mb-3">Las líneas con <code>-</code> son lo que había, las con <code>+</code> lo que hay ahora. Las que no tienen signo son contexto, para ubicarse.</p>
+
+  <h3 class="mt-4 mb-2">.gitignore: lo que Git no tiene que ver</h3>
+  <p class="mb-3">Un archivo de texto llamado <code>.gitignore</code>, en la carpeta raíz del proyecto, con un patrón por línea. Lo que matchea no aparece en <code>git status</code> ni entra con <code>git add .</code></p>
+  <pre><span class="cm"># .gitignore típico de un proyecto de datos en Python</span>
+__pycache__/
+.ipynb_checkpoints/
+venv/
+.env                 <span class="cm"># contraseñas y claves: NUNCA suben</span>
+*.csv                <span class="cm"># datos pesados, se comparten por otro lado</span>
+*.xlsx
+Thumbs.db            <span class="cm"># basura de Windows</span>
+desktop.ini
+.vscode/</pre>
+
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:9rem">Patrón</th><th>Ignora</th></tr></thead>
+      <tbody>
+        <tr><td class="font-monospace text-primary">archivo.txt</td><td>Ese archivo, en cualquier carpeta</td></tr>
+        <tr><td class="font-monospace text-primary">carpeta/</td><td>Esa carpeta con todo lo que tenga</td></tr>
+        <tr><td class="font-monospace text-primary">*.csv</td><td>Todo lo que termine en .csv</td></tr>
+        <tr><td class="font-monospace text-primary">!datos/ejemplo.csv</td><td>Excepción: este sí, aunque sea .csv</td></tr>
+        <tr><td class="font-monospace text-primary"># texto</td><td>Comentario</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-windows"></i> Crear un archivo sin nombre en Windows.</strong>
+    El Explorador no deja guardar un archivo llamado solo <code>.gitignore</code> desde algunos
+    programas. Lo más fácil: en VS Code, botón derecho en la carpeta → <em>New File</em> → escribir
+    <code>.gitignore</code>. O desde Git Bash: <code>touch .gitignore</code>.
+  </div>
+
+  <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> Si ya lo commiteaste, ignorarlo no alcanza.</strong>
+    <code>.gitignore</code> solo frena archivos que Git todavía no sigue. Para sacar uno que ya
+    entró (sin borrarlo de tu disco): <code>git rm --cached archivo</code>, y commit. Si era una
+    contraseña, además cambiala: quedó en la historia.
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Creá el <code>.gitignore</code> antes del primer <code>git add .</code>, no después. Y
+    <code>git log --oneline</code> antes de cada push: si un mensaje no se entiende, es el
+    momento de arreglarlo, no cuando ya lo vieron todos.
+  </div>
+</section>
+
+<section id="s04" class="pb-5 mb-5 border-bottom" data-group="Git">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 04</p>
+  <h2 class="mb-3">Deshacer</h2>
+  <p class="mb-4">La pregunta que más se hace en Git es "¿cómo vuelvo atrás?". La respuesta depende de en qué zona está el error. Todo esto es local: mientras no hayas hecho push, deshacer no afecta a nadie.</p>
+
+  <h3 class="mt-4 mb-2">Según dónde está el error <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal ms-1"><i class="bi bi-pc-display"></i> local</span></h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th>Quiero…</th><th style="width:16rem">Comando</th><th style="width:6rem">Riesgo</th></tr></thead>
+      <tbody>
+        <tr><td>Tirar lo que edité en un archivo, volver al último commit</td><td class="font-monospace text-primary">git restore app.py</td><td class="text-danger">Se pierde</td></tr>
+        <tr><td>Sacar un archivo del staging (deshacer el add)</td><td class="font-monospace text-primary">git restore --staged app.py</td><td>Ninguno</td></tr>
+        <tr><td>Cambiar el mensaje del último commit</td><td class="font-monospace text-primary">git commit --amend -m "…"</td><td>Solo si ya lo pusheaste</td></tr>
+        <tr><td>Me olvidé un archivo en el último commit</td><td class="font-monospace text-primary">git add x · git commit --amend --no-edit</td><td>Solo si ya lo pusheaste</td></tr>
+        <tr><td>Deshacer el último commit pero conservar los cambios</td><td class="font-monospace text-primary">git reset --soft HEAD~1</td><td>Ninguno</td></tr>
+        <tr><td>Borrar el último commit y sus cambios, como si no hubiera existido</td><td class="font-monospace text-primary">git reset --hard HEAD~1</td><td class="text-danger">Se pierde</td></tr>
+        <tr><td>Anular un commit viejo, que ya vieron otros</td><td class="font-monospace text-primary">git revert a3f9c1e</td><td>Ninguno</td></tr>
+        <tr><td>Guardar lo que estoy haciendo para después, sin commitear</td><td class="font-monospace text-primary">git stash</td><td>Ninguno</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">reset o revert: la diferencia que importa</h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 150" width="100%" role="img" aria-label="reset borra el commit de la historia; revert agrega un commit nuevo que lo deshace">
+      <defs><marker id="g3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+        <path d="M0 0 L6 3 L0 6 z" fill="currentColor" opacity=".4"/></marker></defs>
+      <g font-size="9" fill="currentColor" font-weight="600">
+        <text x="14" y="22">git reset --hard HEAD~1</text>
+        <text x="14" y="94">git revert HEAD</text>
+      </g>
+      <g font-size="8" fill="currentColor" opacity=".6">
+        <text x="14" y="36">borra c3 de la historia: quedan c1, c2</text>
+        <text x="14" y="108">c3 sigue ahí; c4 es un commit nuevo que deshace lo que hizo c3</text>
+      </g>
+      <g fill="var(--bs-primary)" opacity=".25" stroke="var(--bs-primary)" stroke-opacity=".6">
+        <circle cx="60" cy="60" r="9"/><circle cx="120" cy="60" r="9"/>
+        <circle cx="60" cy="130" r="9"/><circle cx="120" cy="130" r="9"/><circle cx="180" cy="130" r="9"/>
+      </g>
+      <circle cx="180" cy="60" r="9" fill="none" stroke="var(--bs-danger)" stroke-opacity=".7" stroke-dasharray="3 2"/>
+      <circle cx="240" cy="130" r="9" fill="var(--bs-primary)" opacity=".5" stroke="var(--bs-primary)"/>
+      <g font-size="8" font-family="monospace" fill="currentColor" text-anchor="middle">
+        <text x="60" y="63">c1</text><text x="120" y="63">c2</text>
+        <text x="60" y="133">c1</text><text x="120" y="133">c2</text><text x="180" y="133">c3</text><text x="240" y="133">c4</text>
+      </g>
+      <text x="180" y="63" font-size="8" font-family="monospace" fill="var(--bs-danger)" text-anchor="middle">c3</text>
+      <g stroke="currentColor" opacity=".4" fill="none">
+        <path d="M69 60 h41" marker-end="url(#g3)"/>
+        <path d="M69 130 h41" marker-end="url(#g3)"/><path d="M129 130 h41" marker-end="url(#g3)"/><path d="M189 130 h41" marker-end="url(#g3)"/>
+      </g>
+      <path d="M129 60 h41" stroke="var(--bs-danger)" opacity=".4" stroke-dasharray="3 2"/>
+      <text x="200" y="63" font-size="8" fill="var(--bs-danger)" opacity=".9">← desaparece</text>
+      <text x="260" y="133" font-size="8" fill="var(--bs-primary)">← "deshace c3"</text>
+    </svg>
+    <figcaption class="mt-2 small text-body-secondary">
+      <code>reset</code> reescribe la historia: bien para lo que todavía está solo en tu PC.
+      <code>revert</code> la respeta y agrega un commit nuevo: la única opción segura para algo
+      que ya subiste a GitHub, porque los demás ya tienen ese commit.
+    </figcaption>
+  </figure>
+
+  <h3 class="mt-4 mb-2">Los tres reset</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:12rem">Comando</th><th>Mueve HEAD atrás y…</th></tr></thead>
+      <tbody>
+        <tr><td class="font-monospace text-primary">git reset --soft HEAD~1</td><td>deja los cambios en staging, listos para recommitear</td></tr>
+        <tr><td class="font-monospace text-primary">git reset HEAD~1</td><td>deja los cambios en el directorio de trabajo, sin add (el por defecto, <code>--mixed</code>)</td></tr>
+        <tr><td class="font-monospace text-primary">git reset --hard HEAD~1</td><td>tira todo: el commit y los cambios</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">stash: guardar a medias</h3>
+  <p class="mb-3">Estás en la mitad de algo, no está para commit, y tenés que cambiar de rama o probar otra cosa con el proyecto limpio.</p>
+  <pre>git stash                    <span class="cm"># guarda los cambios y deja todo como el último commit</span>
+git stash list               <span class="cm"># ver qué hay guardado</span>
+git stash pop                <span class="cm"># traer de vuelta lo último guardado</span></pre>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-life-preserver"></i> "Borré un commit con reset --hard y lo necesito".</strong>
+    Git no lo borró de verdad, todavía. <code>git reflog</code> lista todo lo que fue
+    <code>HEAD</code> en las últimas semanas, incluido el commit que "desapareció". Copiás su hash y
+    <code>git reset --hard ese-hash</code>. Lo único que no se recupera es lo que nunca se commiteó.
+  </div>
+
+  <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> Nunca <code>reset</code> ni <code>--amend</code> sobre commits que ya pusheaste.</strong>
+    Tu historia y la de GitHub dejan de coincidir, el próximo push falla y arreglarlo involucra
+    a todo el equipo. Para eso existe <code>revert</code>.
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Regla simple: antes del push, <code>reset</code> y <code>--amend</code> son libres; después
+    del push, solo <code>revert</code>. Y ante la duda, primero <code>git status</code> y
+    <code>git log --oneline</code>: la mitad de las veces el problema no es el que parecía.
+  </div>
+</section>
+
+<section id="s05" class="pb-5 mb-5 border-bottom" data-group="Git">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 05</p>
+  <h2 class="mb-3">Ramas</h2>
+  <p class="mb-4">Una rama es una línea de trabajo separada. Probás algo sin tocar lo que funciona, y cuando está listo lo unís. Es lo que hace posible que varias personas trabajen en lo mismo sin pisarse, y también lo que te permite experimentar solo.</p>
+
+  <h3 class="mt-4 mb-2">Cómo se ve <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal ms-1"><i class="bi bi-pc-display"></i> local</span></h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 150" width="100%" role="img" aria-label="La rama main con tres commits, una rama grafico que sale del segundo commit con dos commits propios, y el merge que la vuelve a unir a main">
+      <defs><marker id="g4" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+        <path d="M0 0 L6 3 L0 6 z" fill="currentColor" opacity=".4"/></marker></defs>
+      <g stroke="currentColor" opacity=".4" fill="none">
+        <path d="M49 50 h41" marker-end="url(#g4)"/><path d="M109 50 h41" marker-end="url(#g4)"/>
+        <path d="M169 50 h41" marker-end="url(#g4)"/><path d="M229 50 h101" marker-end="url(#g4)"/>
+      </g>
+      <g stroke="var(--bs-primary)" opacity=".6" fill="none">
+        <path d="M106 57 q20 43 44 43" marker-end="url(#g4)"/>
+        <path d="M169 100 h41" marker-end="url(#g4)"/>
+        <path d="M229 100 q60 0 104 -41" marker-end="url(#g4)"/>
+      </g>
+      <g fill="var(--bs-body-bg)" stroke="currentColor" stroke-opacity=".5">
+        <circle cx="40" cy="50" r="9"/><circle cx="100" cy="50" r="9"/><circle cx="160" cy="50" r="9"/><circle cx="220" cy="50" r="9"/>
+      </g>
+      <g fill="var(--bs-primary)" opacity=".25" stroke="var(--bs-primary)" stroke-opacity=".7">
+        <circle cx="160" cy="100" r="9"/><circle cx="220" cy="100" r="9"/>
+      </g>
+      <circle cx="340" cy="50" r="9" fill="var(--bs-primary)" opacity=".5" stroke="var(--bs-primary)"/>
+      <g font-size="8" font-family="monospace" fill="currentColor" text-anchor="middle">
+        <text x="40" y="53">c1</text><text x="100" y="53">c2</text><text x="160" y="53">c3</text><text x="220" y="53">c4</text><text x="340" y="53">M</text>
+        <text x="160" y="103">g1</text><text x="220" y="103">g2</text>
+      </g>
+      <g font-size="9" font-family="monospace" font-weight="600">
+        <text x="14" y="30" fill="currentColor" opacity=".8">main</text>
+        <text x="110" y="122" fill="var(--bs-primary)">grafico</text>
+      </g>
+      <g font-size="8" fill="currentColor" opacity=".6">
+        <text x="126" y="84">git switch -c grafico</text>
+        <text x="270" y="86">git merge grafico</text>
+        <text x="340" y="30" text-anchor="middle">commit de merge</text>
+      </g>
+      <text x="200" y="142" font-size="8" fill="currentColor" opacity=".6" text-anchor="middle">
+        mientras grafico avanza (g1, g2), main puede seguir (c3, c4); el merge junta las dos líneas</text>
+    </svg>
+    <figcaption class="mt-2 small text-body-secondary">
+      Una rama no es una copia de los archivos: es una etiqueta que apunta a un commit y avanza
+      con cada commit nuevo. Por eso crear ramas es instantáneo y gratis.
+    </figcaption>
+  </figure>
+
+  <h3 class="mt-4 mb-2">Recetario</h3>
+  <pre>git branch                   <span class="cm"># listar las ramas; la actual con *</span>
+git switch -c grafico        <span class="cm"># crear una rama y pasarse a ella</span>
+git switch main              <span class="cm"># volver a main</span>
+git switch grafico           <span class="cm"># ir a una rama que ya existe</span>
+
+<span class="cm"># … trabajar y commitear en grafico …</span>
+
+git switch main              <span class="cm"># pararse en la rama que va a RECIBIR</span>
+git merge grafico            <span class="cm"># traer los commits de grafico a main</span>
+git branch -d grafico        <span class="cm"># borrar la rama, ya está integrada</span></pre>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-info-circle"></i> switch o checkout.</strong>
+    En tutoriales viejos vas a ver <code>git checkout -b grafico</code> y
+    <code>git checkout main</code>. Hacen lo mismo. <code>switch</code> es más nuevo (2019) y
+    solo cambia de rama, que es más difícil de usar mal. Usá <code>switch</code>; entendé
+    <code>checkout</code> cuando lo veas.
+  </div>
+
+  <h3 class="mt-4 mb-2">Qué pasa con los archivos al cambiar de rama</h3>
+  <p class="mb-3">Git reemplaza el contenido de la carpeta por el de la rama a la que vas. Si abriste el archivo en VS Code, lo vas a ver cambiar solo. Es normal: es la misma carpeta mostrando otra versión.</p>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th>Situación</th><th>Qué hace Git</th></tr></thead>
+      <tbody>
+        <tr><td>Todo commiteado</td><td>Cambia sin problemas</td></tr>
+        <tr><td>Hay cambios sin commitear que no chocan con la otra rama</td><td>Cambia y se lleva los cambios con vos</td></tr>
+        <tr><td>Hay cambios sin commitear que sí chocan</td><td>Se niega: "Please commit your changes or stash them". Commiteás o <code>git stash</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">Los dos tipos de merge</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:9rem">Tipo</th><th>Cuándo pasa</th><th>Resultado</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">Fast-forward</td><td><code>main</code> no se movió desde que creaste la rama</td><td>Git solo adelanta la etiqueta <code>main</code>; no hay commit de merge</td></tr>
+        <tr><td class="text-primary">Merge de tres vías</td><td>Las dos ramas tienen commits nuevos (el dibujo de arriba)</td><td>Git crea un commit de merge con dos padres. Si tocaron las mismas líneas, hay conflicto</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> El error clásico: commitear en la rama equivocada.</strong>
+    Hiciste tres commits creyendo que estabas en <code>grafico</code> y estabas en <code>main</code>.
+    <code>git status</code> siempre dice arriba <em>On branch …</em>: leelo antes de commitear.
+    Si ya pasó y no pusheaste: <code>git branch grafico</code> (crea la rama apuntando acá),
+    <code>git reset --hard origin/main</code> (devuelve main a como está en GitHub), y listo.
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    <code>main</code> siempre funciona; lo que estás haciendo va en una rama. Es la única regla
+    de ramas que necesitás para trabajar en equipo, y también sola: si el experimento sale mal,
+    <code>git switch main</code> y <code>git branch -D experimento</code>, sin arrepentimientos.
+  </div>
+</section>
+
+<section id="s06" class="pb-5 mb-5 border-bottom" data-group="Git">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 06</p>
+  <h2 class="mb-3">Conflictos</h2>
+  <p class="mb-4">Un conflicto es cuando dos ramas cambiaron las mismas líneas del mismo archivo y Git no puede decidir cuál vale. No es un error ni algo que rompiste: es Git pidiéndote que elijas. Se resuelve siempre en tu PC.</p>
+
+  <h3 class="mt-4 mb-2">Cómo aparece <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal ms-1"><i class="bi bi-pc-display"></i> local</span></h3>
+  <pre>git merge grafico</pre>
+  <pre class="out">Auto-merging app.py
+CONFLICT (content): Merge conflict in app.py
+Automatic merge failed; fix conflicts and then commit the result.</pre>
+  <p class="mb-3">Git deja el archivo con las dos versiones marcadas. Al abrirlo ves esto:</p>
+  <pre>datos = pd.read_csv("ventas.csv")
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+promedio = datos["monto"].mean()          <span class="cm"># ← lo de main (donde estás)</span>
+=======
+promedio = round(datos["monto"].mean(), 2) <span class="cm"># ← lo que trae grafico</span>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; grafico
+print(promedio)</pre>
+
+  <h3 class="mt-4 mb-2">Los cuatro pasos</h3>
+  <div class="list-group list-group-flush mb-4">
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">01</span><span><code>git status</code> para ver qué archivos están en conflicto (<em>both modified</em>)</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">02</span><span>Abrir cada uno, decidir qué queda (una versión, la otra, o una mezcla) y <strong>borrar las marcas</strong> <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code> y <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code></span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">03</span><span>Probar que el archivo anda: correr el script, abrir el notebook</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">04</span><span><code>git add app.py</code> y <code>git commit</code> (sin <code>-m</code>: Git ya propone el mensaje "Merge branch…")</span></div>
+  </div>
+
+  <h3 class="mt-4 mb-2">En VS Code es más fácil</h3>
+  <p class="mb-3">Al abrir un archivo en conflicto, VS Code pinta las dos versiones y pone botones arriba de cada bloque: <em>Accept Current Change</em> (la de tu rama), <em>Accept Incoming Change</em> (la que viene), <em>Accept Both</em>. Después del click, quedan los pasos 3 y 4 igual.</p>
+
+  <h3 class="mt-4 mb-2">Si te arrepentís</h3>
+  <pre>git merge --abort            <span class="cm"># cancelar el merge y volver a como estaba</span></pre>
+
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th>Cuándo aparece un conflicto</th><th>Qué lo dispara</th></tr></thead>
+      <tbody>
+        <tr><td>Al unir ramas en tu PC</td><td><code>git merge</code></td></tr>
+        <tr><td>Al traer cambios de GitHub que chocan con los tuyos</td><td><code>git pull</code> (que por dentro es un merge)</td></tr>
+        <tr><td>En un pull request</td><td>GitHub avisa que no puede mergear; se resuelve en tu PC con <code>git merge main</code> y push</td></tr>
+        <tr><td>Al aplicar un stash</td><td><code>git stash pop</code> sobre archivos que cambiaron</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-info-circle"></i> Los notebooks son un caso aparte.</strong>
+    Un <code>.ipynb</code> es JSON con las salidas de las celdas adentro, así que dos personas
+    ejecutándolo generan conflicto aunque no hayan tocado el código. Antes de commitear un
+    notebook: <em>Clear All Outputs</em>. Y, si se puede, la lógica en un <code>.py</code>.
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Los conflictos se achican con dos hábitos: <code>git pull</code> seguido, para que las
+    diferencias con los demás sean chicas, y ramas cortas, que se integran en días y no en
+    semanas. Un conflicto de tres líneas se resuelve en un minuto; uno de tres semanas, no.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     GITHUB
+     ═══════════════════════════════════════════════════════════════ -->
+
+<section id="s07" class="pb-5 mb-5 border-bottom" data-group="GitHub">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 07</p>
+  <h2 class="mb-3">Qué es GitHub</h2>
+  <p class="mb-4">Todo lo anterior pasó en tu PC. GitHub es un sitio web que guarda una copia de tu repositorio en la nube: para tener respaldo, para trabajar desde otra máquina y, sobre todo, para que otros puedan ver el código y colaborar.</p>
+
+  <h3 class="mt-4 mb-2">Git y GitHub no son lo mismo</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:7rem"></th><th>Git</th><th>GitHub</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">Qué es</td><td>Un programa</td><td>Un sitio web (de Microsoft desde 2018)</td></tr>
+        <tr><td class="text-primary">Dónde vive</td><td>En tu PC <i class="bi bi-pc-display"></i></td><td>En la nube <i class="bi bi-cloud"></i></td></tr>
+        <tr><td class="text-primary">Necesita</td><td>Nada: ni internet ni cuenta</td><td>Cuenta gratuita e internet</td></tr>
+        <tr><td class="text-primary">Sirve para</td><td>Guardar la historia, ramas, deshacer</td><td>Compartir, revisar, discutir, publicar</td></tr>
+        <tr><td class="text-primary">Alternativas</td><td>Mercurial, SVN (casi no se usan)</td><td>GitLab, Bitbucket (mismo Git, otro sitio)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">Crear la cuenta <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal ms-1"><i class="bi bi-cloud"></i> remoto</span></h3>
+  <p class="mb-3">En <a href="https://github.com/signup">github.com/signup</a>, gratis. Dos decisiones que después cuestan cambiar:</p>
+  <div class="list-group list-group-flush mb-4">
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">01</span><span><strong>El nombre de usuario</strong> va a estar en la URL de todos tus proyectos (<code>github.com/tu-usuario/proyecto</code>) y es lo que vas a poner en un CV. Corto, sin números raros.</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">02</span><span><strong>El mail</strong>: el mismo que pusiste en <code>git config user.email</code>. Si no coinciden, tus commits aparecen sin tu foto, como de un desconocido.</span></div>
+  </div>
+
+  <h3 class="mt-4 mb-2">Crear un repositorio <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal ms-1"><i class="bi bi-cloud"></i> remoto</span></h3>
+  <p class="mb-3">Botón <strong>+</strong> arriba a la derecha → <em>New repository</em>.</p>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:11rem">Campo</th><th>Qué poner</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">Repository name</td><td>El mismo nombre que la carpeta en tu PC, en minúsculas y con guiones: <code>analisis-ventas</code></td></tr>
+        <tr><td class="text-primary">Public / Private</td><td>Público lo ve cualquiera (bien para portfolio). Privado solo vos y a quien invites (bien para un trabajo de la cursada con datos que no son tuyos)</td></tr>
+        <tr><td class="text-primary">Add a README</td><td><strong>No</strong> si ya tenés el proyecto en tu PC: querés el repo vacío para subir el tuyo. <strong>Sí</strong> si arrancás de cero y vas a clonar</td></tr>
+        <tr><td class="text-primary">.gitignore</td><td>Plantilla <em>Python</em>, si arrancás de cero</td></tr>
+        <tr><td class="text-primary">License</td><td>MIT si querés que cualquiera lo use. Se puede agregar después</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">Demostrarle a GitHub que sos vos</h3>
+  <p class="mb-3">Leer un repo público no pide nada. Escribir (push) sí: GitHub tiene que saber que sos quien dice tu cuenta. La contraseña de la web <strong>no sirve</strong> desde la terminal desde 2021.</p>
+  <div class="row g-3 mb-4">
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-header small fw-semibold"><i class="bi bi-windows"></i> Windows: no hay que hacer nada</div>
+        <div class="card-body">
+          <p class="mb-0">Git for Windows trae el <strong>Git Credential Manager</strong>. La primera
+          vez que hagas push se abre el navegador, iniciás sesión en GitHub, autorizás, y queda
+          guardado en el Administrador de credenciales de Windows. No lo vuelve a pedir.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-header small fw-semibold"><i class="bi bi-ubuntu"></i> Linux: token o SSH</div>
+        <div class="card-body">
+          <p class="mb-2"><strong>Token</strong>: en GitHub, <em>Settings → Developer settings →
+          Personal access tokens</em>, generás uno con permiso <em>repo</em> y lo pegás cuando la
+          terminal pide contraseña. Para que lo recuerde:
+          <code>git config --global credential.helper store</code>.</p>
+          <p class="mb-0"><strong>SSH</strong>: <code>ssh-keygen -t ed25519</code>, copiar el
+          contenido de <code>~/.ssh/id_ed25519.pub</code> en <em>Settings → SSH keys</em>, y usar
+          las URL que empiezan con <code>git@github.com:</code>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-info-circle"></i> Qué se ve en la página de un repo.</strong>
+    Arriba, las pestañas: <em>Code</em> (los archivos y el README), <em>Issues</em> (tareas y
+    problemas), <em>Pull requests</em> (cambios propuestos), <em>Actions</em> (automatizaciones),
+    <em>Settings</em>. El botón verde <em>Code</em> da la URL para clonar. El desplegable de la
+    izquierda cambia de rama.
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    GitHub es la copia pública de lo que Git ya guarda en tu PC. Sin GitHub, Git sigue
+    funcionando entero; sin Git, GitHub es solo una carpeta en internet. Aprendé a manejar
+    el de tu máquina y el otro es apretar botones.
+  </div>
+</section>
+
+<section id="s08" class="pb-5 mb-5 border-bottom" data-group="GitHub">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 08</p>
+  <h2 class="mb-3">Conectar local y remoto</h2>
+  <p class="mb-4">Tu repositorio y el de GitHub son dos copias independientes. Nada pasa de una a la otra solo: vos subís con <code>push</code> y bajás con <code>pull</code>. Cuatro comandos cubren todo el tráfico.</p>
+
+  <h3 class="mt-4 mb-2">El tráfico entre las dos copias</h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 190" width="100%" role="img" aria-label="Dos copias del repositorio, la local en tu PC y la remota en GitHub, con push subiendo, pull y fetch bajando, y clone creando la copia local desde cero">
+      <defs><marker id="g5" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+        <path d="M0 0 L7 3.5 L0 7 z" fill="var(--bs-primary)" opacity=".7"/></marker></defs>
+      <g fill="var(--bs-primary)" opacity=".06">
+        <rect x="10"  y="8" width="150" height="150" rx="6"/>
+        <rect x="240" y="8" width="150" height="150" rx="6"/>
+      </g>
+      <g fill="none" stroke="var(--bs-primary)" opacity=".5" stroke-dasharray="4 3">
+        <rect x="10"  y="8" width="150" height="150" rx="6"/>
+        <rect x="240" y="8" width="150" height="150" rx="6"/>
+      </g>
+      <g font-size="9" fill="var(--bs-primary)" font-weight="600" text-anchor="middle">
+        <text x="85"  y="26">LOCAL · tu PC</text>
+        <text x="315" y="26">REMOTO · GitHub</text>
+      </g>
+      <g font-size="8" fill="currentColor" opacity=".65" text-anchor="middle">
+        <text x="85"  y="42">la carpeta del proyecto</text>
+        <text x="315" y="42">github.com/ana/proyecto</text>
+      </g>
+      <g font-size="9" font-family="monospace" fill="currentColor" opacity=".85" text-anchor="middle">
+        <text x="85"  y="96">main: c1 c2 c3</text>
+        <text x="315" y="96">main: c1 c2 c3</text>
+        <text x="85"  y="112" opacity=".6">origin/main: c3</text>
+      </g>
+      <g font-size="8" fill="currentColor" opacity=".6" text-anchor="middle">
+        <text x="85"  y="138">lo que Git recuerda</text>
+        <text x="85"  y="149">de la última conexión</text>
+      </g>
+      <g stroke="var(--bs-primary)" opacity=".7" fill="none">
+        <path d="M164 62 h70" marker-end="url(#g5)"/>
+        <path d="M236 92 h-70" marker-end="url(#g5)"/>
+        <path d="M236 122 h-70" marker-end="url(#g5)"/>
+      </g>
+      <g font-size="8" font-family="monospace" fill="var(--bs-primary)" text-anchor="middle" font-weight="600">
+        <text x="200" y="58">git push</text>
+        <text x="200" y="88">git pull</text>
+        <text x="200" y="118">git fetch</text>
+      </g>
+      <g font-size="7" fill="currentColor" opacity=".6" text-anchor="middle">
+        <text x="200" y="72">subir mis commits</text>
+        <text x="200" y="102">bajar e integrar</text>
+        <text x="200" y="132">bajar sin integrar</text>
+      </g>
+      <text x="200" y="178" font-size="8" fill="currentColor" opacity=".6" text-anchor="middle">
+        git clone URL = crear la copia local desde cero, con la conexión ya configurada</text>
+    </svg>
+    <figcaption class="mt-2 small text-body-secondary">
+      <code>origin</code> es el apodo con que tu repo local conoce al de GitHub. <code>origin/main</code>
+      es la foto del <code>main</code> remoto tal como estaba la última vez que hablaron; se
+      actualiza con cada <code>fetch</code>, <code>pull</code> o <code>push</code>.
+    </figcaption>
+  </figure>
+
+  <h3 class="mt-4 mb-2">Caso A: el proyecto ya está en tu PC <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal ms-1"><i class="bi bi-pc-display"></i> local</span></h3>
+  <p class="mb-3">Creaste el repo en GitHub vacío (sin README). GitHub muestra estos mismos comandos en la página del repo recién creado:</p>
+  <pre><span class="cm"># conectar con el repo de GitHub</span>
+git remote add origin https://github.com/ana/proyecto.git
+<span class="cm"># subir main; -u solo la primera vez</span>
+git push -u origin main
+
+git remote -v                <span class="cm"># ver a dónde está conectado</span></pre>
+
+  <h3 class="mt-4 mb-2">Caso B: el proyecto está en GitHub y lo querés en tu PC</h3>
+  <p class="mb-3">De un compañero, de un profesor, o tuyo desde otra máquina. Botón verde <em>Code</em> → copiar la URL:</p>
+  <pre>cd /c/Users/Ana/Documents    <span class="cm"># pararse DONDE querés la carpeta</span>
+git clone https://github.com/ana/proyecto.git
+cd proyecto                  <span class="cm"># clone creó la carpeta, con origin ya configurado</span></pre>
+
+  <h3 class="mt-4 mb-2">Todos los días: push y pull</h3>
+  <pre>git pull                     <span class="cm"># ANTES de empezar: traer lo de los demás</span>
+<span class="cm"># … trabajar, add, commit …</span>
+git push                     <span class="cm"># al terminar: subir tus commits</span></pre>
+
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:9rem">Comando</th><th>Dirección</th><th>Qué hace</th></tr></thead>
+      <tbody>
+        <tr><td class="font-monospace text-primary">git clone URL</td><td>nube → PC</td><td>Una sola vez: crea la carpeta con el repo completo</td></tr>
+        <tr><td class="font-monospace text-primary">git push</td><td>PC → nube</td><td>Sube los commits de la rama actual</td></tr>
+        <tr><td class="font-monospace text-primary">git pull</td><td>nube → PC</td><td>Baja los commits nuevos y los mergea en tu rama</td></tr>
+        <tr><td class="font-monospace text-primary">git fetch</td><td>nube → PC</td><td>Baja pero no mergea: solo actualiza <code>origin/main</code> para que puedas mirar</td></tr>
+        <tr><td class="font-monospace text-primary">git remote -v</td><td>—</td><td>Muestra a qué URL apunta <code>origin</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">Los tres mensajes que vas a ver</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:15rem">Mensaje</th><th>Qué pasó y qué hacer</th></tr></thead>
+      <tbody>
+        <tr><td class="font-monospace text-danger">! [rejected] … (fetch first)</td><td>Alguien subió commits que no tenés. <code>git pull</code>, resolver conflictos si hay, y de nuevo <code>git push</code></td></tr>
+        <tr><td class="font-monospace text-danger">Your branch is behind 'origin/main'</td><td>Te falta bajar. <code>git pull</code></td></tr>
+        <tr><td class="font-monospace text-primary">Your branch is ahead of 'origin/main' by 2 commits</td><td>Tenés dos commits sin subir. <code>git push</code> cuando quieras</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-info-circle"></i> "Please tell me who you are" o pide usuario y contraseña.</strong>
+    Lo primero es que falta el <code>git config</code> de la sección 01. Lo segundo, en Windows,
+    es la ventana del Credential Manager: iniciás sesión en el navegador una vez. En Linux, la
+    "contraseña" es el token, no la de la web.
+  </div>
+
+  <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> Nunca <code>git push --force</code> sobre <code>main</code>.</strong>
+    Reemplaza la historia de GitHub por la tuya y borra los commits de los demás. Si un push es
+    rechazado, la respuesta es <code>pull</code>, no fuerza. Lo vas a ver sugerido en internet:
+    es para ramas propias, y con cuidado.
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    <code>pull</code> al empezar, <code>push</code> al terminar, y <code>git status</code> en el
+    medio cuando dudes: la línea <em>ahead / behind</em> te dice exactamente si te falta subir
+    o bajar. Con eso, la copia de tu PC y la de GitHub nunca se alejan demasiado.
+  </div>
+</section>
+
+<section id="s09" class="pb-5 mb-5 border-bottom" data-group="GitHub">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 09</p>
+  <h2 class="mb-3">Pull requests</h2>
+  <p class="mb-4">Un pull request (PR) es la forma de decir "hice esto en una rama, ¿lo sumamos a main?". Es donde se revisa el código antes de que entre, y es la dinámica central de trabajar en equipo en GitHub. Mitad pasa en tu PC (la rama, los commits, el push) y mitad en la web de GitHub (abrir el PR, revisar, mergear).</p>
+
+  <h3 class="mt-4 mb-2">El ciclo completo</h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 176" width="100%" role="img" aria-label="Ciclo de un pull request: en tu PC se crea la rama y se hace push; en GitHub se abre el PR, se revisa y se mergea; en tu PC se hace pull para traer el main actualizado">
+      <defs><marker id="g2" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+        <path d="M0 0 L7 3.5 L0 7 z" fill="var(--bs-primary)" opacity=".7"/></marker></defs>
+      <g fill="var(--bs-primary)" opacity=".06">
+        <rect x="10"  y="8" width="180" height="140" rx="6"/>
+        <rect x="210" y="8" width="180" height="140" rx="6"/>
+      </g>
+      <g fill="none" stroke="var(--bs-primary)" opacity=".5" stroke-dasharray="4 3">
+        <rect x="10"  y="8" width="180" height="140" rx="6"/>
+        <rect x="210" y="8" width="180" height="140" rx="6"/>
+      </g>
+      <g font-size="9" fill="var(--bs-primary)" font-weight="600">
+        <text x="20"  y="24">LOCAL · tu PC</text>
+        <text x="220" y="24">REMOTO · GitHub (nube)</text>
+      </g>
+      <g font-size="8" font-family="monospace" fill="currentColor" opacity=".85">
+        <text x="20" y="50">1  git switch -c grafico</text>
+        <text x="20" y="66">2  editar · add · commit</text>
+        <text x="20" y="82">3  git push -u origin grafico</text>
+        <text x="20" y="122">7  git switch main</text>
+        <text x="20" y="136">   git pull</text>
+      </g>
+      <g font-size="8" fill="currentColor" opacity=".85">
+        <text x="220" y="50">4  Abrir el pull request</text>
+        <text x="220" y="66">5  Revisión: comentarios, ajustes</text>
+        <text x="220" y="82">6  Merge → el cambio entra en main</text>
+        <text x="220" y="122" opacity=".65">   (borrar la rama, ya cumplió)</text>
+      </g>
+      <path d="M192 78 h14" stroke="var(--bs-primary)" opacity=".7" marker-end="url(#g2)"/>
+      <path d="M208 130 h-14" stroke="var(--bs-primary)" opacity=".7" marker-end="url(#g2)"/>
+      <text x="200" y="166" font-size="8" fill="currentColor" opacity=".6" text-anchor="middle">
+        el código sube por push (3 → 4) y vuelve ya integrado por pull (6 → 7)</text>
+    </svg>
+    <figcaption class="mt-2 small text-body-secondary">
+      Nunca se trabaja directo sobre <code>main</code>: cada cambio va en su rama, se propone
+      con un PR, y recién después de aprobarse entra. Hasta el paso 3, nadie más que vos sabe
+      que existe la rama.
+    </figcaption>
+  </figure>
+
+  <h3 class="mt-4 mb-2">La rama y el push <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal ms-1"><i class="bi bi-pc-display"></i> local</span></h3>
+  <pre>git switch -c grafico          <span class="cm"># crear la rama y pararse en ella</span>
+<span class="cm"># … editar, git add, git commit, las veces que haga falta …</span>
+git push -u origin grafico     <span class="cm"># subirla a GitHub (-u solo la primera vez)</span></pre>
+  <pre class="out">remote: Create a pull request for 'grafico' on GitHub by visiting:
+remote:   https://github.com/ana/proyecto/pull/new/grafico</pre>
+  <p class="mb-3">Git mismo te da el enlace. Abrilo, o entrá al repo en GitHub: aparece un botón amarillo <em>Compare &amp; pull request</em>.</p>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-windows"></i> La primera vez que hacés push en Windows</strong>
+    se abre una ventana de GitHub pidiendo que inicies sesión en el navegador. Es el
+    <em>Git Credential Manager</em>, que viene con Git for Windows: aceptás una vez y no te lo
+    vuelve a pedir. En Linux no hay ventana: se usa un token o una clave SSH, que se ve en la
+    sección 07.
+  </div>
+
+  <h3 class="mt-4 mb-2">Abrir el PR <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal ms-1"><i class="bi bi-cloud"></i> remoto</span></h3>
+  <p class="mb-3">Esto es en el navegador, en la página del repo en GitHub:</p>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:9rem">Campo</th><th>Qué poner</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">base ← compare</td><td><code>main</code> ← tu rama. Es decir: "quiero llevar mi rama a main". Verificalo, es el error más común</td></tr>
+        <tr><td class="text-primary">Título</td><td>Qué hace el cambio, en una línea: "Agrega gráfico de ventas por mes"</td></tr>
+        <tr><td class="text-primary">Descripción</td><td>Por qué se hizo, cómo probarlo, qué queda pendiente. Si resuelve un issue: <code>Closes #12</code> lo cierra solo al hacer merge</td></tr>
+        <tr><td class="text-primary">Reviewers</td><td>A quién le pedís que lo mire. Si es un trabajo de la cursada, a tus compañeros</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">La revisión <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal ms-1"><i class="bi bi-cloud"></i> remoto</span></h3>
+  <p class="mb-3">En la pestaña <em>Files changed</em> se ve el diff completo y cualquiera puede comentar línea por línea.</p>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:9rem">Estado</th><th>Significa</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">Comment</td><td>Una opinión, no bloquea nada</td></tr>
+        <tr><td class="text-primary">Approve</td><td>Está bien, se puede mergear</td></tr>
+        <tr><td class="text-primary">Request changes</td><td>Hay algo que corregir antes de que entre</td></tr>
+        <tr><td class="text-primary">Draft</td><td>Todavía no está para revisar; lo abrís así para mostrar el avance</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">Si te piden cambios <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal ms-1"><i class="bi bi-pc-display"></i> local</span></h3>
+  <p class="mb-3">No hay que abrir otro PR. Volvés a tu PC, seguís commiteando en la misma rama y hacés push: el PR en GitHub se actualiza solo con los commits nuevos.</p>
+  <pre><span class="cm"># te pidieron cambiar el color del gráfico</span>
+<span class="cm"># … editás …</span>
+git add grafico.py
+git commit -m "Usa la paleta del proyecto en el gráfico"
+git push                       <span class="cm"># sin -u: la rama ya sabe adónde ir</span></pre>
+
+  <h3 class="mt-4 mb-2">El merge <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal ms-1"><i class="bi bi-cloud"></i> remoto</span></h3>
+  <p class="mb-3">Con el PR aprobado, el botón <em>Merge pull request</em> integra la rama en el <code>main</code> de GitHub. Ahí mismo ofrece borrar la rama: aceptá. Hay tres variantes del botón:</p>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:11rem">Opción</th><th>Qué hace con la historia</th><th style="width:9rem">Cuándo</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">Merge commit</td><td>Suma todos los commits de la rama más uno de merge</td><td>La opción por defecto; sirve siempre</td></tr>
+        <tr><td class="text-primary">Squash and merge</td><td>Aplasta todos los commits de la rama en uno solo</td><td>Cuando la rama tiene muchos commits chicos tipo "fix", "otra vez"</td></tr>
+        <tr><td class="text-primary">Rebase and merge</td><td>Copia los commits uno a uno sobre main, sin commit de merge</td><td>Historia lineal; en equipos que lo acordaron</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">La vuelta a casa <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal ms-1"><i class="bi bi-pc-display"></i> local</span></h3>
+  <p class="mb-3">El merge pasó en GitHub: el <code>main</code> de tu PC todavía no sabe nada. Hay que traerlo:</p>
+  <pre>git switch main
+git pull                       <span class="cm"># tu main local recibe el cambio mergeado</span>
+git branch -d grafico          <span class="cm"># borrar la rama local, ya cumplió</span></pre>
+
+  <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> "This branch has conflicts that must be resolved".</strong>
+    Alguien cambió en <code>main</code> las mismas líneas que vos. GitHub no deja mergear hasta
+    que lo resuelvas, y eso se hace en tu PC: <code>git switch grafico</code>,
+    <code>git merge main</code>, arreglar los archivos marcados, commit y push. El PR se
+    actualiza y el botón vuelve a verde.
+  </div>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-info-circle"></i> ¿Y si el repo no es mío?</strong>
+    Mismo flujo, con un paso más: primero hacés un <em>fork</em> (una copia del repo en tu
+    cuenta de GitHub), la clonás a tu PC, trabajás ahí y el PR va de tu fork al repo original.
+    Así se contribuye a cualquier proyecto abierto sin pedir permiso de escritura.
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Un PR chico se revisa en cinco minutos y se aprueba; uno de cuarenta archivos se posterga
+    para siempre. Una rama, un cambio, un PR. Si te das cuenta de que estás tocando dos cosas
+    distintas, son dos ramas.
+  </div>
+</section>
+
+<section id="s10" class="pb-5 mb-5 border-bottom" data-group="GitHub">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 10</p>
+  <h2 class="mb-3">Colaborar y publicar</h2>
+  <p class="mb-4">Lo que GitHub agrega por encima de Git: un lugar para organizar el trabajo, presentar el proyecto y dejar que otros participen. Todo esto pasa en el navegador.</p>
+
+  <h3 class="mt-4 mb-2">Sumar compañeros a un repo <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal ms-1"><i class="bi bi-cloud"></i> remoto</span></h3>
+  <p class="mb-3">Para un trabajo en grupo, una persona crea el repo y suma al resto: <em>Settings → Collaborators → Add people</em>, por nombre de usuario. Cada uno recibe una invitación por mail, acepta, y ya puede hacer push. Después, cada uno clona a su PC y trabaja con ramas y pull requests.</p>
+
+  <h3 class="mt-4 mb-2">Issues: la lista de tareas</h3>
+  <p class="mb-3">Cada issue es un ticket: un bug, una tarea, una idea. Tiene número, título, descripción, responsable y etiquetas. Es donde se discute <em>antes</em> de escribir código, y sirve como lista de pendientes del grupo.</p>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:11rem">En el texto</th><th>Hace</th></tr></thead>
+      <tbody>
+        <tr><td class="font-monospace text-primary">#12</td><td>Enlaza al issue 12 (en commits, PRs, otros issues)</td></tr>
+        <tr><td class="font-monospace text-primary">@usuario</td><td>Le avisa a esa persona</td></tr>
+        <tr><td class="font-monospace text-primary">Closes #12</td><td>En la descripción de un PR: al mergearlo, cierra el issue solo</td></tr>
+        <tr><td class="font-monospace text-primary">- [ ] tarea</td><td>Casilla para marcar; GitHub muestra el progreso</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">Fork: colaborar en un repo ajeno</h3>
+  <p class="mb-3">Si no sos colaborador, no podés hacer push. El camino es copiar el repo a tu cuenta (botón <em>Fork</em>), trabajar en la copia, y proponer el cambio con un PR desde tu fork hacia el original. Así funciona todo el código abierto.</p>
+  <pre><span class="cm"># 1. En GitHub: botón Fork → aparece github.com/ana/proyecto-ajeno</span>
+<span class="cm"># 2. clonar TU copia</span>
+git clone https://github.com/ana/proyecto-ajeno.git
+cd proyecto-ajeno
+git switch -c corrige-typo         <span class="cm"># 3. rama, cambios, commit</span>
+git push -u origin corrige-typo    <span class="cm"># 4. subir a tu fork</span>
+<span class="cm"># 5. En GitHub: Compare &amp; pull request → el PR va al repo original</span></pre>
+
+  <h3 class="mt-4 mb-2">README: la portada del proyecto</h3>
+  <p class="mb-3">Un archivo <code>README.md</code> en la raíz se muestra solo en la página del repo. Está escrito en Markdown. Lo mínimo que tiene que responder: qué es, cómo se corre, con qué datos.</p>
+  <pre># Análisis de ventas 2025
+
+Exploración del dataset de ventas del IFTS 24 con pandas y seaborn.
+
+## Cómo correrlo
+
+```bash
+pip install -r requirements.txt
+python analisis.py
+```
+
+## Datos
+
+`datos/ventas.csv` — 12.400 filas, una por venta. Fuente: cátedra.
+
+## Autores
+
+Ana Pérez · Juan Gómez</pre>
+
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:11rem">Markdown</th><th>Se ve como</th></tr></thead>
+      <tbody>
+        <tr><td class="font-monospace text-primary"># Título · ## Subtítulo</td><td>Títulos de nivel 1 y 2</td></tr>
+        <tr><td class="font-monospace text-primary">**negrita** · *cursiva*</td><td><strong>negrita</strong> · <em>cursiva</em></td></tr>
+        <tr><td class="font-monospace text-primary">`código`</td><td><code>código</code> en línea; con tres <code>```</code> un bloque</td></tr>
+        <tr><td class="font-monospace text-primary">- ítem</td><td>Lista con viñetas</td></tr>
+        <tr><td class="font-monospace text-primary">[texto](url)</td><td>Enlace</td></tr>
+        <tr><td class="font-monospace text-primary">![alt](imagen.png)</td><td>Imagen (la ruta es relativa al repo)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">GitHub Pages: publicar como sitio web</h3>
+  <p class="mb-3">Si el repo tiene un <code>index.html</code>, GitHub lo sirve gratis como página. <em>Settings → Pages → Source: Deploy from a branch → main</em>. En un minuto queda en <code>tu-usuario.github.io/proyecto</code>. Esta guía que estás leyendo está publicada así.</p>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-info-circle"></i> La licencia.</strong>
+    Sin un archivo <code>LICENSE</code>, legalmente nadie puede usar tu código aunque sea público.
+    <strong>MIT</strong> es la más simple: "usalo como quieras, no me hago responsable". GitHub la
+    agrega con un click en <em>Add file → Create new file → LICENSE</em>.
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Un repo con README claro, issues abiertos y PRs revisados dice más de cómo trabajás que
+    cualquier renglón del CV. Tratá tus trabajos de la cursada como si alguien los fuera a leer,
+    porque alguien los va a leer.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     DÍA A DÍA
+     ═══════════════════════════════════════════════════════════════ -->
+
+<section id="s11" class="pb-5 mb-5 border-bottom" data-group="Día a día">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 11</p>
+  <h2 class="mb-3">El flujo de un equipo</h2>
+  <p class="mb-4">Todo lo anterior, encadenado como pasa de verdad en un grupo. Se llama <em>feature branch workflow</em> y es lo que vas a encontrar en casi cualquier equipo: una rama por tarea, un PR por rama, <code>main</code> siempre sano.</p>
+
+  <h3 class="mt-4 mb-2">Un día de trabajo</h3>
+  <figure class="border rounded p-3">
+    <svg viewBox="0 0 400 200" width="100%" role="img" aria-label="Línea de tiempo de una tarea: pull, rama, commits, push, PR, revisión, merge y vuelta a main, marcando qué pasos son locales y cuáles remotos">
+      <defs><marker id="g6" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+        <path d="M0 0 L6 3 L0 6 z" fill="currentColor" opacity=".4"/></marker></defs>
+      <rect x="10" y="10" width="380" height="80" rx="6" fill="var(--bs-primary)" opacity=".06"/>
+      <rect x="10" y="10" width="380" height="80" rx="6" fill="none" stroke="var(--bs-primary)" opacity=".5" stroke-dasharray="4 3"/>
+      <text x="20" y="26" font-size="9" fill="var(--bs-primary)" font-weight="600">LOCAL · tu PC</text>
+      <rect x="10" y="104" width="380" height="80" rx="6" fill="var(--bs-primary)" opacity=".06"/>
+      <rect x="10" y="104" width="380" height="80" rx="6" fill="none" stroke="var(--bs-primary)" opacity=".5" stroke-dasharray="4 3"/>
+      <text x="20" y="120" font-size="9" fill="var(--bs-primary)" font-weight="600">REMOTO · GitHub</text>
+      <g fill="var(--bs-primary)" opacity=".25" stroke="var(--bs-primary)" stroke-opacity=".7">
+        <circle cx="50" cy="56" r="9"/><circle cx="130" cy="56" r="9"/><circle cx="210" cy="56" r="9"/><circle cx="290" cy="56" r="9"/>
+        <circle cx="130" cy="150" r="9"/><circle cx="210" cy="150" r="9"/><circle cx="290" cy="150" r="9"/>
+      </g>
+      <circle cx="355" cy="56" r="9" fill="var(--bs-primary)" opacity=".5" stroke="var(--bs-primary)"/>
+      <g font-size="8" font-family="monospace" fill="currentColor" text-anchor="middle" font-weight="600">
+        <text x="50" y="59">1</text><text x="130" y="59">2</text><text x="210" y="59">3</text><text x="290" y="59">4</text><text x="355" y="59">8</text>
+        <text x="130" y="153">5</text><text x="210" y="153">6</text><text x="290" y="153">7</text>
+      </g>
+      <g font-size="7" fill="currentColor" opacity=".8" text-anchor="middle">
+        <text x="50" y="78">git pull</text>
+        <text x="130" y="78">switch -c tarea</text>
+        <text x="210" y="78">add · commit</text>
+        <text x="290" y="78">push</text>
+        <text x="355" y="40">switch main · pull</text>
+        <text x="130" y="172">abrir PR</text>
+        <text x="210" y="172">revisión</text>
+        <text x="290" y="172">merge</text>
+      </g>
+      <g stroke="currentColor" opacity=".4" fill="none">
+        <path d="M59 56 h61" marker-end="url(#g6)"/><path d="M139 56 h61" marker-end="url(#g6)"/><path d="M219 56 h61" marker-end="url(#g6)"/>
+        <path d="M139 150 h61" marker-end="url(#g6)"/><path d="M219 150 h61" marker-end="url(#g6)"/>
+      </g>
+      <g stroke="var(--bs-primary)" opacity=".6" fill="none">
+        <path d="M296 64 q0 40 -160 76" stroke-dasharray="3 2"/>
+        <path d="M299 150 q50 0 54 -84" marker-end="url(#g6)"/>
+      </g>
+      <path d="M204 48 q-10 -22 6 -22 q16 0 6 22" fill="none" stroke="currentColor" opacity=".35" marker-end="url(#g6)"/>
+      <text x="240" y="34" font-size="7" fill="currentColor" opacity=".55">se repite</text>
+      <text x="200" y="196" font-size="8" fill="currentColor" opacity=".6" text-anchor="middle">
+        el push (4) hace posible el PR (5) · el merge (7) llega a tu PC con el pull (8)</text>
+    </svg>
+    <figcaption class="mt-2 small text-body-secondary">
+      Los pasos 1 a 4 y el 8 son comandos en tu terminal; 5, 6 y 7 son clicks en la web de
+      GitHub. La tarea "existe" para el equipo recién en el paso 5.
+    </figcaption>
+  </figure>
+
+  <h3 class="mt-4 mb-2">El mismo día, en comandos <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal ms-1"><i class="bi bi-pc-display"></i> local</span></h3>
+  <pre><span class="cm"># 1. arrancar al día con lo último</span>
+git switch main
+git pull
+
+<span class="cm"># 2. una rama para la tarea (issue #7: agregar gráfico de barras)</span>
+git switch -c grafico-barras
+
+<span class="cm"># 3. trabajar; commitear cada paso con sentido</span>
+git add grafico.py
+git commit -m "Agrega gráfico de barras por categoría"
+git add grafico.py
+git commit -m "Ordena las barras de mayor a menor"
+
+<span class="cm"># 4. subir la rama</span>
+git push -u origin grafico-barras
+
+<span class="cm"># 5-7. en GitHub: abrir PR "Closes #7", esperar revisión, merge</span>
+
+<span class="cm"># 8. volver a main con el cambio ya integrado</span>
+git switch main
+git pull
+git branch -d grafico-barras</pre>
+
+  <h3 class="mt-4 mb-2">Si la tarea dura varios días</h3>
+  <p class="mb-3"><code>main</code> avanza mientras trabajás. Cada tanto, traé esos cambios a tu rama así el PR final no choca:</p>
+  <pre>git switch main
+git pull                     <span class="cm"># actualizar main</span>
+git switch grafico-barras
+git merge main               <span class="cm"># traer lo nuevo de main; conflictos ahora, chicos</span></pre>
+
+  <h3 class="mt-4 mb-2">Nombres de rama</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:13rem">Bien</th><th>Por qué</th></tr></thead>
+      <tbody>
+        <tr><td class="font-monospace text-primary">grafico-barras</td><td>Dice qué hace, minúsculas, guiones</td></tr>
+        <tr><td class="font-monospace text-primary">fix-promedio-nulos</td><td>Un prefijo por tipo ayuda: <code>fix-</code>, <code>docs-</code>, <code>exp-</code> para experimentos</td></tr>
+        <tr><td class="font-monospace text-primary">ana/limpieza-csv</td><td>Con el nombre adelante, en equipos donde cada uno tiene varias</td></tr>
+        <tr><td class="font-monospace text-danger">prueba, nueva, rama2, final</td><td>No dicen nada; en una semana nadie sabe qué tienen</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-info-circle"></i> Trabajando solo también sirve.</strong>
+    Sin revisores el PR parece burocracia, pero deja un registro legible de qué hiciste y
+    cuándo, y te obliga a mirar tu propio diff antes de mergear. Muchos errores se ven ahí.
+    Como mínimo: ramas para lo que no sabés si va a funcionar.
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Memorizá el ciclo, no los comandos: <em>actualizar → rama → commits → push → PR → merge →
+    actualizar</em>. Los comandos salen solos después de la tercera vez. Lo que no se olvida
+    es el orden.
+  </div>
+</section>
+
+<section id="s12" class="pb-5 mb-5 border-bottom" data-group="Día a día">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 12</p>
+  <h2 class="mb-3">Buenos commits</h2>
+  <p class="mb-4">La historia la van a leer otros (y vos en tres meses, que es lo mismo). Un commit bien hecho se entiende sin abrir el diff. Cuesta diez segundos más y se paga solo la primera vez que buscás dónde se rompió algo.</p>
+
+  <h3 class="mt-4 mb-2">Qué va en un commit</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:10rem"></th><th>Bien</th><th>Mal</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">Tamaño</td><td>Un cambio con sentido propio</td><td>"Todo lo de hoy" (12 archivos, 3 temas)</td></tr>
+        <tr><td class="text-primary">Estado</td><td>El proyecto funciona después del commit</td><td>Código a medias que rompe el script</td></tr>
+        <tr><td class="text-primary">Contenido</td><td>Solo lo que dice el mensaje</td><td>El cambio, más un reformateo, más un archivo de prueba</td></tr>
+        <tr><td class="text-primary">Frecuencia</td><td>Varios por día</td><td>Uno por semana</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">Cómo escribir el mensaje</h3>
+  <p class="mb-3">Un título de hasta 50 caracteres, en presente, que complete la frase "este commit…". Si hace falta explicar el porqué, una línea en blanco y un párrafo:</p>
+  <pre>git commit -m "Corrige el promedio cuando hay montos nulos"
+
+<span class="cm"># con cuerpo: git commit sin -m abre el editor</span>
+Corrige el promedio cuando hay montos nulos
+
+mean() ya ignora los NaN, pero el conteo manual con len() los
+incluía y bajaba el resultado. Cierra #14.</pre>
+
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:6rem"></th><th>Mensaje</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">Bien</td><td class="font-monospace">Agrega la carga del CSV de ventas</td></tr>
+        <tr><td class="text-primary">Bien</td><td class="font-monospace">Elimina columnas duplicadas del dataset</td></tr>
+        <tr><td class="text-primary">Bien</td><td class="font-monospace">Documenta cómo correr el análisis</td></tr>
+        <tr><td class="text-danger">Mal</td><td class="font-monospace">cambios</td></tr>
+        <tr><td class="text-danger">Mal</td><td class="font-monospace">arreglado</td></tr>
+        <tr><td class="text-danger">Mal</td><td class="font-monospace">asdfgh</td></tr>
+        <tr><td class="text-danger">Mal</td><td class="font-monospace">Agregué el gráfico y también arreglé el csv y saqué prints</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-info-circle"></i> Si te quedó abierto un editor raro.</strong>
+    <code>git commit</code> sin <code>-m</code> abre el editor configurado, que en Windows suele
+    ser Vim: escribís, <kbd>Esc</kbd>, <code>:wq</code>, <kbd>Enter</kbd>. Para que use VS Code:
+    <code>git config --global core.editor "code --wait"</code>. Se agradece.
+  </div>
+
+  <h3 class="mt-4 mb-2">Commits parciales: elegir qué entra</h3>
+  <p class="mb-3">Tocaste dos cosas en el mismo archivo y querés dos commits. Se puede:</p>
+  <pre>git add -p app.py            <span class="cm"># bloque por bloque: y (sí), n (no), s (partir)</span>
+git commit -m "Corrige el promedio"
+git add app.py               <span class="cm"># lo que quedó</span>
+git commit -m "Renombra las columnas a minúsculas"</pre>
+
+  <h3 class="mt-4 mb-2">Lo que nunca se commitea</h3>
+  <div class="list-group list-group-flush mb-4">
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">01</span><span>Contraseñas, tokens, claves de API. Ni en un repo privado: van en <code>.env</code>, que está en el <code>.gitignore</code></span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">02</span><span>Datos pesados o con información personal. Un CSV de 300 MB hace lento cada clone para siempre</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">03</span><span>Cosas generadas: <code>__pycache__</code>, <code>venv/</code>, salidas de notebooks, gráficos que se regeneran</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">04</span><span>Configuración personal del editor (<code>.vscode/</code>) y basura del sistema (<code>Thumbs.db</code>, <code>desktop.ini</code>)</span></div>
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Antes de escribir el mensaje, <code>git diff --staged</code>. Si no podés resumir lo que ves
+    en una línea, son dos commits. Si podés, esa línea es el mensaje.
+  </div>
+</section>
+
+<section id="s13" class="pb-5 mb-5 border-bottom" data-group="Día a día">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 13</p>
+  <h2 class="mb-3">Git desde VS Code</h2>
+  <p class="mb-4">Todo lo de esta guía se puede hacer con botones en VS Code, que ya trae Git integrado. Conviene saber a qué comando equivale cada botón: cuando algo sale raro, la terminal explica y el botón no.</p>
+
+  <h3 class="mt-4 mb-2">La pestaña Source Control <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal ms-1"><i class="bi bi-pc-display"></i> local</span></h3>
+  <p class="mb-3">Ícono de las tres bolitas en la barra de la izquierda, o <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>G</kbd>. Muestra las mismas zonas que <code>git status</code>:</p>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:13rem">En VS Code</th><th>Equivale a</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">Changes</td><td>Directorio de trabajo: archivos modificados sin <code>add</code></td></tr>
+        <tr><td class="text-primary">Staged Changes</td><td>Staging</td></tr>
+        <tr><td class="text-primary">Botón <strong>+</strong> junto al archivo</td><td><code>git add archivo</code></td></tr>
+        <tr><td class="text-primary">Botón <strong>−</strong> en Staged</td><td><code>git restore --staged archivo</code></td></tr>
+        <tr><td class="text-primary">Flecha ↶ (Discard)</td><td><code>git restore archivo</code> — con la misma advertencia: no vuelve</td></tr>
+        <tr><td class="text-primary">Cuadro de texto + <strong>Commit</strong></td><td><code>git commit -m "…"</code></td></tr>
+        <tr><td class="text-primary">Botón <strong>Sync Changes</strong></td><td><code>git pull</code> seguido de <code>git push</code></td></tr>
+        <tr><td class="text-primary">Menú ··· → Branch → Create Branch</td><td><code>git switch -c nombre</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">Lo que se ve en el editor</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:13rem">Señal</th><th>Significa</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">Barra de estado, abajo a la izquierda</td><td>La rama actual. Click para cambiar de rama (<code>git switch</code>)</td></tr>
+        <tr><td class="text-primary">Número junto a la rama, ↓2 ↑1</td><td>Commits para bajar y para subir (<em>behind / ahead</em>)</td></tr>
+        <tr><td class="text-primary">Barritas de color en el margen</td><td>Verde: líneas nuevas; azul: modificadas; triángulo rojo: borradas. Click para ver el diff</td></tr>
+        <tr><td class="text-primary">Letra junto al archivo en el explorador</td><td><code>M</code> modificado · <code>U</code> nuevo (untracked) · <code>D</code> borrado</td></tr>
+        <tr><td class="text-primary">Botones Accept Current / Incoming</td><td>Un archivo en conflicto: elegir versión y borrar las marcas</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">Extensiones que ayudan</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:11rem">Extensión</th><th>Para</th></tr></thead>
+      <tbody>
+        <tr><td class="text-primary">Git Graph</td><td>Ver las ramas dibujadas, como <code>git log --graph</code> pero lindo</td></tr>
+        <tr><td class="text-primary">GitLens</td><td>Ver junto a cada línea quién la escribió y en qué commit (<code>git blame</code>)</td></tr>
+        <tr><td class="text-primary">GitHub Pull Requests</td><td>Abrir y revisar PRs sin salir del editor</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 my-4">
+    <strong><i class="bi bi-info-circle"></i> GitHub Desktop.</strong>
+    Programa aparte, gratuito, de GitHub. Más simple que VS Code para clone, commit, push y
+    pull, y muy claro para ver diffs. Buena opción si la terminal te asusta al principio; los
+    conceptos son los mismos.
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3 mt-4">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Usá los botones para lo repetitivo (add, commit, sync) y la terminal para lo que necesite
+    pensar (deshacer, ramas, conflictos). Y la terminal de VS Code ya es Git Bash: están
+    a un <kbd>Ctrl</kbd>+<kbd>ñ</kbd> de distancia.
+  </div>
+</section>
+
+<section id="s14" data-group="Día a día">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Sección 14</p>
+  <h2 class="mb-3">Recetario y errores frecuentes</h2>
+  <p class="mb-4">Todo lo que se repite, en una página para tener a mano.</p>
+
+  <h3 class="mt-4 mb-2">Los comandos, por zona</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:15rem">Comando</th><th>Hace</th><th style="width:5rem">Dónde</th></tr></thead>
+      <tbody>
+        <tr><td class="font-monospace text-primary">git init</td><td>Convierte la carpeta en repositorio</td><td><i class="bi bi-pc-display"></i></td></tr>
+        <tr><td class="font-monospace text-primary">git status</td><td>Qué hay en cada zona, en qué rama estás</td><td><i class="bi bi-pc-display"></i></td></tr>
+        <tr><td class="font-monospace text-primary">git add . / archivo</td><td>Manda al staging</td><td><i class="bi bi-pc-display"></i></td></tr>
+        <tr><td class="font-monospace text-primary">git commit -m "…"</td><td>Guarda la foto</td><td><i class="bi bi-pc-display"></i></td></tr>
+        <tr><td class="font-monospace text-primary">git log --oneline</td><td>La historia, resumida</td><td><i class="bi bi-pc-display"></i></td></tr>
+        <tr><td class="font-monospace text-primary">git diff / --staged</td><td>Qué cambió, línea por línea</td><td><i class="bi bi-pc-display"></i></td></tr>
+        <tr><td class="font-monospace text-primary">git restore archivo</td><td>Descarta cambios (sin vuelta)</td><td><i class="bi bi-pc-display"></i></td></tr>
+        <tr><td class="font-monospace text-primary">git switch -c rama</td><td>Crea una rama y se para ahí</td><td><i class="bi bi-pc-display"></i></td></tr>
+        <tr><td class="font-monospace text-primary">git merge rama</td><td>Trae esa rama a la actual</td><td><i class="bi bi-pc-display"></i></td></tr>
+        <tr><td class="font-monospace text-primary">git stash / pop</td><td>Guarda y recupera cambios a medias</td><td><i class="bi bi-pc-display"></i></td></tr>
+        <tr><td class="font-monospace text-primary">git clone URL</td><td>Trae un repo de GitHub a tu PC</td><td><i class="bi bi-cloud"></i> → <i class="bi bi-pc-display"></i></td></tr>
+        <tr><td class="font-monospace text-primary">git push</td><td>Sube tus commits</td><td><i class="bi bi-pc-display"></i> → <i class="bi bi-cloud"></i></td></tr>
+        <tr><td class="font-monospace text-primary">git pull</td><td>Baja y mergea los de los demás</td><td><i class="bi bi-cloud"></i> → <i class="bi bi-pc-display"></i></td></tr>
+        <tr><td class="font-monospace text-primary">Abrir PR · revisar · merge</td><td>Proponer e integrar una rama</td><td><i class="bi bi-cloud"></i></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-4 mb-2">Situaciones que siempre vuelven</h3>
+  <pre><span class="cm"># Empezar un proyecto nuevo y subirlo</span>
+git init
+git add .
+git commit -m "Primer commit"
+git remote add origin https://github.com/ana/proyecto.git
+git push -u origin main
+
+<span class="cm"># Bajar un proyecto de un compañero</span>
+git clone https://github.com/juan/proyecto.git
+
+<span class="cm"># Una tarea, de punta a punta</span>
+git switch main &amp;&amp; git pull
+git switch -c mi-tarea
+<span class="cm"># … add, commit …</span>
+git push -u origin mi-tarea
+<span class="cm"># PR en GitHub → merge</span>
+git switch main &amp;&amp; git pull
+
+<span class="cm"># Me olvidé de crear la rama y commiteé en main (sin push todavía)</span>
+git branch mi-tarea
+git reset --hard origin/main
+git switch mi-tarea
+
+<span class="cm"># Commiteé un archivo que debía estar ignorado</span>
+echo "datos.csv" &gt;&gt; .gitignore
+git rm --cached datos.csv
+git commit -m "Deja de seguir datos.csv"</pre>
+
+  <h3 class="mt-4 mb-2">Los errores que más se repiten</h3>
+  <div class="list-group list-group-flush mb-4">
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">01</span><span>Hacer <code>add</code> y creer que ya está guardado: sin <code>commit</code> no hay foto</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">02</span><span>Hacer <code>commit</code> y creer que ya está en GitHub: sin <code>push</code> sigue solo en tu PC</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">03</span><span>Commitear en <code>main</code> en vez de en una rama</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">04</span><span>Empezar a trabajar sin <code>pull</code> y chocar con lo que subieron otros</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">05</span><span><code>git add .</code> sin <code>.gitignore</code>: suben el venv, los datos y las claves</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">06</span><span>Resolver un conflicto sin borrar las marcas <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> y commitearlas</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">07</span><span><code>reset --hard</code> o <code>push --force</code> sobre algo que ya vieron otros</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">08</span><span>Mensajes de commit tipo "cambios", "final", "final2"</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">09</span><span>Correr <code>git init</code> adentro de una carpeta que ya es repo (o en <code>C:\Users\Ana</code> entera)</span></div>
+    <div class="list-group-item bg-transparent px-0 d-flex gap-3">
+      <span class="text-primary font-monospace">10</span><span>Subir un notebook con las salidas y generar conflictos cada vez que alguien lo ejecuta</span></div>
+  </div>
+
+  <h3 class="mt-4 mb-2">Para seguir</h3>
+  <div class="table-responsive mb-4">
+    <table class="table table-sm align-middle">
+      <thead><tr><th style="width:13rem">Recurso</th><th>Qué es</th></tr></thead>
+      <tbody>
+        <tr><td><a href="https://learngitbranching.js.org/?locale=es_AR">Learn Git Branching</a></td><td>Juego en el navegador para practicar ramas y merges viendo el gráfico</td></tr>
+        <tr><td><a href="https://git-scm.com/book/es/v2">Pro Git</a></td><td>El libro oficial, gratis y en castellano. Los capítulos 2 y 3 cubren esta guía</td></tr>
+        <tr><td><a href="https://ohshitgit.com/es">Oh Shit, Git!?!</a></td><td>Recetas para salir de cada lío, en el orden en que uno los va pisando</td></tr>
+        <tr><td><a href="https://docs.github.com/es">docs.github.com</a></td><td>La documentación de GitHub, en castellano</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="border-start border-3 border-primary bg-primary-subtle rounded p-3">
+    <strong class="text-primary"><i class="bi bi-lightbulb"></i> Clave.</strong>
+    Si retenés una sola cosa de toda la guía: lo commiteado no se pierde. Todo lo demás —ramas,
+    conflictos, resets— se puede arreglar con calma mientras haya commits. Commiteá seguido,
+    subí al terminar el día, y el resto se aprende con los golpes, que van a ser pocos.
+  </div>
+</section>
+
+<footer class="pt-3 mt-4 border-top small text-body-secondary">By F. Suárez · 2026 · Saludos pal IFTS 24</footer>
+</main>
+
+<div class="bottombar d-lg-none">
+  <div class="d-flex justify-content-between align-items-center py-2 px-3">
+    <span class="small text-body-secondary text-truncate me-2" id="crumb"></span>
+    <div class="d-flex gap-1 flex-shrink-0">
+      <button class="btn btn-sm border-0 theme-btn"><i class="bi bi-moon fs-5"></i></button>
+      <button class="btn btn-sm border-0" data-bs-toggle="offcanvas" data-bs-target="#toc">
+        <i class="bi bi-list fs-5"></i></button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/guia.js"></script>
+</body>
+</html>
