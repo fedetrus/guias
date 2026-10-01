@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Repaso 1er parcial PyE</title>
+<title>Repaso de PyE · Unidades 1 a 4</title>
 <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
@@ -12,8 +12,7 @@
   <ul>
     <li><a href="../index.html">← Guías</a></li>
     <li><a href="#inicio">Inicio</a></li>
-    <li><a href="#ruta">Ruta hasta el viernes</a></li>
-    <li><a href="#parcial">El parcial</a></li>
+    <li><a href="#temas">Temas</a></li>
     <li><a href="#graficos">Gráficos</a></li>
     <li><a href="#u1">U1 Descriptiva</a></li>
     <li><a href="#u2">U2 Regresión</a></li>
@@ -26,53 +25,48 @@
 <main>
 
 <header id="inicio">
-  <h1>Repaso 1er parcial · Probabilidad y Estadística</h1>
-  <p class="muted">Parcial: viernes 2/10 · 4 unidades · se permite hoja de fórmulas</p>
+  <h1>Repaso de PyE · Unidades 1 a 4</h1>
+  <p class="muted">Guía orientativa de Probabilidad y Estadística · Descriptiva · Regresión · Conteo · Probabilidad</p>
   <div class="card tip">
     <strong>Cómo usar esta página:</strong> leé el panorama de cada unidad, intentá el ejercicio
     <em>antes</em> de abrir "Ver solución" y después compará tu resultado paso a paso.
-    Los ejercicios van de fácil a tipo parcial.
+    Los ejercicios van de fácil a integrador.
   </div>
 </header>
 
-<!-- ================= RUTA ================= -->
-<section id="ruta" aria-labelledby="ruta-titulo">
-  <h2 id="ruta-titulo">Ruta hasta el viernes</h2>
-  <p class="muted">Marcá lo que vas terminando (se guarda en este navegador).</p>
-  <div class="card ruta">
-    <label><input type="checkbox" data-id="d1"><span><strong>Vie 25 (hoy):</strong> leer "El parcial" y el panorama de cada unidad. Hacer el ejercicio 1 o 2 de cada unidad.</span></label>
-    <label><input type="checkbox" data-id="d2"><span><strong>Sáb 26:</strong> U1 Descriptiva completa + el ejercicio del parcial (sección "El parcial").</span></label>
-    <label><input type="checkbox" data-id="d3"><span><strong>Dom 27:</strong> U2 Regresión: situaciones + ejercicios 1 a 6. Clave: armar la tabla de Σ y calcular b<sub>1</sub>, b<sub>0</sub>, r y R².</span></label>
-    <label><input type="checkbox" data-id="d4"><span><strong>Lun 28:</strong> U3 Conteo: usá el asistente "¿Qué fórmula uso?" en cada ejercicio. Los ej. 7 y 8 salieron en el parcial y en el repaso.</span></label>
-    <label><input type="checkbox" data-id="d5"><span><strong>Mar 29 y mié 30:</strong> U4 Probabilidad. Foco en la tabla de doble entrada (ej. 7) y la condicional: salió en el repaso.</span></label>
-    <label><input type="checkbox" data-id="d6"><span><strong>Jue 1/10:</strong> simulacro sin mirar soluciones: ej. del parcial (U1) + U2 ej. 6 + U3 ej. 7 + U4 ej. 7, con reloj (≈ 2 h). A la noche, imprimir la hoja de fórmulas.</span></label>
-  </div>
-</section>
 
-<!-- ================= EL PARCIAL ================= -->
-<section id="parcial" aria-labelledby="parcial-titulo">
-  <h2 id="parcial-titulo">Así viene el parcial</h2>
-  <p>Sale del parcial anterior resuelto y de la clase de repaso que están en tu carpeta: <strong>un ejercicio por tema</strong>, con varias preguntas (a, b, c…) y casi siempre un <strong>"interprete"</strong>.</p>
-
+<!-- ================= TEMAS ================= -->
+<section id="temas" aria-labelledby="temas-titulo">
+  <h2 id="temas-titulo">Los 4 temas</h2>
+  <p class="muted">Un mapa de la guía: qué cubre cada unidad. Tocá una para ir directo.</p>
   <div class="conceptos">
-    <div class="concepto">
+    <a class="concepto enlace" href="#u1">
       <svg class="grafico mini" viewBox="0 0 120 72" role="img" aria-label="Barras de frecuencia con una línea de media.">
         <line class="eje" x1="8" y1="62" x2="112" y2="62"/>
         <rect class="barra" x="14" y="44" width="16" height="18" rx="2"/><rect class="barra hi" x="36" y="20" width="16" height="42" rx="2"/>
         <rect class="barra" x="58" y="32" width="16" height="30" rx="2"/><rect class="barra" x="80" y="50" width="16" height="12" rx="2"/>
         <line class="media" x1="56" y1="10" x2="56" y2="62"/>
       </svg>
-      <div><p><strong>Descriptiva</strong></p><p>Puntajes de un videojuego: variable, x̄, Me, Mo, σ y comparar con otra semana. Alturas de niños: x̄, Me, Mo.</p><p><a href="#parcial-ej">Abajo, resuelto</a> · <a href="#u1-ej2">U1 ej. 2</a></p></div>
-    </div>
-    <div class="concepto">
+      <div><p><strong>U1 · Estadística descriptiva</strong></p><p>Variables, tablas de frecuencia, media, mediana, moda, dispersión, cuartiles, histograma y boxplot.</p><p class="muted">Ir a la U1 →</p></div>
+    </a>
+    <a class="concepto enlace" href="#u2">
+      <svg class="grafico mini" viewBox="0 0 120 72" role="img" aria-label="Nube de puntos con una recta ascendente.">
+        <line class="eje" x1="10" y1="64" x2="112" y2="64"/><line class="eje" x1="10" y1="64" x2="10" y2="6"/>
+        <circle class="punto" cx="24" cy="52" r="3.5"/><circle class="punto" cx="42" cy="46" r="3.5"/><circle class="punto" cx="58" cy="34" r="3.5"/>
+        <circle class="punto" cx="76" cy="30" r="3.5"/><circle class="punto" cx="96" cy="16" r="3.5"/>
+        <line class="media" x1="14" y1="58" x2="108" y2="14"/>
+      </svg>
+      <div><p><strong>U2 · Regresión lineal</strong></p><p>Diagrama de dispersión, correlación r, recta de mínimos cuadrados y R².</p><p class="muted">Ir a la U2 →</p></div>
+    </a>
+    <a class="concepto enlace" href="#u3">
       <svg class="grafico mini" viewBox="0 0 120 72" role="img" aria-label="Tres casilleros con 5, 4 y 3 opciones multiplicadas.">
         <rect class="nodo" x="8" y="20" width="28" height="30" rx="4"/><rect class="nodo" x="46" y="20" width="28" height="30" rx="4"/><rect class="nodo" x="84" y="20" width="28" height="30" rx="4"/>
         <text class="fuerte" x="22" y="40" text-anchor="middle">5</text><text class="fuerte" x="60" y="40" text-anchor="middle">4</text><text class="fuerte" x="98" y="40" text-anchor="middle">3</text>
         <text x="41" y="40" text-anchor="middle">×</text><text x="79" y="40" text-anchor="middle">×</text>
       </svg>
-      <div><p><strong>Conteo</strong></p><p>Libros de matemática y física (juntos, por colores, en dos estantes). Banderas de colores (permutaciones con repetición).</p><p><a href="#u3-ej7">U3 ej. 7</a> · <a href="#u3-ej8">U3 ej. 8</a></p></div>
-    </div>
-    <div class="concepto">
+      <div><p><strong>U3 · Métodos de conteo</strong></p><p>Principio de multiplicación, permutaciones, variaciones y combinaciones, con y sin repetición.</p><p class="muted">Ir a la U3 →</p></div>
+    </a>
+    <a class="concepto enlace" href="#u4">
       <svg class="grafico mini" viewBox="0 0 120 72" role="img" aria-label="Tabla de doble entrada con una fila resaltada.">
         <rect class="nodo" x="10" y="8" width="100" height="56" rx="4"/>
         <rect class="banda" x="10" y="22" width="100" height="14"/>
@@ -80,106 +74,11 @@
         <line class="eje" x1="40" y1="8" x2="40" y2="64"/><line class="eje" x1="64" y1="8" x2="64" y2="64"/><line class="eje" x1="88" y1="8" x2="88" y2="64"/>
         <rect class="barra hi" x="66" y="24" width="20" height="10" rx="2"/>
       </svg>
-      <div><p><strong>Probabilidad</strong></p><p>Tabla de 250 alumnos (idioma × edad): completarla, probabilidad simple, "y" y condicional.</p><p><a href="#u4-ej7">U4 ej. 7</a></p></div>
-    </div>
-    <div class="concepto">
-      <svg class="grafico mini" viewBox="0 0 120 72" role="img" aria-label="Nube de puntos con una recta ascendente.">
-        <line class="eje" x1="10" y1="64" x2="112" y2="64"/><line class="eje" x1="10" y1="64" x2="10" y2="6"/>
-        <circle class="punto" cx="24" cy="52" r="3.5"/><circle class="punto" cx="42" cy="46" r="3.5"/><circle class="punto" cx="58" cy="34" r="3.5"/>
-        <circle class="punto" cx="76" cy="30" r="3.5"/><circle class="punto" cx="96" cy="16" r="3.5"/>
-        <line class="media" x1="14" y1="58" x2="108" y2="14"/>
-      </svg>
-      <div><p><strong>Regresión</strong></p><p>No apareció en ese parcial, pero la cátedra la dio este cuatrimestre: puede entrar.</p><p><a href="#u2">U2</a></p></div>
-    </div>
+      <div><p><strong>U4 · Probabilidad</strong></p><p>Laplace, unión e intersección, condicional, independencia, probabilidad total y Bayes.</p><p class="muted">Ir a la U4 →</p></div>
+    </a>
   </div>
-
-  <div class="card tip">
-    <strong>Antes de entregar cada ejercicio:</strong>
-    <ul>
-      <li>¿Escribí la fórmula antes de reemplazar? Suma puntos aunque la cuenta falle.</li>
-      <li>¿Puse las <strong>unidades</strong> (m, min, puntos)?</li>
-      <li>¿Cerré con una frase de <strong>interpretación</strong>?</li>
-      <li>¿Redondeé con criterio (2 decimales) y usé el valor sin redondear para seguir calculando?</li>
-    </ul>
-  </div>
-
-  <article class="card ejercicio" id="parcial-ej">
-    <h3>Descriptiva: el parcial anterior <span class="tag warn">Salió en un parcial</span></h3>
-    <p>Un grupo de 12 amigos juega todos los sábados una partida rápida de un videojuego y comparte sus puntuaciones: 12 · 15 · 15 · 18 · 20 · 22 · 24 · 10 · 15 · 17 · 25 · 27.</p>
-    <ol type="a">
-      <li>Definí la variable estadística del problema y su tipo.</li>
-      <li>Calculá el promedio, la mediana, el desvío estándar y la moda. Interpretá.</li>
-      <li>La semana anterior los resultados fueron x̄ = 18, Me = 18, Mo = 15 y σ = 3,96. Compará el rendimiento entre las dos fechas.</li>
-    </ol>
-    <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
-    </div>
-    <div class="panel-nivel" data-panel="guia">
-      <strong>Guía paso a paso: hacé cada cuenta vos</strong>
-      <ol class="guia-pasos">
-        <li>a) Escribí qué se mide en cada amigo y decidí si se cuenta o se mide.
-          <span class="porque">la variable es la característica que cambia de un individuo a otro; el tipo (discreta o continua) depende de si toma valores sueltos o cualquier valor.</span></li>
-        <li>b) Ordená los 12 puntajes de menor a mayor y numerá las posiciones.
-          <span class="porque">la mediana y la moda se leen mucho más fácil sobre la fila ordenada.</span></li>
-        <li>Sumá los puntajes y dividí por N para la media. Para la mediana, N es par: promediá los datos de las posiciones 6 y 7.
-          <span class="porque">con N par no hay un único dato en el medio, sino dos.</span></li>
-        <li>Buscá el puntaje que más se repite: esa es la moda.
-          <span class="porque">es el valor con mayor frecuencia.</span></li>
-        <li>Para σ: sumá los cuadrados de los datos, dividí por N, restale x̄² y sacá la raíz.
-          <span class="porque">es el atajo de la varianza de la cátedra (dividiendo por N); la raíz devuelve las unidades originales (puntos).</span></li>
-        <li>c) Compará por separado el centro (x̄, Me) y la dispersión (σ, y si querés el CV) de las dos semanas, con una frase para cada uno.
-          <span class="porque">"comparar rendimiento" tiene dos partes: cuánto hicieron en promedio y qué tan parejos fueron.</span></li>
-      </ol>
-    </div>
-    <div class="panel-nivel" data-panel="pistas">
-      <strong>Pistas y planteo</strong>
-      <ul>
-          <li>a) "Variable" = qué se mide en cada amigo. Para el tipo, preguntate si se cuenta o se mide.</li>
-          <li>b) Ordená primero. N = 12 es par: la mediana es el promedio de las posiciones 6 y 7.</li>
-          <li>σ con el atajo: <span class="f">V = Σx² / N − x̄²</span>, y después <span class="f">σ = √V</span>.</li>
-          <li>c) Compará <strong>centro</strong> (x̄, Me) y <strong>dispersión</strong> (σ o CV) por separado. Una frase para cada uno.</li>
-        </ul>
-    </div>
-    <div class="panel-nivel" data-panel="solo">
-      <strong>Resolvelo solo, como en el examen</strong>
-      <p>Tiempo sugerido: <strong>15 minutos</strong>. Hacelo en papel, sin mirar pistas. Cuando termines, abrí "Ver solución" y compará paso por paso.</p>
-    </div>
-    <details>
-      <summary>Ver solución</summary>
-      <div>
-        <p><span class="paso">a)</span> Variable: <strong>puntaje obtenido por cada jugador en la partida</strong>. Es <strong>cuantitativa discreta</strong>: se cuentan puntos enteros.</p>
-        <p><span class="paso">b) Paso 1: ordenar.</span><br>10 · 12 · 15 · 15 · 15 · <strong>17 · 18</strong> · 20 · 22 · 24 · 25 · 27</p>
-        <ul>
-          <li>Media: Σx = 220 → <span class="f">x̄ = 220/12 ≈ 18,33 puntos</span></li>
-          <li>Mediana: posición 6,5 → (17 + 18)/2 = <span class="f">Me = 17,5 puntos</span></li>
-          <li>Moda: el 15 aparece 3 veces → <span class="f">Mo = 15 puntos</span></li>
-          <li>Varianza: Σx² = 4346 → <span class="f">V = 4346/12 − 18,33² ≈ 362,17 − 336,11 = 26,06</span> puntos²</li>
-          <li>Desvío: <span class="f">σ = √26,06 ≈ 5,10 puntos</span></li>
-        </ul>
-        <svg class="grafico" id="g-parcial-1" role="img" aria-label="Puntos con los 12 puntajes entre 10 y 27; mediana en 17,5 y media en 18,33."></svg>
-        <p class="muted leyenda">La media queda un poco a la derecha de la mediana: los puntajes altos (25, 27) la tiran para arriba.</p>
-        <div class="resultado"><strong>b)</strong> En promedio los jugadores hicieron 18,33 puntos. La mitad hizo 17,5 o menos, y el puntaje más repetido fue 15. Los puntajes se alejan del promedio unos 5,1 puntos, en promedio.</div>
-
-        <p style="margin-top:var(--sp-4)"><span class="paso">c) Comparación.</span></p>
-        <div class="tabla-wrap">
-          <table>
-            <thead><tr><th>Medida</th><th>Antes</th><th>Ahora</th></tr></thead>
-            <tbody>
-              <tr><td>x̄</td><td>18</td><td>18,33 ≈</td></tr>
-              <tr><td>Me</td><td>18</td><td>17,5 ↓</td></tr>
-              <tr><td>Mo</td><td>15</td><td>15 =</td></tr>
-              <tr><td>σ</td><td>3,96</td><td><strong>5,10 ↑</strong></td></tr>
-              <tr><td>CV</td><td>22%</td><td><strong>28% ↑</strong></td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="resultado"><strong>c)</strong> El rendimiento promedio fue prácticamente el mismo en las dos fechas (≈ 18 puntos), pero esta semana fue <strong>más desparejo</strong>: σ subió de 3,96 a 5,10 (CV de 22% a 28%). Algunos jugaron mucho mejor (25, 27) y otros peor (10, 12).</div>
-      </div>
-    </details>
-  </article>
 </section>
+
 
 <!-- ================= GRÁFICOS ================= -->
 <section id="graficos" aria-labelledby="graficos-titulo">
@@ -1066,7 +965,7 @@
   <h4>Practicá el histograma</h4>
 
   <article class="card ejercicio" id="u1-hist-ej1">
-    <h3>Histograma A · Armar la tabla y el histograma <span class="tag warn">Tipo parcial</span></h3>
+    <h3>Histograma A · Armar la tabla y el histograma <span class="tag warn">Integrador</span></h3>
     <p>Edades de los 30 asistentes a un curso:</p>
     <p>18 · 19 · 20 · 21 · 21 · 22 · 23 · 24 · 25 · 25 · 26 · 27 · 28 · 29 · 30 · 31 · 33 · 33 · 35 · 36 · 38 · 40 · 41 · 43 · 45 · 48 · 49 · 52 · 55 · 57</p>
     <ol type="a">
@@ -1349,8 +1248,8 @@
   </article>
 
   <article class="card ejercicio" id="u1-box-ej2">
-    <h3>Boxplot B · Construirlo desde los datos <span class="tag">Medio</span> <span class="tag warn">Datos del parcial</span></h3>
-    <p>Con los 12 puntajes del videojuego (sección "El parcial"): 12 · 15 · 15 · 18 · 20 · 22 · 24 · 10 · 15 · 17 · 25 · 27.</p>
+    <h3>Boxplot B · Construirlo desde los datos <span class="tag">Medio</span> <span class="tag warn">Datos del ej. 8</span></h3>
+    <p>Con los 12 puntajes del videojuego (ejercicio 8 de la U1): 12 · 15 · 15 · 18 · 20 · 22 · 24 · 10 · 15 · 17 · 25 · 27.</p>
     <ol type="a">
       <li>Calculá los 5 números y dibujá el boxplot.</li>
       <li>Calculá el RIC. ¿Hay valores atípicos? (usá la regla del 1,5·RIC)</li>
@@ -1409,7 +1308,7 @@
   </article>
 
   <article class="card ejercicio" id="u1-box-ej3">
-    <h3>Boxplot C · Comparar dos grupos <span class="tag warn">Tipo parcial</span></h3>
+    <h3>Boxplot C · Comparar dos grupos <span class="tag warn">Integrador</span></h3>
     <p>Dos comisiones rindieron el mismo examen (notas de 1 a 10):</p>
     <svg class="grafico" id="g-u1-box-ejC" role="img" aria-label="Dos boxplots. Comisión A: mínimo 3, Q1 5, mediana 6, Q3 7, máximo 9. Comisión B: mínimo 1, Q1 4, mediana 7, Q3 9, máximo 10."></svg>
     <ol type="a">
@@ -1563,7 +1462,7 @@
 
   <!-- Ejercicio 2 -->
   <article class="card ejercicio" id="u1-ej2">
-    <h3>2 · Media, mediana y moda <span class="tag ok">Fácil</span> <span class="tag warn">Salió en un parcial</span></h3>
+    <h3>2 · Media, mediana y moda <span class="tag ok">Fácil</span></h3>
     <p>Un pediatra midió a 9 niños: 0,9 · 1,3 · 0,85 · 1,05 · 0,98 · 1,35 · 1,12 · 0,99 · 1,15 m.</p>
     <ol type="a">
       <li>Calculá moda, mediana y media. Interpretá.</li>
@@ -1837,7 +1736,7 @@
 
   <!-- Ejercicio 6 -->
   <article class="card ejercicio">
-    <h3>6 · Ejercicio completo <span class="tag warn">Tipo parcial</span></h3>
+    <h3>6 · Ejercicio completo <span class="tag warn">Integrador</span></h3>
     <p>Metros que camina un niño sin caerse, registrados durante un mes (40 datos):</p>
     <p class="f" style="white-space:normal">1, 1, 2, 2, 2, 2, 2, 2, 3 (×10), 4 (×5), 5 (×10), 6, 6, 6, 7, 7, 8, 8</p>
     <ol type="a">
@@ -1936,7 +1835,7 @@
 
   <!-- Ejercicio 7 -->
   <article class="card ejercicio">
-    <h3>7 · Datos agrupados en intervalos <span class="tag warn">Tipo parcial</span></h3>
+    <h3>7 · Datos agrupados en intervalos <span class="tag warn">Integrador</span></h3>
     <p>Tiempo (en minutos) que 50 autos permanecen en el estacionamiento de un supermercado:</p>
     <div class="tabla-wrap">
       <table style="max-width:260px">
@@ -2038,6 +1937,83 @@
         <p><span class="paso">e) Forma.</span> x̄ = 61,8 &lt; Me = 63 &lt; Mo = 67,5, que es el orden de la asimetría negativa.
           Pearson: <span class="f">A<sub>p</sub> = (61,8 − 67,5)/30,1 ≈ −0,19</span>.</p>
         <div class="resultado">La distribución tiene una <strong>asimetría negativa leve</strong>: hay una cola hacia los tiempos cortos (los 8 autos que se quedan menos de 30 min) que tira la media hacia abajo.</div>
+      </div>
+    </details>
+  </article>
+
+  <article class="card ejercicio" id="u1-ej8">
+    <h3>8 · Comparar dos semanas <span class="tag warn">Integrador</span></h3>
+    <p>Un grupo de 12 amigos juega todos los sábados una partida rápida de un videojuego y comparte sus puntuaciones: 12 · 15 · 15 · 18 · 20 · 22 · 24 · 10 · 15 · 17 · 25 · 27.</p>
+    <ol type="a">
+      <li>Definí la variable estadística del problema y su tipo.</li>
+      <li>Calculá el promedio, la mediana, el desvío estándar y la moda. Interpretá.</li>
+      <li>La semana anterior los resultados fueron x̄ = 18, Me = 18, Mo = 15 y σ = 3,96. Compará el rendimiento entre las dos fechas.</li>
+    </ol>
+    <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
+      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+    </div>
+    <div class="panel-nivel" data-panel="guia">
+      <strong>Guía paso a paso: hacé cada cuenta vos</strong>
+      <ol class="guia-pasos">
+        <li>a) Escribí qué se mide en cada amigo y decidí si se cuenta o se mide.
+          <span class="porque">la variable es la característica que cambia de un individuo a otro; el tipo (discreta o continua) depende de si toma valores sueltos o cualquier valor.</span></li>
+        <li>b) Ordená los 12 puntajes de menor a mayor y numerá las posiciones.
+          <span class="porque">la mediana y la moda se leen mucho más fácil sobre la fila ordenada.</span></li>
+        <li>Sumá los puntajes y dividí por N para la media. Para la mediana, N es par: promediá los datos de las posiciones 6 y 7.
+          <span class="porque">con N par no hay un único dato en el medio, sino dos.</span></li>
+        <li>Buscá el puntaje que más se repite: esa es la moda.
+          <span class="porque">es el valor con mayor frecuencia.</span></li>
+        <li>Para σ: sumá los cuadrados de los datos, dividí por N, restale x̄² y sacá la raíz.
+          <span class="porque">es el atajo de la varianza de la cátedra (dividiendo por N); la raíz devuelve las unidades originales (puntos).</span></li>
+        <li>c) Compará por separado el centro (x̄, Me) y la dispersión (σ, y si querés el CV) de las dos semanas, con una frase para cada uno.
+          <span class="porque">"comparar rendimiento" tiene dos partes: cuánto hicieron en promedio y qué tan parejos fueron.</span></li>
+      </ol>
+    </div>
+    <div class="panel-nivel" data-panel="pistas">
+      <strong>Pistas y planteo</strong>
+      <ul>
+          <li>a) "Variable" = qué se mide en cada amigo. Para el tipo, preguntate si se cuenta o se mide.</li>
+          <li>b) Ordená primero. N = 12 es par: la mediana es el promedio de las posiciones 6 y 7.</li>
+          <li>σ con el atajo: <span class="f">V = Σx² / N − x̄²</span>, y después <span class="f">σ = √V</span>.</li>
+          <li>c) Compará <strong>centro</strong> (x̄, Me) y <strong>dispersión</strong> (σ o CV) por separado. Una frase para cada uno.</li>
+        </ul>
+    </div>
+    <div class="panel-nivel" data-panel="solo">
+      <strong>Resolvelo solo, como en el examen</strong>
+      <p>Tiempo sugerido: <strong>15 minutos</strong>. Hacelo en papel, sin mirar pistas. Cuando termines, abrí "Ver solución" y compará paso por paso.</p>
+    </div>
+    <details>
+      <summary>Ver solución</summary>
+      <div>
+        <p><span class="paso">a)</span> Variable: <strong>puntaje obtenido por cada jugador en la partida</strong>. Es <strong>cuantitativa discreta</strong>: se cuentan puntos enteros.</p>
+        <p><span class="paso">b) Paso 1: ordenar.</span><br>10 · 12 · 15 · 15 · 15 · <strong>17 · 18</strong> · 20 · 22 · 24 · 25 · 27</p>
+        <ul>
+          <li>Media: Σx = 220 → <span class="f">x̄ = 220/12 ≈ 18,33 puntos</span></li>
+          <li>Mediana: posición 6,5 → (17 + 18)/2 = <span class="f">Me = 17,5 puntos</span></li>
+          <li>Moda: el 15 aparece 3 veces → <span class="f">Mo = 15 puntos</span></li>
+          <li>Varianza: Σx² = 4346 → <span class="f">V = 4346/12 − 18,33² ≈ 362,17 − 336,11 = 26,06</span> puntos²</li>
+          <li>Desvío: <span class="f">σ = √26,06 ≈ 5,10 puntos</span></li>
+        </ul>
+        <svg class="grafico" id="g-parcial-1" role="img" aria-label="Puntos con los 12 puntajes entre 10 y 27; mediana en 17,5 y media en 18,33."></svg>
+        <p class="muted leyenda">La media queda un poco a la derecha de la mediana: los puntajes altos (25, 27) la tiran para arriba.</p>
+        <div class="resultado"><strong>b)</strong> En promedio los jugadores hicieron 18,33 puntos. La mitad hizo 17,5 o menos, y el puntaje más repetido fue 15. Los puntajes se alejan del promedio unos 5,1 puntos, en promedio.</div>
+
+        <p style="margin-top:var(--sp-4)"><span class="paso">c) Comparación.</span></p>
+        <div class="tabla-wrap">
+          <table>
+            <thead><tr><th>Medida</th><th>Antes</th><th>Ahora</th></tr></thead>
+            <tbody>
+              <tr><td>x̄</td><td>18</td><td>18,33 ≈</td></tr>
+              <tr><td>Me</td><td>18</td><td>17,5 ↓</td></tr>
+              <tr><td>Mo</td><td>15</td><td>15 =</td></tr>
+              <tr><td>σ</td><td>3,96</td><td><strong>5,10 ↑</strong></td></tr>
+              <tr><td>CV</td><td>22%</td><td><strong>28% ↑</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="resultado"><strong>c)</strong> El rendimiento promedio fue prácticamente el mismo en las dos fechas (≈ 18 puntos), pero esta semana fue <strong>más desparejo</strong>: σ subió de 3,96 a 5,10 (CV de 22% a 28%). Algunos jugaron mucho mejor (25, 27) y otros peor (10, 12).</div>
       </div>
     </details>
   </article>
@@ -2988,7 +2964,7 @@
 
   <!-- Ejercicio 6 -->
   <article class="card ejercicio">
-    <h3>6 · Horas trabajadas y producción <span class="tag warn">Tipo parcial</span></h3>
+    <h3>6 · Horas trabajadas y producción <span class="tag warn">Integrador</span></h3>
     <p>Horas trabajadas en un taller (x) y unidades producidas (y) <span class="muted">(guía, ej. 1)</span>:</p>
     <div class="tabla-wrap">
       <table style="max-width:360px">
@@ -3019,7 +2995,7 @@
         <li>b) Calculá r y R² = r². Controlá que r tenga el mismo signo que b<sub>1</sub>.
           <span class="porque">si los signos no coinciden, hay un error de cuentas.</span></li>
         <li>c) Escribí 4 frases: qué dice b<sub>1</sub>, qué dice r (signo y fuerza), qué dice R² (en %) y si b<sub>0</sub> tiene sentido.
-          <span class="porque">"interpretar" en el parcial es traducir cada número a una frase con las variables del problema.</span></li>
+          <span class="porque">"interpretar" es traducir cada número a una frase con las variables del problema.</span></li>
         <li>d) Fijate si 75 horas está entre el mínimo y el máximo de x, y reemplazá en la recta.
           <span class="porque">dentro del rango la predicción es válida; fuera sería extrapolar.</span></li>
       </ol>
@@ -3115,7 +3091,7 @@
   </div>
 
   <h3>¿Qué fórmula uso?</h3>
-  <p class="muted">Lo más importante para el parcial es elegir bien la fórmula. Respondé 2 o 3 preguntas y el asistente te dice cuál es.</p>
+  <p class="muted">Lo más importante en conteo es elegir bien la fórmula. Respondé 2 o 3 preguntas y el asistente te dice cuál es.</p>
   <div class="card" id="u3-asistente">
     <p class="u3-camino" id="u3-asis-camino"></p>
     <p class="en-vivo" id="u3-asis-pregunta" aria-live="polite" style="min-height:0"></p>
@@ -3224,7 +3200,7 @@
         <div class="ancho">
           <h4>Reemplazo</h4>
           <div class="reemplazo"><span class="tk k1" data-k="r">2</span>! · <span class="tk k2" data-k="n1">4</span>! · <span class="tk k3" data-k="n2">3</span>! = 2 · 24 · 6 = <strong>288</strong></div>
-          <p class="idea"><strong>En palabras:</strong> primero ordenás los bloques como si fueran una sola cosa (2!) y después ordenás a la gente adentro de cada bloque (4! y 3!). En los libros del parcial, con los 3 de física juntos, es la misma idea: el bloque y los 6 de matemática son 7 unidades → 7! · 3! = 30.240.</p>
+          <p class="idea"><strong>En palabras:</strong> primero ordenás los bloques como si fueran una sola cosa (2!) y después ordenás a la gente adentro de cada bloque (4! y 3!). En los libros del ej. 7, con los 3 de física juntos, es la misma idea: el bloque y los 6 de matemática son 7 unidades → 7! · 3! = 30.240.</p>
         </div>
       </div>
     </details>
@@ -3300,7 +3276,7 @@
         </div>
         <div>
           <h4>De dónde sale cada dato</h4>
-          <p style="margin:0">Clase de repaso: "Se pueden izar <span style="font-family:var(--font-text)" class="tk k2" data-k="n1">tres banderas rojas</span>, <span style="font-family:var(--font-text)" class="tk k3" data-k="n2">dos azules</span> y <span style="font-family:var(--font-text)" class="tk k4" data-k="n3">cuatro verdes</span>. ¿Cuántas señales distintas con las <span style="font-family:var(--font-text)" class="tk k1" data-k="n">nueve banderas</span>?"</p>
+          <p style="margin:0">Ejercicio 8: "Se pueden izar <span style="font-family:var(--font-text)" class="tk k2" data-k="n1">tres banderas rojas</span>, <span style="font-family:var(--font-text)" class="tk k3" data-k="n2">dos azules</span> y <span style="font-family:var(--font-text)" class="tk k4" data-k="n3">cuatro verdes</span>. ¿Cuántas señales distintas con las <span style="font-family:var(--font-text)" class="tk k1" data-k="n">nueve banderas</span>?"</p>
         </div>
         <div class="ancho">
           <h4>Reemplazo</h4>
@@ -3771,7 +3747,7 @@
 
   <!-- Ejercicio 7 -->
   <article class="card ejercicio" id="u3-ej7">
-    <h3>7 · La biblioteca <span class="tag warn">Tipo parcial</span> <span class="tag warn">Salió en un parcial</span></h3>
+    <h3>7 · La biblioteca <span class="tag warn">Integrador</span></h3>
     <p>Se van a colocar 6 libros de Matemática y 3 de Física.</p>
     <ol type="a">
       <li>Si los de Física deben estar siempre juntos, ¿de cuántas formas pueden ordenarse?</li>
@@ -3841,7 +3817,7 @@
 
   <!-- Ejercicio 8 -->
   <article class="card ejercicio" id="u3-ej8">
-    <h3>8 · Señales con banderas <span class="tag warn">Tipo parcial</span> <span class="tag warn">Clase de repaso</span></h3>
+    <h3>8 · Señales con banderas <span class="tag warn">Integrador</span></h3>
     <p>En un barco se pueden izar 3 banderas rojas, 2 azules y 4 verdes.</p>
     <ol type="a">
       <li>¿Cuántas señales distintas se pueden hacer colocando las 9 banderas?</li>
@@ -4785,7 +4761,7 @@
 
   <!-- Ejercicio 7 -->
   <article class="card ejercicio" id="u4-ej7">
-    <h3>7 · Tabla de doble entrada <span class="tag warn">Tipo parcial</span> <span class="tag warn">Clase de repaso</span></h3>
+    <h3>7 · Tabla de doble entrada <span class="tag warn">Integrador</span></h3>
     <p>En un instituto se puede estudiar francés, inglés o informática. Se consultó a 250 alumnos por la carrera que cursan y su edad. Los datos están en la tabla (los "?" son los que faltan):</p>
     <div class="tabla-wrap">
       <table class="u4-tabla">
@@ -4902,7 +4878,7 @@
 
   <!-- Ejercicio 8 -->
   <article class="card ejercicio">
-    <h3>8 · Probabilidad total y Bayes <span class="tag warn">Tipo parcial</span></h3>
+    <h3>8 · Probabilidad total y Bayes <span class="tag warn">Integrador</span></h3>
     <p>Una empresa arma computadoras en tres plantas: A, B y C, que producen el 15%, 35% y 50% del total. La probabilidad de que una computadora <strong>no funcione</strong> es 3%, 2% y 1% según la planta A, B o C.</p>
     <ol type="a">
       <li>Un cliente compra una computadora al azar. ¿Cuál es la probabilidad de que funcione?</li>
@@ -4964,7 +4940,7 @@
 <!-- ================= HOJA DE FÓRMULAS ================= -->
 <section id="formulas" aria-labelledby="formulas-titulo">
   <h2 id="formulas-titulo">Hoja de fórmulas</h2>
-  <p class="muted">Una carilla con todo lo que podés llevar al parcial. Al imprimir, sale solo esta hoja.</p>
+  <p class="muted">Una carilla con las fórmulas de las 4 unidades. Al imprimir, sale solo esta hoja.</p>
   <div class="controles">
     <button type="button" class="btn" id="b-imprimir">Imprimir hoja de fórmulas</button>
   </div>
