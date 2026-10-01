@@ -12,6 +12,7 @@ con ejemplos, tablas de referencia y alternativas.
 | [Python](https://fedetrus.github.io/guias/python/) | Tipos, condicionales, bucles, errores, estructuras y funciones · 10 módulos |
 | [Análisis Exploratorio de Datos](https://fedetrus.github.io/guias/eda/) | pandas y seaborn: tipos, faltantes, distribuciones, outliers y correlación · 11 secciones |
 | [Probabilidad y Estadística](https://fedetrus.github.io/guias/estadistica/) | Descriptiva, probabilidad y regresión lineal simple · 15 secciones |
+| [Repaso 1er parcial · PyE](https://fedetrus.github.io/guias/parcial-pye/) | Descriptiva, regresión, conteo y probabilidad con gráficos interactivos y 35 ejercicios en 3 niveles · 4 unidades |
 | [pandas](https://fedetrus.github.io/guias/pandas/) | Cargar, seleccionar, transformar, agrupar y combinar datos · 14 secciones |
 | [SQL](https://fedetrus.github.io/guias/sql/) | Consultas, joins, agregaciones y ventanas, en PostgreSQL y SQL Server a la vez · 13 secciones |
 | [NumPy](https://fedetrus.github.io/guias/numpy/) | Arrays, vectorización, broadcasting y álgebra lineal · 12 secciones |
@@ -27,6 +28,7 @@ con ejemplos, tablas de referencia y alternativas.
 ├── python/index.html
 ├── eda/index.html
 ├── estadistica/index.html
+├── parcial-pye/          repaso interactivo (HTML, CSS y JS propios, sin Bootstrap)
 ├── pandas/index.html
 ├── sql/index.html
 ├── numpy/index.html
