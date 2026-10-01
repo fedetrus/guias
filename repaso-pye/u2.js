@@ -151,10 +151,10 @@
       xticks: [0, 2, 4, 6, 8, 10], yticks: [30, 40, 60, 80, 100], xlabel: 'x: horas', ylabel: 'ŷ: nota',
       recta: { b0: 40, b1: 5 } });
     // Escalón de 2 horas: +10 puntos (5 por hora)
-    add(svg, 'path', { class: 'residuo', fill: 'none', d: 'M' + e.x(4) + ',' + e.y(60) + ' H' + e.x(6) + ' V' + e.y(70) });
+    add(svg, 'path', { class: 'escalon', fill: 'none', d: 'M' + e.x(4) + ',' + e.y(60) + ' H' + e.x(6) + ' V' + e.y(70) });
     add(svg, 'text', { x: e.x(5), y: e.y(60) + 14, 'text-anchor': 'middle' }, '+2 horas');
-    add(svg, 'text', { class: 't-residuo', x: e.x(6) + 6, y: e.y(65) + 4 }, '+10 puntos');
-    add(svg, 'text', { class: 't-residuo', x: e.x(10), y: e.y(46), 'text-anchor': 'end' }, 'b1 = 10 / 2 = 5 por hora');
+    add(svg, 'text', { class: 't-recta', x: e.x(6) + 6, y: e.y(65) + 4 }, '+10 puntos');
+    add(svg, 'text', { class: 't-recta', x: e.x(10), y: e.y(46), 'text-anchor': 'end' }, 'b1 = 10 / 2 = 5 por hora');
     add(svg, 'circle', { class: 'punto hi', cx: e.x(0), cy: e.y(40), r: 4.5 });
     add(svg, 'text', { class: 't-recta', x: e.x(0) + 8, y: e.y(40) + 16 }, 'b0 = 40 (x = 0)');
   })();

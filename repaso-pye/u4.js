@@ -351,7 +351,7 @@
       },
       bayes: {
         on: function (i, j) { return j === 0 ? (i === 0 ? 'clave' : 'on') : false; },
-        txt: 'Bayes: P(pequeño / falla) = camino naranja / todos los caminos a "Falla" = 0,045 / 0,117 = 5/13 ≈ 0,385. Sabés que falló y preguntás de qué rama vino.'
+        txt: 'Bayes: P(pequeño / falla) = camino resaltado / todos los caminos a "Falla" = 0,045 / 0,117 = 5/13 ≈ 0,385. Sabés que falló y preguntás de qué rama vino.'
       }
     };
     botonera('[data-u4-modo]', 'u4Modo', function (m) {

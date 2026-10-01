@@ -28,7 +28,7 @@ con ejemplos, tablas de referencia y alternativas.
 ├── python/index.html
 ├── eda/index.html
 ├── estadistica/index.html
-├── repaso-pye/           repaso interactivo de PyE (HTML, CSS y JS propios, sin Bootstrap)
+├── repaso-pye/           repaso de PyE: misma base que las guías + repaso.css y JS de sus gráficos interactivos
 ├── pandas/index.html
 ├── sql/index.html
 ├── numpy/index.html

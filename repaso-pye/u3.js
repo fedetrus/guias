@@ -73,7 +73,7 @@
 
     function boton(texto, alClic) {
       var b = document.createElement('button');
-      b.type = 'button'; b.className = 'btn'; b.textContent = texto;
+      b.type = 'button'; b.className = 'btn btn-sm btn-r'; b.textContent = texto;
       b.addEventListener('click', alClic);
       botones.appendChild(b);
       return b;

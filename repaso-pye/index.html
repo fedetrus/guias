@@ -1,34 +1,54 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-bs-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Repaso de PyE · Unidades 1 a 4</title>
-<link rel="stylesheet" href="estilos.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📝</text></svg>">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="../assets/guia.css" rel="stylesheet">
+<link href="repaso.css" rel="stylesheet">
 </head>
-<body>
+<body data-mode="scroll">
 
-<nav aria-label="Secciones">
-  <ul>
-    <li><a href="../index.html">← Guías</a></li>
-    <li><a href="#inicio">Inicio</a></li>
-    <li><a href="#temas">Temas</a></li>
-    <li><a href="#graficos">Gráficos</a></li>
-    <li><a href="#u1">U1 Descriptiva</a></li>
-    <li><a href="#u2">U2 Regresión</a></li>
-    <li><a href="#u3">U3 Conteo</a></li>
-    <li><a href="#u4">U4 Probabilidad</a></li>
-    <li><a href="#formulas">Fórmulas</a></li>
-  </ul>
-</nav>
+<!-- Índice fijo a la derecha (desktop) -->
+<aside class="sidebar-lg">
+  <div class="d-flex justify-content-between align-items-start mb-4">
+    <div>
+      <a href="../index.html" class="text-decoration-none small text-body-secondary d-block mb-1">
+        <i class="bi bi-arrow-left"></i> Guías</a>
+      <span class="fw-semibold">Repaso de PyE</span>
+      <span class="d-block small text-body-secondary">Unidades 1 a 4</span>
+    </div>
+    <button class="btn btn-sm border-0 theme-btn" title="Cambiar tema"><i class="bi bi-moon" data-lg="1"></i></button>
+  </div>
+  <nav class="nav flex-column gap-1 toc"></nav>
+</aside>
 
-<main>
+<!-- Índice deslizable desde la derecha (mobile) -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="toc" style="max-width:17rem">
+  <div class="offcanvas-body d-flex flex-column justify-content-end pb-4">
+    <nav class="nav flex-column gap-1 toc"></nav>
+  </div>
+  <div class="offcanvas-header border-top">
+    <a href="../index.html" class="text-decoration-none small text-body-secondary">
+      <i class="bi bi-arrow-left"></i> Todas las guías</a>
+    <button class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+</div>
 
-<header id="inicio">
-  <h1>Repaso de PyE · Unidades 1 a 4</h1>
-  <p class="muted">Guía orientativa de Probabilidad y Estadística · Descriptiva · Regresión · Conteo · Probabilidad</p>
-  <div class="card tip">
-    <strong>Cómo usar esta página:</strong> leé el panorama de cada unidad, intentá el ejercicio
+<main class="container-lg px-3 px-lg-5 py-4" style="max-width:48rem">
+
+<header class="mb-5" id="inicio">
+  <h1 class="mb-2">Repaso de PyE · Unidades 1 a 4</h1>
+  <p class="mb-0 text-body-secondary">
+    Guía orientativa de Probabilidad y Estadística: descriptiva, regresión, conteo y probabilidad.
+    Con gráficos interactivos, fórmulas con números y ejercicios en tres niveles.
+  </p>
+  <div class="border-start border-3 bg-body-secondary rounded p-3 mt-4">
+    <i class="bi bi-info-circle"></i> <strong>Cómo usar esta página:</strong> leé el panorama de cada unidad, intentá el ejercicio
     <em>antes</em> de abrir "Ver solución" y después compará tu resultado paso a paso.
     Los ejercicios van de fácil a integrador.
   </div>
@@ -36,8 +56,9 @@
 
 
 <!-- ================= TEMAS ================= -->
-<section id="temas" aria-labelledby="temas-titulo">
-  <h2 id="temas-titulo">Los 4 temas</h2>
+<section id="temas" class="pb-5 mb-5 border-bottom" data-group="Inicio" aria-labelledby="temas-titulo">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Inicio</p>
+  <h2 class="mb-3" id="temas-titulo">Los 4 temas</h2>
   <p class="muted">Un mapa de la guía: qué cubre cada unidad. Tocá una para ir directo.</p>
   <div class="conceptos">
     <a class="concepto enlace" href="#u1">
@@ -81,9 +102,10 @@
 
 
 <!-- ================= GRÁFICOS ================= -->
-<section id="graficos" aria-labelledby="graficos-titulo">
-  <h2 id="graficos-titulo">Gráficos: todos en un lugar</h2>
-  <p class="muted">Cada gráfico lleva a su explicación. Desde ahí, "↩ Todos los gráficos" te trae de vuelta.</p>
+<section id="graficos" class="pb-5 mb-5 border-bottom" data-group="Inicio" aria-labelledby="graficos-titulo">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Inicio</p>
+  <h2 class="mb-3" id="graficos-titulo">Gráficos</h2>
+  <p class="muted">Cada gráfico lleva a su explicación. Desde ahí, "Todos los gráficos" te trae de vuelta.</p>
 
   <h3>Para describir datos (U1)</h3>
   <div class="conceptos">
@@ -173,16 +195,15 @@
 </section>
 
 <!-- ================= UNIDAD 1 ================= -->
-<section id="u1" aria-labelledby="u1-titulo">
-  <h2 id="u1-titulo">Unidad 1 · Estadística descriptiva</h2>
-
-  <h3>Panorama</h3>
+<section id="u1" class="pb-5 mb-5 border-bottom" data-group="U1 · Descriptiva">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">U1 · Descriptiva</p>
+  <h2 class="mb-3">Panorama</h2>
   <p>
     La estadística descriptiva <strong>resume un conjunto de datos</strong> con pocos números:
     dónde está el "centro" de los datos y qué tan desparramados están.
   </p>
 
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Tipos de variable</strong>
     <svg class="grafico" viewBox="0 0 320 172" role="img" aria-label="Árbol: una variable puede ser cualitativa (nominal sin orden u ordinal con orden) o cuantitativa (discreta, se cuenta, o continua, se mide).">
       <path class="rama" d="M160,30 V44 H80 V60 M160,44 H240 V60 M80,82 V94 H40 V108 M80,94 H120 V108 M240,82 V94 H200 V108 M240,94 H280 V108"/>
@@ -202,11 +223,11 @@
     </svg>
   </div>
 
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Tabla de frecuencias</strong>
     <p class="muted" style="margin:var(--sp-2) 0">f<sub>i</sub> = cuántos hay · F<sub>i</sub> = acumulada (vas sumando) · f<sub>i</sub>/N = proporción.<br>Ejemplo con las notas 2, 3, 3, 4, 4, 4, 5, 5 (N = 8):</p>
-    <div class="tabla-wrap">
-      <table>
+    <div class="table-responsive mb-3">
+      <table class="table table-sm align-middle">
         <thead><tr><th>Nota x<sub>i</sub></th><th>f<sub>i</sub></th><th>F<sub>i</sub></th><th>f<sub>i</sub>/N</th></tr></thead>
         <tbody>
           <tr><td>2</td><td>1</td><td>1</td><td>0,125</td></tr>
@@ -218,9 +239,12 @@
     </div>
     <p class="muted">La última F<sub>i</sub> siempre da N y las proporciones siempre suman 1. Sirve para controlar la tabla.</p>
   </div>
+</section>
 
-  <h3 id="g-tipos">¿Qué gráfico corresponde?</h3>
-    <p class="muted volver"><a href="#graficos">↩ Todos los gráficos</a></p>
+<section id="g-tipos" class="pb-5 mb-5 border-bottom" data-group="U1 · Descriptiva">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">U1 · Descriptiva</p>
+  <h2 class="mb-3">¿Qué gráfico corresponde?</h2>
+    <p class="muted volver"><a href="#graficos"><i class="bi bi-arrow-up"></i> Todos los gráficos</a></p>
   <div class="conceptos">
     <div class="concepto">
       <svg class="grafico mini" viewBox="0 0 120 72" role="img" aria-label="Gráfico de barras separadas.">
@@ -263,11 +287,14 @@
       <div><p><strong>Serie de tiempo</strong></p><p>Cómo cambia una variable a lo largo del tiempo (meses, años).</p></div>
     </div>
   </div>
+</section>
 
-  <h3>Medidas que tenés que saber calcular</h3>
+<section id="u1-medidas" class="pb-5 mb-5 border-bottom" data-group="U1 · Descriptiva">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">U1 · Descriptiva</p>
+  <h2 class="mb-3">Medidas</h2>
   <div class="conceptos">
     <div class="concepto">
-      <svg class="grafico mini" viewBox="0 0 120 72" role="img" aria-label="Cinco puntos sobre una recta y una línea naranja en su centro de gravedad: la media.">
+      <svg class="grafico mini" viewBox="0 0 120 72" role="img" aria-label="Cinco puntos sobre una recta y una línea en su centro de gravedad: la media.">
         <line class="eje" x1="6" y1="56" x2="114" y2="56"/>
         <circle class="punto" cx="20" cy="50" r="4"/><circle class="punto" cx="40" cy="50" r="4"/><circle class="punto" cx="48" cy="50" r="4"/>
         <circle class="punto" cx="70" cy="50" r="4"/><circle class="punto" cx="92" cy="50" r="4"/>
@@ -278,7 +305,7 @@
     </div>
 
     <div class="concepto">
-      <svg class="grafico mini" viewBox="0 0 120 72" role="img" aria-label="Cinco barras ordenadas de menor a mayor; la del medio, en verde, es la mediana.">
+      <svg class="grafico mini" viewBox="0 0 120 72" role="img" aria-label="Cinco barras ordenadas de menor a mayor; la del medio, resaltada, es la mediana.">
         <line class="eje" x1="6" y1="60" x2="114" y2="60"/>
         <g class="nino"><rect x="12" y="46" width="14" height="14" rx="2"/></g>
         <g class="nino"><rect x="32" y="38" width="14" height="22" rx="2"/></g>
@@ -376,11 +403,14 @@
       <div><p><strong>Percentil</strong> P<sub>p</sub></p><p>Deja el p% de los datos abajo. P25 = Q1, P50 = Me, P75 = Q3.</p><p class="muted">Posición <span class="f">p(N+1)/100</span></p></div>
     </div>
   </div>
+</section>
 
-  <h3>Fórmulas clave (como las usa la cátedra)</h3>
+<section id="u1-formulas" class="pb-5 mb-5 border-bottom" data-group="U1 · Descriptiva">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">U1 · Descriptiva</p>
+  <h2 class="mb-3">Fórmulas clave</h2>
   <p class="muted">Tocá <strong>Con números</strong> en cada fórmula para verla aplicada. Tocá o pasá el mouse por una letra de color: se ilumina su valor en la cuenta y en la tabla.</p>
 
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Media (promedio)</strong>
     <div class="formula">x̄ = <span class="frac"><span><span class="tk k1" data-k="sxf">Σ x<sub>i</sub> f<sub>i</sub></span></span><span><span class="tk k2" data-k="N">N</span></span></span></div>
     <details class="herramienta">
@@ -398,8 +428,8 @@
         <div>
           <h4>De dónde sale cada dato</h4>
           <p class="muted" style="margin:0 0 var(--sp-2)">25 familias según cantidad de hijos (datos del ejercicio 4):</p>
-          <div class="tabla-wrap">
-            <table>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm align-middle">
               <thead><tr><th>x<sub>i</sub></th><th>f<sub>i</sub></th><th>x<sub>i</sub>·f<sub>i</sub></th></tr></thead>
               <tbody>
                 <tr><td class="tk k3" data-k="x">0</td><td class="tk k4" data-k="f">5</td><td>0</td></tr>
@@ -421,7 +451,7 @@
     </details>
   </div>
 
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Varianza (definición)</strong>
     <div class="formula">V(X) = <span class="frac"><span><span class="tk k1" data-k="s2">Σ (x<sub>i</sub> − x̄)² f<sub>i</sub></span></span><span><span class="tk k2" data-k="N">N</span></span></span></div>
     <p class="muted">La cátedra divide la varianza por <strong>N</strong> (no por N−1).</p>
@@ -440,8 +470,8 @@
         <div>
           <h4>De dónde sale cada dato</h4>
           <p class="muted" style="margin:0 0 var(--sp-2)">25 familias según cantidad de hijos (datos del ejercicio 4):</p>
-          <div class="tabla-wrap">
-            <table>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm align-middle">
               <thead><tr><th>x<sub>i</sub></th><th>f<sub>i</sub></th><th>x<sub>i</sub> − <span class="tk k4" data-k="m">x̄</span></th><th>(x<sub>i</sub> − x̄)²</th><th>(x<sub>i</sub> − x̄)²·f<sub>i</sub></th></tr></thead>
               <tbody>
                 <tr><td class="tk k3" data-k="x">0</td><td>5</td><td>−1,68</td><td>2,8224</td><td>14,112</td></tr>
@@ -463,7 +493,7 @@
     </details>
   </div>
 
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Varianza (atajo)</strong>
     <div class="formula">V(X) = <span class="frac"><span><span class="tk k1" data-k="sx2f">Σ x<sub>i</sub>² f<sub>i</sub></span></span><span><span class="tk k2" data-k="N">N</span></span></span> − <span class="tk k3" data-k="m">x̄</span>²</div>
     <details class="herramienta">
@@ -480,8 +510,8 @@
         <div>
           <h4>De dónde sale cada dato</h4>
           <p class="muted" style="margin:0 0 var(--sp-2)">25 familias según cantidad de hijos (datos del ejercicio 4):</p>
-          <div class="tabla-wrap">
-            <table>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm align-middle">
               <thead><tr><th>x<sub>i</sub></th><th>f<sub>i</sub></th><th>x<sub>i</sub>·f<sub>i</sub></th><th>x<sub>i</sub>²·f<sub>i</sub></th></tr></thead>
               <tbody>
                 <tr><td>0</td><td>5</td><td>0</td><td>0</td></tr>
@@ -503,7 +533,7 @@
     </details>
   </div>
 
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Desvío estándar</strong>
     <div class="formula">σ = √<span class="tk k1" data-k="V">V(X)</span></div>
     <details class="herramienta">
@@ -528,7 +558,7 @@
     </details>
   </div>
 
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Coeficiente de variación</strong>
     <div class="formula">CV = <span class="frac"><span><span class="tk k1" data-k="s">σ</span></span><span><span class="tk k2" data-k="m">x̄</span></span></span> &nbsp;(×100 da el %)</div>
     <details class="herramienta">
@@ -544,8 +574,8 @@
         <div>
           <h4>De dónde sale cada dato</h4>
           <p class="muted" style="margin:0 0 var(--sp-2)">Dos líneas de llenado (datos del ejercicio 5):</p>
-          <div class="tabla-wrap">
-            <table>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm align-middle">
               <thead><tr><th>Línea</th><th><span class="tk k2" data-k="m">x̄</span></th><th><span class="tk k1" data-k="s">σ</span></th></tr></thead>
               <tbody>
                 <tr><td>A (botellas)</td><td class="tk k2" data-k="m">500 ml</td><td class="tk k1" data-k="s">4 ml</td></tr>
@@ -563,7 +593,7 @@
     </details>
   </div>
 
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Cuartiles (datos sin agrupar)</strong>
     <div class="formula">posición de Q<sub>k</sub> =<br class="solo-chico"> 0,25 · <span class="tk k1" data-k="k">k</span> · (<span class="tk k2" data-k="N">N</span> + 1)</div>
     <p class="muted">Si la posición no es entera (por ejemplo 3,25), se promedian los valores de las posiciones 3 y 4.</p>
@@ -581,8 +611,8 @@
         <div>
           <h4>De dónde sale cada dato</h4>
           <p class="muted" style="margin:0 0 var(--sp-2)">Minutos de espera ordenados (datos del ejercicio 3), <span class="tk k2" data-k="N">N = 12</span>:</p>
-          <div class="tabla-wrap">
-            <table>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm align-middle">
               <tr><th>Posición</th><td>1</td><td>2</td><td class="tk k3" data-k="d">3</td><td class="tk k3" data-k="d">4</td><td>5</td><td>6</td></tr>
               <tr><th>Dato</th><td>2</td><td>3</td><td class="tk k3" data-k="d">4</td><td class="tk k3" data-k="d">4</td><td>5</td><td>5</td></tr>
               <tr><th>Posición</th><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td></tr>
@@ -599,7 +629,7 @@
     </details>
   </div>
 
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Chebyshev</strong>
     <div class="formula">en <span class="tk k1" data-k="m">x̄</span> ± <span class="tk k3" data-k="k">k</span>·<span class="tk k2" data-k="s">σ</span> hay<br class="solo-chico"> al menos 1 − 1/<span class="tk k3" data-k="k">k</span>² de los datos</div>
     <details class="herramienta">
@@ -626,7 +656,7 @@
     </details>
   </div>
 
-  <div class="card tip">
+  <div class="bloque-r border-start border-3 bg-body-secondary rounded p-3 my-4">
     <strong>Datos agrupados en intervalos</strong> (te dan [0;30), [30;60)…). Para la media y la varianza se usan las fórmulas de tabla, reemplazando x<sub>i</sub> por la <strong>marca de clase</strong> X<sub>i</sub> (el punto medio del intervalo). Para mediana, cuartiles y moda, las tres fórmulas de abajo.
     <svg class="grafico" viewBox="0 0 320 84" role="img" aria-label="Recta de 0 a 90 con el intervalo de 30 a 60 sombreado: 30 incluido, 60 excluido, marca de clase 45 en el medio y amplitud 30.">
       <rect class="banda" x="113" y="14" width="94" height="36"/>
@@ -642,7 +672,7 @@
     <p class="muted leyenda">[30;60): el 30 entra (punto lleno), el 60 no (punto vacío). La marca de clase es el punto medio: (30 + 60)/2 = 45.</p>
   </div>
 
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Mediana con intervalos</strong>
     <div class="formula">Me = <span class="tk k1" data-k="Li">L<sub>i</sub></span> + <span class="frac"><span><span class="tk k2" data-k="N2">N/2</span> − <span class="tk k3" data-k="Fa">F<sub>i−1</sub></span></span><span><span class="tk k4" data-k="fi">f<sub>i</sub></span></span></span> · <span class="tk k5" data-k="a">a</span></div>
     <details class="herramienta">
@@ -661,8 +691,8 @@
         <div>
           <h4>De dónde sale cada dato</h4>
           <p class="muted" style="margin:0 0 var(--sp-2)">50 autos en el estacionamiento (datos del ejercicio 7).</p>
-          <div class="tabla-wrap">
-            <table>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm align-middle">
               <thead><tr><th>Intervalo</th><th>f<sub>i</sub></th><th>F<sub>i</sub></th></tr></thead>
               <tbody>
                 <tr><td>[0;30)</td><td>8</td><td>8</td></tr>
@@ -683,7 +713,7 @@
     </details>
   </div>
 
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Cuartiles con intervalos</strong>
     <div class="formula">Q<sub>k</sub> = <span class="tk k1" data-k="Li">L<sub>i</sub></span> + <span class="frac"><span><span class="tk k2" data-k="kN">k·N/4</span> − <span class="tk k3" data-k="Fa">F<sub>i−1</sub></span></span><span><span class="tk k4" data-k="fi">f<sub>i</sub></span></span></span> · <span class="tk k5" data-k="a">a</span></div>
     <details class="herramienta">
@@ -702,8 +732,8 @@
         <div>
           <h4>De dónde sale cada dato</h4>
           <p class="muted" style="margin:0 0 var(--sp-2)">50 autos en el estacionamiento (datos del ejercicio 7).</p>
-          <div class="tabla-wrap">
-            <table>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm align-middle">
               <thead><tr><th>Intervalo</th><th>f<sub>i</sub></th><th>F<sub>i</sub></th></tr></thead>
               <tbody>
                 <tr><td>[0;30)</td><td>8</td><td class="tk k3" data-k="Fa">8</td></tr>
@@ -724,7 +754,7 @@
     </details>
   </div>
 
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Moda con intervalos</strong>
     <div class="formula">Mo = <span class="tk k1" data-k="Li">L<sub>i</sub></span> +<br class="solo-chico"> <span class="frac"><span>(<span class="tk k2" data-k="fi">f<sub>i</sub></span> − <span class="tk k3" data-k="fa">f<sub>i−1</sub></span>)</span><span>(<span class="tk k2" data-k="fi">f<sub>i</sub></span> − <span class="tk k3" data-k="fa">f<sub>i−1</sub></span>) + (<span class="tk k2" data-k="fi">f<sub>i</sub></span> − <span class="tk k4" data-k="fs">f<sub>i+1</sub></span>)</span></span> · <span class="tk k5" data-k="a">a</span></div>
     <details class="herramienta">
@@ -743,8 +773,8 @@
         <div>
           <h4>De dónde sale cada dato</h4>
           <p class="muted" style="margin:0 0 var(--sp-2)">50 autos en el estacionamiento (datos del ejercicio 7).</p>
-          <div class="tabla-wrap">
-            <table>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm align-middle">
               <thead><tr><th>Intervalo</th><th>f<sub>i</sub></th></tr></thead>
               <tbody>
                 <tr><td>[0;30)</td><td>8</td></tr>
@@ -764,33 +794,37 @@
       </div>
     </details>
   </div>
-  <h3>Situaciones clave: entender antes de calcular</h3>
+</section>
+
+<section id="u1-situaciones" class="pb-5 mb-5 border-bottom" data-group="U1 · Descriptiva">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">U1 · Descriptiva</p>
+  <h2 class="mb-3">Situaciones clave</h2>
   <p class="muted">Ocho casos cortos, varios interactivos. Cada uno muestra <em>por qué</em> existe una medida. Si entendés esto, las fórmulas dejan de ser de memoria.</p>
 
-  <div class="card situacion">
+  <div class="bloque-r situacion border rounded p-3 mb-3">
     <h4>1. Encontrar la mediana: primero ordenar</h4>
     <p>Las alturas de 9 niños, en el orden en que llegaron. Ordenalos y mirá quién queda en el medio.</p>
     <div class="controles">
-      <button type="button" class="btn" id="b-ordenar">Ordenar</button>
+      <button type="button" class="btn btn-sm btn-r" id="b-ordenar">Ordenar</button>
       <label class="check"><input type="checkbox" id="c-decimo"> Agregar un 10.º niño (0,98 m)</label>
     </div>
-    <svg class="grafico" id="g-mediana" viewBox="0 0 320 150" role="img" aria-label="Barras con las alturas de los niños. Al ordenarlas de menor a mayor, se resalta en verde la del medio, que es la mediana."></svg>
+    <svg class="grafico" id="g-mediana" viewBox="0 0 320 150" role="img" aria-label="Barras con las alturas de los niños. Al ordenarlas de menor a mayor, se resalta la del medio, que es la mediana."></svg>
     <p class="en-vivo" id="t-mediana" aria-live="polite"></p>
-    <p class="idea"><strong>La idea:</strong> la mediana es "el del medio de la fila", pero solo si la fila está ordenada. Con N par hay dos del medio y se promedian.</p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> la mediana es "el del medio de la fila", pero solo si la fila está ordenada. Con N par hay dos del medio y se promedian.</p>
   </div>
 
-  <div class="card situacion">
+  <div class="bloque-r situacion border rounded p-3 mb-3">
     <h4>2. El promedio puede mentir</h4>
     <p>Sueldos de una PyME (en miles): 400 · 450 · 500 · 500 · 550 · <strong>4000</strong> (el dueño).</p>
     <label class="control">Sueldo del dueño: <output id="o-sueldos">4000</output> mil
       <input type="range" id="r-sueldos" min="550" max="8000" step="50" value="4000">
     </label>
     <svg class="grafico" id="g-sueldos" viewBox="0 0 320 120" role="img" aria-label="Recta con los seis sueldos. Al subir el sueldo del dueño, la media se aleja del grupo y la mediana se queda en 500."></svg>
-    <p><strong>Mové el sueldo del dueño.</strong> La media (naranja) lo persigue y queda en una zona donde no cobra <strong>nadie</strong>. La mediana (verde) se queda en 500, con el empleado típico.</p>
-    <p class="idea"><strong>La idea:</strong> la media usa el <em>valor</em> de cada dato y un extremo la arrastra. La mediana usa solo el <em>orden</em>, así que un extremo no la mueve. Con outliers, conviene la mediana.</p>
+    <p><strong>Mové el sueldo del dueño.</strong> La media (línea sólida) lo persigue y queda en una zona donde no cobra <strong>nadie</strong>. La mediana (línea rayada) se queda en 500, con el empleado típico.</p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> la media usa el <em>valor</em> de cada dato y un extremo la arrastra. La mediana usa solo el <em>orden</em>, así que un extremo no la mueve. Con outliers, conviene la mediana.</p>
   </div>
 
-  <div class="card situacion">
+  <div class="bloque-r situacion border rounded p-3 mb-3">
     <h4>3. Mismo promedio, historia distinta</h4>
     <p>Curso A: 5 · 5 · 5 · 5 · 5. Curso B: 1 · 3 · 5 · 7 · 9. Los dos tienen media 5.</p>
     <label class="control">Dispersión
@@ -799,10 +833,10 @@
     <svg class="grafico" id="g-disp" viewBox="0 0 320 130" role="img" aria-label="Cinco notas alrededor de la media 5. Al mover el control se abren o se juntan; la banda sombreada es la media más y menos un desvío."></svg>
     <p class="en-vivo" aria-live="polite">Notas: <span id="o-disp"></span><br>La media no cambia (5), pero σ = <span id="o-sigma"></span>. La banda sombreada es x̄ ± σ.</p>
     <p>Con la barra a la izquierda tenés el curso A (todos 5, σ = 0); en el medio, el curso B (1, 3, 5, 7, 9). La media sola no los distingue: hace falta medir qué tan <strong>desparramados</strong> están.</p>
-    <p class="idea"><strong>La idea:</strong> toda descripción necesita dos números, un <em>centro</em> (x̄ o Me) y una <em>dispersión</em> (σ).</p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> toda descripción necesita dos números, un <em>centro</em> (x̄ o Me) y una <em>dispersión</em> (σ).</p>
   </div>
 
-  <div class="card situacion">
+  <div class="bloque-r situacion border rounded p-3 mb-3">
     <h4>4. ¿Por qué la varianza eleva al cuadrado?</h4>
     <p>Datos: 2 · 4 · 9, con x̄ = 5. Las distancias a la media son −3, −1 y +4, y suman <strong>0</strong>. Pasa siempre: los negativos compensan a los positivos.</p>
     <svg class="grafico" viewBox="0 0 320 160" role="img" aria-label="Datos 2, 4 y 9 sobre una recta con la media en 5. De cada dato sale un cuadrado cuyo lado es su distancia a la media: áreas 9, 1 y 16.">
@@ -820,10 +854,10 @@
     </svg>
     <p class="muted leyenda">Cada cuadrado tiene de lado la distancia a la media. La varianza es el <strong>área promedio</strong> de esos cuadrados.</p>
     <p>Al elevar al cuadrado quedan todas positivas: 9 + 1 + 16 = 26 → <span class="f">V = 26/3 ≈ 8,67</span>. El costo es que la unidad queda al cuadrado (cm², $²), que no se puede interpretar. Por eso se toma la raíz: <span class="f">σ = √8,67 ≈ 2,94</span>.</p>
-    <p class="idea"><strong>La idea:</strong> la varianza sirve para calcular y el desvío para interpretar. El desvío es la <em>distancia típica de un dato a la media</em>.</p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> la varianza sirve para calcular y el desvío para interpretar. El desvío es la <em>distancia típica de un dato a la media</em>.</p>
   </div>
 
-  <div class="card situacion">
+  <div class="bloque-r situacion border rounded p-3 mb-3">
     <h4>5. El desvío en una frase (y Chebyshev)</h4>
     <p>Si las notas tienen x̄ = 6 y σ = 1, un 7 es "normal" (está a 1 desvío) y un 10 es raro (está a 4 desvíos). Chebyshev lo dice con números: <strong>para cualquier conjunto de datos</strong>, al menos <span class="f">1 − 1/k²</span> de los datos está a menos de k desvíos de la media.</p>
     <svg class="grafico" viewBox="0 0 320 104" role="img" aria-label="Tres franjas centradas en la media: más o menos 2 desvíos contiene al menos 75 por ciento, 3 desvíos al menos 89 por ciento y 4 desvíos al menos 94 por ciento.">
@@ -833,8 +867,8 @@
       <rect class="barra" x="56" y="70" width="208" height="18" rx="3"/><text x="52" y="83" text-anchor="end">± 4σ</text><text x="268" y="83">≥ 94%</text>
     </svg>
     <p class="muted leyenda">Cuanto más ancha la franja, más datos adentro. Vale para <strong>cualquier</strong> forma de los datos.</p>
-    <div class="tabla-wrap">
-      <table>
+    <div class="table-responsive mb-3">
+      <table class="table table-sm align-middle">
         <thead><tr><th>Intervalo</th><th>Contiene como mínimo</th></tr></thead>
         <tbody>
           <tr><td>x̄ ± 2σ</td><td>1 − 1/4 = 75%</td></tr>
@@ -843,22 +877,22 @@
         </tbody>
       </table>
     </div>
-    <p class="idea"><strong>La idea:</strong> cuando el enunciado dice "como mínimo el …%" o "fuera del intervalo x̄ ± kσ", es Chebyshev. El ej. 5 de la guía (pH) pregunta exactamente eso con k = 4.</p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> cuando el enunciado dice "como mínimo el …%" o "fuera del intervalo x̄ ± kσ", es Chebyshev. El ej. 5 de la guía (pH) pregunta exactamente eso con k = 4.</p>
   </div>
 
-  <div class="card situacion">
+  <div class="bloque-r situacion border rounded p-3 mb-3">
     <h4>6. Ratón vs. elefante: por qué existe el CV</h4>
     <p>Ratones: x̄ = 15 g, σ = 5 g. Elefantes: x̄ = 5000 kg, σ = 400 kg. ¿Quién varía más? Comparar 5 g con 400 kg no tiene sentido.</p>
     <p>El CV mide el desvío <em>en proporción a la media</em>: <span class="f">CV<sub>ratón</sub> = 5/15 = 33%</span> y <span class="f">CV<sub>elefante</sub> = 400/5000 = 8%</span>. Los ratones son mucho más variables entre sí.</p>
-    <p class="idea"><strong>La idea:</strong> σ es dispersión <em>absoluta</em> y CV es dispersión <em>relativa</em>. El CV no tiene unidades, por eso sirve para comparar grupos. Menor CV = más homogéneo.</p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> σ es dispersión <em>absoluta</em> y CV es dispersión <em>relativa</em>. El CV no tiene unidades, por eso sirve para comparar grupos. Menor CV = más homogéneo.</p>
   </div>
 
-  <div class="card situacion">
+  <div class="bloque-r situacion border rounded p-3 mb-3">
     <h4>7. La cola arrastra a la media (asimetría)</h4>
     <div class="controles" role="group" aria-label="Forma de la distribución">
-      <button type="button" class="btn" data-forma="negativa">Cola izquierda</button>
-      <button type="button" class="btn" data-forma="simetrica">Simétrica</button>
-      <button type="button" class="btn" data-forma="positiva">Cola derecha</button>
+      <button type="button" class="btn btn-sm btn-r" data-forma="negativa">Cola izquierda</button>
+      <button type="button" class="btn btn-sm btn-r" data-forma="simetrica">Simétrica</button>
+      <button type="button" class="btn btn-sm btn-r" data-forma="positiva">Cola derecha</button>
     </div>
     <svg class="grafico" id="g-forma" viewBox="0 0 320 136" role="img" aria-label="Curva de una distribución con tres marcas: moda en el pico, mediana y media. Según la forma elegida, las marcas se reordenan.">
       <path class="curva" d=""/>
@@ -874,10 +908,10 @@
       <li><strong>Asimetría negativa</strong> (cola a la izquierda): <span class="f">x̄ &lt; Me &lt; Mo</span>. Ej.: notas de un examen fácil.</li>
     </ul>
     <p>Pearson lo convierte en un número: <span class="f">A<sub>p</sub> = (x̄ − Mo) / σ</span>. Si da positivo, la asimetría es positiva; si da negativo, es negativa.</p>
-    <p class="idea"><strong>La idea:</strong> la media se "va" hacia donde está la cola. Si x̄ &gt; Me, hay cola a la derecha.</p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> la media se "va" hacia donde está la cola. Si x̄ &gt; Me, hay cola a la derecha.</p>
   </div>
 
-  <div class="card situacion">
+  <div class="bloque-r situacion border rounded p-3 mb-3">
     <h4>8. ¿Qué medida uso?</h4>
     <ul>
       <li><strong>Variable cualitativa</strong> (colores, barrios): solo sirve la <strong>moda</strong>. No se puede promediar "rojo".</li>
@@ -887,34 +921,37 @@
       <li><strong>Describir el 50% central</strong>: de Q1 a Q3 (rango intercuartílico = Q3 − Q1).</li>
     </ul>
   </div>
+</section>
 
-  <h3 id="g-histograma">Histograma y tabla por intervalos</h3>
-    <p class="muted volver"><a href="#graficos">↩ Todos los gráficos</a></p>
+<section id="g-histograma" class="pb-5 mb-5 border-bottom" data-group="U1 · Descriptiva">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">U1 · Descriptiva</p>
+  <h2 class="mb-3">Histograma y tabla por intervalos</h2>
+    <p class="muted volver"><a href="#graficos"><i class="bi bi-arrow-up"></i> Todos los gráficos</a></p>
   <p>Cuando hay muchos valores distintos, una tabla valor por valor no resume nada. Se agrupan los datos en <strong>intervalos</strong> (clases) y se dibuja un <strong>histograma</strong>: barras pegadas que muestran dónde se juntan los datos.</p>
 
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>¿Cuándo agrupar en intervalos?</strong>
     <ul>
       <li>La variable es <strong>continua</strong> (tiempo, peso, altura): casi no hay dos valores iguales.</li>
       <li>La variable es discreta pero toma <strong>muchos valores</strong> (edades, puntajes de 0 a 100).</li>
       <li>Si toma pocos valores (hijos: 0 a 4), alcanza con la tabla común y un gráfico de barras.</li>
     </ul>
-    <p class="idea"><strong>La idea:</strong> agrupar pierde un poco de detalle (ya no sabés el valor exacto de cada dato) a cambio de ver la <strong>forma</strong> de los datos de un vistazo.</p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> agrupar pierde un poco de detalle (ya no sabés el valor exacto de cada dato) a cambio de ver la <strong>forma</strong> de los datos de un vistazo.</p>
   </div>
 
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Cómo se arma, paso a paso</strong>
     <p class="muted">20 tiempos (en minutos) que tardó un trámite: 12 · 14 · 15 · 16 · 18 · 19 · 19 · 20 · 21 · 22 · 22 · 23 · 23 · 24 · 25 · 26 · 28 · 30 · 33 · 37.</p>
     <div class="controles">
-      <button type="button" class="btn" id="b-u1-hist-ant">Anterior</button>
-      <button type="button" class="btn" id="b-u1-hist-sig">Siguiente paso</button>
+      <button type="button" class="btn btn-sm btn-r" id="b-u1-hist-ant">Anterior</button>
+      <button type="button" class="btn btn-sm btn-r" id="b-u1-hist-sig">Siguiente paso</button>
       <span class="muted" id="t-u1-hist-num"></span>
     </div>
     <svg class="grafico" id="g-u1-hist-pasos" viewBox="0 0 320 176" role="img" aria-label="Construcción del histograma: datos sobre la recta, cantidad de clases con Sturges, rango, amplitud, cortes, frecuencias y barras pegadas."></svg>
     <p class="en-vivo" id="t-u1-hist-pasos" aria-live="polite"></p>
   </div>
 
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Histograma vs. gráfico de barras</strong>
     <div class="conceptos" style="margin:var(--sp-3) 0 0">
       <div class="concepto">
@@ -926,10 +963,10 @@
         <div><p><strong>Histograma</strong></p><p>Una barra por <strong>intervalo</strong> de una variable continua o agrupada. Van <strong>pegadas</strong> porque donde termina un intervalo empieza el otro. El área de cada barra es proporcional a la frecuencia.</p></div>
       </div>
     </div>
-    <p class="idea"><strong>La idea:</strong> si entre dos barras "podría haber" datos (entre 17 y 22 minutos hay infinitos tiempos), las barras van pegadas. Si no (no existe 2,5 hijos), van separadas.</p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> si entre dos barras "podría haber" datos (entre 17 y 22 minutos hay infinitos tiempos), las barras van pegadas. Si no (no existe 2,5 hijos), van separadas.</p>
   </div>
 
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Cantidad de clases (Sturges) y amplitud</strong>
     <div class="formula">c = redondear( 1 + log<sub>2</sub> <span class="tk k2" data-k="N">N</span> )</div>
     <div class="formula">a = <span class="frac"><span><span class="tk k1" data-k="rango">rango</span></span><span><span class="tk k3" data-k="c">c</span></span></span> &nbsp;·&nbsp; <span class="tk k1" data-k="rango">rango</span> = <span class="tk k4" data-k="max">máx</span> − <span class="tk k5" data-k="min">mín</span></div>
@@ -964,8 +1001,8 @@
 
   <h4>Practicá el histograma</h4>
 
-  <article class="card ejercicio" id="u1-hist-ej1">
-    <h3>Histograma A · Armar la tabla y el histograma <span class="tag warn">Integrador</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4" id="u1-hist-ej1">
+    <h3>Histograma A · Armar la tabla y el histograma <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Integrador</span></h3>
     <p>Edades de los 30 asistentes a un curso:</p>
     <p>18 · 19 · 20 · 21 · 21 · 22 · 23 · 24 · 25 · 25 · 26 · 27 · 28 · 29 · 30 · 31 · 33 · 33 · 35 · 36 · 38 · 40 · 41 · 43 · 45 · 48 · 49 · 52 · 55 · 57</p>
     <ol type="a">
@@ -974,9 +1011,9 @@
       <li>Dibujá el histograma. ¿Qué forma tiene?</li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -1017,8 +1054,8 @@
         <p><span class="paso">Rango:</span> 57 − 18 = <strong>39</strong> · <span class="paso">Amplitud:</span> 39/5 = 7,8 → para arriba → <strong>a = 8 años</strong>.</p>
         <p class="muted">Control: 18 + 5·8 = 58 ≥ 57, así que todos los datos entran.</p>
         <p><span class="paso">b) Tabla:</span></p>
-        <div class="tabla-wrap">
-          <table>
+        <div class="table-responsive mb-3">
+          <table class="table table-sm align-middle">
             <thead><tr><th>Edad</th><th>X<sub>i</sub></th><th>f<sub>i</sub></th><th>F<sub>i</sub></th><th>f<sub>i</sub>/N</th></tr></thead>
             <tbody>
               <tr><td>[18;26)</td><td>22</td><td>10</td><td>10</td><td>0,333</td></tr>
@@ -1038,8 +1075,8 @@
     </details>
   </article>
 
-  <article class="card ejercicio" id="u1-hist-ej2">
-    <h3>Histograma B · Leer un histograma <span class="tag">Medio</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4" id="u1-hist-ej2">
+    <h3>Histograma B · Leer un histograma <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Medio</span></h3>
     <p>El histograma muestra el tiempo de viaje (en minutos) de 40 estudiantes hasta la facultad:</p>
     <svg class="grafico" id="g-u1-hist-ej2" role="img" aria-label="Histograma de tiempos de viaje: 3, 8, 14, 10 y 5 estudiantes en intervalos de 10 minutos, de 0 a 50."></svg>
     <ol type="a">
@@ -1050,9 +1087,9 @@
       <li>¿La distribución es aproximadamente simétrica?</li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -1086,8 +1123,8 @@
     <details>
       <summary>Ver solución</summary>
       <div>
-        <div class="tabla-wrap">
-          <table>
+        <div class="table-responsive mb-3">
+          <table class="table table-sm align-middle">
             <thead><tr><th>Minutos</th><th>X<sub>i</sub></th><th>f<sub>i</sub></th><th>F<sub>i</sub></th></tr></thead>
             <tbody>
               <tr><td>[0;10)</td><td>5</td><td>3</td><td>3</td></tr>
@@ -1109,35 +1146,38 @@
       </div>
     </details>
   </article>
+</section>
 
-  <h3 id="g-boxplot">Boxplot (diagrama de caja)</h3>
-    <p class="muted volver"><a href="#graficos">↩ Todos los gráficos</a></p>
+<section id="g-boxplot" class="pb-5 mb-5 border-bottom" data-group="U1 · Descriptiva">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">U1 · Descriptiva</p>
+  <h2 class="mb-3">Boxplot</h2>
+    <p class="muted volver"><a href="#graficos"><i class="bi bi-arrow-up"></i> Todos los gráficos</a></p>
   <p>Resume todos los datos con <strong>5 números</strong> y muestra de un vistazo el centro, la dispersión y la forma. Sirve sobre todo para <strong>comparar grupos</strong>.</p>
 
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Los 5 números</strong>
     <svg class="grafico" id="g-u1-box-5" role="img" aria-label="Boxplot de los tiempos de espera: mínimo 2, Q1 4, mediana 5,5, Q3 8,5 y máximo 15."></svg>
     <ul>
       <li><strong>Mín y máx:</strong> donde terminan los bigotes.</li>
       <li><strong>Q1 y Q3:</strong> los bordes de la caja.</li>
-      <li><strong>Me:</strong> la línea verde adentro de la caja.</li>
+      <li><strong>Me:</strong> la línea rayada adentro de la caja.</li>
     </ul>
-    <p class="idea"><strong>La idea:</strong> los 4 tramos (bigote, media caja, media caja, bigote) tienen <strong>cada uno ≈ 25% de los datos</strong>, aunque midan distinto. Un tramo <em>corto</em> significa datos apretados; uno <em>largo</em>, datos desparramados.</p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> los 4 tramos (bigote, media caja, media caja, bigote) tienen <strong>cada uno ≈ 25% de los datos</strong>, aunque midan distinto. Un tramo <em>corto</em> significa datos apretados; uno <em>largo</em>, datos desparramados.</p>
   </div>
 
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Cómo se arma, paso a paso</strong>
     <p class="muted">Datos del ejercicio 3: minutos de espera de 12 pacientes.</p>
     <div class="controles">
-      <button type="button" class="btn" id="b-u1-box-ant">Anterior</button>
-      <button type="button" class="btn" id="b-u1-box-sig">Siguiente paso</button>
+      <button type="button" class="btn btn-sm btn-r" id="b-u1-box-ant">Anterior</button>
+      <button type="button" class="btn btn-sm btn-r" id="b-u1-box-sig">Siguiente paso</button>
       <span class="muted" id="t-u1-box-num"></span>
     </div>
     <svg class="grafico" id="g-u1-box-pasos" viewBox="0 0 320 156" role="img" aria-label="Construcción del boxplot: puntos de los datos, después mediana, cuartiles, caja y bigotes."></svg>
     <p class="en-vivo" id="t-u1-box-pasos" aria-live="polite"></p>
   </div>
 
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Cómo se lee la forma</strong>
     <div class="conceptos" style="margin:var(--sp-3) 0 0">
       <div class="concepto">
@@ -1153,10 +1193,10 @@
         <div><p><strong>Cola a la izquierda</strong> (asimetría negativa)</p><p>Mediana pegada a Q3 y bigote izquierdo largo: hay valores bajos que se estiran.</p></div>
       </div>
     </div>
-    <p class="idea"><strong>La idea:</strong> para comparar grupos, mirá la <strong>línea verde</strong> (qué grupo tiene el centro más alto) y el <strong>ancho de la caja</strong> (qué grupo es más disperso).</p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> para comparar grupos, mirá la <strong>línea rayada</strong> (qué grupo tiene el centro más alto) y el <strong>ancho de la caja</strong> (qué grupo es más disperso).</p>
   </div>
 
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Rango intercuartílico (RIC)</strong>
     <div class="formula">RIC = <span class="tk k1" data-k="q3">Q<sub>3</sub></span> − <span class="tk k2" data-k="q1">Q<sub>1</sub></span></div>
     <details class="herramienta">
@@ -1182,13 +1222,13 @@
         </div>
       </div>
     </details>
-    <p class="muted"><span class="tag warn">Extra: confirmá si lo dan</span> Muchos libros marcan como <strong>atípico</strong> (un punto suelto fuera del bigote) a todo dato por debajo de Q1 − 1,5·RIC o por encima de Q3 + 1,5·RIC. Acá: 4 − 6,75 = −2,75 y 8,5 + 6,75 = 15,25. El 15 queda adentro; si un paciente hubiera esperado 18 min, sería atípico. El PDF de la cátedra nombra el boxplot pero no explica esta regla.</p>
+    <p class="muted"><span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Extra: confirmá si lo dan</span> Muchos libros marcan como <strong>atípico</strong> (un punto suelto fuera del bigote) a todo dato por debajo de Q1 − 1,5·RIC o por encima de Q3 + 1,5·RIC. Acá: 4 − 6,75 = −2,75 y 8,5 + 6,75 = 15,25. El 15 queda adentro; si un paciente hubiera esperado 18 min, sería atípico. El PDF de la cátedra nombra el boxplot pero no explica esta regla.</p>
   </div>
 
   <h4>Practicá el boxplot</h4>
 
-  <article class="card ejercicio" id="u1-box-ej1">
-    <h3>Boxplot A · Leer un boxplot <span class="tag ok">Fácil</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4" id="u1-box-ej1">
+    <h3>Boxplot A · Leer un boxplot <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Fácil</span></h3>
     <p>El boxplot muestra el tiempo de entrega (en minutos) de los pedidos de una app:</p>
     <svg class="grafico" id="g-u1-box-ejA" role="img" aria-label="Boxplot de tiempos de entrega: mínimo 10, Q1 20, mediana 25, Q3 40, máximo 60."></svg>
     <ol type="a">
@@ -1199,14 +1239,14 @@
       <li>¿La distribución es simétrica?</li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
       <ol class="guia-pasos">
-        <li>Leé en el eje los 5 números: el final de cada bigote, los dos bordes de la caja y la línea verde.
+        <li>Leé en el eje los 5 números: el final de cada bigote, los dos bordes de la caja y la línea rayada.
           <span class="porque">todo el boxplot se resume en esos 5 valores (mín, Q1, Me, Q3, máx); sin ellos no podés responder nada.</span></li>
         <li>a) Fijate qué línea del boxplot está en 25 min y qué porcentaje de datos queda a su izquierda.
           <span class="porque">cada línea corta un porcentaje fijo: Q1 deja el 25% a la izquierda, la Me el 50% y Q3 el 75%.</span></li>
@@ -1223,7 +1263,7 @@
       <ul>
         <li>Leé los 5 números del eje: mín, Q1, Me, Q3, máx.</li>
         <li>Cada tramo tiene el 25%: hasta la Me hay 50%, adentro de la caja hay 50% y después de Q3 hay 25%.</li>
-        <li>Forma: ¿la línea verde está en el centro de la caja? ¿Qué bigote es más largo?</li>
+        <li>Forma: ¿la línea rayada está en el centro de la caja? ¿Qué bigote es más largo?</li>
       </ul>
     
     </div>
@@ -1247,8 +1287,8 @@
     </details>
   </article>
 
-  <article class="card ejercicio" id="u1-box-ej2">
-    <h3>Boxplot B · Construirlo desde los datos <span class="tag">Medio</span> <span class="tag warn">Datos del ej. 8</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4" id="u1-box-ej2">
+    <h3>Boxplot B · Construirlo desde los datos <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Medio</span> <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Datos del ej. 8</span></h3>
     <p>Con los 12 puntajes del videojuego (ejercicio 8 de la U1): 12 · 15 · 15 · 18 · 20 · 22 · 24 · 10 · 15 · 17 · 25 · 27.</p>
     <ol type="a">
       <li>Calculá los 5 números y dibujá el boxplot.</li>
@@ -1256,9 +1296,9 @@
       <li>¿Qué forma tiene? ¿Coincide con que x̄ = 18,33 &gt; Me?</li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -1307,8 +1347,8 @@
     </details>
   </article>
 
-  <article class="card ejercicio" id="u1-box-ej3">
-    <h3>Boxplot C · Comparar dos grupos <span class="tag warn">Integrador</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4" id="u1-box-ej3">
+    <h3>Boxplot C · Comparar dos grupos <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Integrador</span></h3>
     <p>Dos comisiones rindieron el mismo examen (notas de 1 a 10):</p>
     <svg class="grafico" id="g-u1-box-ejC" role="img" aria-label="Dos boxplots. Comisión A: mínimo 3, Q1 5, mediana 6, Q3 7, máximo 9. Comisión B: mínimo 1, Q1 4, mediana 7, Q3 9, máximo 10."></svg>
     <ol type="a">
@@ -1318,16 +1358,16 @@
       <li>Si se aprueba con 4, ¿en qué comisión aprobó al menos el 75% seguro?</li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
       <ol class="guia-pasos">
         <li>Leé los 5 números de cada comisión y anotalos en una tabla, uno debajo del otro.
           <span class="porque">comparar es mucho más fácil con los valores lado a lado.</span></li>
-        <li>a) Compará las líneas verdes de las dos cajas.
+        <li>a) Compará las líneas rayadas de las dos cajas.
           <span class="porque">la mediana es el centro de cada grupo: la más alta indica el mejor rendimiento típico.</span></li>
         <li>b) Calculá el RIC (ancho de la caja) y el rango (largo total) de cada comisión y compará.
           <span class="porque">menos RIC y menos rango significan datos más juntos, o sea un grupo más homogéneo.</span></li>
@@ -1353,8 +1393,8 @@
     <details>
       <summary>Ver solución</summary>
       <div>
-        <div class="tabla-wrap">
-          <table>
+        <div class="table-responsive mb-3">
+          <table class="table table-sm align-middle">
             <thead><tr><th></th><th>mín</th><th>Q1</th><th>Me</th><th>Q3</th><th>máx</th></tr></thead>
             <tbody>
               <tr><th>A</th><td>3</td><td>5</td><td>6</td><td>7</td><td>9</td></tr>
@@ -1372,8 +1412,11 @@
       </div>
     </details>
   </article>
+</section>
 
-  <h3>Cómo reconocer el ejercicio</h3>
+<section id="u1-reconocer" class="pb-5 mb-5 border-bottom" data-group="U1 · Descriptiva">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">U1 · Descriptiva</p>
+  <h2 class="mb-3">Cómo reconocer el ejercicio</h2>
   <ul>
     <li><strong>"Diagrama de caja" o te dan un boxplot</strong>: leé los 5 números (mín, Q1, Me, Q3, máx). Cada tramo es ≈ 25%.</li>
     <li><strong>"Calcule media, mediana y moda e interprete"</strong>: ordená los datos primero, siempre.</li>
@@ -1383,8 +1426,8 @@
     <li><strong>"Como mínimo el 75%"</strong>: es la regla de Chebyshev, con el intervalo <span class="f">x̄ ± 2σ</span> (situación 5 y ejercicio 6).</li>
   </ul>
 
-  <div class="card ojo">
-    <strong>Errores comunes</strong>
+  <div class="bloque-r border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> Errores comunes</strong>
     <ul>
       <li>Boxplot: creer que el tramo más largo tiene más datos. Todos tienen ≈ 25%: largo = más <strong>disperso</strong>, no más datos.</li>
       <li>Calcular la mediana <strong>sin ordenar</strong> los datos.</li>
@@ -1395,13 +1438,16 @@
       <li>La media se deja llevar por los valores extremos (outliers); la mediana, no.</li>
     </ul>
   </div>
+</section>
 
-  <h3>Ejercicios</h3>
+<section id="u1-ejercicios" class="pb-5 mb-5 border-bottom" data-group="U1 · Descriptiva">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">U1 · Descriptiva</p>
+  <h2 class="mb-3">Ejercicios</h2>
   <p class="muted">De menor a mayor dificultad. Intentá cada uno solo; si te trabás, abrí <strong>Pistas</strong> y recién al final la solución.</p>
 
   <!-- Ejercicio 1 -->
-  <article class="card ejercicio">
-    <h3>1 · Clasificar variables <span class="tag ok">Fácil</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4">
+    <h3>1 · Clasificar variables <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Fácil</span></h3>
     <p>Clasificá cada variable (cualitativa nominal u ordinal; cuantitativa discreta o continua):</p>
     <ol type="a">
       <li>Temperatura corporal</li>
@@ -1413,9 +1459,9 @@
       <li>Número de DNI</li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -1461,17 +1507,17 @@
   </article>
 
   <!-- Ejercicio 2 -->
-  <article class="card ejercicio" id="u1-ej2">
-    <h3>2 · Media, mediana y moda <span class="tag ok">Fácil</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4" id="u1-ej2">
+    <h3>2 · Media, mediana y moda <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Fácil</span></h3>
     <p>Un pediatra midió a 9 niños: 0,9 · 1,3 · 0,85 · 1,05 · 0,98 · 1,35 · 1,12 · 0,99 · 1,15 m.</p>
     <ol type="a">
       <li>Calculá moda, mediana y media. Interpretá.</li>
       <li>Llega un décimo niño que mide 0,98 m. ¿Qué cambia?</li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -1513,7 +1559,7 @@
         <p><span class="paso">Paso 3: mediana.</span> N = 9 (impar) → posición (9+1)/2 = 5 → <span class="f">Me = 1,05 m</span></p>
         <p><span class="paso">Paso 4: moda.</span> Ningún valor se repite → <strong>no hay moda</strong> (amodal).</p>
         <svg class="grafico" id="g-u1-ej2" role="img" aria-label="Puntos con las 9 alturas entre 0,85 y 1,35 m; la mediana en 1,05 y la media en 1,08."></svg>
-        <p class="muted leyenda">Las 9 alturas. Media (naranja) y mediana (verde) quedan casi juntas: no hay extremos que arrastren la media.</p>
+        <p class="muted leyenda">Las 9 alturas. Media (línea sólida) y mediana (rayada) quedan casi juntas: no hay extremos que arrastren la media.</p>
         <div class="resultado">
           <strong>a)</strong> La altura promedio es ≈ 1,08 m; la mitad de los niños mide 1,05 m o menos. Como media y mediana están cerca, los datos son bastante simétricos.
         </div>
@@ -1530,17 +1576,17 @@
   </article>
 
   <!-- Ejercicio 3 -->
-  <article class="card ejercicio">
-    <h3>3 · Cuartiles y rango <span class="tag ok">Fácil</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4">
+    <h3>3 · Cuartiles y rango <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Fácil</span></h3>
     <p>Minutos de espera de 12 pacientes en una guardia: 3 · 7 · 2 · 12 · 5 · 8 · 4 · 6 · 15 · 5 · 9 · 4.</p>
     <ol type="a">
       <li>Calculá Q1, Q2 (mediana) y Q3.</li>
       <li>Calculá el rango y el rango intercuartílico (Q3 − Q1). Interpretá.</li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -1575,8 +1621,8 @@
       <summary>Ver solución</summary>
       <div>
         <p><span class="paso">Paso 1: ordenar y numerar.</span></p>
-        <div class="tabla-wrap">
-          <table>
+        <div class="table-responsive mb-3">
+          <table class="table table-sm align-middle">
             <tr><th>Posición</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td></tr>
             <tr><th>Dato</th><td>2</td><td>3</td><td>4</td><td>4</td><td>5</td><td>5</td></tr>
             <tr><th>Posición</th><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td></tr>
@@ -1592,27 +1638,27 @@
         <p><span class="paso">Paso 3: rangos.</span> Rango = 15 − 2 = <span class="f">13 min</span> · RIC = 8,5 − 4 = <span class="f">4,5 min</span></p>
         <p><span class="paso">Así se ve: diagrama de caja (boxplot).</span></p>
         <svg class="grafico" id="g-u1-ej3" role="img" aria-label="Diagrama de caja: bigotes de 2 a 15, caja de 4 a 8,5 y mediana en 5,5."></svg>
-        <p class="muted leyenda">La caja va de Q1 a Q3 y contiene el 50% central. La línea verde es la mediana. El bigote derecho largo muestra los valores altos (12 y 15).</p>
+        <p class="muted leyenda">La caja va de Q1 a Q3 y contiene el 50% central. La línea rayada es la mediana. El bigote derecho largo muestra los valores altos (12 y 15).</p>
         <div class="resultado">La mitad de los pacientes espera 5,5 min o menos. El 50% central espera entre 4 y 8,5 min. El rango (13) es mucho mayor que el RIC (4,5) por los valores 12 y 15: el RIC no se ve afectado por los extremos.</div>
       </div>
     </details>
   </article>
 
   <!-- Ejercicio 4 -->
-  <article class="card ejercicio">
-    <h3>4 · Datos en tabla: media, varianza, desvío y CV <span class="tag">Medio</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4">
+    <h3>4 · Datos en tabla: media, varianza, desvío y CV <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Medio</span></h3>
     <p>Se encuestó a 25 familias sobre su cantidad de hijos:</p>
-    <div class="tabla-wrap">
-      <table>
+    <div class="table-responsive mb-3">
+      <table class="table table-sm align-middle">
         <tr><th>Hijos (x<sub>i</sub>)</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td></tr>
         <tr><th>Familias (f<sub>i</sub>)</th><td>5</td><td>6</td><td>8</td><td>4</td><td>2</td></tr>
       </table>
     </div>
     <p>Calculá la media, la varianza, el desvío estándar y el coeficiente de variación.</p>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -1649,8 +1695,8 @@
       <summary>Ver solución</summary>
       <div>
         <p><span class="paso">Paso 1: armar columnas auxiliares.</span></p>
-        <div class="tabla-wrap">
-          <table>
+        <div class="table-responsive mb-3">
+          <table class="table table-sm align-middle">
             <thead><tr><th>x<sub>i</sub></th><th>f<sub>i</sub></th><th>x<sub>i</sub>·f<sub>i</sub></th><th>x<sub>i</sub>²·f<sub>i</sub></th></tr></thead>
             <tbody>
               <tr><td>0</td><td>5</td><td>0</td><td>0</td></tr>
@@ -1678,8 +1724,8 @@
   </article>
 
   <!-- Ejercicio 5 -->
-  <article class="card ejercicio">
-    <h3>5 · ¿Quién es más homogéneo? <span class="tag">Medio</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4">
+    <h3>5 · ¿Quién es más homogéneo? <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Medio</span></h3>
     <p>Una fábrica tiene dos líneas de llenado:</p>
     <ul>
       <li>Línea A (botellas): x̄ = 500 ml, σ = 4 ml</li>
@@ -1691,9 +1737,9 @@
       <li>Si la línea A se expresa en litros, ¿cambia su CV?</li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -1735,8 +1781,8 @@
   </article>
 
   <!-- Ejercicio 6 -->
-  <article class="card ejercicio">
-    <h3>6 · Ejercicio completo <span class="tag warn">Integrador</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4">
+    <h3>6 · Ejercicio completo <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Integrador</span></h3>
     <p>Metros que camina un niño sin caerse, registrados durante un mes (40 datos):</p>
     <p class="f" style="white-space:normal">1, 1, 2, 2, 2, 2, 2, 2, 3 (×10), 4 (×5), 5 (×10), 6, 6, 6, 7, 7, 8, 8</p>
     <ol type="a">
@@ -1746,9 +1792,9 @@
       <li>¿Entre qué dos valores se encuentra, como mínimo, el 75% de las observaciones?</li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -1786,8 +1832,8 @@
       <summary>Ver solución</summary>
       <div>
         <p><span class="paso">a) Tabla.</span></p>
-        <div class="tabla-wrap">
-          <table>
+        <div class="table-responsive mb-3">
+          <table class="table table-sm align-middle">
             <thead><tr><th>x<sub>i</sub></th><th>f<sub>i</sub></th><th>F<sub>i</sub></th><th>f<sub>i</sub>/N</th><th>x<sub>i</sub>·f<sub>i</sub></th><th>x<sub>i</sub>²·f<sub>i</sub></th></tr></thead>
             <tbody>
               <tr><td>1</td><td>2</td><td>2</td><td>0,05</td><td>2</td><td>2</td></tr>
@@ -1834,11 +1880,11 @@
   </article>
 
   <!-- Ejercicio 7 -->
-  <article class="card ejercicio">
-    <h3>7 · Datos agrupados en intervalos <span class="tag warn">Integrador</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4">
+    <h3>7 · Datos agrupados en intervalos <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Integrador</span></h3>
     <p>Tiempo (en minutos) que 50 autos permanecen en el estacionamiento de un supermercado:</p>
-    <div class="tabla-wrap">
-      <table style="max-width:260px">
+    <div class="table-responsive mb-3">
+      <table class="table table-sm align-middle" style="max-width:260px">
         <thead><tr><th>Tiempo (min)</th><th>Autos (f<sub>i</sub>)</th></tr></thead>
         <tbody>
           <tr><td>[0;30)</td><td>8</td></tr><tr><td>[30;60)</td><td>15</td></tr><tr><td>[60;90)</td><td>20</td></tr>
@@ -1854,9 +1900,9 @@
       <li>¿La distribución es simétrica?</li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -1898,15 +1944,15 @@
       <summary>Ver solución</summary>
       <div>
         <p><span class="paso">a) Tabla completa.</span></p>
-        <div class="tabla-wrap">
-          <table>
+        <div class="table-responsive mb-3">
+          <table class="table table-sm align-middle">
             <thead><tr><th>Intervalo</th><th>X<sub>i</sub></th><th>f<sub>i</sub></th><th>F<sub>i</sub></th></tr></thead>
             <tbody><tr><td>[0;30)</td><td>15</td><td>8</td><td>8</td></tr><tr><td>[30;60)</td><td>45</td><td>15</td><td>23</td></tr><tr><td>[60;90)</td><td>75</td><td>20</td><td>43</td></tr><tr><td>[90;120)</td><td>105</td><td>5</td><td>48</td></tr><tr><td>[120;150]</td><td>135</td><td>2</td><td>50</td></tr><tr><th>Σ</th><th></th><th>50</th><th></th></tr></tbody>
           </table>
         </div>
         <p class="muted">Columnas para la media y la varianza:</p>
-        <div class="tabla-wrap">
-          <table>
+        <div class="table-responsive mb-3">
+          <table class="table table-sm align-middle">
             <thead><tr><th>X<sub>i</sub></th><th>f<sub>i</sub></th><th>X<sub>i</sub>·f<sub>i</sub></th><th>X<sub>i</sub>²·f<sub>i</sub></th></tr></thead>
             <tbody><tr><td>15</td><td>8</td><td>120</td><td>1800</td></tr><tr><td>45</td><td>15</td><td>675</td><td>30375</td></tr><tr><td>75</td><td>20</td><td>1500</td><td>112500</td></tr><tr><td>105</td><td>5</td><td>525</td><td>55125</td></tr><tr><td>135</td><td>2</td><td>270</td><td>36450</td></tr><tr><th>Σ</th><th>50</th><th>3090</th><th>236250</th></tr></tbody>
           </table>
@@ -1941,8 +1987,8 @@
     </details>
   </article>
 
-  <article class="card ejercicio" id="u1-ej8">
-    <h3>8 · Comparar dos semanas <span class="tag warn">Integrador</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4" id="u1-ej8">
+    <h3>8 · Comparar dos semanas <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Integrador</span></h3>
     <p>Un grupo de 12 amigos juega todos los sábados una partida rápida de un videojuego y comparte sus puntuaciones: 12 · 15 · 15 · 18 · 20 · 22 · 24 · 10 · 15 · 17 · 25 · 27.</p>
     <ol type="a">
       <li>Definí la variable estadística del problema y su tipo.</li>
@@ -1950,9 +1996,9 @@
       <li>La semana anterior los resultados fueron x̄ = 18, Me = 18, Mo = 15 y σ = 3,96. Compará el rendimiento entre las dos fechas.</li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -2001,8 +2047,8 @@
         <div class="resultado"><strong>b)</strong> En promedio los jugadores hicieron 18,33 puntos. La mitad hizo 17,5 o menos, y el puntaje más repetido fue 15. Los puntajes se alejan del promedio unos 5,1 puntos, en promedio.</div>
 
         <p style="margin-top:var(--sp-4)"><span class="paso">c) Comparación.</span></p>
-        <div class="tabla-wrap">
-          <table>
+        <div class="table-responsive mb-3">
+          <table class="table table-sm align-middle">
             <thead><tr><th>Medida</th><th>Antes</th><th>Ahora</th></tr></thead>
             <tbody>
               <tr><td>x̄</td><td>18</td><td>18,33 ≈</td></tr>
@@ -2021,23 +2067,22 @@
 
 
 <!-- ================= PENDIENTES ================= -->
-<section id="u2" aria-labelledby="u2-titulo">
-  <h2 id="u2-titulo">Unidad 2 · Regresión lineal</h2>
-
-  <h3>Panorama</h3>
+<section id="u2" class="pb-5 mb-5 border-bottom" data-group="U2 · Regresión">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">U2 · Regresión</p>
+  <h2 class="mb-3">Panorama</h2>
   <p>
     Tenés <strong>dos variables medidas en los mismos casos</strong> (horas de estudio y nota, publicidad y ventas).
     La regresión busca <strong>la recta que mejor describe cómo cambia y cuando cambia x</strong>, para entender la relación y <strong>predecir</strong>.
   </p>
 
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>La regresión de un vistazo</strong>
     <svg class="grafico" id="g-u2-anatomia" role="img" aria-label="Cinco puntos de horas de estudio y nota con la recta ŷ = 2,1 + 1,3x. Se marca el corte con el eje y (b0 = 2,1) y la distancia vertical de un punto a la recta, que es el residuo."></svg>
-    <p class="muted leyenda">Cada punto es un caso (x; y). La recta da el valor predicho ŷ. En esta unidad, <strong>azul = recta</strong> y <strong>naranja = error (residuo)</strong>.</p>
+    <p class="muted leyenda">Cada punto es un caso (x; y). La recta da el valor predicho ŷ. En esta unidad, <strong>verde azulado = recta</strong> y <strong>rojo = error (residuo)</strong>.</p>
   </div>
 
   <div class="grid-2">
-    <div class="card">
+    <div class="bloque-r border rounded p-3 mb-3">
       <strong>Las dos variables</strong>
       <ul>
         <li><strong>x, independiente:</strong> la que conocés o controlás (horas, publicidad).</li>
@@ -2054,7 +2099,7 @@
         <text x="46" y="16">↑ y: dependiente</text>
       </svg>
     </div>
-    <div class="card">
+    <div class="bloque-r border rounded p-3 mb-3">
       <strong>Dos preguntas, dos herramientas</strong>
       <ul>
         <li><strong>¿Qué tan fuerte es la relación, y en qué dirección?</strong> Correlación <span class="f">r</span>.</li>
@@ -2062,8 +2107,11 @@
       </ul>
     </div>
   </div>
+</section>
 
-  <h3>Conceptos que tenés que manejar</h3>
+<section id="u2-conceptos" class="pb-5 mb-5 border-bottom" data-group="U2 · Regresión">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">U2 · Regresión</p>
+  <h2 class="mb-3">Conceptos</h2>
   <div class="conceptos">
     <div class="concepto">
       <svg class="grafico mini" viewBox="0 0 120 72" role="img" aria-label="Nube de puntos que sube de izquierda a derecha."><line class="eje" x1="10" y1="64" x2="114" y2="64"/><line class="eje" x1="10" y1="6" x2="10" y2="64"/><circle class="punto" cx="22" cy="54" r="3"/><circle class="punto" cx="34" cy="50" r="3"/><circle class="punto" cx="46" cy="42" r="3"/><circle class="punto" cx="58" cy="40" r="3"/><circle class="punto" cx="70" cy="30" r="3"/><circle class="punto" cx="84" cy="26" r="3"/><circle class="punto" cx="98" cy="16" r="3"/></svg>
@@ -2098,12 +2146,15 @@
       <div><p><strong>Determinación R²</strong></p><p>Qué % de la variabilidad de y explica la recta</p><p class="muted"><span class="f">SCR / SCT</span> (= r²)</p></div>
     </div>
   </div>
+</section>
 
-  <h3>Fórmulas clave (como las usa la cátedra)</h3>
+<section id="u2-formulas" class="pb-5 mb-5 border-bottom" data-group="U2 · Regresión">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">U2 · Regresión</p>
+  <h2 class="mb-3">Fórmulas clave</h2>
   <p class="muted">Tocá <strong>Con números</strong> en cada fórmula. Todas usan el mismo ejemplo: horas de estudio (x) y nota (y) de 5 estudiantes, los datos del ejercicio 3.</p>
 
   <!-- Recta -->
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>La recta de regresión</strong>
     <div class="formula"><span class="tk k1" data-k="yh">ŷ</span> = <span class="tk k2" data-k="b0">b<sub>0</sub></span> + <span class="tk k3" data-k="b1">b<sub>1</sub></span>·<span class="tk k4" data-k="x">x</span></div>
     <details class="herramienta">
@@ -2121,8 +2172,8 @@
         <div>
           <h4>De dónde sale cada dato</h4>
           <p class="muted" style="margin:0 0 var(--sp-2)">b<sub>0</sub> y b<sub>1</sub> salen de las fórmulas de abajo. Con ellos, la recta predice:</p>
-          <div class="tabla-wrap">
-            <table>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm align-middle">
               <thead><tr><th>x (horas)</th><th>ŷ = 2,1 + 1,3x</th></tr></thead>
               <tbody>
                 <tr><td>1</td><td>3,4</td></tr>
@@ -2143,7 +2194,7 @@
   </div>
 
   <!-- b1 -->
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Pendiente b<sub>1</sub></strong>
     <div class="formula">b<sub>1</sub> = <span class="frac"><span><span class="tk k1" data-k="sxy">Σxy</span> − <span class="frac"><span><span class="tk k2" data-k="sx">Σx</span> · <span class="tk k3" data-k="sy">Σy</span></span><span><span class="tk k5" data-k="n">n</span></span></span></span><span><span class="tk k4" data-k="sx2">Σx²</span> − <span class="frac"><span>(<span class="tk k2" data-k="sx">Σx</span>)²</span><span><span class="tk k5" data-k="n">n</span></span></span></span></span></div>
     <details class="herramienta">
@@ -2161,8 +2212,8 @@
         </div>
         <div>
           <h4>De dónde sale cada dato</h4>
-          <div class="tabla-wrap">
-            <table>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm align-middle">
               <thead><tr><th>x</th><th>y</th><th>x·y</th><th>x²</th></tr></thead>
               <tbody>
                 <tr><td>1</td><td>3</td><td>3</td><td>1</td></tr>
@@ -2187,7 +2238,7 @@
   </div>
 
   <!-- b0 -->
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Ordenada b<sub>0</sub></strong>
     <div class="formula">b<sub>0</sub> = <span class="tk k1" data-k="ym">ȳ</span> − <span class="tk k3" data-k="b1">b<sub>1</sub></span>·<span class="tk k2" data-k="xm">x̄</span></div>
     <details class="herramienta">
@@ -2203,8 +2254,8 @@
         </div>
         <div>
           <h4>De dónde sale cada dato</h4>
-          <div class="tabla-wrap">
-            <table>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm align-middle">
               <thead><tr><th>Dato</th><th>Cuenta</th><th>Valor</th></tr></thead>
               <tbody>
                 <tr><td>x̄</td><td>Σx / n = 15/5</td><td class="tk k2" data-k="xm">3</td></tr>
@@ -2224,7 +2275,7 @@
   </div>
 
   <!-- r (fórmula cátedra) -->
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Coeficiente de correlación r</strong>
     <div class="formula">r = <span class="frac"><span>n·<span class="tk k1" data-k="sxy">Σxy</span> − <span class="tk k2" data-k="sx">Σx</span>·<span class="tk k3" data-k="sy">Σy</span></span><span>√(n·<span class="tk k4" data-k="sx2">Σx²</span> − (<span class="tk k2" data-k="sx">Σx</span>)²) · √(n·<span class="tk k5" data-k="sy2">Σy²</span> − (<span class="tk k3" data-k="sy">Σy</span>)²)</span></span></div>
     <details class="herramienta">
@@ -2243,8 +2294,8 @@
         </div>
         <div>
           <h4>De dónde sale cada dato</h4>
-          <div class="tabla-wrap">
-            <table>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm align-middle">
               <thead><tr><th>x</th><th>y</th><th>x·y</th><th>x²</th><th>y²</th></tr></thead>
               <tbody>
                 <tr><td>1</td><td>3</td><td>3</td><td>1</td><td>9</td></tr>
@@ -2269,7 +2320,7 @@
   </div>
 
   <!-- covarianza y r -->
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Covarianza y r con desvíos</strong>
     <div class="formula"><span class="tk k1" data-k="cov">cov(X,Y)</span> = <span class="frac"><span>Σ(<span class="tk k4" data-k="dx">x − x̄</span>)(<span class="tk k5" data-k="dy">y − ȳ</span>)</span><span>n</span></span></div>
     <div class="formula">r = <span class="frac"><span><span class="tk k1" data-k="cov">cov(X,Y)</span></span><span><span class="tk k2" data-k="sgx">σ<sub>x</sub></span>·<span class="tk k3" data-k="sgy">σ<sub>y</sub></span></span></span></div>
@@ -2288,8 +2339,8 @@
         </div>
         <div>
           <h4>De dónde sale cada dato</h4>
-          <div class="tabla-wrap">
-            <table>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm align-middle">
               <thead><tr><th>x − x̄</th><th>y − ȳ</th><th>producto</th><th>(x − x̄)²</th><th>(y − ȳ)²</th></tr></thead>
               <tbody>
                 <tr><td class="tk k4" data-k="dx">−2</td><td class="tk k5" data-k="dy">−3</td><td>6</td><td>4</td><td>9</td></tr>
@@ -2313,7 +2364,7 @@
   </div>
 
   <!-- residuo -->
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Residuo (error)</strong>
     <div class="formula"><span class="tk k3" data-k="e">e</span> = <span class="tk k1" data-k="y">y</span> − <span class="tk k2" data-k="yh">ŷ</span></div>
     <details class="herramienta">
@@ -2329,8 +2380,8 @@
         </div>
         <div>
           <h4>De dónde sale cada dato</h4>
-          <div class="tabla-wrap">
-            <table>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm align-middle">
               <thead><tr><th>x</th><th>y</th><th>ŷ = 2,1 + 1,3x</th><th>e = y − ŷ</th></tr></thead>
               <tbody>
                 <tr><td>1</td><td>3</td><td>3,4</td><td>−0,4</td></tr>
@@ -2353,7 +2404,7 @@
   </div>
 
   <!-- sumas de cuadrados -->
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Sumas de cuadrados: SCT, SCR y SCE</strong>
     <svg class="grafico" viewBox="0 0 320 170" role="img" aria-label="Un punto y su distancia a la media de y, partida en dos tramos: de la media hasta la recta (explicado, SCR) y de la recta hasta el punto (error, SCE).">
       <line class="eje" x1="30" y1="150" x2="310" y2="150"/><line class="eje" x1="30" y1="10" x2="30" y2="150"/>
@@ -2387,8 +2438,8 @@
         </div>
         <div>
           <h4>De dónde sale cada dato</h4>
-          <div class="tabla-wrap">
-            <table>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm align-middle">
               <thead><tr><th>y</th><th>ŷ</th><th>(y − ȳ)²</th><th>(ŷ − ȳ)²</th><th>(y − ŷ)²</th></tr></thead>
               <tbody>
                 <tr><td>3</td><td>3,4</td><td>9</td><td>6,76</td><td>0,16</td></tr>
@@ -2413,7 +2464,7 @@
   </div>
 
   <!-- R² -->
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Coeficiente de determinación R²</strong>
     <div class="formula">R² = <span class="frac"><span><span class="tk k2" data-k="scr">SCR</span></span><span><span class="tk k1" data-k="sct">SCT</span></span></span> = 1 − <span class="frac"><span><span class="tk k3" data-k="sce">SCE</span></span><span><span class="tk k1" data-k="sct">SCT</span></span></span></div>
     <details class="herramienta">
@@ -2430,8 +2481,8 @@
         </div>
         <div>
           <h4>De dónde sale cada dato</h4>
-          <div class="tabla-wrap">
-            <table>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm align-middle">
               <thead><tr><th>Dato</th><th>Viene de</th><th>Valor</th></tr></thead>
               <tbody>
                 <tr><td>SCT</td><td>Σ(y − ȳ)²</td><td class="tk k1" data-k="sct">18</td></tr>
@@ -2452,7 +2503,7 @@
   </div>
 
   <!-- escala de r -->
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>¿Cómo leo r?</strong>
     <p class="muted" style="margin-top:var(--sp-2)">En regresión simple <strong>R² = r²</strong>, y r tiene el mismo signo que b<sub>1</sub>.</p>
     <svg class="grafico" viewBox="0 0 320 76" role="img" aria-label="Escala de r de −1 a 1: cerca de −1 y 1 la correlación es fuerte, cerca de ±0,5 moderada y cerca de 0 débil.">
@@ -2472,12 +2523,16 @@
     </svg>
     <p class="muted leyenda">r = ±1: correlación perfecta, todos los puntos sobre la recta. Los cortes entre débil, moderada y fuerte son orientativos.</p>
   </div>
-  <h3>Situaciones clave: entender antes de calcular</h3>
+</section>
+
+<section id="u2-situaciones" class="pb-5 mb-5 border-bottom" data-group="U2 · Regresión">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">U2 · Regresión</p>
+  <h2 class="mb-3">Situaciones clave</h2>
   <p class="muted">Siete casos cortos, cuatro interactivos. Los de mínimos cuadrados usan los mismos datos del ejercicio 3.</p>
 
-  <div class="card situacion">
+  <div class="bloque-r situacion border rounded p-3 mb-3">
     <h4 id="g-dispersion">1. Qué mide r (y de dónde sale su signo)</h4>
-    <p class="muted volver"><a href="#graficos">↩ Todos los gráficos</a></p>
+    <p class="muted volver"><a href="#graficos"><i class="bi bi-arrow-up"></i> Todos los gráficos</a></p>
     <p>Mové r y mirá la nube. Las líneas punteadas marcan x̄ y ȳ y dividen el gráfico en cuatro cuadrantes.</p>
     <label class="control">Correlación r = <output id="o-u2-corr">0,8</output>
       <input type="range" id="r-u2-corr" min="-1" max="1" step="0.05" value="0.8">
@@ -2485,17 +2540,17 @@
     <svg class="grafico" id="g-u2-corr" role="img" aria-label="Nube de 40 puntos dividida en cuadrantes por la media de x y la media de y. Al mover r, los puntos se alinean hacia arriba, hacia abajo o se dispersan."></svg>
     <p class="en-vivo" id="t-u2-corr" aria-live="polite"></p>
     <p>Cada punto aporta <span class="f">(x − x̄)(y − ȳ)</span> a la covarianza. Arriba a la derecha (I) y abajo a la izquierda (III) el producto es positivo: <strong>suma</strong>. En II y IV es negativo: <strong>resta</strong>. Si ganan los que suman, r es positivo.</p>
-    <p class="idea"><strong>La idea:</strong> r mide qué tan alineados están los puntos sobre una recta. El <em>signo</em> dice la dirección (sube o baja) y el <em>valor absoluto</em> dice la fuerza.</p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> r mide qué tan alineados están los puntos sobre una recta. El <em>signo</em> dice la dirección (sube o baja) y el <em>valor absoluto</em> dice la fuerza.</p>
   </div>
 
-  <div class="card situacion">
+  <div class="bloque-r situacion border rounded p-3 mb-3">
     <h4>2. r ≈ 0 no significa "no hay relación"</h4>
     <svg class="grafico" id="g-u2-cero" role="img" aria-label="Puntos en forma de U invertida: el rendimiento sube con el estrés hasta un punto y después baja."></svg>
     <p>Estrés y rendimiento en un examen: con poco estrés rendís poco, con estrés moderado rendís mejor y con mucho estrés volvés a rendir poco. La relación es clarísima, pero <strong>r ≈ −0,02</strong>: lo que suma de un lado resta del otro.</p>
-    <p class="idea"><strong>La idea:</strong> r solo detecta relaciones <em>lineales</em>. Antes de calcular, mirá el diagrama de dispersión.</p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> r solo detecta relaciones <em>lineales</em>. Antes de calcular, mirá el diagrama de dispersión.</p>
   </div>
 
-  <div class="card situacion">
+  <div class="bloque-r situacion border rounded p-3 mb-3">
     <h4>3. Qué significan b<sub>1</sub> y b<sub>0</sub></h4>
     <svg class="grafico" id="g-u2-pend" role="img" aria-label="Recta ŷ = 40 + 5x. Un escalón muestra que 2 horas más suben la nota 10 puntos, 5 por hora. La recta corta el eje y en 40."></svg>
     <p>Horas de estudio (x) y nota (y): <span class="f">ŷ = 40 + 5x</span>.</p>
@@ -2504,23 +2559,23 @@
       <li><strong>b<sub>0</sub> = 40:</strong> la nota que predice la recta para 0 horas. Es donde la recta corta el eje y.</li>
       <li>b<sub>1</sub> &gt; 0 → la recta sube · b<sub>1</sub> &lt; 0 → baja · b<sub>1</sub> = 0 → horizontal (x no ayuda a predecir y).</li>
     </ul>
-    <p class="idea"><strong>La idea:</strong> la frase que siempre piden: "por cada unidad que aumenta x, y aumenta (o disminuye) en promedio b<sub>1</sub> unidades". Decila con las unidades reales de cada variable.</p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> la frase que siempre piden: "por cada unidad que aumenta x, y aumenta (o disminuye) en promedio b<sub>1</sub> unidades". Decila con las unidades reales de cada variable.</p>
   </div>
 
-  <div class="card situacion">
+  <div class="bloque-r situacion border rounded p-3 mb-3">
     <h4 id="g-recta">4. ¿Por qué "mínimos cuadrados"?</h4>
-    <p class="muted volver"><a href="#graficos">↩ Todos los gráficos</a></p>
-    <p>Probá pendientes. La recta siempre pasa por (x̄; ȳ) = (3; 6). Los segmentos naranjas son los residuos y los cuadrados son esos residuos al cuadrado. Su suma es la <strong>SCE</strong>.</p>
+    <p class="muted volver"><a href="#graficos"><i class="bi bi-arrow-up"></i> Todos los gráficos</a></p>
+    <p>Probá pendientes. La recta siempre pasa por (x̄; ȳ) = (3; 6). Los segmentos rojos son los residuos y los cuadrados son esos residuos al cuadrado. Su suma es la <strong>SCE</strong>.</p>
     <label class="control">Pendiente b<sub>1</sub> = <output id="o-u2-mc">0,3</output>
       <input type="range" id="r-u2-mc" min="-0.5" max="3" step="0.05" value="0.3">
     </label>
     <svg class="grafico" id="g-u2-mc" role="img" aria-label="Cinco puntos con una recta de pendiente variable. De cada punto baja un residuo hasta la recta y se dibuja su cuadrado."></svg>
     <svg class="grafico" id="g-u2-mc-curva" role="img" aria-label="Curva en forma de U de la SCE según la pendiente, con el mínimo en b1 = 1,3. Un punto marca la pendiente elegida."></svg>
     <p class="en-vivo" id="t-u2-mc" aria-live="polite"></p>
-    <p class="idea"><strong>La idea:</strong> la recta de regresión es la única que hace <em>mínima</em> la suma de los cuadrados de los residuos. Las fórmulas de b<sub>1</sub> y b<sub>0</sub> te dan ese mínimo directo, sin probar.</p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> la recta de regresión es la única que hace <em>mínima</em> la suma de los cuadrados de los residuos. Las fórmulas de b<sub>1</sub> y b<sub>0</sub> te dan ese mínimo directo, sin probar.</p>
   </div>
 
-  <div class="card situacion">
+  <div class="bloque-r situacion border rounded p-3 mb-3">
     <h4>5. R²: cuánto explica la recta</h4>
     <p>Los datos siguen la misma tendencia, pero podés agregarles "ruido". Mirá cómo se reparte la variabilidad total de y.</p>
     <label class="control">Ruido = <output id="o-u2-r2">1</output>
@@ -2529,11 +2584,11 @@
     <svg class="grafico" id="g-u2-r2" role="img" aria-label="Diez puntos con su recta de regresión. Con más ruido, los puntos se alejan de la recta."></svg>
     <svg class="grafico" id="g-u2-r2-barra" role="img" aria-label="Barra dividida en la parte explicada por la recta (SCR) y la parte de error (SCE)."></svg>
     <p class="en-vivo" id="t-u2-r2" aria-live="polite"></p>
-    <p><span class="f">SCT = SCR + SCE</span>: la variabilidad total de y se reparte entre lo que explica la recta (SCR, azul) y lo que queda como error (SCE, naranja).</p>
-    <p class="idea"><strong>La idea:</strong> R² va de 0 a 1 (de 0% a 100%). Si R² = 0,85, "la recta explica el 85% de la variabilidad de y". En regresión simple, R² = r².</p>
+    <p><span class="f">SCT = SCR + SCE</span>: la variabilidad total de y se reparte entre lo que explica la recta (SCR, verde azulado) y lo que queda como error (SCE, rojo).</p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> R² va de 0 a 1 (de 0% a 100%). Si R² = 0,85, "la recta explica el 85% de la variabilidad de y". En regresión simple, R² = r².</p>
   </div>
 
-  <div class="card situacion">
+  <div class="bloque-r situacion border rounded p-3 mb-3">
     <h4>6. Correlación no es causalidad</h4>
     <svg class="grafico" viewBox="0 0 320 150" role="img" aria-label="Diagrama: el calor aumenta la venta de helados y también los ahogados en la playa. Entre helados y ahogados hay correlación, pero no causa.">
       <defs><marker id="u2-flecha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="flecha" d="M0,0 L10,5 L0,10 Z"/></marker></defs>
@@ -2546,17 +2601,20 @@
       <text class="t-residuo" x="160" y="142" text-anchor="middle">r alto, pero no hay causa</text>
     </svg>
     <p>En verano suben las ventas de helado y también los ahogados. r es alto, pero los helados no ahogan a nadie: las dos variables dependen de una tercera, el calor.</p>
-    <p class="idea"><strong>La idea:</strong> un r alto dice que las variables se mueven juntas, no que una cause la otra. Interpretá con "se asocia con" o "tiende a", nunca con "provoca".</p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> un r alto dice que las variables se mueven juntas, no que una cause la otra. Interpretá con "se asocia con" o "tiende a", nunca con "provoca".</p>
   </div>
 
-  <div class="card situacion">
+  <div class="bloque-r situacion border rounded p-3 mb-3">
     <h4>7. El peligro de extrapolar</h4>
     <svg class="grafico" id="g-u2-extra" role="img" aria-label="Alturas de niños de 2 a 10 años sobre una recta. Prolongada con línea punteada hasta los 40 años, la recta predice 333 cm."></svg>
     <p>Altura de niños de 2 a 10 años: la recta <span class="f">ŷ = 75,5 + 6,43·edad</span> ajusta casi perfecto (r = 0,997). Pero usada para 40 años predice <strong>333 cm</strong>.</p>
-    <p class="idea"><strong>La idea:</strong> la recta solo vale <em>dentro del rango de x de los datos</em>. Predecir fuera de ese rango (extrapolar) puede dar cualquier cosa. Lo mismo pasa con b<sub>0</sub> cuando x = 0 queda fuera de los datos.</p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> la recta solo vale <em>dentro del rango de x de los datos</em>. Predecir fuera de ese rango (extrapolar) puede dar cualquier cosa. Lo mismo pasa con b<sub>0</sub> cuando x = 0 queda fuera de los datos.</p>
   </div>
+</section>
 
-  <h3>Cómo reconocer el ejercicio</h3>
+<section id="u2-reconocer" class="pb-5 mb-5 border-bottom" data-group="U2 · Regresión">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">U2 · Regresión</p>
+  <h2 class="mb-3">Cómo reconocer el ejercicio</h2>
   <ul>
     <li><strong>"Determine la recta de regresión"</strong> con una tabla de datos: tabla con x, y, xy, x², y² → b<sub>1</sub> y después b<sub>0</sub>.</li>
     <li><strong>"Coeficiente de correlación" / "interprete"</strong>: calculás r y decís signo (dirección) y fuerza.</li>
@@ -2566,8 +2624,8 @@
     <li><strong>"Interprete b<sub>1</sub>"</strong>: "por cada unidad que aumenta x, y cambia en promedio b<sub>1</sub> unidades".</li>
   </ul>
 
-  <div class="card ojo">
-    <strong>Errores comunes</strong>
+  <div class="bloque-r border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> Errores comunes</strong>
     <ul>
       <li>Confundir x con y: x es la que conocés y y la que querés predecir. Si las intercambiás, la recta cambia.</li>
       <li><strong>(Σx)² no es Σx²</strong>: en (Σx)² primero sumás y después elevás; en Σx² primero elevás cada x y después sumás.</li>
@@ -2579,13 +2637,16 @@
       <li>Confundir R² con r: si r = 0,8, entonces R² = 0,64 (64%), no 80%.</li>
     </ul>
   </div>
+</section>
 
-  <h3>Ejercicios</h3>
+<section id="u2-ejercicios" class="pb-5 mb-5 border-bottom" data-group="U2 · Regresión">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">U2 · Regresión</p>
+  <h2 class="mb-3">Ejercicios</h2>
   <p class="muted">De menor a mayor dificultad. Intentá cada uno solo; si te trabás, abrí <strong>Pistas</strong> y recién al final la solución.</p>
 
   <!-- Ejercicio 1 -->
-  <article class="card ejercicio">
-    <h3>1 · Leer un diagrama de dispersión <span class="tag ok">Fácil</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4">
+    <h3>1 · Leer un diagrama de dispersión <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Fácil</span></h3>
     <p>Cada gráfico corresponde a uno de estos valores: <strong>r = 0,95 · r = −0,6 · r ≈ 0 · r ≈ 0</strong>.</p>
     <div class="mini-grid">
       <figure><svg class="grafico" id="g-u2-ej1-a" role="img" aria-label="Gráfico A: puntos que suben muy alineados."></svg><figcaption>A</figcaption></figure>
@@ -2599,9 +2660,9 @@
       <li>Entre el diámetro abdominal y el peso de bebés recién nacidos, r = 0,875. ¿Qué significa? <span class="muted">(guía, ej. 3b)</span></li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -2634,8 +2695,8 @@
     <details>
       <summary>Ver solución</summary>
       <div>
-        <div class="tabla-wrap">
-          <table>
+        <div class="table-responsive mb-3">
+          <table class="table table-sm align-middle">
             <thead><tr><th>Gráfico</th><th>r</th><th>Por qué</th></tr></thead>
             <tbody>
               <tr><td>A</td><td>0,95</td><td>Sube y los puntos están muy alineados</td></tr>
@@ -2653,8 +2714,8 @@
   </article>
 
   <!-- Ejercicio 2 -->
-  <article class="card ejercicio">
-    <h3>2 · Interpretar una recta y predecir <span class="tag ok">Fácil</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4">
+    <h3>2 · Interpretar una recta y predecir <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Fácil</span></h3>
     <p>Una heladería registró sus ventas diarias (y, en kg) según la temperatura máxima (x, en °C), en días de entre 15 °C y 35 °C. La recta de regresión es <span class="f">ŷ = −4 + 1,5x</span>.</p>
     <ol type="a">
       <li>Interpretá b<sub>1</sub> = 1,5.</li>
@@ -2664,9 +2725,9 @@
       <li>¿Usarías la recta para un día de 45 °C?</li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -2711,11 +2772,11 @@
   </article>
 
   <!-- Ejercicio 3 -->
-  <article class="card ejercicio">
-    <h3>3 · Recta, r y R² a mano <span class="tag">Medio</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4">
+    <h3>3 · Recta, r y R² a mano <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Medio</span></h3>
     <p>Horas de estudio (x) y nota (y) de 5 estudiantes:</p>
-    <div class="tabla-wrap">
-      <table>
+    <div class="table-responsive mb-3">
+      <table class="table table-sm align-middle">
         <tr><th>Horas (x)</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
         <tr><th>Nota (y)</th><td>3</td><td>5</td><td>6</td><td>8</td><td>8</td></tr>
       </table>
@@ -2727,9 +2788,9 @@
       <li>Estimá la nota de alguien que estudió 3,5 horas.</li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -2768,8 +2829,8 @@
       <summary>Ver solución</summary>
       <div>
         <p><span class="paso">Paso 1: tabla de cálculo.</span></p>
-        <div class="tabla-wrap">
-          <table>
+        <div class="table-responsive mb-3">
+          <table class="table table-sm align-middle">
             <thead><tr><th>x</th><th>y</th><th>x·y</th><th>x²</th><th>y²</th></tr></thead>
             <tbody>
               <tr><td>1</td><td>3</td><td>3</td><td>1</td><td>9</td></tr>
@@ -2791,8 +2852,8 @@
         <p><span class="paso">Paso 4: r.</span> <span class="f">r = 13/√(10·18) = 13/√180 ≈ 13/13,42 ≈ 0,969</span><br>
           <span class="muted">Con la fórmula de la cátedra da lo mismo: (5·103 − 15·30)/(√(5·55 − 15²)·√(5·198 − 30²)) = 65/(√50·√90) ≈ 0,969.</span></p>
         <p><span class="paso">Paso 5: R².</span> <span class="f">R² = 0,969² ≈ 0,939</span>. Verificación con los residuos:</p>
-        <div class="tabla-wrap">
-          <table>
+        <div class="table-responsive mb-3">
+          <table class="table table-sm align-middle">
             <thead><tr><th>x</th><th>y</th><th>ŷ = 2,1 + 1,3x</th><th>e = y − ŷ</th><th>e²</th></tr></thead>
             <tbody>
               <tr><td>1</td><td>3</td><td>3,4</td><td>−0,4</td><td>0,16</td></tr>
@@ -2807,18 +2868,18 @@
         <p><span class="f">R² = 1 − SCE/SCT = 1 − 1,1/18 ≈ 0,939</span> ✓</p>
         <p><span class="paso">Paso 6: predicción.</span> <span class="f">ŷ(3,5) = 2,1 + 1,3·3,5 = 2,1 + 4,55 = 6,65</span></p>
         <svg class="grafico" id="g-u2-ej3" role="img" aria-label="Los 5 puntos con la recta ŷ = 2,1 + 1,3x y los residuos como segmentos verticales cortos."></svg>
-        <p class="muted leyenda">Los residuos (naranja) son cortos: la recta ajusta muy bien.</p>
+        <p class="muted leyenda">Los residuos (en rojo) son cortos: la recta ajusta muy bien.</p>
         <div class="resultado">Cada hora más de estudio sube la nota <strong>1,3 puntos en promedio</strong>. r = 0,97: correlación positiva muy fuerte. La recta explica el <strong>94%</strong> de la variabilidad de las notas. Con 3,5 horas se espera una nota de ≈ 6,65.</div>
       </div>
     </details>
   </article>
 
   <!-- Ejercicio 4 -->
-  <article class="card ejercicio">
-    <h3>4 · Publicidad y ventas <span class="tag">Medio</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4">
+    <h3>4 · Publicidad y ventas <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Medio</span></h3>
     <p>Una cadena de comida rápida varió su gasto en publicidad en 8 regiones y registró cómo variaron sus ventas <span class="muted">(guía, ej. 2)</span>:</p>
-    <div class="tabla-wrap">
-      <table style="max-width:280px">
+    <div class="table-responsive mb-3">
+      <table class="table table-sm align-middle" style="max-width:280px">
         <thead><tr><th>Publicidad x (%)</th><th>Ventas y (%)</th></tr></thead>
         <tbody><tr><td>0</td><td>2,4</td></tr><tr><td>4</td><td>7,2</td></tr><tr><td>14</td><td>10,3</td></tr><tr><td>10</td><td>9,1</td></tr><tr><td>9</td><td>10,2</td></tr><tr><td>8</td><td>4,1</td></tr><tr><td>6</td><td>7,6</td></tr><tr><td>1</td><td>3,5</td></tr></tbody>
       </table>
@@ -2829,9 +2890,9 @@
       <li>Calculá r y R². Interpretá.</li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -2866,8 +2927,8 @@
       <div>
         <p><span class="paso">a)</span> A más publicidad, en general más ventas: se espera una nube que <strong>sube</strong>, con algún punto que se aparta.</p>
         <p><span class="paso">b) Tabla de cálculo.</span></p>
-        <div class="tabla-wrap">
-          <table>
+        <div class="table-responsive mb-3">
+          <table class="table table-sm align-middle">
             <thead><tr><th>x</th><th>y</th><th>x·y</th><th>x²</th><th>y²</th></tr></thead>
             <tbody>
               <tr><td>0</td><td>2,4</td><td>0</td><td>0</td><td>5,76</td></tr>
@@ -2898,11 +2959,11 @@
   </article>
 
   <!-- Ejercicio 5 -->
-  <article class="card ejercicio">
-    <h3>5 · Leer una salida de software <span class="tag">Medio</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4">
+    <h3>5 · Leer una salida de software <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Medio</span></h3>
     <p>Para predecir el peso de bebés recién nacidos (y, en gramos) según su diámetro abdominal (x, en mm) se ajustó una regresión con 300 bebés. Este es el resumen de la salida <span class="muted">(guía, ej. 3d)</span>:</p>
-    <div class="tabla-wrap">
-      <table style="max-width:320px">
+    <div class="table-responsive mb-3">
+      <table class="table table-sm align-middle" style="max-width:320px">
         <thead><tr><th></th><th>coef</th></tr></thead>
         <tbody>
           <tr><td>const</td><td>−3105,7283</td></tr>
@@ -2918,9 +2979,9 @@
       <li>Estimá el peso de un bebé con 100 mm de diámetro abdominal.</li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -2963,11 +3024,11 @@
   </article>
 
   <!-- Ejercicio 6 -->
-  <article class="card ejercicio">
-    <h3>6 · Horas trabajadas y producción <span class="tag warn">Integrador</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4">
+    <h3>6 · Horas trabajadas y producción <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Integrador</span></h3>
     <p>Horas trabajadas en un taller (x) y unidades producidas (y) <span class="muted">(guía, ej. 1)</span>:</p>
-    <div class="tabla-wrap">
-      <table style="max-width:360px">
+    <div class="table-responsive mb-3">
+      <table class="table table-sm align-middle" style="max-width:360px">
         <thead><tr><th>x (horas)</th><th>y (unid.)</th><th>x (horas)</th><th>y (unid.)</th></tr></thead>
         <tbody><tr><td>80</td><td>300</td><td>82</td><td>300</td></tr><tr><td>79</td><td>302</td><td>85</td><td>340</td></tr><tr><td>83</td><td>315</td><td>79</td><td>315</td></tr><tr><td>84</td><td>330</td><td>84</td><td>330</td></tr><tr><td>78</td><td>300</td><td>80</td><td>310</td></tr><tr><td>60</td><td>250</td><td>62</td><td>240</td></tr></tbody>
       </table>
@@ -2979,9 +3040,9 @@
       <li>Estimá la producción para 75 horas trabajadas.</li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -3017,8 +3078,8 @@
       <summary>Ver solución</summary>
       <div>
         <p><span class="paso">Paso 1: tabla de cálculo.</span></p>
-        <div class="tabla-wrap">
-          <table>
+        <div class="table-responsive mb-3">
+          <table class="table table-sm align-middle">
             <thead><tr><th>x</th><th>y</th><th>x·y</th><th>x²</th><th>y²</th></tr></thead>
             <tbody>
               <tr><td>80</td><td>300</td><td>24000</td><td>6400</td><td>90000</td></tr>
@@ -3062,10 +3123,9 @@
     </details>
   </article>
 </section>
-<section id="u3" aria-labelledby="u3-titulo">
-  <h2 id="u3-titulo">Unidad 3 · Métodos de conteo</h2>
-
-  <h3>Panorama</h3>
+<section id="u3" class="pb-5 mb-5 border-bottom" data-group="U3 · Conteo">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">U3 · Conteo</p>
+  <h2 class="mb-3">Panorama</h2>
   <p>
     Las técnicas de conteo sirven para <strong>contar cuántos resultados posibles hay sin escribir la lista</strong>.
     Casi todo sale de una sola idea: <strong>multiplicar las opciones de cada decisión</strong>.
@@ -3073,7 +3133,7 @@
   </p>
 
   <div class="grid-2">
-    <div class="card">
+    <div class="bloque-r border rounded p-3 mb-3">
       <strong>Principio de multiplicación</strong>
       <p style="margin-top:var(--sp-2)">Si una decisión tiene <em>a</em> opciones y la siguiente <em>b</em>, juntas dan <span class="f">a · b</span>.</p>
       <p class="muted">Ej.: 5 temperaturas, 2 razones de activación y 4 catalizadores → 5 · 2 · 4 = 40 experimentos.</p>
@@ -3081,7 +3141,7 @@
       <p class="muted">Si en cambio los casos son "o uno u otro" y no pasan a la vez, <strong>se suman</strong>.</p>
       <svg class="grafico" id="u3-suma" role="img" aria-label="Dos casilleros unidos por un más: 3 trenes o 2 micros, 5 formas de viajar."></svg>
     </div>
-    <div class="card">
+    <div class="bloque-r border rounded p-3 mb-3">
       <strong>Factorial</strong>
       <p style="margin-top:var(--sp-2)"><span class="f">n! = n · (n − 1) · … · 2 · 1</span></p>
       <svg class="grafico" id="u3-fact4" role="img" aria-label="Cuatro casilleros que se achican: 4, 3, 2 y 1 opciones; multiplicados dan 24."></svg>
@@ -3089,10 +3149,13 @@
       <p class="muted">Es la cantidad de formas de ordenar n cosas distintas en fila.</p>
     </div>
   </div>
+</section>
 
-  <h3>¿Qué fórmula uso?</h3>
+<section id="u3-que-formula" class="pb-5 mb-5 border-bottom" data-group="U3 · Conteo">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">U3 · Conteo</p>
+  <h2 class="mb-3">¿Qué fórmula uso?</h2>
   <p class="muted">Lo más importante en conteo es elegir bien la fórmula. Respondé 2 o 3 preguntas y el asistente te dice cuál es.</p>
-  <div class="card" id="u3-asistente">
+  <div class="bloque-r border rounded p-3 mb-3" id="u3-asistente">
     <p class="u3-camino" id="u3-asis-camino"></p>
     <p class="en-vivo" id="u3-asis-pregunta" aria-live="polite" style="min-height:0"></p>
     <div class="controles" id="u3-asis-botones"></div>
@@ -3125,11 +3188,14 @@
       <div><p><strong>Combinación con repetición</strong></p><p class="f">C'<span class="ss"><span>n</span><span>r</span></span> = C<span class="ss"><span>n+r−1</span><span>r</span></span></p><p>Reparto cosas <strong>iguales</strong>; a alguien le puede tocar más de una.</p><p class="muted">Orden: no · Repite: sí</p></div>
     </div>
   </div>
+</section>
 
-  <h3>Fórmulas clave (notación de la cátedra)</h3>
+<section id="u3-formulas" class="pb-5 mb-5 border-bottom" data-group="U3 · Conteo">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">U3 · Conteo</p>
+  <h2 class="mb-3">Fórmulas clave</h2>
   <p class="muted">n = total de elementos · r = cuántos elijo. Tocá la llave en cada fórmula para verla con un ejemplo.</p>
 
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Permutación: ordenar a todos</strong>
     <div class="formula">P<sub><span class="tk k1" data-k="n">n</span></sub> = <span class="tk k1" data-k="n">n</span>!</div>
     <details class="herramienta">
@@ -3154,7 +3220,7 @@
     </details>
   </div>
 
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Permutación circular: en ronda</strong>
     <div class="formula">P<sub>circular</sub> = (<span class="tk k1" data-k="n">n</span> − 1)!</div>
     <details class="herramienta">
@@ -3179,7 +3245,7 @@
     </details>
   </div>
 
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Permutación en bloques: grupos que van juntos</strong>
     <div class="formula"><span class="tk k1" data-k="r">r</span>! · <span class="tk k2" data-k="n1">n<sub>1</sub></span>! · <span class="tk k3" data-k="n2">n<sub>2</sub></span>! ··· n<sub>r</sub>!</div>
     <details class="herramienta">
@@ -3206,7 +3272,7 @@
     </details>
   </div>
 
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Variación: elijo r de n y importa el orden</strong>
     <div class="formula">V<span class="ss"><span><span class="tk k1" data-k="n">n</span></span><span><span class="tk k2" data-k="r">r</span></span></span> = <span class="frac"><span><span class="tk k1" data-k="n">n</span>!</span><span>(<span class="tk k1" data-k="n">n</span> − <span class="tk k2" data-k="r">r</span>)!</span></span></div>
     <div class="formula" style="padding-top:0">= n · (n − 1) ··· (n − r + 1)</div>
@@ -3233,7 +3299,7 @@
     </details>
   </div>
 
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Combinación: elijo r de n y NO importa el orden</strong>
     <div class="formula">C<span class="ss"><span><span class="tk k1" data-k="n">n</span></span><span><span class="tk k2" data-k="r">r</span></span></span> = <span class="frac"><span><span class="tk k1" data-k="n">n</span>!</span><span>(<span class="tk k1" data-k="n">n</span> − <span class="tk k2" data-k="r">r</span>)! · <span class="tk k2" data-k="r">r</span>!</span></span></div>
     <details class="herramienta">
@@ -3259,7 +3325,7 @@
     </details>
   </div>
 
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Permutación con repetición: hay elementos iguales</strong>
     <div class="formula">P'<span class="ss"><span><span class="tk k1" data-k="n">n</span></span><span><span class="tk k2" data-k="n1">n₁</span>, <span class="tk k3" data-k="n2">n₂</span>…</span></span> = <span class="frac"><span><span class="tk k1" data-k="n">n</span>!</span><span><span class="tk k2" data-k="n1">n<sub>1</sub></span>! · <span class="tk k3" data-k="n2">n<sub>2</sub></span>! · <span class="tk k4" data-k="n3">n<sub>3</sub></span>!</span></span></div>
     <details class="herramienta">
@@ -3287,7 +3353,7 @@
     </details>
   </div>
 
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Variación con repetición: cada casillero puede repetir</strong>
     <div class="formula">V'<span class="ss"><span><span class="tk k1" data-k="n">n</span></span><span><span class="tk k2" data-k="r">r</span></span></span> = <span class="tk k1" data-k="n">n</span><sup><span class="tk k2" data-k="r">r</span></sup></div>
     <details class="herramienta">
@@ -3313,7 +3379,7 @@
     </details>
   </div>
 
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Combinación con repetición: repartir cosas iguales</strong>
     <div class="formula">C'<span class="ss"><span><span class="tk k1" data-k="n">n</span></span><span><span class="tk k2" data-k="r">r</span></span></span> = C<span class="ss"><span><span class="tk k1" data-k="n">n</span>+<span class="tk k2" data-k="r">r</span>−1</span><span><span class="tk k2" data-k="r">r</span></span></span> = <span class="frac"><span>(<span class="tk k1" data-k="n">n</span> − 1 + <span class="tk k2" data-k="r">r</span>)!</span><span>(<span class="tk k1" data-k="n">n</span> − 1)! · <span class="tk k2" data-k="r">r</span>!</span></span></div>
     <details class="herramienta">
@@ -3338,76 +3404,83 @@
       </div>
     </details>
   </div>
-  <h3>Situaciones clave: entender antes de calcular</h3>
+</section>
+
+<section id="u3-situaciones" class="pb-5 mb-5 border-bottom" data-group="U3 · Conteo">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">U3 · Conteo</p>
+  <h2 class="mb-3">Situaciones clave</h2>
   <p class="muted">Siete casos cortos, casi todos interactivos. Cada uno muestra de dónde sale una fórmula.</p>
 
-  <div class="card situacion">
+  <div class="bloque-r situacion border rounded p-3 mb-3">
     <h4 id="g-arbol-conteo">1. El árbol: por qué se multiplica</h4>
-    <p class="muted volver"><a href="#graficos">↩ Todos los gráficos</a></p>
+    <p class="muted volver"><a href="#graficos"><i class="bi bi-arrow-up"></i> Todos los gráficos</a></p>
     <p>Armás un conjunto de ropa con 3 remeras (R, A, N), 2 pantalones (j, s) y 2 calzados (z, o). Sumá decisiones y mirá cómo crece el árbol.</p>
-    <div class="controles"><button type="button" class="btn" id="u3-arbol-mas">Sumar pantalón</button></div>
+    <div class="controles"><button type="button" class="btn btn-sm btn-r" id="u3-arbol-mas">Sumar pantalón</button></div>
     <svg class="grafico" id="u3-arbol" role="img" aria-label="Diagrama de árbol: de cada remera salen 2 pantalones y de cada pantalón 2 calzados. Cada camino de arriba hacia abajo es un conjunto distinto."></svg>
     <p class="en-vivo" id="u3-arbol-txt" aria-live="polite"></p>
-    <p class="idea"><strong>La idea:</strong> cada rama se abre en la misma cantidad de ramas nuevas, por eso se multiplica. Contar los caminos es contar los resultados.</p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> cada rama se abre en la misma cantidad de ramas nuevas, por eso se multiplica. Contar los caminos es contar los resultados.</p>
   </div>
 
-  <div class="card situacion">
+  <div class="bloque-r situacion border rounded p-3 mb-3">
     <h4>2. Ordenar a todos: n!</h4>
     <p>¿De cuántas formas se ordenan A, B y C? Para el 1.º lugar hay 3 opciones, para el 2.º quedan 2 y para el último queda 1.</p>
     <svg class="grafico" id="u3-abc-slots" role="img" aria-label="Tres casilleros: 3 por 2 por 1 igual a 6."></svg>
-    <div class="controles"><button type="button" class="btn" id="u3-abc-btn">Mostrar las 6</button></div>
+    <div class="controles"><button type="button" class="btn btn-sm btn-r" id="u3-abc-btn">Mostrar las 6</button></div>
     <svg class="grafico" id="u3-abc" role="img" aria-label="Las 6 permutaciones de ABC agrupadas por su primera letra: ABC, ACB, BAC, BCA, CAB, CBA."></svg>
-    <p class="idea"><strong>La idea:</strong> ordenar es llenar casilleros donde cada vez queda una opción menos. Eso es exactamente n!.</p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> ordenar es llenar casilleros donde cada vez queda una opción menos. Eso es exactamente n!.</p>
   </div>
 
-  <div class="card situacion">
+  <div class="bloque-r situacion border rounded p-3 mb-3">
     <h4>3. Podio vs. grupo: variación o combinación</h4>
     <p>De 4 personas (A, B, C, D) elijo 3. En un <strong>podio</strong> ABC y CBA son distintos (cambia quién sale 1.º). En un <strong>grupo</strong> son lo mismo.</p>
-    <div class="controles"><button type="button" class="btn" id="u3-podio-btn" aria-pressed="false">Ahora es un grupo</button></div>
+    <div class="controles"><button type="button" class="btn btn-sm btn-r" id="u3-podio-btn" aria-pressed="false">Ahora es un grupo</button></div>
     <svg class="grafico" id="u3-podio" role="img" aria-label="Grilla de 4 filas por 6 columnas: cada fila tiene un mismo trío ordenado de las 6 formas posibles. En modo grupo queda una ficha por fila."></svg>
     <p class="en-vivo" id="u3-podio-txt" aria-live="polite"></p>
-    <p class="idea"><strong>La idea:</strong> la variación cuenta cada grupo r! veces (una por cada orden). Por eso <span class="f">C = V / r!</span>. Pregunta clave: <strong>si cambio el orden, ¿cambia el resultado?</strong></p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> la variación cuenta cada grupo r! veces (una por cada orden). Por eso <span class="f">C = V / r!</span>. Pregunta clave: <strong>si cambio el orden, ¿cambia el resultado?</strong></p>
   </div>
 
-  <div class="card situacion">
+  <div class="bloque-r situacion border rounded p-3 mb-3">
     <h4>4. Elementos iguales: por qué se divide</h4>
     <p>Palabras con A, A, B. Si numeramos las A (A₁ y A₂) son 3 letras distintas y hay 3! = 6 órdenes.</p>
-    <div class="controles"><button type="button" class="btn" id="u3-repe-btn" aria-pressed="false">Pintar las A iguales</button></div>
+    <div class="controles"><button type="button" class="btn btn-sm btn-r" id="u3-repe-btn" aria-pressed="false">Pintar las A iguales</button></div>
     <svg class="grafico" id="u3-repe" role="img" aria-label="Seis palabras en tres filas de a pares. Al borrar los números de las A, cada par es la misma palabra y queda una por fila: AAB, ABA, BAA."></svg>
     <p class="en-vivo" id="u3-repe-txt" aria-live="polite"></p>
-    <p class="idea"><strong>La idea:</strong> si hay k elementos iguales, cada resultado aparece k! veces repetido. Por eso se divide por el factorial de cada grupo de iguales.</p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> si hay k elementos iguales, cada resultado aparece k! veces repetido. Por eso se divide por el factorial de cada grupo de iguales.</p>
   </div>
 
-  <div class="card situacion">
+  <div class="bloque-r situacion border rounded p-3 mb-3">
     <h4>5. Grupos que van juntos: el bloque</h4>
     <p>Ana, Beto, Ceci y Dani se sientan en fila, pero Ceci y Dani van siempre juntas. Truco: <strong>pegarlas en un bloque</strong> y tratarlo como una sola persona.</p>
-    <div class="controles"><button type="button" class="btn" id="u3-bloque-btn" aria-pressed="false">Sumar el orden adentro del bloque</button></div>
+    <div class="controles"><button type="button" class="btn btn-sm btn-r" id="u3-bloque-btn" aria-pressed="false">Sumar el orden adentro del bloque</button></div>
     <svg class="grafico" id="u3-bloque" role="img" aria-label="Seis filas con los órdenes de A, B y el bloque CD. Al activar el orden interno aparece una segunda columna con el bloque DC: 12 en total."></svg>
     <p class="en-vivo" id="u3-bloque-txt" aria-live="polite"></p>
-    <p class="idea"><strong>La idea:</strong> primero ordenás los bloques como unidades (r!) y después multiplicás por cómo se ordena cada bloque por dentro (n₁!, n₂!…). El error típico es olvidarse de lo de adentro.</p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> primero ordenás los bloques como unidades (r!) y después multiplicás por cómo se ordena cada bloque por dentro (n₁!, n₂!…). El error típico es olvidarse de lo de adentro.</p>
   </div>
 
-  <div class="card situacion">
+  <div class="bloque-r situacion border rounded p-3 mb-3">
     <h4>6. Ronda: girar no cambia nada</h4>
     <p>A, B y C se toman de la mano en ronda. Tocá "Girar": todos se mueven un lugar, pero cada uno sigue con los mismos vecinos.</p>
-    <div class="controles"><button type="button" class="btn" id="u3-ronda-btn">Girar</button></div>
+    <div class="controles"><button type="button" class="btn btn-sm btn-r" id="u3-ronda-btn">Girar</button></div>
     <svg class="grafico" id="u3-ronda" viewBox="0 0 320 150" role="img" aria-label="Tres personas en ronda. Al girar cambian de lugar pero la ronda es la misma."></svg>
     <p class="en-vivo" id="u3-ronda-txt" aria-live="polite"></p>
     <p>En fila serían 3! = 6. En ronda, cada disposición se cuenta 3 veces (una por giro): <span class="f">3! / 3 = (3 − 1)! = 2</span>.</p>
-    <p class="idea"><strong>La idea:</strong> en ronda se fija a una persona y se ordena al resto: <span class="f">(n − 1)!</span>.</p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> en ronda se fija a una persona y se ordena al resto: <span class="f">(n − 1)!</span>.</p>
   </div>
 
-  <div class="card situacion">
+  <div class="bloque-r situacion border rounded p-3 mb-3">
     <h4>7. El factorial explota</h4>
     <label class="control">Cantidad de elementos: n = <output id="u3-fact-o">5</output>
       <input type="range" id="u3-fact-n" min="1" max="15" step="1" value="5">
     </label>
     <svg class="grafico" id="u3-fact" role="img" aria-label="Casilleros con n por n menos 1 hasta 1 y el valor de n factorial."></svg>
     <p class="en-vivo" id="u3-fact-txt" aria-live="polite"></p>
-    <p class="idea"><strong>La idea:</strong> con 10 libros ya hay más de 3 millones de órdenes. Por eso se cuenta con fórmulas y no haciendo la lista.</p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> con 10 libros ya hay más de 3 millones de órdenes. Por eso se cuenta con fórmulas y no haciendo la lista.</p>
   </div>
+</section>
 
-  <h3>Cómo reconocer el ejercicio</h3>
+<section id="u3-reconocer" class="pb-5 mb-5 border-bottom" data-group="U3 · Conteo">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">U3 · Conteo</p>
+  <h2 class="mb-3">Cómo reconocer el ejercicio</h2>
   <ul>
     <li><strong>"Ordenar", "ubicar", "de cuántas formas se sientan"</strong> a todos → <span class="f">n!</span></li>
     <li><strong>"Ronda", "mesa redonda", "ruleta"</strong> → <span class="f">(n − 1)!</span></li>
@@ -3419,8 +3492,8 @@
     <li><strong>Dos grupos a la vez</strong> ("3 ingenieros y 2 abogados") → una fórmula por grupo y se <strong>multiplican</strong></li>
   </ul>
 
-  <div class="card ojo">
-    <strong>Errores comunes</strong>
+  <div class="bloque-r border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> Errores comunes</strong>
     <ul>
       <li>Usar variación cuando es combinación. Probá: ¿ABC y CBA son lo mismo? Si sí, es <strong>combinación</strong>.</li>
       <li>En bloques, olvidarse de multiplicar por el orden <strong>adentro</strong> de cada bloque.</li>
@@ -3430,21 +3503,24 @@
       <li>Olvidar que <strong>0! = 1</strong>: por ejemplo, <span class="f">V<span class="ss"><span>5</span><span>5</span></span> = 5!/0! = 120</span>.</li>
     </ul>
   </div>
+</section>
 
-  <h3>Ejercicios</h3>
+<section id="u3-ejercicios" class="pb-5 mb-5 border-bottom" data-group="U3 · Conteo">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">U3 · Conteo</p>
+  <h2 class="mb-3">Ejercicios</h2>
   <p class="muted">De menor a mayor dificultad. Antes de calcular, hacete siempre la pregunta: <strong>¿importa el orden?</strong></p>
 
   <!-- Ejercicio 1 -->
-  <article class="card ejercicio">
-    <h3>1 · Ordenar todo <span class="tag ok">Fácil</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4">
+    <h3>1 · Ordenar todo <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Fácil</span></h3>
     <ol type="a">
       <li>¿De cuántas formas se pueden ordenar los 7 colores del arcoíris?</li>
       <li>¿Y si se ponen en una ruleta circular?</li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -3484,17 +3560,17 @@
   </article>
 
   <!-- Ejercicio 2 -->
-  <article class="card ejercicio">
-    <h3>2 · Cargos vs. comisión <span class="tag ok">Fácil</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4">
+    <h3>2 · Cargos vs. comisión <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Fácil</span></h3>
     <p>Un comité de 8 personas:</p>
     <ol type="a">
       <li>Debe elegir presidente, vicepresidente y secretario. ¿De cuántas maneras?</li>
       <li>Debe elegir una comisión de 3 personas, sin cargos. ¿De cuántas maneras?</li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -3536,16 +3612,16 @@
   </article>
 
   <!-- Ejercicio 3 -->
-  <article class="card ejercicio">
-    <h3>3 · Geometría que es conteo <span class="tag ok">Fácil</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4">
+    <h3>3 · Geometría que es conteo <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Fácil</span></h3>
     <ol type="a">
       <li>Con 9 puntos en un plano, ¿cuántos segmentos distintos se forman uniendo 2 de ellos?</li>
       <li>¿Cuántos triángulos tienen por vértices 3 de los vértices de un heptágono (7 lados)?</li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -3600,17 +3676,17 @@
   </article>
 
   <!-- Ejercicio 4 -->
-  <article class="card ejercicio">
-    <h3>4 · Patentes <span class="tag">Medio</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4">
+    <h3>4 · Patentes <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Medio</span></h3>
     <p>Las placas tienen 3 letras (de un alfabeto de 27) seguidas de 3 dígitos.</p>
     <ol type="a">
       <li>¿Cuántas placas distintas se pueden hacer?</li>
       <li>¿Cuántas, si ninguna letra ni número puede aparecer más de una vez?</li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -3653,13 +3729,13 @@
   </article>
 
   <!-- Ejercicio 5 -->
-  <article class="card ejercicio">
-    <h3>5 · Dos grupos a la vez <span class="tag">Medio</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4">
+    <h3>5 · Dos grupos a la vez <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Medio</span></h3>
     <p>Entre 10 ingenieros y 8 abogados se elige una comisión de 5 miembros: 3 ingenieros y 2 abogados. ¿Cuántas comisiones distintas pueden resultar?</p>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -3701,13 +3777,13 @@
   </article>
 
   <!-- Ejercicio 6 -->
-  <article class="card ejercicio">
-    <h3>6 · Libros por materia <span class="tag">Medio</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4">
+    <h3>6 · Libros por materia <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Medio</span></h3>
     <p>Hay 3 libros de matemática, 4 de física y 3 de química. ¿De cuántas formas se ordenan en un estante sin separar los de la misma materia?</p>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -3746,8 +3822,8 @@
   </article>
 
   <!-- Ejercicio 7 -->
-  <article class="card ejercicio" id="u3-ej7">
-    <h3>7 · La biblioteca <span class="tag warn">Integrador</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4" id="u3-ej7">
+    <h3>7 · La biblioteca <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Integrador</span></h3>
     <p>Se van a colocar 6 libros de Matemática y 3 de Física.</p>
     <ol type="a">
       <li>Si los de Física deben estar siempre juntos, ¿de cuántas formas pueden ordenarse?</li>
@@ -3755,9 +3831,9 @@
       <li>Hay dos estantes y los libros son distinguibles. ¿De cuántas formas se pueden ordenar 5 libros en un estante y 4 en el otro?</li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -3816,17 +3892,17 @@
   </article>
 
   <!-- Ejercicio 8 -->
-  <article class="card ejercicio" id="u3-ej8">
-    <h3>8 · Señales con banderas <span class="tag warn">Integrador</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4" id="u3-ej8">
+    <h3>8 · Señales con banderas <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Integrador</span></h3>
     <p>En un barco se pueden izar 3 banderas rojas, 2 azules y 4 verdes.</p>
     <ol type="a">
       <li>¿Cuántas señales distintas se pueden hacer colocando las 9 banderas?</li>
       <li>¿Cuántas, si las dos primeras son roja y azul, en ese orden?</li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -3869,16 +3945,15 @@
     </details>
   </article>
 </section>
-<section id="u4" aria-labelledby="u4-titulo">
-  <h2 id="u4-titulo">Unidad 4 · Probabilidad</h2>
-
-  <h3>Panorama</h3>
+<section id="u4" class="pb-5 mb-5 border-bottom" data-group="U4 · Probabilidad">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">U4 · Probabilidad</p>
+  <h2 class="mb-3">Panorama</h2>
   <p>
     La probabilidad mide <strong>qué tan posible es que pase algo</strong>, con un número entre 0 (imposible) y 1 (seguro).
     Para calcularla siempre hay que tener claras tres cosas: qué experimento se hace, qué puede salir y qué te preguntan.
   </p>
 
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Experimento → espacio muestral → evento</strong>
     <svg class="grafico" viewBox="0 0 320 150" role="img" aria-label="Tres pasos: el experimento es tirar un dado; el espacio muestral S son los resultados 1 a 6; el evento A 'sale par' son el 2, el 4 y el 6, resaltados. P(A) = 3/6.">
       <rect class="nodo" x="4" y="30" width="88" height="70" rx="8"/>
@@ -3909,7 +3984,7 @@
     </svg>
   </div>
 
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>El lenguaje de los eventos</strong>
     <div class="conceptos" style="margin-top:var(--sp-3)">
       <div class="concepto">
@@ -3935,10 +4010,13 @@
     </div>
     <p class="muted">La cátedra escribe la condicional como P(A/B). En otros libros vas a ver P(A|B): es lo mismo.</p>
   </div>
+</section>
 
-  <h3>Fórmulas clave (como las usa la cátedra)</h3>
+<section id="u4-formulas" class="pb-5 mb-5 border-bottom" data-group="U4 · Probabilidad">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">U4 · Probabilidad</p>
+  <h2 class="mb-3">Fórmulas clave</h2>
   <p class="muted">Tocá <strong>Con números</strong> en cada fórmula para verla aplicada. Tocá una letra de color y se ilumina su valor en la cuenta y en la tabla.</p>
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Laplace</strong>
     <div class="formula">P(A) = <span class="frac"><span><span class="tk k1" data-k="fav">casos favorables</span></span><span><span class="tk k2" data-k="pos">casos posibles</span></span></span></div>
     <p class="muted">Solo si todos los resultados son igual de probables (dado o moneda sin cargar, sacar al azar).</p>
@@ -3955,8 +4033,8 @@
         <div>
           <h4>De dónde sale cada dato</h4>
           <p class="muted" style="margin:0 0 var(--sp-2)">Tirar un dado. S = {1, 2, 3, 4, 5, 6}:</p>
-          <div class="tabla-wrap">
-            <table>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm align-middle">
               <tbody><tr><th>Cara</th><td>1</td><td class="tk k1" data-k="fav">2</td><td>3</td><td class="tk k1" data-k="fav">4</td><td>5</td><td class="tk k1" data-k="fav">6</td></tr>
               <tr><th>Total</th><td colspan="6" class="tk k2" data-k="pos">6 casos</td></tr></tbody>
             </table>
@@ -3970,7 +4048,7 @@
       </div>
     </details>
   </div>
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Rango y complemento</strong>
     <div class="formula">0 ≤ P(A) ≤ 1 &nbsp;·&nbsp; P(S) = 1</div>
     <div class="formula">P(<span class="tk k1" data-k="A">A</span>ᶜ) = 1 − P(<span class="tk k1" data-k="A">A</span>)</div>
@@ -3998,8 +4076,8 @@
         <div>
           <h4>De dónde sale cada dato</h4>
           <p class="muted" style="margin:0 0 var(--sp-2)">Dos dados. Sin 6 en ninguno: 5 opciones × 5 opciones.</p>
-          <div class="tabla-wrap">
-            <table>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm align-middle">
               <thead><tr><th></th><th>Casos</th></tr></thead>
               <tbody>
                 <tr><th>S (todos)</th><td class="tk k3" data-k="S">6 · 6 = 36</td></tr>
@@ -4017,7 +4095,7 @@
       </div>
     </details>
   </div>
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Regla de la suma</strong>
     <div class="formula">P(<span class="tk k1" data-k="A">A</span>∪<span class="tk k2" data-k="B">B</span>) = P(<span class="tk k1" data-k="A">A</span>) + P(<span class="tk k2" data-k="B">B</span>) − P(<span class="tk k3" data-k="AB">A∩B</span>)</div>
     <p class="muted">Si A y B son excluyentes, P(A∩B) = 0 y queda P(A∪B) = P(A) + P(B).</p>
@@ -4035,8 +4113,8 @@
         <div>
           <h4>De dónde sale cada dato</h4>
           <p class="muted" style="margin:0 0 var(--sp-2)">250 alumnos (datos del ejercicio 7). Fr. = francés, Ing. = inglés, Inf. = informática:</p>
-          <div class="tabla-wrap">
-            <table>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm align-middle">
               <thead><tr><th></th><th>Fr.</th><th>Ing.</th><th>Inf.</th><th>Tot.</th></tr></thead>
               <tbody>
                 <tr><th>&lt; 26</th><td>6</td><td class="tk k3" data-k="AB">72</td><td>42</td><td class="tk k2" data-k="B">120</td></tr>
@@ -4055,7 +4133,7 @@
       </div>
     </details>
   </div>
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Probabilidad condicional</strong>
     <div class="formula">P(A/B) = <span class="frac"><span><span class="tk k1" data-k="AB">P(A∩B)</span></span><span><span class="tk k2" data-k="B">P(B)</span></span></span></div>
     <details class="herramienta">
@@ -4071,8 +4149,8 @@
         <div>
           <h4>De dónde sale cada dato</h4>
           <p style="margin:0 0 var(--sp-2)">Pregunta: <em>"sabiendo que tiene 20 años, ¿probabilidad de que estudie informática?"</em> (ejercicio 7)</p>
-          <div class="tabla-wrap">
-            <table>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm align-middle">
               <thead><tr><th></th><th>Fr.</th><th>Ing.</th><th>Inf.</th><th>Tot.</th></tr></thead>
               <tbody>
                 <tr><th>&lt; 26</th><td>6</td><td>72</td><td class="tk k1" data-k="AB">42</td><td class="tk k2" data-k="B">120</td></tr>
@@ -4091,7 +4169,7 @@
       </div>
     </details>
   </div>
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Regla de la multiplicación</strong>
     <div class="formula">P(<span class="tk k1" data-k="A">A</span>∩<span class="tk k2" data-k="B">B</span>) = P(<span class="tk k2" data-k="B">B</span>) · P(<span class="tk k1" data-k="A">A</span>/<span class="tk k2" data-k="B">B</span>)</div>
     <p class="muted">También vale al revés: P(A∩B) = P(A) · P(B/A).</p>
@@ -4126,8 +4204,8 @@
         <div>
           <h4>De dónde sale cada dato</h4>
           <p class="muted" style="margin:0 0 var(--sp-2)">250 alumnos (datos del ejercicio 7). Fr. = francés, Ing. = inglés, Inf. = informática:</p>
-          <div class="tabla-wrap">
-            <table>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm align-middle">
               <thead><tr><th></th><th>Fr.</th><th>Ing.</th><th>Inf.</th><th>Tot.</th></tr></thead>
               <tbody>
                 <tr><th>&lt; 26</th><td>6</td><td>72</td><td>42</td><td>120</td></tr>
@@ -4146,7 +4224,7 @@
       </div>
     </details>
   </div>
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Independencia</strong>
     <div class="formula">Independientes ⇔ P(<span class="tk k1" data-k="A">A</span>∩<span class="tk k2" data-k="B">B</span>) = P(<span class="tk k1" data-k="A">A</span>) · P(<span class="tk k2" data-k="B">B</span>)</div>
     <p class="muted">Equivale a P(A/B) = P(A): saber B no cambia la probabilidad de A. No confundir con excluyentes (P(A∩B) = 0).</p>
@@ -4164,8 +4242,8 @@
         <div>
           <h4>De dónde sale cada dato</h4>
           <p class="muted" style="margin:0 0 var(--sp-2)">250 alumnos (datos del ejercicio 7). Fr. = francés, Ing. = inglés, Inf. = informática:</p>
-          <div class="tabla-wrap">
-            <table>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm align-middle">
               <thead><tr><th></th><th>Fr.</th><th>Ing.</th><th>Inf.</th><th>Tot.</th></tr></thead>
               <tbody>
                 <tr><th>&lt; 26</th><td>6</td><td class="tk k3" data-k="AB">72</td><td>42</td><td class="tk k2" data-k="B">120</td></tr>
@@ -4184,7 +4262,7 @@
       </div>
     </details>
   </div>
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Probabilidad total</strong>
     <div class="formula">P(<span class="tk k3" data-k="PB">B</span>) = P(<span class="tk k1" data-k="Ai">A<sub>1</sub></span>)·P(<span class="tk k2" data-k="BA">B/A<sub>1</sub></span>) +<br class="solo-chico"> P(<span class="tk k1" data-k="Ai">A<sub>2</sub></span>)·P(<span class="tk k2" data-k="BA">B/A<sub>2</sub></span>) + …</div>
     <details class="herramienta">
@@ -4201,8 +4279,8 @@
         <div>
           <h4>De dónde sale cada dato</h4>
           <p class="muted" style="margin:0 0 var(--sp-2)">Plantas A, B, C (datos del ejercicio 8). Cada fila es un camino del árbol:</p>
-          <div class="tabla-wrap">
-            <table>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm align-middle">
               <thead><tr><th>Planta</th><th>P(A<sub>i</sub>)</th><th>P(F/A<sub>i</sub>)</th><th>Camino</th></tr></thead>
               <tbody>
                 <tr><th>A</th><td class="tk k1" data-k="Ai">0,15</td><td class="tk k2" data-k="BA">0,97</td><td>0,1455</td></tr>
@@ -4221,7 +4299,7 @@
       </div>
     </details>
   </div>
-  <div class="card">
+  <div class="bloque-r border rounded p-3 mb-3">
     <strong>Bayes</strong>
     <div class="formula">P(A<sub>1</sub>/B) = <span class="frac"><span><span class="tk k4" data-k="num"><span class="tk k1" data-k="A1">P(A<sub>1</sub>)</span> · <span class="tk k2" data-k="BA1">P(B/A<sub>1</sub>)</span></span></span><span><span class="tk k3" data-k="PB">P(B)</span></span></span></div>
     <details class="herramienta">
@@ -4239,8 +4317,8 @@
         <div>
           <h4>De dónde sale cada dato</h4>
           <p class="muted" style="margin:0 0 var(--sp-2)">Mismo árbol del ejercicio 8:</p>
-          <div class="tabla-wrap">
-            <table>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm align-middle">
               <thead><tr><th>Planta</th><th>P(A<sub>i</sub>)</th><th>P(F/A<sub>i</sub>)</th><th>Camino</th></tr></thead>
               <tbody>
                 <tr><th>A</th><td>0,15</td><td>0,97</td><td>0,1455</td></tr>
@@ -4259,54 +4337,58 @@
       </div>
     </details>
   </div>
-  <h3>Situaciones clave: entender antes de calcular</h3>
+</section>
+
+<section id="u4-situaciones" class="pb-5 mb-5 border-bottom" data-group="U4 · Probabilidad">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">U4 · Probabilidad</p>
+  <h2 class="mb-3">Situaciones clave</h2>
   <p class="muted">Siete casos cortos, casi todos interactivos. Cada uno muestra <em>por qué</em> funciona una regla.</p>
 
-  <div class="card situacion">
+  <div class="bloque-r situacion border rounded p-3 mb-3">
     <h4>1. Laplace: contar casos</h4>
     <p>Tirar dos dados tiene <strong>36</strong> resultados posibles (cada casilla es un par; el número es la suma). Elegí un evento y contá los favorables.</p>
     <div class="controles" role="group" aria-label="Evento con dos dados">
-      <button type="button" class="btn" data-u4-dados="suma7">Suma 7</button>
-      <button type="button" class="btn" data-u4-dados="par">Suma par</button>
-      <button type="button" class="btn" data-u4-dados="dobles">Dobles</button>
-      <button type="button" class="btn" data-u4-dados="seis">Al menos un 6</button>
+      <button type="button" class="btn btn-sm btn-r" data-u4-dados="suma7">Suma 7</button>
+      <button type="button" class="btn btn-sm btn-r" data-u4-dados="par">Suma par</button>
+      <button type="button" class="btn btn-sm btn-r" data-u4-dados="dobles">Dobles</button>
+      <button type="button" class="btn btn-sm btn-r" data-u4-dados="seis">Al menos un 6</button>
     </div>
     <svg class="grafico" id="u4-dados" viewBox="0 0 320 250" role="img" aria-label="Tabla de 6 por 6 con los 36 resultados de dos dados y su suma; las casillas del evento elegido quedan resaltadas."></svg>
     <p class="en-vivo" id="u4-t-dados" aria-live="polite"></p>
-    <p class="idea"><strong>La idea:</strong> antes de calcular, <em>armá el espacio muestral</em>. Un error típico es pensar que con dos dados hay 11 resultados (las sumas de 2 a 12), pero no son igual de probables: el 7 sale de 6 formas y el 12 de una sola.</p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> antes de calcular, <em>armá el espacio muestral</em>. Un error típico es pensar que con dos dados hay 11 resultados (las sumas de 2 a 12), pero no son igual de probables: el 7 sale de 6 formas y el 12 de una sola.</p>
   </div>
 
-  <div class="card situacion">
+  <div class="bloque-r situacion border rounded p-3 mb-3">
     <h4>2. Tirar muchas veces: la frecuencia se acerca a la probabilidad</h4>
     <p>¿Qué significa "P(sale 6) = 1/6"? Que si tirás muchísimas veces, más o menos 1 de cada 6 tiradas es un 6. Probalo:</p>
     <div class="controles">
-      <button type="button" class="btn" data-u4-tirar="10">Tirar 10</button>
-      <button type="button" class="btn" data-u4-tirar="100">Tirar 100</button>
-      <button type="button" class="btn" data-u4-tirar="1000">Tirar 1000</button>
-      <button type="button" class="btn" id="u4-b-reiniciar">Reiniciar</button>
+      <button type="button" class="btn btn-sm btn-r" data-u4-tirar="10">Tirar 10</button>
+      <button type="button" class="btn btn-sm btn-r" data-u4-tirar="100">Tirar 100</button>
+      <button type="button" class="btn btn-sm btn-r" data-u4-tirar="1000">Tirar 1000</button>
+      <button type="button" class="btn btn-sm btn-r" id="u4-b-reiniciar">Reiniciar</button>
     </div>
     <svg class="grafico" id="u4-sim" viewBox="0 0 320 170" role="img" aria-label="Línea con la proporción de seises a medida que se tira el dado; al principio salta mucho y después se estabiliza cerca de la línea punteada de 1/6."></svg>
     <p class="en-vivo" id="u4-t-sim" aria-live="polite"></p>
-    <p class="idea"><strong>La idea:</strong> con pocas tiradas la frecuencia relativa salta mucho; con muchas se estabiliza cerca de 1/6. La probabilidad es ese valor al que se acerca.</p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> con pocas tiradas la frecuencia relativa salta mucho; con muchas se estabiliza cerca de 1/6. La probabilidad es ese valor al que se acerca.</p>
   </div>
 
-  <div class="card situacion">
+  <div class="bloque-r situacion border rounded p-3 mb-3">
     <h4 id="g-venn">3. Diagrama de Venn: cada región es un pedazo de S</h4>
-    <p class="muted volver"><a href="#graficos">↩ Todos los gráficos</a></p>
+    <p class="muted volver"><a href="#graficos"><i class="bi bi-arrow-up"></i> Todos los gráficos</a></p>
     <p>Ejemplo: P(A) = 0,5, P(B) = 0,4 y P(A∩B) = 0,2. Los números en cada región suman 1.</p>
     <div class="controles" role="group" aria-label="Región del diagrama">
-      <button type="button" class="btn" data-u4-region="union">A ∪ B</button>
-      <button type="button" class="btn" data-u4-region="inter">A ∩ B</button>
-      <button type="button" class="btn" data-u4-region="Ac">Aᶜ</button>
-      <button type="button" class="btn" data-u4-region="soloA">A ∩ Bᶜ</button>
-      <button type="button" class="btn" data-u4-region="ninguno">(A ∪ B)ᶜ</button>
+      <button type="button" class="btn btn-sm btn-r" data-u4-region="union">A ∪ B</button>
+      <button type="button" class="btn btn-sm btn-r" data-u4-region="inter">A ∩ B</button>
+      <button type="button" class="btn btn-sm btn-r" data-u4-region="Ac">Aᶜ</button>
+      <button type="button" class="btn btn-sm btn-r" data-u4-region="soloA">A ∩ Bᶜ</button>
+      <button type="button" class="btn btn-sm btn-r" data-u4-region="ninguno">(A ∪ B)ᶜ</button>
     </div>
     <svg class="grafico" id="u4-venn" viewBox="0 0 320 180" role="img" aria-label="Rectángulo S con dos círculos A y B que se superponen. Solo A vale 0,3, la intersección 0,2, solo B 0,2 y afuera 0,3. Se sombrea la región elegida."></svg>
     <p class="en-vivo" id="u4-t-venn" aria-live="polite"></p>
-    <p class="idea"><strong>La idea:</strong> si te trabás con una unión o un "A pero no B", dibujá el Venn y completá cada región. Empezá siempre por la <em>intersección</em> y después restá.</p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> si te trabás con una unión o un "A pero no B", dibujá el Venn y completá cada región. Empezá siempre por la <em>intersección</em> y después restá.</p>
   </div>
 
-  <div class="card situacion">
+  <div class="bloque-r situacion border rounded p-3 mb-3">
     <h4>4. "Al menos uno" = 1 − "ninguno"</h4>
     <p>¿Probabilidad de sacar <strong>al menos un 6</strong> en varias tiradas? Contar "uno, o dos, o tres…" es un lío. El contrario es fácil: <strong>ningún 6</strong> = que todas las tiradas salgan distinto de 6.</p>
     <label class="control">Cantidad de tiradas: <output id="u4-o-comp">4</output>
@@ -4314,20 +4396,20 @@
     </label>
     <svg class="grafico" id="u4-comp" viewBox="0 0 320 76" role="img" aria-label="Barra que va de 0 a 1 dividida en dos partes: probabilidad de ningún 6 y probabilidad de al menos un 6. Al subir las tiradas, crece la parte de al menos un 6."></svg>
     <p class="en-vivo" id="u4-t-comp" aria-live="polite"></p>
-    <p class="idea"><strong>La idea:</strong> "al menos uno", "alguno" o "por lo menos una vez" se resuelven con <span class="f">1 − P(ninguno)</span>. Las dos partes de la barra siempre suman 1. Sorpresa: con solo 4 tiradas ya es más probable que salga un 6 a que no salga.</p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> "al menos uno", "alguno" o "por lo menos una vez" se resuelven con <span class="f">1 − P(ninguno)</span>. Las dos partes de la barra siempre suman 1. Sorpresa: con solo 4 tiradas ya es más probable que salga un 6 a que no salga.</p>
   </div>
 
-  <div class="card situacion">
+  <div class="bloque-r situacion border rounded p-3 mb-3">
     <h4 id="g-tabla">5. Condicional: "sabiendo que" achica el universo</h4>
-    <p class="muted volver"><a href="#graficos">↩ Todos los gráficos</a></p>
+    <p class="muted volver"><a href="#graficos"><i class="bi bi-arrow-up"></i> Todos los gráficos</a></p>
     <p>Encuesta de la cátedra a 150 personas sobre si consumen caramelos. Elegí una condición:</p>
     <div class="controles" role="group" aria-label="Condición">
-      <button type="button" class="btn" data-u4-cond="todos">Sin condición</button>
-      <button type="button" class="btn" data-u4-cond="c0">Sabiendo que consume</button>
-      <button type="button" class="btn" data-u4-cond="f2">Sabiendo que es mayor de 50</button>
-      <button type="button" class="btn" data-u4-cond="f0">Sabiendo que es menor de 20</button>
+      <button type="button" class="btn btn-sm btn-r" data-u4-cond="todos">Sin condición</button>
+      <button type="button" class="btn btn-sm btn-r" data-u4-cond="c0">Sabiendo que consume</button>
+      <button type="button" class="btn btn-sm btn-r" data-u4-cond="f2">Sabiendo que es mayor de 50</button>
+      <button type="button" class="btn btn-sm btn-r" data-u4-cond="f0">Sabiendo que es menor de 20</button>
     </div>
-    <div class="tabla-wrap">
+    <div class="table-responsive mb-3">
       <table class="u4-tabla" id="u4-tabla-car">
         <thead><tr><th>Edad</th><th>Consume</th><th>No consume</th><th>Total</th></tr></thead>
         <tbody>
@@ -4340,10 +4422,10 @@
     </div>
     <p class="en-vivo" id="u4-t-cond" aria-live="polite"></p>
     <p>Fijate: P(mayor de 50 / consume) = 15/105 ≈ 0,14, pero P(consume / mayor de 50) = 15/25 = 0,6. <strong>El orden importa</strong>: P(A/B) y P(B/A) no son lo mismo.</p>
-    <p class="idea"><strong>La idea:</strong> lo que va después de "sabiendo que" es el <em>nuevo total</em> y va en el denominador. Con tabla: <span class="f">P(A/B) = celda / total de B</span>.</p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> lo que va después de "sabiendo que" es el <em>nuevo total</em> y va en el denominador. Con tabla: <span class="f">P(A/B) = celda / total de B</span>.</p>
   </div>
 
-  <div class="card situacion">
+  <div class="bloque-r situacion border rounded p-3 mb-3">
     <h4>6. Excluyentes ≠ independientes (la confusión clásica)</h4>
     <svg class="grafico" viewBox="0 0 320 130" role="img" aria-label="Izquierda: dos círculos separados, eventos excluyentes, sin intersección. Derecha: dos círculos superpuestos, eventos independientes, con intersección igual al producto.">
       <rect class="u4-borde" x="4" y="20" width="150" height="90" rx="6"/>
@@ -4360,7 +4442,7 @@
       <text x="241" y="126" text-anchor="middle">P(A∩B) = P(A)·P(B)</text>
     </svg>
     <div class="grid-2" style="margin-bottom:var(--sp-3)">
-      <div class="card">
+      <div class="bloque-r border rounded p-3 mb-3">
         <strong>Excluyentes</strong>
         <ul>
           <li>No pueden pasar juntos.</li>
@@ -4368,7 +4450,7 @@
           <li>Ej.: en una tirada, "cara" y "cruz".</li>
         </ul>
       </div>
-      <div class="card">
+      <div class="bloque-r border rounded p-3 mb-3">
         <strong>Independientes</strong>
         <ul>
           <li>Que pase uno no cambia la probabilidad del otro.</li>
@@ -4378,24 +4460,27 @@
       </div>
     </div>
     <p>Ejemplo de la cátedra con la tabla modificada: P(consumir) = 30/150 = 0,2 y P(consumir / mayor de 50) = 10/50 = 0,2. Saber la edad no cambió nada, así que son <strong>independientes</strong>.</p>
-    <p class="idea"><strong>La idea:</strong> excluyentes es un dibujo (círculos separados); independientes es una cuenta (P(A/B) = P(A)). Dos eventos excluyentes (con probabilidad mayor que 0) nunca son independientes: si pasó A, sabés <em>seguro</em> que B no pasó.</p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> excluyentes es un dibujo (círculos separados); independientes es una cuenta (P(A/B) = P(A)). Dos eventos excluyentes (con probabilidad mayor que 0) nunca son independientes: si pasó A, sabés <em>seguro</em> que B no pasó.</p>
   </div>
 
-  <div class="card situacion">
+  <div class="bloque-r situacion border rounded p-3 mb-3">
     <h4 id="g-arbol-prob">7. Árbol: probabilidad total y Bayes</h4>
-    <p class="muted volver"><a href="#graficos">↩ Todos los gráficos</a></p>
+    <p class="muted volver"><a href="#graficos"><i class="bi bi-arrow-up"></i> Todos los gráficos</a></p>
     <p>Ejemplo de la cátedra: 45% de los autos tiene motor pequeño, 35% mediano y 20% grande. Fallan la prueba de emisiones el 10%, 12% y 15% respectivamente.</p>
     <div class="controles" role="group" aria-label="Qué calcular en el árbol">
-      <button type="button" class="btn" data-u4-modo="rama">Una rama</button>
-      <button type="button" class="btn" data-u4-modo="total">Prob. total</button>
-      <button type="button" class="btn" data-u4-modo="bayes">Bayes</button>
+      <button type="button" class="btn btn-sm btn-r" data-u4-modo="rama">Una rama</button>
+      <button type="button" class="btn btn-sm btn-r" data-u4-modo="total">Prob. total</button>
+      <button type="button" class="btn btn-sm btn-r" data-u4-modo="bayes">Bayes</button>
     </div>
     <svg class="grafico" id="u4-arbol" viewBox="0 0 320 226" role="img" aria-label="Árbol: raíz con tres ramas (pequeño 0,45, mediano 0,35, grande 0,2), cada una se divide en falla y no falla. A la derecha, el producto de cada camino."></svg>
     <p class="en-vivo" id="u4-t-arbol" aria-live="polite"></p>
-    <p class="idea"><strong>La idea:</strong> por un camino se <strong>multiplica</strong>; entre caminos se <strong>suma</strong>. Si el enunciado dice "de los que…, el x%", es una condicional y va en la segunda rama del árbol. Bayes da vuelta la pregunta: sabés el final y preguntás por el principio.</p>
+    <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> por un camino se <strong>multiplica</strong>; entre caminos se <strong>suma</strong>. Si el enunciado dice "de los que…, el x%", es una condicional y va en la segunda rama del árbol. Bayes da vuelta la pregunta: sabés el final y preguntás por el principio.</p>
   </div>
+</section>
 
-  <h3>Cómo reconocer el ejercicio</h3>
+<section id="u4-reconocer" class="pb-5 mb-5 border-bottom" data-group="U4 · Probabilidad">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">U4 · Probabilidad</p>
+  <h2 class="mb-3">Cómo reconocer el ejercicio</h2>
   <ul>
     <li><strong>Dados, monedas, cartas, pelotas en una bolsa</strong>: Laplace. Armá el espacio muestral y contá.</li>
     <li><strong>"o"</strong>: unión (sumás y restás la intersección). <strong>"y"</strong>: intersección.</li>
@@ -4406,8 +4491,8 @@
     <li><strong>"Independientes"</strong>: multiplicás directo. <strong>"Sin reposición"</strong>: en cada extracción cambian los casos (ejercicio 6).</li>
   </ul>
 
-  <div class="card ojo">
-    <strong>Errores comunes</strong>
+  <div class="bloque-r border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> Errores comunes</strong>
     <ul>
       <li>Sumar P(A) + P(B) cuando <strong>no son excluyentes</strong>: la intersección se cuenta dos veces.</li>
       <li>Confundir <strong>P(A/B) con P(B/A)</strong>: 0,14 no es lo mismo que 0,6 (situación 5).</li>
@@ -4418,13 +4503,16 @@
       <li>Si te da una probabilidad mayor que 1 o negativa, <strong>seguro hay un error</strong>. Usalo como control.</li>
     </ul>
   </div>
+</section>
 
-  <h3>Ejercicios</h3>
+<section id="u4-ejercicios" class="pb-5 mb-5 border-bottom" data-group="U4 · Probabilidad">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">U4 · Probabilidad</p>
+  <h2 class="mb-3">Ejercicios</h2>
   <p class="muted">De menor a mayor dificultad. Intentá cada uno solo; si te trabás, abrí <strong>Pistas</strong> y recién al final la solución.</p>
 
   <!-- Ejercicio 1 -->
-  <article class="card ejercicio">
-    <h3>1 · Pelotas en una bolsa <span class="tag ok">Fácil</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4">
+    <h3>1 · Pelotas en una bolsa <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Fácil</span></h3>
     <p>En una bolsa hay 10 pelotas azules, 4 amarillas y 7 rojas. Se saca una al azar. Calculá la probabilidad de que:</p>
     <ol type="a">
       <li>sea roja</li>
@@ -4433,9 +4521,9 @@
       <li>no sea roja</li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -4478,8 +4566,8 @@
   </article>
 
   <!-- Ejercicio 2 -->
-  <article class="card ejercicio">
-    <h3>2 · Tres monedas <span class="tag ok">Fácil</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4">
+    <h3>2 · Tres monedas <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Fácil</span></h3>
     <p>Se tiran tres monedas.</p>
     <ol type="a">
       <li>Escribí el espacio muestral.</li>
@@ -4487,9 +4575,9 @@
       <li>¿Y de obtener al menos una cara?</li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -4521,8 +4609,8 @@
       <div>
         <p><span class="paso">a) Espacio muestral</span> (8 casos, resaltados los de exactamente dos caras):</p>
         <div class="u4-chips">
-          <span class="tag">CCC</span><span class="tag ok">CCX</span><span class="tag ok">CXC</span><span class="tag">CXX</span>
-          <span class="tag ok">XCC</span><span class="tag">XCX</span><span class="tag">XXC</span><span class="tag">XXX</span>
+          <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">CCC</span><span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">CCX</span><span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">CXC</span><span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">CXX</span>
+          <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">XCC</span><span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">XCX</span><span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">XXC</span><span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">XXX</span>
         </div>
         <p><span class="paso">b)</span> Favorables: CCX, CXC, XCC → <span class="f">P = 3/8 = 0,375</span></p>
         <p><span class="paso">c)</span> El contrario de "al menos una cara" es "ninguna cara" = solo XXX.<br>
@@ -4533,17 +4621,17 @@
   </article>
 
   <!-- Ejercicio 3 -->
-  <article class="card ejercicio">
-    <h3>3 · Grupos sanguíneos <span class="tag">Medio</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4">
+    <h3>3 · Grupos sanguíneos <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Medio</span></h3>
     <p>La sangre puede tener el antígeno A, el B, los dos (tipo AB) o ninguno (tipo O). En un banco de sangre el 35% de los donantes es tipo A (solo antígeno A), el 10% tipo B y el 5% tipo AB.</p>
     <ol type="a">
       <li>¿Cuál es la probabilidad de que un donante sea tipo O?</li>
       <li>Un receptor tipo A puede recibir sangre <strong>sin antígeno B</strong>. ¿Qué probabilidad hay de que un donante al azar le sirva?</li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -4584,8 +4672,8 @@
   </article>
 
   <!-- Ejercicio 4 -->
-  <article class="card ejercicio">
-    <h3>4 · Dos empresas independientes <span class="tag">Medio</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4">
+    <h3>4 · Dos empresas independientes <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Medio</span></h3>
     <p>La probabilidad de que la empresa de la región A produzca un microprocesador es 0,25 y la de que lo produzca la de la región B es 0,15. Las producciones son independientes. ¿Probabilidad de que…</p>
     <ol type="a">
       <li>lo produzcan las dos?</li>
@@ -4594,9 +4682,9 @@
       <li>lo produzca solo una?</li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -4642,17 +4730,17 @@
   </article>
 
   <!-- Ejercicio 5 -->
-  <article class="card ejercicio">
-    <h3>5 · Condicional con dados <span class="tag">Medio</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4">
+    <h3>5 · Condicional con dados <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Medio</span></h3>
     <p>Se tira un dado dos veces. Calculá la probabilidad de que la suma sea 7, sabiendo que:</p>
     <ol type="a">
       <li>la suma es impar</li>
       <li>la suma es mayor que 6</li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -4697,8 +4785,8 @@
   </article>
 
   <!-- Ejercicio 6 -->
-  <article class="card ejercicio">
-    <h3>6 · Sacar sin reposición <span class="tag">Medio</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4">
+    <h3>6 · Sacar sin reposición <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Medio</span></h3>
     <p>Una caja tiene 5 bolas blancas, 4 negras y 7 rojas. Se sacan dos, una después de la otra, <strong>sin reponer</strong>. Calculá la probabilidad de que:</p>
     <ol type="a">
       <li>ambas sean blancas</li>
@@ -4706,9 +4794,9 @@
       <li>si se saca una tercera, salgan en el orden blanca, negra, roja</li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -4760,11 +4848,11 @@
   </article>
 
   <!-- Ejercicio 7 -->
-  <article class="card ejercicio" id="u4-ej7">
-    <h3>7 · Tabla de doble entrada <span class="tag warn">Integrador</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4" id="u4-ej7">
+    <h3>7 · Tabla de doble entrada <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Integrador</span></h3>
     <p>En un instituto se puede estudiar francés, inglés o informática. Se consultó a 250 alumnos por la carrera que cursan y su edad. Los datos están en la tabla (los "?" son los que faltan):</p>
-    <div class="tabla-wrap">
-      <table class="u4-tabla">
+    <div class="table-responsive mb-3">
+      <table class="table table-sm align-middle u4-tabla">
         <thead><tr><th>Edad</th><th>Fr.</th><th>Ing.</th><th>Inf.</th><th>Tot.</th></tr></thead>
         <tbody>
           <tr><th>&lt; 26</th><td>6</td><td class="hueco">?</td><td>42</td><td>120</td></tr>
@@ -4785,9 +4873,9 @@
       <li>Sabiendo que estudia idiomas, ¿probabilidad de que sea mayor de 45?</li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -4832,8 +4920,8 @@
           <li>Francés, mayor de 45: 20 − 6 − 4 = <strong>10</strong></li>
           <li>Inglés, mayor de 45: 150 − 72 − 48 = <strong>30</strong> (control: 10 + 30 + 10 = 50 ✓)</li>
         </ol>
-        <div class="tabla-wrap">
-          <table class="u4-tabla">
+        <div class="table-responsive mb-3">
+          <table class="table table-sm align-middle u4-tabla">
             <thead><tr><th>Edad</th><th>Fr.</th><th>Ing.</th><th>Inf.</th><th>Tot.</th></tr></thead>
             <tbody>
               <tr><th>&lt; 26</th><td>6</td><td class="hueco">72</td><td>42</td><td>120</td></tr>
@@ -4847,8 +4935,8 @@
         <p><span class="paso">c)</span> <span class="f">P(26 a 45) = 80/250 = 0,32</span></p>
         <p><span class="paso">d)</span> Una celda: <span class="f">P(menor de 26 ∩ inglés) = 72/250 = 0,288</span></p>
         <p><span class="paso">e)</span> 20 años → fila "menor de 26" (120 alumnos). El universo se achica a esa fila:</p>
-        <div class="tabla-wrap">
-          <table class="u4-tabla">
+        <div class="table-responsive mb-3">
+          <table class="table table-sm align-middle u4-tabla">
             <thead><tr><th>Edad</th><th>Fr.</th><th>Ing.</th><th>Inf.</th><th>Tot.</th></tr></thead>
             <tbody>
               <tr><th class="sel">&lt; 26</th><td class="sel">6</td><td class="sel">72</td><td class="fav">42</td><td class="sel">120</td></tr>
@@ -4859,8 +4947,8 @@
         </div>
         <p><span class="f">P(informática / menor de 26) = 42/120 = 7/20 = 0,35</span></p>
         <p><span class="paso">f)</span> Idiomas = francés + inglés = 20 + 150 = 170 alumnos (nuevo universo). De ellos, mayores de 45: 10 + 30 = 40.</p>
-        <div class="tabla-wrap">
-          <table class="u4-tabla">
+        <div class="table-responsive mb-3">
+          <table class="table table-sm align-middle u4-tabla">
             <thead><tr><th>Edad</th><th class="sel">Fr.</th><th class="sel">Ing.</th><th class="dim">Inf.</th></tr></thead>
             <tbody>
               <tr><th>&lt; 26</th><td class="sel">6</td><td class="sel">72</td><td class="dim">42</td></tr>
@@ -4877,17 +4965,17 @@
   </article>
 
   <!-- Ejercicio 8 -->
-  <article class="card ejercicio">
-    <h3>8 · Probabilidad total y Bayes <span class="tag warn">Integrador</span></h3>
+  <article class="bloque-r ejercicio border rounded p-3 mb-4">
+    <h3>8 · Probabilidad total y Bayes <span class="badge rounded-pill bg-primary-subtle text-primary fw-normal">Integrador</span></h3>
     <p>Una empresa arma computadoras en tres plantas: A, B y C, que producen el 15%, 35% y 50% del total. La probabilidad de que una computadora <strong>no funcione</strong> es 3%, 2% y 1% según la planta A, B o C.</p>
     <ol type="a">
       <li>Un cliente compra una computadora al azar. ¿Cuál es la probabilidad de que funcione?</li>
       <li>Si la computadora funciona, ¿cuál es la probabilidad de que la haya armado la planta B?</li>
     </ol>
     <div class="niveles" role="group" aria-label="Elegí cómo practicarlo">
-      <button type="button" class="btn" data-nivel="guia">1 · Acompañado</button>
-      <button type="button" class="btn" data-nivel="pistas">2 · Con pistas</button>
-      <button type="button" class="btn" data-nivel="solo">3 · Solo</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="guia">1 · Acompañado</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="pistas">2 · Con pistas</button>
+      <button type="button" class="btn btn-sm btn-r" data-nivel="solo">3 · Solo</button>
     </div>
     <div class="panel-nivel" data-panel="guia">
       <strong>Guía paso a paso: hacé cada cuenta vos</strong>
@@ -4920,8 +5008,8 @@
     <details>
       <summary>Ver solución</summary>
       <div>
-        <svg class="grafico" id="u4-ej8" role="img" aria-label="Árbol: plantas A 0,15, B 0,35 y C 0,5; cada una se divide en funciona y no funciona. Resaltados los caminos que terminan en funciona; el de la planta B, en naranja."></svg>
-        <p class="muted leyenda">Azul: todos los caminos a "Funciona" (probabilidad total). Naranja: el de la planta B (numerador de Bayes).</p>
+        <svg class="grafico" id="u4-ej8" role="img" aria-label="Árbol: plantas A 0,15, B 0,35 y C 0,5; cada una se divide en funciona y no funciona. Resaltados los caminos que terminan en funciona; el de la planta B, resaltado más grueso."></svg>
+        <p class="muted leyenda">En color: todos los caminos a "Funciona" (probabilidad total). Más grueso: el de la planta B (numerador de Bayes).</p>
         <p><span class="paso">a) Probabilidad total.</span></p>
         <ul>
           <li><span class="f">0,15 · 0,97 = 0,1455</span></li>
@@ -4938,15 +5026,16 @@
 </section>
 
 <!-- ================= HOJA DE FÓRMULAS ================= -->
-<section id="formulas" aria-labelledby="formulas-titulo">
-  <h2 id="formulas-titulo">Hoja de fórmulas</h2>
+<section id="formulas" class="pb-5 mb-5 border-bottom" data-group="Referencia" aria-labelledby="formulas-titulo">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Referencia</p>
+  <h2 class="mb-3" id="formulas-titulo">Hoja de fórmulas</h2>
   <p class="muted">Una carilla con las fórmulas de las 4 unidades. Al imprimir, sale solo esta hoja.</p>
   <div class="controles">
-    <button type="button" class="btn" id="b-imprimir">Imprimir hoja de fórmulas</button>
+    <button type="button" class="btn btn-sm btn-r" id="b-imprimir">Imprimir hoja de fórmulas</button>
   </div>
 
   <div class="hoja">
-    <div class="card">
+    <div class="bloque-r border rounded p-3 mb-3">
       <strong>U1 · Descriptiva</strong>
       <ul>
         <li><span class="f">x̄ = Σx<sub>i</sub>f<sub>i</sub> / N</span> · Me: posición <span class="f">(N+1)/2</span> · Mo: la de mayor f<sub>i</sub></li>
@@ -4961,7 +5050,7 @@
       </ul>
     </div>
 
-    <div class="card">
+    <div class="bloque-r border rounded p-3 mb-3">
       <strong>U2 · Regresión</strong>
       <ul>
         <li>Recta: <span class="f">ŷ = b<sub>0</sub> + b<sub>1</sub>x</span> · <span class="f">b<sub>0</sub> = ȳ − b<sub>1</sub>x̄</span></li>
@@ -4974,7 +5063,7 @@
       </ul>
     </div>
 
-    <div class="card">
+    <div class="bloque-r border rounded p-3 mb-3">
       <strong>U3 · Conteo</strong>
       <ul>
         <li>Decisiones "y" → se multiplica. Casos "o" que no pasan a la vez → se suma. <span class="f">0! = 1</span></li>
@@ -4988,7 +5077,7 @@
       </ul>
     </div>
 
-    <div class="card">
+    <div class="bloque-r border rounded p-3 mb-3">
       <strong>U4 · Probabilidad</strong>
       <ul>
         <li>Laplace: <span class="f">P(A) = favorables / posibles</span> · <span class="f">0 ≤ P(A) ≤ 1</span></li>
@@ -5003,8 +5092,24 @@
   </div>
 </section>
 
+<footer class="pt-3 mt-4 border-top small text-body-secondary">By F. Suárez · 2026 · Saludos pal IFTS 24</footer>
 </main>
 
+<!-- Barra inferior (mobile) -->
+<div class="bottombar d-lg-none">
+  <div class="d-flex justify-content-between align-items-center py-2 px-3">
+    <span class="small text-body-secondary text-truncate me-2" id="crumb"></span>
+    <div class="d-flex gap-1 flex-shrink-0">
+      <button class="btn btn-sm border-0 theme-btn"><i class="bi bi-moon fs-5"></i></button>
+      <button class="btn btn-sm border-0" data-bs-toggle="offcanvas" data-bs-target="#toc">
+        <i class="bi bi-list fs-5"></i></button>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/guia.js"></script>
 <script src="graficos.js"></script>
 <script src="u1.js"></script>
 <script src="u1-histograma.js"></script>
