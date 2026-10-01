@@ -352,7 +352,7 @@ svg.grafico .u4-ref { stroke: var(--warn); stroke-width: 1.5; stroke-dasharray: 
 @media print {
   nav, .controles { display: none; }
   body.imprimir-formulas main > :not(#formulas) { display: none; }
-  body { background: #fff; color: #000; font-size: 11px; line-height: 1.35; }
+  body { background: #fff; color: #000; font-size: 12px; line-height: 1.4; }
   .card { border: 1px solid #999; background: #fff; break-inside: avoid; padding: 8px; }
   .hoja { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 }
@@ -485,3 +485,13 @@ a.concepto.enlace .muted { color: var(--accent); font-weight: 600; }
 .volver { margin: calc(-1 * var(--sp-1)) 0 var(--sp-2); }
 .volver a { display: inline-block; min-height: 32px; line-height: 32px; }
 @media print { .volver { display: none; } }
+
+/* Impresión: siempre en claro, aunque la pantalla esté en modo oscuro (va al final para ganarle al bloque oscuro). */
+@media print {
+  :root {
+    color-scheme: light;
+    --bg: #ffffff; --surface: #ffffff; --text: #000000; --muted: #444444; --border: #999999;
+    --accent: #1f4fb8; --accent-soft: #e6edfb; --ok: #1e7a45; --ok-soft: #e3f4ea;
+    --warn: #8a5100; --warn-soft: #fcf0dc; --violeta: #6a35ad;
+  }
+}
