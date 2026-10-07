@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DSIA · Aprendizaje supervisado</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="../assets/guia.css" rel="stylesheet">
+<link href="dsia.css" rel="stylesheet">
+</head>
+<body data-mode="scroll">
+
+<!-- Índice fijo a la derecha (desktop) -->
+<aside class="sidebar-lg">
+  <div class="d-flex justify-content-between align-items-start mb-4">
+    <div>
+      <a href="../index.html" class="text-decoration-none small text-body-secondary d-block mb-1">
+        <i class="bi bi-arrow-left"></i> Guías</a>
+      <span class="fw-semibold">DSIA</span>
+      <span class="d-block small text-body-secondary">Aprendizaje supervisado</span>
+    </div>
+    <button class="btn btn-sm border-0 theme-btn" title="Cambiar tema"><i class="bi bi-moon" data-lg="1"></i></button>
+  </div>
+  <nav class="nav flex-column gap-1 toc"></nav>
+</aside>
+
+<!-- Índice deslizable desde la derecha (mobile) -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="toc" style="max-width:17rem">
+  <div class="offcanvas-body d-flex flex-column justify-content-end pb-4">
+    <nav class="nav flex-column gap-1 toc"></nav>
+  </div>
+  <div class="offcanvas-header border-top">
+    <a href="../index.html" class="text-decoration-none small text-body-secondary">
+      <i class="bi bi-arrow-left"></i> Todas las guías</a>
+    <button class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+</div>
+
+<main class="container-lg px-3 px-lg-5 py-4" style="max-width:48rem">
+
+<header class="mb-5">
+  <h1 class="mb-2">DSIA · Aprendizaje supervisado</h1>
+  <p class="mb-0 text-body-secondary">
+    Clasificación y regresión con scikit-learn: del dato al modelo evaluado.
+    Basada en la clase 16 (30/09/2026).
+  </p>
+  <div class="border-start border-3 bg-body-secondary rounded p-3 mt-4">
+    <i class="bi bi-info-circle"></i> <strong>Cómo usar esta página:</strong> toda la guía sigue un mismo ejemplo, el de los alumnos de una materia.
+    Cada etapa avanza igual: <em>por qué</em> hace falta, <em>verlo</em> en un gráfico para tocar y <em>el código</em>.
+    Después vienen lo que se hizo en la clase y un "Más detalle" plegado, para cuando quieras profundizar.
+  </div>
+</header>
+
+
+<!-- ================= INICIO ================= -->
+<section id="mapa" class="pb-5 mb-5 border-bottom" data-group="Inicio">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Inicio</p>
+  <h2 class="mb-3">De qué se trata</h2>
+  <p>
+    En el <strong>aprendizaje supervisado</strong> le mostrás al modelo muchos ejemplos <em>con la respuesta correcta</em>,
+    y él aprende una regla para responder casos nuevos. Se llama "supervisado" porque cada ejemplo trae su respuesta.
+  </p>
+
+  <div class="bloque-r border rounded p-3 mb-3">
+    <h4><i class="bi bi-people"></i> El ejemplo de toda la guía</h4>
+    <p class="mb-0">Una materia con alumnos de cuatrimestres anteriores. De cada uno sabemos cuántas <strong>horas por semana estudió</strong>,
+      su <strong>asistencia</strong> y cuántas <strong>horas dormía</strong>, y también cómo le fue. Con esos datos queremos anticipar,
+      a mitad del cuatrimestre, cómo le va a ir a un alumno nuevo.</p>
+  </div>
+
+  <div class="conceptos dos">
+    <div class="concepto">
+      <svg class="grafico mini" viewBox="0 0 120 72" role="img" aria-label="Dos grupos de puntos separados por una línea.">
+        <line class="eje" x1="8" y1="64" x2="114" y2="64"/><line class="eje" x1="8" y1="6" x2="8" y2="64"/>
+        <circle class="pB" cx="24" cy="50" r="3.5"/><circle class="pB" cx="34" cy="40" r="3.5"/><circle class="pB" cx="22" cy="30" r="3.5"/><circle class="pB" cx="42" cy="54" r="3.5"/>
+        <circle class="pA" cx="84" cy="20" r="3.5"/><circle class="pA" cx="96" cy="32" r="3.5"/><circle class="pA" cx="78" cy="38" r="3.5"/><circle class="pA" cx="102" cy="14" r="3.5"/>
+        <line class="guia" x1="40" y1="8" x2="80" y2="62"/>
+      </svg>
+      <div><p><strong>Clasificación</strong></p><p>¿Va a <strong>aprobar</strong>? La respuesta es una categoría: sí o no.</p></div>
+    </div>
+    <div class="concepto">
+      <svg class="grafico mini" viewBox="0 0 120 72" role="img" aria-label="Nube de puntos con una recta que la atraviesa.">
+        <line class="eje" x1="8" y1="64" x2="114" y2="64"/><line class="eje" x1="8" y1="6" x2="8" y2="64"/>
+        <circle class="punto" cx="20" cy="54" r="3"/><circle class="punto" cx="34" cy="46" r="3"/><circle class="punto" cx="48" cy="44" r="3"/>
+        <circle class="punto" cx="62" cy="32" r="3"/><circle class="punto" cx="78" cy="30" r="3"/><circle class="punto" cx="96" cy="16" r="3"/>
+        <line class="recta" x1="12" y1="58" x2="110" y2="12"/>
+      </svg>
+      <div><p><strong>Regresión</strong></p><p>¿Qué <strong>nota</strong> va a sacar? La respuesta es un número.</p></div>
+    </div>
+  </div>
+
+  <h3 class="mt-4">Las 5 etapas</h3>
+  <ol class="etapas">
+    <li><a href="#datos"><strong>Datos</strong><span class="muted">Separar lo que sabés (X) de lo que querés predecir (y)</span></a></li>
+    <li><a href="#split"><strong>Split</strong><span class="muted">Guardar alumnos para un examen honesto del modelo</span></a></li>
+    <li><a href="#escalar"><strong>Escalar</strong><span class="muted">Que horas y porcentajes pesen parejo</span></a></li>
+    <li><a href="#entrenar"><strong>Entrenar</strong><span class="muted">Buscar la regla que menos se equivoca</span></a></li>
+    <li><a href="#eval-clasif"><strong>Evaluar</strong><span class="muted">Medir con alumnos que el modelo nunca vio</span></a></li>
+  </ol>
+  <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> en scikit-learn todos los modelos se usan igual:
+    <code>modelo.fit(X, y)</code> para aprender y <code>modelo.predict(X)</code> para responder. Cambiar de modelo es cambiar una línea.</p>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 mt-4">
+    <strong><i class="bi bi-journal-code"></i> En la clase</strong> se recorrieron estas mismas etapas con tres datasets reales:
+    <div class="table-responsive mt-2">
+      <table class="table table-sm align-middle mb-0">
+        <thead><tr><th>Dataset</th><th>Qué predice</th><th>Modelo</th><th>Resultado</th></tr></thead>
+        <tbody>
+          <tr><td>Iris · 150 flores</td><td>especie (3)</td><td>LogisticRegression</td><td><a href="#logistica">accuracy 1,0</a></td></tr>
+          <tr><td>Breast Cancer · 569 tumores</td><td>maligno / benigno</td><td>DecisionTreeClassifier</td><td><a href="#arbol">accuracy 0,94</a></td></tr>
+          <tr><td>California · 20.640 distritos</td><td>valor de la vivienda</td><td>Linear / Ridge / Lasso</td><td><a href="#regularizacion">MSE 0,54 / 0,54 / 0,99</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= PREPARAR ================= -->
+<section id="datos" class="pb-5 mb-5 border-bottom" data-group="Preparar">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Etapa 1 · Preparar</p>
+  <h2 class="mb-3">Datos: X e y</h2>
+  <dl class="razon">
+    <dt>Problema</dt><dd>El modelo aprende una relación "datos del alumno → resultado". Hay que decirle qué columnas son cada cosa.</dd>
+    <dt>Qué hace</dt><dd><strong>X</strong> son las columnas que usa para decidir. <strong>y</strong> es la columna que tiene que predecir.</dd>
+    <dt>Sin esto</dt><dd>Si en X queda algo que ya delata la respuesta, el modelo "hace trampa": acierta todo con estos datos y no sirve con alumnos nuevos.</dd>
+  </dl>
+
+  <h3>1 · Verlo</h3>
+  <div class="bloque-r border rounded p-3 mb-3">
+    <p>¿Qué querés predecir?</p>
+    <div class="controles" role="group" aria-label="Elegí la columna objetivo">
+      <button type="button" class="btn btn-r" data-y="aprueba">Si aprueba</button>
+      <button type="button" class="btn btn-r" data-y="nota">La nota</button>
+      <button type="button" class="btn btn-r" data-y="">Nada</button>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-sm tabla-xy mb-2" id="t-xy">
+        <thead><tr><th data-col="nombre">alumno</th><th data-col="horas">horas de estudio</th><th data-col="asistencia">asistencia</th><th data-col="sueno">horas de sueño</th><th data-col="nota">nota</th><th data-col="aprueba">¿aprueba?</th></tr></thead>
+        <tbody>
+          <tr><td>Ana</td><td>8</td><td>90%</td><td>7</td><td>8</td><td>sí</td></tr>
+          <tr><td>Beto</td><td>2</td><td>60%</td><td>6</td><td>3</td><td>no</td></tr>
+          <tr><td>Carla</td><td>6</td><td>85%</td><td>8</td><td>7</td><td>sí</td></tr>
+          <tr><td>Dani</td><td>4</td><td>70%</td><td>5</td><td>4</td><td>sí</td></tr>
+          <tr><td>Eli</td><td>1</td><td>45%</td><td>7</td><td>2</td><td>no</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="en-vivo" id="t-xy-texto" aria-live="polite"></p>
+  </div>
+
+  <h3>2 · El código</h3>
+  <pre id="c-xy"></pre>
+  <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> el tipo de y define el problema: si es una categoría (aprueba sí/no) es <strong>clasificación</strong>;
+    si es un número (la nota) es <strong>regresión</strong>. Y en X va solo lo que vas a saber <em>antes</em> de tener la respuesta.</p>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 mb-3">
+    <strong><i class="bi bi-journal-code"></i> En la clase</strong>
+    <ul class="mb-0 mt-1">
+      <li>Iris: X = las 4 medidas de la flor, y = la especie → <code>X = dfiris.drop('target', axis=1)</code>.</li>
+      <li>Breast Cancer: X = 30 medidas del tumor, y = maligno o benigno.</li>
+      <li>California: X = 8 datos del distrito, y = el valor de la vivienda (regresión).</li>
+    </ul>
+  </div>
+
+  <details class="mas">
+    <summary>Más detalle: nombres y convenciones</summary>
+    <div>
+      <ul class="mb-0">
+        <li><strong>X</strong> va en mayúscula porque es una tabla (varias columnas) y <strong>y</strong> en minúscula porque es una sola columna. Es una convención de matemática.</li>
+        <li>A las columnas de X también se les dice <em>features</em>, variables predictoras o características. A y, <em>target</em>, etiqueta o variable objetivo.</li>
+        <li>Cuando y no existe y solo querés encontrar grupos parecidos, el aprendizaje es <strong>no supervisado</strong> (por ejemplo, K-means).</li>
+        <li>Lo de la nota tiene nombre: <strong>fuga de datos</strong> (<em>data leakage</em>). Pasa con cualquier columna que se calcula a partir de la respuesta o que se conoce recién después.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section id="split" class="pb-5 mb-5 border-bottom" data-group="Preparar">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Etapa 2 · Preparar</p>
+  <h2 class="mb-3">Split: entrenar y probar</h2>
+  <dl class="razon">
+    <dt>Problema</dt><dd>Para saber si el modelo aprendió hay que tomarle examen, y el examen tiene que traer casos que <strong>no vio</strong>.</dd>
+    <dt>Qué hace</dt><dd>Separa los alumnos en dos grupos: con uno el modelo <strong>aprende</strong> (entrenamiento) y con el otro <strong>se evalúa</strong> (prueba).</dd>
+    <dt>Sin esto</dt><dd>Es como rendir con los mismos ejercicios que practicaste: sacás 10 aunque no hayas entendido nada.</dd>
+  </dl>
+
+  <h3>1 · Verlo</h3>
+  <div class="bloque-r border rounded p-3 mb-3">
+    <p>Diez alumnos de cuatrimestres anteriores. Andá paso a paso:</p>
+    <div class="controles">
+      <button type="button" class="btn btn-r" id="b-sep"><i class="bi bi-scissors"></i> 1. Separar</button>
+      <button type="button" class="btn btn-r" id="b-exa" disabled><i class="bi bi-pencil"></i> 2. Tomar el examen</button>
+      <button type="button" class="btn btn-r" id="b-rei" disabled><i class="bi bi-arrow-counterclockwise"></i> Empezar de nuevo</button>
+    </div>
+    <div class="split-tablas" id="split-tablas"></div>
+    <p class="en-vivo" id="t-sep" aria-live="polite"></p>
+  </div>
+
+  <h3>2 · El código</h3>
+  <p>La tabla queda cortada dos veces: en columnas (X | y, de la etapa anterior) y en filas (aprende | se evalúa). Por eso salen <strong>cuatro</strong> partes.</p>
+  <svg class="grafico" viewBox="0 0 320 150" role="img" aria-label="Una tabla cortada en cuatro: arriba X_train e y_train (el modelo aprende), abajo X_test e y_test (el modelo se evalúa; y_test queda oculta y se usa para corregir).">
+    <rect class="region" x="76" y="10" width="164" height="84" rx="3"/><rect class="region" x="244" y="10" width="56" height="84" rx="3"/>
+    <rect class="marco" x="76" y="98" width="164" height="40" rx="3"/><rect class="marco" x="244" y="98" width="56" height="40" rx="3"/>
+    <text class="fuerte" x="158" y="56" text-anchor="middle">X_train</text>
+    <text class="fuerte" x="272" y="56" text-anchor="middle">y_train</text>
+    <text class="fuerte" x="158" y="122" text-anchor="middle">X_test</text>
+    <text class="fuerte" x="272" y="122" text-anchor="middle">y_test</text>
+    <text x="68" y="50" text-anchor="end">aprende</text><text x="68" y="62" text-anchor="end">(70–80%)</text>
+    <text x="68" y="116" text-anchor="end">se evalúa</text><text x="68" y="128" text-anchor="end">(20–30%)</text>
+    <text x="158" y="148" text-anchor="middle">datos del alumno</text><text x="272" y="148" text-anchor="middle">resultado</text>
+  </svg>
+  <pre>X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=42)</pre>
+  <ul class="mt-3">
+    <li><code>X_train</code> + <code>y_train</code>: el modelo aprende con los datos <em>y</em> sus resultados → <code>fit(X_train, y_train)</code>.</li>
+    <li><code>X_test</code>: el examen. El modelo ve solo los datos → <code>predict(X_test)</code>.</li>
+    <li><code>y_test</code>: las respuestas correctas del examen. El modelo nunca las ve; se usan para corregir.</li>
+  </ul>
+  <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> la nota que importa es la del examen (prueba), no la de los datos con los que aprendió.</p>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 mb-3">
+    <strong><i class="bi bi-journal-code"></i> En la clase</strong>
+    <ul class="mb-0 mt-1">
+      <li>Iris con <code>test_size=0.3</code>: 105 flores para aprender y 45 para el examen. Breast Cancer y California, con 20%.</li>
+      <li>El árbol de Breast Cancer acierta el <strong>100%</strong> de sus datos de entrenamiento y el <strong>94%</strong> en la prueba. El número honesto es el 94%.</li>
+    </ul>
+  </div>
+
+  <details class="mas">
+    <summary>Más detalle: cuánto separar, random_state y stratify</summary>
+    <div>
+      <div class="table-responsive">
+        <table class="table table-sm align-middle">
+          <thead><tr><th>Parámetro</th><th>Qué hace</th><th>Por qué</th></tr></thead>
+          <tbody>
+            <tr><td>test_size</td><td>Qué parte va a prueba (0,3 = 30%)</td><td>Más prueba da una nota más confiable, pero deja menos datos para aprender</td></tr>
+            <tr><td>random_state</td><td>Fija la mezcla</td><td>Mismo número, misma separación y mismos resultados. El 42 no tiene nada especial.</td></tr>
+            <tr><td>stratify=y</td><td>Mantiene la proporción de clases en los dos grupos</td><td>Clave cuando una clase es rara. No estaba en la clase.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Con grupos chicos, la nota depende de qué filas cayeron en la prueba. Por eso la clase usó 30% en Iris (150 filas) y 20% en los datasets más grandes.</p>
+
+      <h4 class="mt-4">Cuando una clase es rara: stratify</h4>
+      <p>30 alumnos, solo 6 desaprobados. Probá varias mezclas sin estratificar: a veces a la prueba no llega ningún desaprobado,
+        y entonces no hay forma de medir si el modelo los detecta.</p>
+      <label class="control">Proporción de prueba: test_size = <output id="o-split">0,2</output>
+        <input type="range" id="r-split" min="0.1" max="0.5" step="0.1" value="0.2">
+      </label>
+      <div class="controles">
+        <button type="button" class="btn btn-r" id="b-split"><i class="bi bi-shuffle"></i> Otra mezcla</button>
+        <label class="check"><input type="checkbox" id="k-split"> Estratificar (stratify=y)</label>
+      </div>
+      <svg class="grafico" id="g-split" role="img" aria-label="Treinta cuadrados repartidos entre entrenamiento a la izquierda y prueba a la derecha. Los huecos son alumnos desaprobados."></svg>
+      <p class="en-vivo" id="t-split" aria-live="polite"></p>
+
+      <p class="idea"><strong><i class="bi bi-lightbulb"></i> Alternativa.</strong> la <strong>validación cruzada</strong> (<code>cross_val_score</code>) repite la separación varias veces
+        con distintas porciones y promedia. La nota es más confiable, pero tarda tantas veces más como cortes hagas.</p>
+    </div>
+  </details>
+</section>
+
+<section id="escalar" class="pb-5 mb-5 border-bottom" data-group="Preparar">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Etapa 3 · Preparar</p>
+  <h2 class="mb-3">Escalar</h2>
+  <dl class="razon">
+    <dt>Problema</dt><dd>Las columnas vienen en unidades distintas: horas de estudio de 0 a 15, asistencia de 0 a 100. Algunos modelos toman a la de números más grandes como la más importante.</dd>
+    <dt>Qué hace</dt><dd>Lleva todas las columnas a una escala comparable, por ejemplo "cuántos desvíos se aleja del promedio".</dd>
+    <dt>Sin esto</dt><dd>Un modelo que busca "el alumno más parecido" se deja llevar por la asistencia y se olvida de las horas de estudio.</dd>
+  </dl>
+
+  <h3>1 · Verlo</h3>
+  <div class="bloque-r border rounded p-3 mb-3">
+    <p>Llega un alumno nuevo. Un modelo de vecinos (KNN) predice copiando al alumno anterior <strong>más parecido</strong>. ¿Quién se le parece más?</p>
+    <label class="check mb-2"><input type="checkbox" id="k-knn"> Escalar (StandardScaler)</label>
+    <div class="table-responsive">
+      <table class="table table-sm align-middle mb-2" id="t-knn">
+        <thead><tr><th></th><th>Horas de estudio</th><th>Asistencia</th><th>Distancia al nuevo</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="en-vivo" id="t-knn-texto" aria-live="polite"></p>
+  </div>
+
+  <h3>2 · El código</h3>
+  <pre>scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)   <span class="cm"># aprende promedio y desvío de train, y transforma</span>
+X_test  = scaler.transform(X_test)        <span class="cm"># usa ese mismo promedio y desvío</span></pre>
+  <p class="mt-3">El escalador también "aprende": calcula el promedio y el desvío. Por eso va <strong>después</strong> del split y aprende solo con train.
+    Si los calculara con todos los alumnos, el examen se filtraría en el entrenamiento y la nota quedaría inflada.</p>
+  <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> escalar no cambia qué alumno estudió más; solo hace que horas y porcentajes pesen parejo.
+    Lo necesitan los modelos que miden distancias o penalizan coeficientes. Los árboles no: preguntan "¿horas ≤ 5?", y escalar no cambia el orden.</p>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 mb-3">
+    <strong><i class="bi bi-journal-code"></i> En la clase</strong> se vieron tres escaladores sobre California, y se reentrenó con StandardScaler para comparar
+    LinearRegression, Ridge y Lasso en igualdad de condiciones.
+  </div>
+
+  <details class="mas">
+    <summary>Más detalle: qué escalador elegir y qué modelos lo necesitan</summary>
+    <div>
+      <h4>Tres escaladores frente a un dato extremo</h4>
+      <p>Nueve alumnos estudian entre 2 y 10 horas, y uno declaró un número enorme (¿un error al cargar?). Estiralo y mirá cuánto espacio les queda a los nueve normales.</p>
+      <label class="control">Horas del alumno extremo = <output id="o-esc">12</output>
+        <input type="range" id="r-esc" min="12" max="80" step="1" value="12">
+      </label>
+      <svg class="grafico" id="g-esc" role="img" aria-label="Tres rectas numéricas, una por escalador, con los nueve valores normales como puntos llenos y el extremo como punto hueco."></svg>
+      <p class="en-vivo" id="t-esc" aria-live="polite"></p>
+
+      <div class="table-responsive">
+        <table class="table table-sm align-middle">
+          <thead><tr><th>Escalador</th><th>Fórmula</th><th>Cuándo</th><th>Con extremos</th></tr></thead>
+          <tbody>
+            <tr><td>StandardScaler</td><td>(x − promedio) / desvío</td><td>Opción por defecto</td><td>Sensible</td></tr>
+            <tr><td>MinMaxScaler</td><td>(x − mín) / (máx − mín)</td><td>Hace falta un rango fijo [0, 1] (redes, imágenes)</td><td>Muy sensible</td></tr>
+            <tr><td>RobustScaler</td><td>(x − mediana) / IQR</td><td>Hay valores extremos reales</td><td>Resistente</td></tr>
+            <tr><td>MaxAbsScaler</td><td>x / máx|x|</td><td>Datos con muchos ceros: los ceros quedan en cero</td><td>Sensible</td></tr>
+            <tr><td>log(1 + x)</td><td>logaritmo</td><td>Variables positivas muy asimétricas (ingresos)</td><td>Reduce su peso</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pc">
+        <div><strong class="titulo">Necesitan escalar</strong><ul><li>KNN, SVM, redes neuronales y K-means, porque usan distancias.</li><li>Ridge, Lasso, ElasticNet y logística, porque penalizan los coeficientes.</li></ul></div>
+        <div class="pro"><strong class="titulo">No lo necesitan</strong><ul><li>Árboles y Random Forest.</li><li>LinearRegression sin penalización predice igual, aunque escalada sus coeficientes se pueden comparar entre sí.</li></ul></div>
+      </div>
+    </div>
+  </details>
+</section>
+
+
+<!-- ================= ENTRENAR ================= -->
+<section id="entrenar" class="pb-5 mb-5 border-bottom" data-group="Entrenar">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Etapa 4 · Entrenar</p>
+  <h2 class="mb-3">Qué hace fit()</h2>
+  <dl class="razon">
+    <dt>Problema</dt><dd>Un modelo es una fórmula con perillas (<strong>parámetros</strong>), y al principio nadie sabe qué valor darles.</dd>
+    <dt>Qué hace</dt><dd><code>fit</code> ajusta esas perillas hasta que el error con los alumnos de entrenamiento es el más chico posible.</dd>
+    <dt>Sin esto</dt><dd>La fórmula está vacía: llamar a <code>predict</code> antes de <code>fit</code> da <code>NotFittedError</code>.</dd>
+  </dl>
+
+  <h3>1 · Verlo</h3>
+  <div class="bloque-r border rounded p-3 mb-3">
+    <p>Nota según horas de estudio. Una recta tiene dos perillas: la pendiente y la ordenada.
+      Movelas a mano o tocá <strong>Entrenar</strong>. Las líneas rojas son los errores.</p>
+    <div class="grid-2">
+      <label class="control">Pendiente = <output id="o-b1">0</output>
+        <input type="range" id="r-b1" min="-0.2" max="1" step="0.01" value="0">
+      </label>
+      <label class="control">Ordenada = <output id="o-b0">5</output>
+        <input type="range" id="r-b0" min="-1" max="8" step="0.05" value="5">
+      </label>
+    </div>
+    <div class="controles"><button type="button" class="btn btn-r" id="b-fit"><i class="bi bi-play-fill"></i> Entrenar (fit)</button></div>
+    <svg class="grafico" id="g-fit" role="img" aria-label="Alumnos según horas de estudio y nota, con una recta ajustable; de cada punto baja una línea roja hasta la recta."></svg>
+    <svg class="grafico" id="g-fit-mse" role="img" aria-label="Curva del error a lo largo de los pasos del entrenamiento, que baja hasta estabilizarse."></svg>
+    <p class="en-vivo" id="t-fit" aria-live="polite"></p>
+  </div>
+
+  <h3>2 · El código</h3>
+  <pre>model = LinearRegression()
+model.fit(X_train, y_train)
+model.coef_, model.intercept_   <span class="cm"># las perillas que encontró</span></pre>
+  <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> entrenar es buscar las perillas que menos se equivocan con los datos de entrenamiento.
+    Cada modelo tiene perillas distintas, y eso es lo que muestran las tres secciones que siguen.</p>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 mb-3">
+    <strong><i class="bi bi-journal-code"></i> En la clase</strong> se entrenó <code>LinearRegression</code> con las 8 columnas de California:
+    en vez de una pendiente encontró ocho, una por columna, más la ordenada.
+  </div>
+
+  <details class="mas">
+    <summary>Más detalle: cómo busca y qué perillas tiene cada modelo</summary>
+    <div>
+      <p><code>LinearRegression</code> no necesita dar pasos: resuelve el mínimo con una fórmula directa (mínimos cuadrados,
+        como en <a href="../repaso-pye/index.html#g-recta">el repaso de PyE</a>, que usa este mismo ejemplo de horas y nota).
+        La animación usa <em>descenso por gradiente</em>: en cada paso mueve las perillas hacia donde baja el error. Así aprenden la logística y las redes neuronales.</p>
+      <div class="table-responsive">
+        <table class="table table-sm align-middle mb-0">
+          <thead><tr><th>Modelo</th><th>Sus perillas</th><th>Qué minimiza fit</th></tr></thead>
+          <tbody>
+            <tr><td>Regresión lineal</td><td>una pendiente por columna y la ordenada</td><td>el error al cuadrado (MSE)</td></tr>
+            <tr><td><a href="#logistica">Regresión logística</a></td><td>lo mismo, pero dentro de una curva en S</td><td>el error de las probabilidades (<em>log-loss</em>)</td></tr>
+            <tr><td><a href="#arbol">Árbol de decisión</a></td><td>qué pregunta hacer y con qué umbral</td><td>la mezcla de aprobados y desaprobados en cada hoja (Gini)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+</section>
+
+<section id="logistica" class="pb-5 mb-5 border-bottom" data-group="Entrenar">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Etapa 4 · Entrenar</p>
+  <h2 class="mb-3">Regresión logística</h2>
+  <dl class="razon">
+    <dt>Problema</dt><dd>Para predecir si aprueba conviene obtener primero una <strong>probabilidad</strong> ("70% de aprobar") y recién después decidir sí o no.</dd>
+    <dt>Qué hace</dt><dd>Pasa una recta por una <strong>curva en S</strong>, que siempre da entre 0 y 1. Después un <strong>umbral</strong> (0,5 por defecto) convierte la probabilidad en sí o no.</dd>
+    <dt>Sin esto</dt><dd>Con una recta común, la "probabilidad" da menos de 0 o más de 1. Marcá la comparación abajo.</dd>
+  </dl>
+
+  <h3>1 · Verlo</h3>
+  <div class="bloque-r border rounded p-3 mb-3">
+    <p>40 alumnos según sus horas de estudio: arriba los que aprobaron y abajo los que no.</p>
+    <label class="control">Umbral = <output id="o-umbral">0,5</output>
+      <input type="range" id="r-umbral" min="0.1" max="0.9" step="0.05" value="0.5">
+    </label>
+    <label class="check"><input type="checkbox" id="k-recta"> Comparar con una recta común</label>
+    <svg class="grafico" id="g-log" role="img" aria-label="Alumnos que aprobaron arriba (probabilidad 1) y que no abajo (0) según sus horas de estudio, con la curva en S y una línea vertical donde el modelo pasa a decir que aprueba."></svg>
+    <p class="en-vivo" id="t-log" aria-live="polite"></p>
+    <p class="muted">Llenos: aprobaron. Huecos: no. En rojo, los que el modelo clasifica mal.</p>
+  </div>
+
+  <h3>2 · El código</h3>
+  <pre>model = LogisticRegression()
+model.fit(X_train, y_train)
+model.predict_proba(X_test)   <span class="cm"># la probabilidad de cada clase</span>
+model.predict(X_test)         <span class="cm"># la clase, con umbral 0,5</span></pre>
+  <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> con pocas horas la probabilidad de aprobar es baja, con muchas es alta, y en el medio sube rápido.
+    La curva en S capta eso; una recta no.</p>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 mb-3">
+    <strong><i class="bi bi-journal-code"></i> En la clase</strong> se usó con Iris, que tiene <strong>3 especies</strong>: scikit-learn calcula una probabilidad para cada una (suman 1) y elige la mayor.
+    Sacó accuracy 1,0, pero no por ser un modelo perfecto: el problema es fácil (setosa se separa sola) y la prueba tenía solo 45 flores.
+  </div>
+
+  <details class="mas">
+    <summary>Más detalle: por qué "regresión", a favor y en contra</summary>
+    <div>
+      <p>Se llama "regresión" porque por dentro calcula una recta; lo que la hace clasificar es la curva y el umbral.
+        El umbral se puede mover: si preferís no dejar pasar a ningún alumno en riesgo, lo bajás (lo vas a ver en <a href="#eval-clasif">Evaluar</a>).</p>
+      <div class="pc">
+        <div class="pro"><strong class="titulo">A favor</strong><ul><li>Rápida, y además de la clase da probabilidades.</li><li>Coeficientes interpretables: el signo dice si la variable sube o baja la probabilidad.</li><li>Buen primer modelo para comparar.</li></ul></div>
+        <div class="contra"><strong class="titulo">En contra</strong><ul><li>La frontera es recta: si las clases se separan con curvas, se queda corta.</li><li>Penaliza los coeficientes por defecto (C=1), así que conviene escalar.</li></ul></div>
+      </div>
+    </div>
+  </details>
+</section>
+
+<section id="arbol" class="pb-5 mb-5 border-bottom" data-group="Entrenar">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Etapa 4 · Entrenar</p>
+  <h2 class="mb-3">Árbol de decisión</h2>
+  <dl class="razon">
+    <dt>Problema</dt><dd>Muchas reglas no son una recta: "si estudia poco pero viene a todas las clases, igual aprueba".</dd>
+    <dt>Qué hace</dt><dd>Hace preguntas de sí o no sobre una columna por vez ("¿horas ≤ 5?") y elige en cada paso la que mejor separa aprobados de desaprobados.</dd>
+    <dt>Sin esto</dt><dd>Sin límite de profundidad, sigue preguntando hasta acertar cada alumno de entrenamiento, casos raros incluidos. Eso es <strong>sobreajuste</strong>.</dd>
+  </dl>
+
+  <h3>1 · Verlo</h3>
+  <div class="bloque-r border rounded p-3 mb-3">
+    <p>Subí la profundidad: cuántas preguntas seguidas puede hacer el árbol.</p>
+    <label class="control">Profundidad máxima: max_depth = <output id="o-prof">1</output>
+      <input type="range" id="r-prof" min="1" max="10" step="1" value="1">
+    </label>
+    <div id="reglas-arbol"></div>
+    <svg class="grafico" id="g-arbol" role="img" aria-label="Plano de horas de estudio y asistencia con alumnos de entrenamiento (llenos aprobaron, huecos no) y la zona donde el árbol predice que aprueba sombreada."></svg>
+    <svg class="grafico" id="g-arbol-curva" role="img" aria-label="Acierto en entrenamiento y en prueba según la profundidad: el de entrenamiento sube hasta 100% y el de prueba sube y después baja."></svg>
+    <p class="en-vivo" id="t-arbol" aria-live="polite"></p>
+    <p class="muted">Llenos: aprobaron. Huecos: no. Sombreado: donde el árbol dice que aprueba. Se dibuja solo el entrenamiento; la prueba se mide con otros alumnos.</p>
+  </div>
+
+  <h3>2 · El código</h3>
+  <pre>model = DecisionTreeClassifier(max_depth=4, random_state=42)
+model.fit(X_train, y_train)</pre>
+  <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> más profundidad no es mejor. Llega un punto en que el árbol deja de aprender la regla general y empieza a memorizar
+    casos puntuales: mejora en entrenamiento y empeora con alumnos nuevos.</p>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 mb-3">
+    <strong><i class="bi bi-journal-code"></i> En la clase</strong> se usó <code>DecisionTreeClassifier()</code> sin límite con Breast Cancer:
+    el árbol creció hasta 7 niveles, acertó el 100% en entrenamiento y el 94% en la prueba.
+  </div>
+
+  <details class="mas">
+    <summary>Más detalle: a favor, en contra y cómo elige la pregunta</summary>
+    <div>
+      <p>En cada nodo prueba todos los cortes posibles de cada columna y se queda con el que deja los grupos más "puros",
+        o sea, con menos mezcla de aprobados y desaprobados (índice de Gini).</p>
+      <div class="pc">
+        <div class="pro"><strong class="titulo">A favor</strong><ul><li>Se lee como reglas "si… entonces…".</li><li>No necesita escalar.</li><li>Capta combinaciones ("poco estudio pero mucha asistencia").</li></ul></div>
+        <div class="contra"><strong class="titulo">En contra</strong><ul><li>Sobreajusta muy fácil: hay que limitarlo con <code>max_depth</code> o <code>min_samples_leaf</code>.</li><li>Es inestable: con unos pocos datos distintos sale otro árbol. Random Forest lo resuelve promediando muchos árboles.</li></ul></div>
+      </div>
+    </div>
+  </details>
+</section>
+
+<section id="regularizacion" class="pb-5 mb-5 border-bottom" data-group="Entrenar">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Etapa 4 · Entrenar</p>
+  <h2 class="mb-3">Ridge y Lasso</h2>
+  <dl class="razon">
+    <dt>Problema</dt><dd>Si le das al modelo columnas que no sirven o que repiten información, igual les asigna peso: ajusta casualidades de los datos de entrenamiento.</dd>
+    <dt>Qué hace</dt><dd>Suma al error una <strong>multa por coeficientes grandes</strong>, y <code>alpha</code> decide cuánto pesa. Ridge achica todos los coeficientes; Lasso puede dejar algunos en <strong>0 exacto</strong>, o sea, descarta columnas.</dd>
+    <dt>Sin esto</dt><dd>Con alpha = 0 no hay multa y queda la LinearRegression de siempre.</dd>
+  </dl>
+
+  <h3>1 · Verlo</h3>
+  <div class="bloque-r border rounded p-3 mb-3">
+    <p>Predecir la nota con cinco columnas. Dos son trampa: "horas en la biblioteca" casi copia a las horas de estudio, y el último número del DNI no tiene nada que ver.</p>
+    <div class="controles" role="group" aria-label="Tipo de penalización">
+      <button type="button" class="btn btn-r" data-reg="ridge" aria-pressed="true">Ridge</button>
+      <button type="button" class="btn btn-r" data-reg="lasso" aria-pressed="false">Lasso</button>
+    </div>
+    <label class="control">alpha = <output id="o-alpha">0</output>
+      <input type="range" id="r-alpha" min="0" max="100" step="1" value="0" aria-describedby="t-reg">
+    </label>
+    <svg class="grafico" id="g-reg" role="img" aria-label="Barras con el peso de cada columna; al subir alpha se achican, y con Lasso algunas llegan a cero."></svg>
+    <p class="en-vivo" id="t-reg" aria-live="polite"></p>
+  </div>
+
+  <h3>2 · El código</h3>
+  <pre>Ridge(alpha=1.0).fit(X_train, y_train)
+Lasso(alpha=0.01).fit(X_train, y_train)
+LassoCV().fit(X_train, y_train)   <span class="cm"># prueba varios alpha y se queda con el mejor</span></pre>
+  <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> alpha es cuánto le cuesta al modelo darle peso a una columna.
+    Con poco, el modelo usa todo; con mucho, se queda solo con lo que realmente ayuda. Y si te pasás, apaga también lo útil.</p>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 mb-3">
+    <strong><i class="bi bi-journal-code"></i> En la clase</strong> (California, MSE en la prueba)
+    <ul class="mb-0 mt-1">
+      <li><strong>Ridge dio igual que LinearRegression</strong> (0,5363 en los dos): con 16.512 filas, alpha = 1 es una multa insignificante.</li>
+      <li><strong>Lasso dio peor</strong> (0,99): con alpha = 1 apagó 6 de las 8 columnas. Predecir siempre el promedio da 1,38, así que casi no ayudaba.</li>
+      <li>No es que Lasso sea malo: con columnas escaladas y alpha = 0,01 da 0,54, igual que los otros.</li>
+    </ul>
+  </div>
+
+  <details class="mas">
+    <summary>Más detalle: Ridge, Lasso o ElasticNet</summary>
+    <div>
+      <div class="table-responsive">
+        <table class="table table-sm align-middle">
+          <thead><tr><th></th><th>Ridge (L2)</th><th>Lasso (L1)</th><th>ElasticNet</th></tr></thead>
+          <tbody>
+            <tr><td>Coeficientes</td><td>los achica todos, ninguno a 0</td><td>apaga los menos útiles</td><td>mezcla de los dos</td></tr>
+            <tr><td>Conviene si</td><td>todas aportan algo, o hay columnas parecidas</td><td>sospechás que sobran columnas</td><td>sobran columnas <em>y</em> hay parecidas</td></tr>
+            <tr><td>Cuidado</td><td>no simplifica el modelo</td><td>entre dos columnas parecidas elige una casi al azar</td><td>dos parámetros para ajustar</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="mb-0">Siempre conviene escalar antes: la multa mira el tamaño de los coeficientes, y ese tamaño depende de las unidades de cada columna.
+        En el gráfico, Ridge y Lasso usan escalas de alpha distintas porque scikit-learn define la multa de forma diferente en cada uno.</p>
+    </div>
+  </details>
+</section>
+
+
+<!-- ================= EVALUAR ================= -->
+<section id="eval-clasif" class="pb-5 mb-5 border-bottom" data-group="Evaluar">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Etapa 5 · Evaluar</p>
+  <h2 class="mb-3">Evaluar una clasificación</h2>
+  <dl class="razon">
+    <dt>Problema</dt><dd>"Acertó el 80%" no alcanza: hay que saber <strong>en qué</strong> se equivoca, porque no todos los errores cuestan lo mismo.</dd>
+    <dt>Qué hace</dt><dd>La <strong>matriz de confusión</strong> cuenta los aciertos y los dos tipos de error por separado.</dd>
+    <dt>Sin esto</dt><dd>Un modelo que nunca marca a nadie en riesgo puede tener mejor accuracy que uno útil.</dd>
+  </dl>
+
+  <h3>1 · Verlo</h3>
+  <div class="bloque-r border rounded p-3 mb-3">
+    <p>El modelo se usa para <strong>avisar a mitad del cuatrimestre</strong> qué alumnos están en riesgo de desaprobar, y ofrecerles tutoría.
+      Lo probamos con 100 alumnos de prueba, de los cuales 25 desaprobaron.</p>
+    <ul class="small">
+      <li>Si se le escapa uno en riesgo, ese alumno no recibe ayuda: es el error <strong>caro</strong>.</li>
+      <li>Si marca a uno que iba a aprobar, solo hay una tutoría de más: es el error <strong>barato</strong>.</li>
+    </ul>
+    <label class="control">Marcar "en riesgo" si P(desaprobar) ≥ <output id="o-um">0,5</output>
+      <input type="range" id="r-um" min="0.05" max="0.95" step="0.05" value="0.5">
+    </label>
+    <label class="check"><input type="checkbox" id="k-vago"> Modelo vago: nunca marca a nadie</label>
+    <div class="matriz" id="m-um" aria-live="polite"></div>
+    <div class="metricas">
+      <div><b id="v-acc"></b><span>accuracy<br>aciertos del total</span></div>
+      <div><b id="v-prec"></b><span>precisión<br>de los marcados, cuántos sí estaban en riesgo</span></div>
+      <div><b id="v-rec"></b><span>sensibilidad<br>de los que estaban en riesgo, cuántos marcó</span></div>
+    </div>
+    <p class="en-vivo" id="t-um" aria-live="polite"></p>
+  </div>
+
+  <h3>2 · El código</h3>
+  <pre>y_pred = model.predict(X_test)
+accuracy_score(y_test, y_pred)
+confusion_matrix(y_test, y_pred)
+print(classification_report(y_test, y_pred))   <span class="cm"># precisión y sensibilidad de cada clase</span></pre>
+  <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> primero decidí qué error es más caro; recién ahí elegís la métrica.
+    Acá importa la <strong>sensibilidad</strong> (no dejar pasar a nadie en riesgo), aunque eso traiga algunas tutorías de más.</p>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 mb-3">
+    <strong><i class="bi bi-journal-code"></i> En la clase</strong> el árbol de Breast Cancer dio esta matriz (filas: real; columnas: predicho):
+    <div class="matriz">
+      <div></div><div class="cab">predijo maligno</div><div class="cab">predijo benigno</div>
+      <div class="lado">real maligno</div><div class="celda ok"><b>40</b>detectados</div><div class="celda no"><b>3</b>se escaparon</div>
+      <div class="lado">real benigno</div><div class="celda no"><b>4</b>falsas alarmas</div><div class="celda ok"><b>67</b>bien dados</div>
+    </div>
+    <ul class="mb-0">
+      <li>Accuracy = (40 + 67) / 114 = 0,94. Los <strong>3 que se escaparon</strong> son el error caro, como los alumnos en riesgo.</li>
+      <li>Ojo: en este dataset <strong>0 = maligno</strong> y 1 = benigno (<code>cancer.target_names</code>). Revisá siempre qué significa cada número.</li>
+      <li>El texto del notebook muestra otra matriz ([[39, 4], [3, 68]]) porque el árbol se creó sin <code>random_state</code>: cada ejecución da un árbol algo distinto.</li>
+    </ul>
+  </div>
+
+  <details class="mas">
+    <summary>Más detalle: qué métrica mirar</summary>
+    <div>
+      <div class="table-responsive">
+        <table class="table table-sm align-middle">
+          <thead><tr><th>Métrica</th><th>Mirala cuando…</th><th>Engaña cuando…</th></tr></thead>
+          <tbody>
+            <tr><td>Accuracy</td><td>las clases son parejas y los errores cuestan igual</td><td>una clase es rara: el modelo vago saca 75% sin detectar a nadie</td></tr>
+            <tr><td>Precisión</td><td>una falsa alarma es cara (un filtro de spam que borra un mail importante)</td><td>se mira sola: marcar solo el caso más seguro da 100%</td></tr>
+            <tr><td>Sensibilidad (recall)</td><td>dejar pasar un positivo es caro (alumno en riesgo, cáncer, fraude)</td><td>se mira sola: marcar a todos da 100%</td></tr>
+            <tr><td>F1</td><td>querés un solo número que equilibre precisión y sensibilidad</td><td>los dos errores tienen costos muy distintos</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="mb-0">Para ver la matriz como gráfico, como en la clase: <code>sns.heatmap(confusion_matrix(y_test, y_pred), annot=True, fmt="d")</code>.</p>
+    </div>
+  </details>
+</section>
+
+<section id="eval-regr" class="pb-5 mb-5 border-bottom" data-group="Evaluar">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Etapa 5 · Evaluar</p>
+  <h2 class="mb-3">Evaluar una regresión</h2>
+  <dl class="razon">
+    <dt>Problema</dt><dd>Al predecir la nota no hay "acierto": siempre te equivocás por algo. Hay que resumir qué tan grandes son los errores.</dd>
+    <dt>Qué hace</dt><dd>El <strong>MSE</strong> eleva cada error al cuadrado y los promedia. Su raíz, el <strong>RMSE</strong>, queda en puntos de nota.</dd>
+    <dt>Sin esto</dt><dd>Si promediás los errores tal cual, se cancelan: errarle por +2 a un alumno y por −2 a otro daría error promedio 0.</dd>
+  </dl>
+
+  <h3>1 · Verlo</h3>
+  <div class="bloque-r border rounded p-3 mb-3">
+    <p>Ocho alumnos de prueba con la nota real (puntos) y la predicha (recta). Con uno, el modelo erró feo: mové cuánto.</p>
+    <label class="control">Error con el último alumno = <output id="o-out">0,5</output> puntos
+      <input type="range" id="r-out" min="0.5" max="4" step="0.1" value="0.5">
+    </label>
+    <svg class="grafico" id="g-out" role="img" aria-label="Ocho alumnos alrededor de la recta de predicción con sus errores en rojo; el último se puede alejar."></svg>
+    <svg class="grafico" id="g-out-barras" role="img" aria-label="Barras comparando MSE, RMSE y MAE."></svg>
+    <p class="en-vivo" id="t-out" aria-live="polite"></p>
+  </div>
+
+  <h3>2 · El código</h3>
+  <pre>mse  = mean_squared_error(y_test, y_pred)
+rmse = mse ** 0.5   <span class="cm"># en las mismas unidades que la nota</span></pre>
+  <p class="idea"><strong><i class="bi bi-lightbulb"></i> La idea.</strong> el MSE sirve para comparar modelos, pero para decidir si uno sirve traducilo con el RMSE:
+    "se equivoca en promedio unos 0,8 puntos" se entiende; "MSE = 0,64" no.</p>
+
+  <div class="border-start border-3 bg-body-secondary rounded p-3 mb-3">
+    <strong><i class="bi bi-journal-code"></i> En la clase</strong> el MSE fue 0,536, o sea RMSE ≈ 0,73. En California la y está en <strong>cientos de miles de dólares</strong> (no en miles),
+    así que el modelo se equivoca en unos <strong>73.000 USD</strong> por distrito.
+  </div>
+
+  <details class="mas">
+    <summary>Más detalle: MSE, RMSE, MAE y R²</summary>
+    <div>
+      <div class="table-responsive">
+        <table class="table table-sm align-middle mb-0">
+          <thead><tr><th>Métrica</th><th>Qué es</th><th>A favor</th><th>En contra</th></tr></thead>
+          <tbody>
+            <tr><td>MSE</td><td>promedio de errores²</td><td>castiga fuerte los errores grandes</td><td>está en unidades al cuadrado, cuesta leerlo</td></tr>
+            <tr><td>RMSE</td><td>√MSE</td><td>en las mismas unidades que y</td><td>igual de sensible a errores grandes que el MSE</td></tr>
+            <tr><td>MAE</td><td>promedio de |error|</td><td>todos los errores pesan igual</td><td>no distingue muchos errores chicos de uno enorme</td></tr>
+            <tr><td>R²</td><td>qué parte de la variación de y explica</td><td>de 0 a 1, sin unidades (<a href="../repaso-pye/index.html#u2">repaso</a>)</td><td>no dice cuánto te equivocás en puntos</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+</section>
+
+
+<!-- ================= CIERRE ================= -->
+<section id="otros" class="pb-5 mb-5 border-bottom" data-group="Cierre">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Cierre</p>
+  <h2 class="mb-3">Otros algoritmos</h2>
+  <p>Todos se usan con el mismo <code>fit</code> / <code>predict</code>, así que probar otro es cambiar una línea. Casi todos tienen versión para clasificar y para hacer regresión.</p>
+  <div class="table-responsive">
+    <table class="table table-sm align-middle">
+      <thead><tr><th>Algoritmo</th><th>Con los alumnos…</th><th>¿Escalar?</th><th>A favor / en contra</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Random Forest</strong><br><span class="muted">RandomForestClassifier / Regressor</span></td><td>muchos árboles, cada uno con alumnos y columnas al azar, votan si aprueba</td><td>No</td><td>✓ robusto, sobreajusta poco, buen punto de partida<br>✕ pesado y difícil de leer</td></tr>
+        <tr><td><strong>KNN</strong><br><span class="muted">KNeighborsClassifier / Regressor</span></td><td>busca los 5 alumnos más parecidos y copia lo que les pasó</td><td>Sí</td><td>✓ simple, casi no entrena<br>✕ lento al predecir con muchos datos</td></tr>
+        <tr><td><strong>SVM</strong><br><span class="muted">SVC / SVR</span></td><td>traza la frontera entre aprobados y desaprobados con el mayor margen posible</td><td>Sí</td><td>✓ muy bueno con datasets medianos<br>✕ lento con decenas de miles de filas; hay que ajustarlo</td></tr>
+        <tr><td><strong>Naive Bayes</strong><br><span class="muted">GaussianNB (solo clasificación)</span></td><td>combina "qué tan común es estudiar 3 h entre los que aprueban" con lo mismo para cada columna</td><td>No</td><td>✓ rapidísimo, anda con pocos datos<br>✕ supone que las columnas no se relacionan entre sí</td></tr>
+        <tr><td><strong>Redes neuronales</strong><br><span class="muted">MLPClassifier / Regressor</span></td><td>combina las columnas en capas para descubrir patrones complejos</td><td>Sí</td><td>✓ captan relaciones muy complejas<br>✕ necesitan muchos datos; son una caja negra</td></tr>
+        <tr><td><strong>Árbol para regresión</strong><br><span class="muted">DecisionTreeRegressor</span></td><td>las mismas preguntas, pero cada hoja da la nota promedio de su grupo</td><td>No</td><td>✓ legible<br>✕ predice "en escalones" y sobreajusta igual</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="idea"><strong><i class="bi bi-lightbulb"></i> Por dónde empezar.</strong> primero un modelo simple (lineal o logística) como referencia, después Random Forest,
+    y compará todo con la <em>misma</em> separación. Si un modelo complejo no le gana claramente al simple, quedate con el simple.
+    <code>DummyClassifier</code> te da el "modelo vago" para saber cuál es el piso.</p>
+</section>
+
+<section id="codigo" class="pb-5 mb-5 border-bottom" data-group="Cierre">
+  <p class="small text-uppercase text-primary fw-semibold mb-1" style="letter-spacing:.1em">Cierre</p>
+  <h2 class="mb-3">Todo junto</h2>
+  <pre><span class="cm"># 1. Datos: lo que sabés a mitad del cuatrimestre → si aprueba</span>
+X = df[['horas_estudio', 'asistencia', 'horas_sueno']]
+y = df['aprueba']
+
+<span class="cm"># 2. Split</span>
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y)
+
+<span class="cm"># 3. Escalar (aprende solo con train)</span>
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test  = scaler.transform(X_test)
+
+<span class="cm"># 4. Entrenar: cambiar de modelo es cambiar esta línea</span>
+model = LogisticRegression()
+model.fit(X_train, y_train)
+
+<span class="cm"># 5. Evaluar con alumnos que no vio</span>
+y_pred = model.predict(X_test)
+print(classification_report(y_test, y_pred))</pre>
+  <p class="mt-3 muted">Alternativa: <code>make_pipeline(StandardScaler(), LogisticRegression())</code> junta los pasos 3 y 4. El pipeline hace el fit del escalador
+    solo con train sin que tengas que acordarte, y es lo que conviene cuando hay validación cruzada.</p>
+
+  <div class="border-start border-3 border-danger bg-danger-subtle rounded p-3 my-4">
+    <strong class="text-danger"><i class="bi bi-exclamation-triangle"></i> Errores comunes</strong>
+    <ul class="mb-0">
+      <li>Dejar en X una columna que delata la respuesta (como la nota para predecir si aprueba).</li>
+      <li>Escalar antes del split, o usar <code>fit_transform</code> también en test.</li>
+      <li>Evaluar con los datos de entrenamiento.</li>
+      <li>Confiar en el accuracy cuando una clase es rara.</li>
+      <li>Suponer que 1 es "lo positivo" sin mirar qué significa cada valor.</li>
+      <li>Olvidar <code>random_state</code> en el split <em>y</em> en el modelo, y no poder repetir resultados.</li>
+      <li>Leer un MSE sin traducirlo a unidades (RMSE).</li>
+      <li>Usar Lasso o Ridge con el alpha por defecto sin probar otros.</li>
+    </ul>
+  </div>
+</section>
+
+<footer class="pt-3 mt-4 border-top small text-body-secondary">By F. Suárez · 2026 · Saludos pal IFTS 24</footer>
+</main>
+
+<!-- Barra inferior (mobile) -->
+<div class="bottombar d-lg-none">
+  <div class="d-flex justify-content-between align-items-center py-2 px-3">
+    <span class="small text-body-secondary text-truncate me-2" id="crumb"></span>
+    <div class="d-flex gap-1 flex-shrink-0">
+      <button class="btn btn-sm border-0 theme-btn"><i class="bi bi-moon fs-5"></i></button>
+      <button class="btn btn-sm border-0" data-bs-toggle="offcanvas" data-bs-target="#toc">
+        <i class="bi bi-list fs-5"></i></button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/guia.js"></script>
+<script src="graficos.js"></script>
+<script src="preparar.js"></script>
+<script src="entrenar.js"></script>
+<script src="evaluar.js"></script>
+</body>
+</html>

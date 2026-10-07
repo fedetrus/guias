@@ -1,0 +1,185 @@
+/* ═══════════════════════════════════════════════════════════════
+   DSIA · Aprendizaje supervisado — estilos propios de esta guía
+   (gráficos interactivos y bloques "por qué").
+   La tipografía, los colores y el tema claro/oscuro vienen de
+   ../assets/guia.css: acá solo se nombran sus variables.
+   Regla de color de las guías: un acento (--bs-primary) + el color de
+   texto; el rojo (--bs-danger) solo para errores.
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 24px;
+  --radius: var(--bs-border-radius);
+  --surface: var(--bs-body-bg);
+  --text: var(--bs-body-color);
+  --muted: var(--bs-secondary-color);
+  --border: var(--bs-border-color);
+  --accent: var(--bs-primary);
+  --accent-soft: var(--bs-primary-bg-subtle);
+  --suave: rgba(var(--bs-emphasis-color-rgb), .05);
+  --error: var(--bs-danger);
+  --error-soft: var(--bs-danger-bg-subtle);
+}
+
+.muted { color: var(--muted); font-size: var(--t-sm); }
+.bloque-r h4, details.mas h4 { font-size: 1.05rem; font-weight: 600; margin: 0 0 var(--sp-2); }
+
+/* ===== Por qué: problema → qué hace → sin esto ===== */
+.razon { display: grid; grid-template-columns: auto 1fr; gap: var(--sp-2) var(--sp-3); margin: 0 0 var(--sp-4);
+         padding: var(--sp-3) var(--sp-4); background: var(--suave); border-radius: var(--radius); }
+.razon dt { font-weight: 600; color: var(--accent); white-space: nowrap; }
+.razon dd { margin: 0; }
+@media (max-width: 480px) {
+  .razon { grid-template-columns: 1fr; gap: 0; }
+  .razon dd + dt { margin-top: var(--sp-2); }
+}
+
+.idea {
+  border-left: 3px solid var(--accent);
+  padding: var(--sp-2) var(--sp-3);
+  margin: var(--sp-3) 0 0;
+  background: var(--accent-soft);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.idea strong:first-child { color: var(--accent); }
+
+/* ===== Pros y contras ===== */
+.pc { display: grid; gap: var(--sp-3); margin: var(--sp-3) 0; }
+.pc ul { list-style: none; padding: 0; margin: 0; }
+.pc li { padding-left: 1.5em; position: relative; margin-bottom: var(--sp-1); }
+.pc li::before { content: "•"; position: absolute; left: 0; font-weight: 600; color: var(--accent); }
+.pc .pro li::before { content: "✓"; color: var(--accent); }
+.pc .contra li::before { content: "✕"; color: var(--error); }
+.pc strong.titulo { display: block; margin-bottom: var(--sp-1); }
+@media (min-width: 720px) { .pc { grid-template-columns: 1fr 1fr; } }
+
+/* ===== Las 5 etapas ===== */
+.etapas { list-style: none; padding: 0; margin: 0 0 var(--sp-4); display: grid; gap: var(--sp-2); counter-reset: etapa; }
+.etapas a {
+  display: grid; grid-template-columns: 2rem 1fr; gap: 0 var(--sp-3); align-items: baseline;
+  padding: var(--sp-3); border: 1px solid var(--border); border-radius: var(--radius);
+  color: var(--text); text-decoration: none; min-height: 44px;
+}
+.etapas a:hover, .etapas a:focus-visible { border-color: var(--accent); background: var(--accent-soft); }
+.etapas a::before { counter-increment: etapa; content: counter(etapa); grid-row: span 2;
+  font: 600 var(--t-lg) var(--bs-font-monospace); color: var(--accent); }
+.etapas code { font-size: var(--t-sm); }
+.etapas .muted { display: block; }
+@media (min-width: 720px) {
+  .etapas { grid-template-columns: repeat(5, 1fr); }
+  .etapas a { grid-template-columns: 1fr; height: 100%; }
+  .etapas a::before { grid-row: auto; }
+}
+
+/* ===== Fichas con mini gráfico ===== */
+.conceptos { display: grid; gap: var(--sp-3); margin-bottom: var(--sp-4); }
+.concepto {
+  display: grid; grid-template-columns: 112px 1fr; gap: var(--sp-3); align-items: center;
+  border: 1px solid var(--border); border-radius: var(--radius); padding: var(--sp-3);
+}
+.concepto p { margin: 0; }
+.concepto p + p { margin-top: var(--sp-1); }
+.concepto svg.grafico.mini { margin: 0; max-width: 112px; }
+@media (min-width: 720px) { .conceptos.dos { grid-template-columns: 1fr 1fr; } }
+
+/* ===== Controles ===== */
+.controles { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2) var(--sp-4); margin-bottom: var(--sp-3); }
+.btn-r {
+  --bs-btn-color: var(--bs-primary); --bs-btn-border-color: var(--bs-primary);
+  --bs-btn-hover-color: var(--bs-primary); --bs-btn-hover-bg: var(--bs-primary-bg-subtle); --bs-btn-hover-border-color: var(--bs-primary);
+  --bs-btn-active-color: var(--bs-body-bg); --bs-btn-active-bg: var(--bs-primary); --bs-btn-active-border-color: var(--bs-primary);
+  min-height: 44px;
+}
+.btn-r[aria-pressed="true"] { color: var(--bs-body-bg); background: var(--bs-primary); }
+.control { display: block; margin-bottom: var(--sp-3); }
+.control input[type="range"] { width: 100%; min-height: 44px; accent-color: var(--accent); }
+.control output { font-weight: 600; }
+.check { display: inline-flex; align-items: center; gap: var(--sp-2); min-height: 44px; cursor: pointer; }
+.check input { width: 20px; height: 20px; accent-color: var(--accent); }
+.en-vivo { font-weight: 600; min-height: 3em; }
+@media (min-width: 720px) { .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 var(--sp-4); } }
+
+/* ===== Gráficos SVG ===== */
+svg.grafico { display: block; width: 100%; max-width: 520px; height: auto; margin: var(--sp-3) auto; touch-action: pan-y; }
+svg.grafico text { fill: var(--muted); font: 11px var(--bs-font-sans-serif); }
+svg.grafico text.fuerte { fill: var(--text); font-weight: 600; }
+svg.grafico text.t-acento { fill: var(--accent); font-weight: 600; }
+svg.grafico text.t-error { fill: var(--error); font-weight: 600; }
+svg.grafico .eje { stroke: var(--muted); stroke-width: 1; }
+svg.grafico .guia { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 3; }
+svg.grafico .nodo { fill: var(--surface); stroke: var(--accent); stroke-width: 1.5; }
+svg.grafico .flecha { fill: var(--muted); }
+svg.grafico .recta { stroke: var(--accent); stroke-width: 2.5; fill: none; }
+svg.grafico .recta.texto { stroke: var(--text); stroke-dasharray: 6 4; stroke-width: 2; }
+svg.grafico .residuo { stroke: var(--error); stroke-width: 1.5; }
+svg.grafico .barra { fill: var(--accent); }
+svg.grafico .barra.neg { fill: var(--text); opacity: .55; }
+svg.grafico .barra.err { fill: var(--error); }
+svg.grafico .region { fill: var(--accent); opacity: .14; }
+svg.grafico .banda { fill: var(--accent); opacity: .08; }
+svg.grafico .marco { fill: none; stroke: var(--border); stroke-width: 1; }
+
+/* Clases de un problema: A = acento lleno · B = texto hueco. Prueba = sin relleno. */
+svg.grafico .pA { fill: var(--accent); }
+svg.grafico .pB { fill: var(--surface); stroke: var(--text); stroke-width: 1.5; }
+svg.grafico .pA.test { fill: var(--surface); stroke: var(--accent); stroke-width: 2; }
+svg.grafico .pB.test { stroke-dasharray: 2 1.5; }
+svg.grafico .mal { stroke: var(--error); stroke-width: 2.5; fill: none; }
+svg.grafico .punto { fill: var(--accent); }
+svg.grafico .punto.hueco { fill: var(--surface); stroke: var(--accent); stroke-width: 2; }
+svg.grafico .punto.texto { fill: var(--text); }
+svg.grafico .punto.err { fill: var(--error); }
+
+/* Movimiento: solo si el sistema no pide menos animación */
+svg.grafico .mov { transition: transform .6s ease, opacity .4s; }
+@media (prefers-reduced-motion: reduce) { svg.grafico .mov { transition: none; } }
+
+/* ===== Tabla de datos: X vs y ===== */
+.tabla-xy th, .tabla-xy td { transition: background-color .3s, opacity .3s; text-align: center; }
+.tabla-xy .es-y { background: var(--accent); color: var(--surface); font-weight: 600; }
+.tabla-xy .es-x { background: var(--accent-soft); }
+.tabla-xy .fuera { opacity: .35; }
+@media (prefers-reduced-motion: reduce) { .tabla-xy th, .tabla-xy td { transition: none; } }
+
+/* ===== Matriz de confusión ===== */
+.matriz { display: grid; grid-template-columns: auto 1fr 1fr; gap: var(--sp-1); max-width: 420px; margin: var(--sp-3) auto; text-align: center; }
+.matriz > div { padding: var(--sp-2); border-radius: var(--radius); font-size: var(--t-sm); }
+.matriz .cab { color: var(--muted); align-self: end; }
+.matriz .lado { color: var(--muted); align-self: center; text-align: right; }
+.matriz .celda { border: 1px solid var(--border); min-height: 72px; display: flex; flex-direction: column; justify-content: center; }
+.matriz .celda b { font: 600 var(--t-lg) var(--bs-font-monospace); }
+.matriz .ok { background: var(--accent-soft); border-color: var(--accent); }
+.matriz .no { background: var(--error-soft); border-color: var(--error); }
+.metricas { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-2); text-align: center; margin: var(--sp-3) 0; }
+.metricas > div { border: 1px solid var(--border); border-radius: var(--radius); padding: var(--sp-2); }
+.metricas b { display: block; font: 600 var(--t-lg) var(--bs-font-monospace); }
+.metricas span { font-size: var(--t-sm); color: var(--muted); }
+
+/* ===== Reglas del árbol ===== */
+.reglas { font-family: var(--bs-font-monospace); font-size: var(--t-sm); margin: 0; padding-left: 1.2em; }
+.reglas ul { padding-left: 1.2em; }
+
+/* ===== Impresión: siempre en claro, sin controles ===== */
+@media print {
+  .sidebar-lg, .bottombar, .offcanvas, .controles, .control { display: none !important; }
+  body { padding: 0 !important; }
+}
+
+/* ===== Más detalle (plegado) ===== */
+details.mas { border: 1px solid var(--border); border-radius: var(--radius); margin-top: var(--sp-4); }
+details.mas > summary { cursor: pointer; padding: var(--sp-3) var(--sp-4); min-height: 44px; font-weight: 600; color: var(--accent); }
+details.mas[open] > summary { border-bottom: 1px solid var(--border); }
+details.mas > div { padding: var(--sp-4); }
+
+/* ===== Split paso a paso: estudia | rinde ===== */
+.split-tablas { display: grid; gap: var(--sp-3); }
+.split-tablas h5 { font-size: var(--t-sm); font-weight: 600; margin: 0 0 var(--sp-1); }
+.split-tablas table { margin: 0; }
+.split-tablas td, .split-tablas th { text-align: center; }
+.split-tablas .oculto { color: var(--muted); }
+.split-tablas .bien { color: var(--accent); font-weight: 600; }
+.split-tablas .mal-t { color: var(--error); font-weight: 600; }
+.split-tablas .nuevo { animation: aparecer .5s ease both; }
+@keyframes aparecer { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .split-tablas .nuevo { animation: none; } }
+@media (min-width: 720px) { .split-tablas.dos { grid-template-columns: 3fr 2fr; } }
+.tabla-xy .fuga { background: var(--error-soft); color: var(--error); text-decoration: line-through; }
