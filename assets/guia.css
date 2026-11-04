@@ -78,3 +78,8 @@ section{ scroll-margin-top:1.5rem; }
 .nav-link.active{ background:var(--bs-primary-bg-subtle); color:var(--bs-primary);
                   font-weight:600; opacity:1; }
 #toc .nav-link{ padding:.55rem .7rem; }
+
+/* Tarjeta pixel art (juego Data-24 SA): bordes rectos, sombra de pixel y título en letra pixel */
+.card-pixel{ border:3px solid var(--bs-body-color); border-radius:0; box-shadow:4px 4px 0 var(--bs-primary); overflow:hidden; }
+.card-pixel .card-img-top{ border-radius:0; border-bottom:3px solid var(--bs-body-color); image-rendering:pixelated; aspect-ratio:160/72; object-fit:cover; }
+.card-pixel h2{ font-family:'Press Start 2P',monospace; font-size:.95rem; line-height:1.6; }

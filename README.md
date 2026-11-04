@@ -14,7 +14,7 @@ con ejemplos, tablas de referencia y alternativas.
 | [Probabilidad y Estadística](https://fedetrus.github.io/guias/estadistica/) | Descriptiva, probabilidad y regresión lineal simple · 15 secciones |
 | [Repaso de PyE · Unidades 1 a 4](https://fedetrus.github.io/guias/repaso-pye/) | Guía orientativa: descriptiva, regresión, conteo y probabilidad, con gráficos interactivos y 35 ejercicios en 3 niveles · 4 unidades |
 | [DSIA · Aprendizaje supervisado](https://fedetrus.github.io/guias/dsia-supervisado/) | Clasificación y regresión con scikit-learn: datos, split, escalado, entrenamiento y métricas, con gráficos interactivos · 12 secciones |
-| [DSIA · Consultora de Datos (juego)](https://fedetrus.github.io/guias/juego-dsia/) | Juego pixel art para repasar el proceso completo: EDA, limpieza, encoding, escalado, algoritmos y métricas, con datos que cambian en cada partida · 6 casos |
+| [Data-24 SA (juego de DSIA)](https://fedetrus.github.io/guias/juego-dsia/) | La consultora de datos del IFTS 24: juego pixel art para repasar el proceso completo: EDA, limpieza, encoding, escalado, algoritmos y métricas, con datos que cambian en cada partida · 6 casos |
 | [pandas](https://fedetrus.github.io/guias/pandas/) | Cargar, seleccionar, transformar, agrupar y combinar datos · 14 secciones |
 | [SQL](https://fedetrus.github.io/guias/sql/) | Consultas, joins, agregaciones y ventanas, en PostgreSQL y SQL Server a la vez · 13 secciones |
 | [NumPy](https://fedetrus.github.io/guias/numpy/) | Arrays, vectorización, broadcasting y álgebra lineal · 12 secciones |
@@ -32,7 +32,7 @@ con ejemplos, tablas de referencia y alternativas.
 ├── estadistica/index.html
 ├── repaso-pye/           repaso de PyE: misma base que las guías + repaso.css y JS de sus gráficos interactivos
 ├── dsia-supervisado/     aprendizaje supervisado: misma base + dsia.css y JS de sus gráficos interactivos
-├── juego-dsia/index.html  juego de repaso de DSIA: un solo archivo autocontenido, sin dependencias
+├── juego-dsia/           Data-24 SA, juego de repaso de DSIA: index.html autocontenido + portada.svg de la tarjeta
 ├── pandas/index.html
 ├── sql/index.html
 ├── numpy/index.html
