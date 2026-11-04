@@ -102,7 +102,7 @@ td.nulo { background: var(--nulo); text-align: center; font-weight: 600; }
 .graficos { display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); gap: var(--e-3) var(--e-2); }
 .graficos figure { margin: 0; }
 .graficos canvas { display: block; width: 100%; height: auto; max-height: 9rem; object-fit: contain; image-rendering: pixelated; background: var(--hundido); }
-figcaption { color: var(--suave); font-size: var(--t-chico); margin-top: .35rem; line-height: 1.35; }
+figcaption { display: flex; gap: var(--e-1); align-items: flex-start; color: var(--suave); font-size: var(--t-chico); margin-top: .35rem; line-height: 1.35; }
 .chips { display: flex; flex-wrap: wrap; gap: var(--e-1); margin: 0; padding: 0; list-style: none; }
 .chips li { background: var(--hundido); border: 1px solid var(--linea); padding: .2rem .6rem; font-size: var(--t-chico); }
 
@@ -113,14 +113,12 @@ figcaption { color: var(--suave); font-size: var(--t-chico); margin-top: .35rem;
 .opcion > button:first-child { display: flex; gap: .75rem; align-items: baseline; }
 .num { font-family: var(--f-titulo); font-size: var(--t-pix); color: var(--suave); flex: none; }
 .btn-ficha { font-family: var(--f-titulo); font-size: var(--t-pix); min-width: 3rem; text-align: center; color: var(--suave); }
-.btn-ficha[aria-expanded="true"] { background: var(--hundido); color: var(--tinta); }
 .opcion .marcada { background: var(--acento); color: var(--acento-tinta); border-color: var(--acento); }
 .opcion .marcada:hover { background: var(--acento); }
 .opcion .marcada .num { color: inherit; }
 .check { flex: none; width: 1.1rem; height: 1.1rem; border: var(--borde-fino) solid currentColor; align-self: center; display: grid; place-items: center; font-size: .8rem; line-height: 1; }
 .marcada .check::after { content: '✓'; font-weight: 700; }
-.ficha, .por { grid-column: 1 / -1; padding: .75rem var(--e-2); font-size: var(--t-chico); }
-.ficha { background: var(--hundido); border-left: var(--borde-gr) solid var(--linea); }
+.por { grid-column: 1 / -1; padding: .75rem var(--e-2); font-size: var(--t-chico); }
 .por { border-left: var(--borde-gr) solid; background: var(--hundido); }
 .por.ok { border-color: var(--ok); } .por.meh { border-color: var(--meh); } .por.bad { border-color: var(--bad); }
 .sello { font-family: var(--f-titulo); font-size: var(--t-pix); display: block; margin-bottom: .3rem; }
@@ -158,13 +156,25 @@ figcaption { color: var(--suave); font-size: var(--t-chico); margin-top: .35rem;
 @media (min-width: 30rem) { .barra-sup .txt { display: inline; } }
 .barra-sup button[aria-pressed="true"] { color: var(--acento-tinta); background: var(--acento); border-color: var(--acento); }
 .menu { display: grid; gap: .75rem; max-width: 22rem; margin: var(--e-3) auto 0; }
-.menu button { text-align: center; font-family: var(--f-titulo); font-size: var(--t-pix); padding: 1rem; }
+.menu button, .menu a { text-align: center; font-family: var(--f-titulo); font-size: var(--t-pix); line-height: 1.55; padding: 1rem; }
+.menu a { display: block; color: inherit; text-decoration: none; background: var(--panel); border: var(--borde-fino) solid var(--borde); }
+.menu a:hover { background: var(--hundido); }
+.menu a:focus-visible { outline: var(--borde-gr) dashed var(--acento); outline-offset: 2px; }
 .menu button[aria-pressed="true"] { background: var(--hundido); }
 .menu .btn-acento { padding: 1.1rem; }
 .menu small { display: block; font-family: var(--f-texto); font-size: var(--t-chico); color: inherit; opacity: .85; margin-top: .4rem; }
 .portada .subtitulo { font-family: var(--f-titulo); font-size: var(--t-pix); color: var(--suave); margin: calc(-1 * var(--e-2)) auto var(--e-3); }
 .creditos { margin-top: var(--e-3); }
-.creditos a { color: var(--acento); }
+/* Ayuda: el ? de los gráficos, los términos subrayados y la ventana que abren */
+.btn-ayuda { flex: none; width: 2rem; min-height: 2rem; padding: 0; text-align: center; font-family: var(--f-titulo); font-size: var(--t-pix); color: var(--suave); }
+.termino { display: inline; min-height: 0; padding: 0; border: 0; border-bottom: 1px dotted currentColor; background: none; color: inherit; font: inherit; text-align: inherit; cursor: help; }
+.termino:hover { background: none; color: var(--acento); }
+.marcada .termino:hover { color: inherit; }
+#ayuda { padding: 0; max-width: 30rem; }
+.ayuda-cuerpo { padding: var(--e-3) var(--e-2) var(--e-2); }
+.ayuda-tema { font-family: var(--f-titulo); font-size: var(--t-pix); color: var(--suave); margin-bottom: var(--e-1); }
+.ayuda-cuerpo h2 { color: var(--acento); font-size: .75rem; margin-bottom: var(--e-2); }
+.ayuda-cuerpo .acciones { margin-top: var(--e-2); }
 .como-jugar { max-width: 32rem; margin: var(--e-3) auto 0; text-align: left; }
 .como-jugar summary { cursor: pointer; font-family: var(--f-titulo); font-size: var(--t-pix); text-align: center; padding: var(--e-1); min-height: 2.75rem; }
 .como-jugar ul { padding-left: 1.2rem; display: grid; gap: var(--e-1); }
@@ -224,6 +234,14 @@ dialog::backdrop { background: rgb(0 0 0 / .55); }
 <dialog id="libro" class="caja" aria-labelledby="libro-titulo">
   <div class="libro-cab"><h2 id="libro-titulo">Libro de fichas</h2><button type="button" id="cerrar-libro">Cerrar ✕</button></div>
   <div id="libro-cuerpo"></div>
+</dialog>
+<dialog id="ayuda" class="caja" aria-labelledby="ayuda-titulo">
+  <div class="ayuda-cuerpo">
+    <p class="ayuda-tema" id="ayuda-tema"></p>
+    <h2 id="ayuda-titulo"></h2>
+    <p id="ayuda-texto"></p>
+    <div class="acciones"><button type="button" id="cerrar-ayuda" autofocus>Cerrar ✕</button></div>
+  </div>
 </dialog>
 <div class="aviso" id="aviso" role="status" hidden></div>
 
@@ -456,7 +474,7 @@ const Dialogo = {
     const p = $('#texto');
     clearInterval(this.timer);
     Escena.hablando = sprite;
-    const terminar = () => { clearInterval(this.timer); p.textContent = texto; Escena.salto = 0; Escena.dibujar(); };
+    const terminar = () => { clearInterval(this.timer); p.onclick = null; p.textContent = texto; Terminos.enlazar(p); Escena.salto = 0; Escena.dibujar(); };
     p.onclick = terminar;
     if (quieto) return terminar();
     let i = 0; p.textContent = '';
@@ -471,14 +489,14 @@ const Dialogo = {
 
 /* ════════════ Gráficos pixelados (se calculan con los datos de cada partida) ════════════ */
 const Graf = {
-  lienzo(w, h) { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; },
+  lienzo(w, h, ayuda) { const c = document.createElement('canvas'); c.width = w; c.height = h; if (ayuda) c.dataset.ayuda = ayuda; return c; },
   color: (v) => (v.startsWith('--') ? getComputedStyle(document.documentElement).getPropertyValue(v).trim() : v),
   GRUPOS: ['--acento', '--bad', '--meh', '#7b6cd9', '--ok', '#3d8fd6'],
   colorGrupo(g) { return g < 0 ? this.color('--suave') : this.color(this.GRUPOS[g % this.GRUPOS.length]); },
 
   /** Barras verticales: valores y colores (variables CSS o hex) */
   barras(valores, colores) {
-    const c = this.lienzo(64, 32), g = c.getContext('2d'), max = Math.max(...valores) || 1;
+    const c = this.lienzo(64, 32, 'g_barras'), g = c.getContext('2d'), max = Math.max(...valores) || 1;
     const ancho = Math.floor(56 / valores.length);
     valores.forEach((v, i) => {
       const h = Math.max(1, Math.round(v / max * 26));
@@ -490,7 +508,7 @@ const Graf = {
 
   /** Histograma; "nulos" agrega una barra amarilla a la derecha */
   histograma(valores, nulos = 0, bins = 14) {
-    const c = this.lienzo(80, 32), g = c.getContext('2d');
+    const c = this.lienzo(80, 32, 'g_histograma'), g = c.getContext('2d');
     const min = Math.min(...valores), max = Math.max(...valores), ancho = (max - min) / bins || 1;
     const cuentas = Array(bins).fill(0);
     valores.forEach((v) => cuentas[Math.min(bins - 1, Math.floor((v - min) / ancho))]++);
@@ -504,7 +522,7 @@ const Graf = {
 
   /** Boxplot horizontal; los outliers (fuera de 1,5 × RIQ) en rojo */
   boxplot(valores) {
-    const c = this.lienzo(80, 24), g = c.getContext('2d');
+    const c = this.lienzo(80, 24, 'g_boxplot'), g = c.getContext('2d');
     const v = [...valores].sort((a, b) => a - b), q = (p) => v[Math.floor(p * (v.length - 1))];
     const q1 = q(.25), q2 = q(.5), q3 = q(.75), riq = q3 - q1;
     const lo = Math.max(v[0], q1 - 1.5 * riq), hi = Math.min(v.at(-1), q3 + 1.5 * riq);
@@ -521,7 +539,7 @@ const Graf = {
 
   /** Dispersión: puntos {x, y, g}; g = grupo (color), g = -1 = ruido (gris, en cruz) */
   dispersion(puntos, { ancho = 80, alto = 56 } = {}) {
-    const c = this.lienzo(ancho, alto), g = c.getContext('2d');
+    const c = this.lienzo(ancho, alto, 'g_dispersion'), g = c.getContext('2d');
     const xs = puntos.map((p) => p.x), ys = puntos.map((p) => p.y);
     const [x0, x1, y0, y1] = [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)];
     const px = (v) => Math.round(3 + (v - x0) / ((x1 - x0) || 1) * (ancho - 7));
@@ -538,7 +556,7 @@ const Graf = {
 
   /** Línea con puntos (ej.: método del codo). "marcar" resalta un índice */
   linea(valores, { marcar = -1 } = {}) {
-    const c = this.lienzo(80, 40), g = c.getContext('2d'), max = Math.max(...valores), min = Math.min(...valores);
+    const c = this.lienzo(80, 40, 'g_linea'), g = c.getContext('2d'), max = Math.max(...valores), min = Math.min(...valores);
     const px = (i) => Math.round(4 + i / ((valores.length - 1) || 1) * 72);
     const py = (v) => Math.round(36 - (v - min) / ((max - min) || 1) * 32);
     g.fillStyle = this.color('--linea'); g.fillRect(2, 38, 76, 1);
@@ -558,9 +576,13 @@ const Graf = {
 };
 
 /* ════════════ Piezas de interfaz para las pizarras y resultados de los casos ════════════ */
-function figura(lienzo, pie) {
+function botonAyuda(clave) {
+  return `<button type="button" class="btn-ayuda" data-ayuda="${clave}" aria-haspopup="dialog" aria-label="Qué es: ${FICHAS[clave].titulo}">?</button>`;
+}
+/** ayuda: clave de la ficha que explica el gráfico; por defecto, la del tipo de gráfico */
+function figura(lienzo, pie, ayuda = lienzo.dataset.ayuda) {
   const f = document.createElement('figure');
-  f.append(lienzo, html(`<figcaption>${pie}</figcaption>`));
+  f.append(lienzo, html(`<figcaption>${ayuda ? botonAyuda(ayuda) : ''}<span>${pie}</span></figcaption>`));
   return f;
 }
 function graficos(...figuras) {
@@ -593,7 +615,7 @@ function infoColumnas(columnas, total) {
 function tablaCalor(nombres, matriz) {
   const fondo = (v) => `hsl(${v >= 0 ? 172 : 352} 55% ${Math.round(95 - Math.abs(v) * 45)}%)`;
   return bloque(
-    html(`<div class="tabla-scroll"><table class="tabla-calor"><thead><tr><th></th>${nombres.map((n) => `<th>${n}</th>`).join('')}</tr></thead>
+    html(`<div class="tabla-scroll"><table class="tabla-calor"><thead><tr><th>${botonAyuda('g_calor')}</th>${nombres.map((n) => `<th>${n}</th>`).join('')}</tr></thead>
       <tbody>${matriz.map((fila, i) => `<tr><th>${nombres[i]}</th>${fila.map((v) => `<td style="background:${fondo(v)}">${num(v, 2)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`),
     nota('Correlación: cerca de 1 o −1 = muy relacionadas; cerca de 0 = sin relación lineal.'),
   );
@@ -626,7 +648,7 @@ function pestanas(vistas) {
 /** Matriz de confusión con nombres de clase */
 function matrizConfusion({ vp, fp, fn, vn }, positivo = 'positivo', negativo = 'negativo') {
   return html(`<div class="matriz" role="table" aria-label="Matriz de confusión">
-    <div></div><div class="cab">predijo ${positivo}</div><div class="cab">predijo ${negativo}</div>
+    <div>${botonAyuda('g_matriz')}</div><div class="cab">predijo ${positivo}</div><div class="cab">predijo ${negativo}</div>
     <div class="cab">${positivo}</div><div class="vp">VP ${vp}</div><div class="fn">FN ${fn}</div>
     <div class="cab">${negativo}</div><div class="fp">FP ${fp}</div><div class="vn">VN ${vn}</div></div>`);
 }
@@ -773,6 +795,46 @@ const FICHAS = {
     texto: 'Qué proporción de la variación del objetivo explica el modelo. 1 = perfecto; 0 = no mejor que predecir siempre el promedio.' },
   umbral: { tema: 'Métricas', titulo: 'Umbral de decisión',
     texto: 'El modelo da una probabilidad y el umbral la pasa a clase. Bajarlo sube la sensibilidad y baja la precisión; subirlo, al revés.' },
+
+  // ── Gráficos: los explica el ? de cada gráfico
+  g_histograma: { tema: 'Gráficos', titulo: 'Histograma',
+    texto: 'Divide una variable numérica en tramos y muestra cuántos datos caen en cada uno. Sirve para ver la forma de la distribución: si es simétrica, si tiene una cola larga o varios picos.' },
+  g_boxplot: { tema: 'Gráficos', titulo: 'Boxplot (diagrama de caja)',
+    texto: 'La caja junta el 50 % central de los datos y la raya de adentro es la mediana. Los bigotes llegan hasta 1,5 × RIQ; lo que queda afuera, en rojo, son posibles outliers.' },
+  g_barras: { tema: 'Gráficos', titulo: 'Gráfico de barras',
+    texto: 'Compara una cantidad entre categorías: cuanto más alta la barra, mayor el valor. Sirve para ver de un vistazo, por ejemplo, si una clase es mucho más frecuente que otra.' },
+  g_dispersion: { tema: 'Gráficos', titulo: 'Gráfico de dispersión',
+    texto: 'Cada punto es un dato, ubicado según dos variables (eje x y eje y). Muestra si se mueven juntas, si forman grupos y si hay puntos aislados. El color suele indicar el grupo.' },
+  g_linea: { tema: 'Gráficos', titulo: 'Gráfico de línea',
+    texto: 'Une valores en orden para ver cómo cambian de un punto al siguiente. Lo importante es la forma: dónde sube, dónde baja y dónde pega un salto.' },
+  g_calor: { tema: 'Gráficos', titulo: 'Mapa de calor de correlaciones',
+    texto: 'Tabla que cruza las variables numéricas. Cada celda es la correlación del par, de −1 a 1: cuanto más intenso el color, más fuerte la relación. Dos entradas muy correlacionadas repiten información.' },
+  g_matriz: { tema: 'Gráficos', titulo: 'Matriz de confusión',
+    texto: 'Cruza lo real (filas) con lo que predijo el modelo (columnas). VP y VN son aciertos; FP y FN son los dos tipos de error. De estas cuatro celdas salen las métricas de clasificación.' },
+
+  // ── Términos sueltos: se abren tocando la palabra subrayada
+  t_supervisado: { tema: 'El problema', titulo: 'Supervisado y no supervisado',
+    texto: 'Supervisado: los datos traen la respuesta correcta (etiqueta) y el modelo aprende de ella. No supervisado: no hay etiqueta y el modelo busca estructura por su cuenta.' },
+  t_df_info: { tema: 'EDA', titulo: 'df.info()',
+    texto: 'Método de pandas que lista cada columna con su cantidad de valores no nulos y su tipo. Es la forma rápida de detectar nulos y tipos incorrectos.' },
+  t_df_head: { tema: 'EDA', titulo: 'df.head()',
+    texto: 'Método de pandas que muestra las primeras filas de la tabla. Sirve para ver cómo vienen los datos, no para sacar conclusiones de todo el dataset.' },
+  t_mediana: { tema: 'EDA', titulo: 'Mediana',
+    texto: 'El valor del medio cuando los datos están ordenados. A diferencia de la media, casi no la mueven los valores extremos.' },
+  t_riq: { tema: 'EDA', titulo: 'RIQ (rango intercuartílico)',
+    texto: 'Distancia entre el cuartil 3 y el cuartil 1 (Q3 − Q1): el ancho del 50 % central de los datos. Es la caja del boxplot.' },
+  t_vp: { tema: 'Métricas', titulo: 'Verdadero positivo (VP)',
+    texto: 'El modelo dijo "positivo" y era positivo. Ejemplo: dijo "enfermo" y la persona está enferma.' },
+  t_vn: { tema: 'Métricas', titulo: 'Verdadero negativo (VN)',
+    texto: 'El modelo dijo "negativo" y era negativo. Ejemplo: dijo "sano" y la persona está sana.' },
+  t_fp: { tema: 'Métricas', titulo: 'Falso positivo (FP)',
+    texto: 'El modelo dijo "positivo" pero era negativo: una falsa alarma. Ejemplo: dijo "enfermo" a una persona sana.' },
+  t_fn: { tema: 'Métricas', titulo: 'Falso negativo (FN)',
+    texto: 'El modelo dijo "negativo" pero era positivo: un caso que se escapó. Ejemplo: dijo "sano" a una persona enferma.' },
+  t_inercia: { tema: 'Agrupamiento', titulo: 'Inercia',
+    texto: 'El error de K-Means: suma de las distancias al cuadrado de cada punto a su centro. Siempre baja al sumar grupos, por eso no se elige el K con menor inercia sino el codo.' },
+  t_centroide: { tema: 'Agrupamiento', titulo: 'Centroide',
+    texto: 'El centro de un grupo en K-Means: el promedio de sus puntos. Cada punto se asigna al centroide más cercano.' },
 
   // ── Ética y comunicación
   sesgo: { tema: 'Ética y comunicación', titulo: 'Sesgo y discriminación',
@@ -1560,7 +1622,7 @@ function tablaPerfiles(grupos) {
 
 /** Dendrograma truncado: solo las últimas fusiones (las 8 ramas más altas) */
 function dibujarDendro(fusiones) {
-  const ancho = 80, alto = 48, c = Graf.lienzo(ancho, alto), g = c.getContext('2d');
+  const ancho = 80, alto = 48, c = Graf.lienzo(ancho, alto, 'dendrograma'), g = c.getContext('2d');
   const n = fusiones.length + 1, hojas = 8, arriba = fusiones.slice(n - hojas), hMax = arriba.at(-1).h;
   const nodo = (id) => (id >= n + (n - hojas) ? arriba[id - n - (n - hojas)] : null);
   const py = (h) => Math.round(alto - 3 - h / hMax * (alto - 6));
@@ -1761,7 +1823,7 @@ CASOS.push({
         const { inercias } = codo(ctx), max = inercias[0];
         return bloque(
           graficos(
-            figura(Graf.linea(inercias), 'Método del codo: inercia para K = 1 … 8'),
+            figura(Graf.linea(inercias), 'Método del codo: inercia para K = 1 … 8', 'codo'),
             figura(dispersionDatos(filasAgrupar(ctx)), `Los clientes (${PIE_EJES})`)),
           html('<div class="mt"></div>'),
           chips(inercias.map((v, i) => `K=${i + 1}: ${num(v / max * 100)}`)),
@@ -2106,7 +2168,7 @@ function dendrograma(datos, modo) {
   const hojas = [];
   const recorrer = (id) => { if (creados.has(id)) { recorrer(creados.get(id).a); recorrer(creados.get(id).b); } else hojas.push(id); };
   recorrer(arriba.at(-1).id);
-  const W = 96, H = 52, c = Graf.lienzo(W, H), g = c.getContext('2d'), tope = arriba.at(-1).h;
+  const W = 96, H = 52, c = Graf.lienzo(W, H, 'dendrograma'), g = c.getContext('2d'), tope = arriba.at(-1).h;
   const y = (h) => Math.round(H - 3 - h / tope * (H - 6));
   const altura = new Map(fus.map((f) => [f.id, f.h]));      // las hojas arrancan a la altura en que se formaron
   const pos = new Map(hojas.map((id, i) => [id, { x: Math.round(4 + i * (W - 8) / (hojas.length - 1)), y: y(altura.get(id) ?? 0) }]));
@@ -2285,7 +2347,7 @@ CASOS.push({
       dialogo: () => 'K-Means me pide K, la cantidad de grupos. Corro el método del codo con K de 1 a 7.',
       pregunta: () => '¿Qué K elegís?',
       muestra: ({ datos, decisiones }) => bloque(
-        graficos(figura(Graf.linea(codo(datos, decisiones.escalado)), 'Método del codo: inercia para K = 1 a 7'),
+        graficos(figura(Graf.linea(codo(datos, decisiones.escalado)), 'Método del codo: inercia para K = 1 a 7', 'codo'),
           figura(dispersionDatos(datos), pieDispersion(datos, 'Las 200 lecturas'))),
         nota(`Como K-Means no marca ruido, después tomamos como raras las ${RAROS_KMEANS} lecturas más lejos de su centro.`)),
       opciones: [2, 3, 4, 5].map((k) => ({
@@ -2444,7 +2506,7 @@ const costo = ({ fn, fp }, { cFN, cFP }) => fn * cFN + fp * cFP;
 
 /** Barras angostas para muchas categorías (Graf.barras no entra con más de ~12) */
 function barrasFinas(valores, color = (i) => '--acento') {
-  const c = Graf.lienzo(80, 32), g = c.getContext('2d'), max = Math.max(...valores) || 1;
+  const c = Graf.lienzo(80, 32, 'g_barras'), g = c.getContext('2d'), max = Math.max(...valores) || 1;
   const paso = Math.max(2, Math.floor(76 / valores.length)), ancho = Math.max(1, paso - 1);
   valores.forEach((v, i) => {
     const h = v ? Math.max(1, Math.round(v / max * 26)) : 0;
@@ -3138,15 +3200,17 @@ const Libro = {
   usadas() {                            // solo cuentan las fichas que aparecen en algún caso
     const claves = new Set();
     CASOS.forEach((c) => c.etapas.forEach((e) => e.opciones.forEach((o) => claves.add(o.ficha))));
+    TERMINOS.forEach(([, clave]) => claves.add(clave));
     return [...claves].filter((k) => FICHAS[k]);
   },
   desbloqueadas() { return new Set(Progreso.leer().fichas || []); },
-  desbloquear(clave) {
+  /** Devuelve true si era nueva. Con avisar = false la anuncia quien llama (la ventana de ayuda) */
+  desbloquear(clave, avisar = true) {
     const tengo = this.desbloqueadas();
-    if (tengo.has(clave) || !FICHAS[clave]) return;
+    if (tengo.has(clave) || !FICHAS[clave]) return false;
     Progreso.actualizar({ fichas: [...tengo, clave] });
-    Aviso.mostrar(`★ Ficha nueva: ${FICHAS[clave].titulo}`);
-    Sonido.efecto('ficha');
+    if (avisar) { Aviso.mostrar(`★ Ficha nueva: ${FICHAS[clave].titulo}`); Sonido.efecto('ficha'); }
+    return true;
   },
   cuenta() {
     const tengo = this.desbloqueadas(), usadas = this.usadas();
@@ -3156,7 +3220,7 @@ const Libro = {
     const tengo = this.desbloqueadas(), usadas = this.usadas(), temas = {};
     usadas.forEach((k) => (temas[FICHAS[k].tema] ??= []).push(k));
     $('#libro-titulo').textContent = `Libro de fichas · ${usadas.filter((k) => tengo.has(k)).length}/${usadas.length}`;
-    $('#libro-cuerpo').replaceChildren(nota('Se desbloquean al leer una ficha (?) o al elegir esa opción.'), ...Object.entries(temas).map(([tema, claves]) => html(`
+    $('#libro-cuerpo').replaceChildren(nota('Se desbloquean al abrirlas (con ? o tocando un término subrayado) o al elegir esa opción.'), ...Object.entries(temas).map(([tema, claves]) => html(`
       <h2 class="libro-tema">${tema}</h2>
       <ul class="libro-lista">${claves.map((k) => (tengo.has(k)
         ? `<li><b>${FICHAS[k].titulo}</b>${FICHAS[k].texto}</li>`
@@ -3172,6 +3236,78 @@ const Aviso = {
     a.textContent = texto; a.hidden = false;
     clearTimeout(this.timer);
     this.timer = setTimeout(() => { a.hidden = true; }, 2600);
+  },
+};
+
+/* ════════════ Ventana de ayuda: la abre cualquier elemento con data-ayuda ════════════ */
+const Ayuda = {
+  abrir(clave) {
+    const ficha = FICHAS[clave], nueva = Libro.desbloquear(clave, false);
+    Sonido.preparar();
+    Sonido.efecto(nueva ? 'ficha' : 'pagina');
+    $('#ayuda-tema').textContent = ficha.tema + (nueva ? ' · ★ Ficha nueva' : '');
+    $('#ayuda-titulo').textContent = ficha.titulo;
+    $('#ayuda-texto').innerHTML = ficha.texto;
+    $('#ayuda').showModal();
+  },
+};
+
+/* ════════════ Términos técnicos: se subrayan solos en los textos y abren su ficha ════════════ */
+const TERMINOS = [
+  ['K-?Means', 'kmeans'], ['KNN', 'knn'], ['DBSCAN', 'dbscan'], ['Lasso', 'lasso'], ['Ridge', 'ridge'],
+  ['Random Forest', 'random_forest'], ['Naive Bayes', 'naive_bayes'], ['SVM', 'svm'],
+  ['regresión logística|logística', 'logistica'], ['regresión lineal', 'lineal'], ['árbol(?: de decisión)?', 'arbol'],
+  ['(?:agrupamiento )?jerárquico', 'jerarquico'], ['regresión', 'regresion'], ['clasificación', 'clasificacion'], ['agrupamiento', 'agrupamiento'],
+  ['no supervisado|supervisado', 't_supervisado'], ['split', 'split'],
+  ['StandardScaler', 'standard'], ['MinMax(?:Scaler)?', 'minmax'], ['Robust(?:Scaler)?', 'robust'],
+  ['one-hot(?: encoding)?', 'one_hot'], ['target encoding', 'target_encoding'], ['label encoding', 'label'], ['ordinal encoding', 'ordinal'],
+  ['NaN|(?:valores )?nulos?', 'nulos'], ['outliers?|(?:valores )?atípicos?', 'outliers'], ['asimetría|asimétric[ao]s?', 'asimetria'],
+  ['desbalance(?:adas?)?', 'desbalance'], ['multicolinealidad', 'multicolinealidad'], ['correlación|correlacionadas?', 'correlacion'],
+  ['mediana', 't_mediana'], ['RIQ|rango intercuartílico', 't_riq'], ['dropna(?:\\(\\))?', 'dropna'],
+  ['df\\.info(?:\\(\\))?', 't_df_info'], ['df\\.head(?:\\(\\))?', 't_df_head'],
+  ['fuga de datos|data leakage', 'fuga'], ['sobreajust[ea]\\p{L}*|overfitting', 'sobreajuste'], ['regulariza\\p{L}*', 'simplificar'],
+  ['exactitud|accuracy', 'exactitud'], ['sensibilidad|recall', 'sensibilidad'], ['precisión', 'precision'], ['especificidad', 'especificidad'],
+  ['F1(?:-score)?', 'f1'], ['MAE', 'mae'], ['RMSE', 'rmse'], ['R²', 'r2'], ['umbral(?:es)?', 'umbral'],
+  ['falsos? negativos?|FN', 't_fn'], ['falsos? positivos?|FP', 't_fp'], ['verdaderos? positivos?|VP', 't_vp'], ['verdaderos? negativos?|VN', 't_vn'],
+  ['(?:método del )?codo', 'codo'], ['inercia', 't_inercia'], ['centroides?', 't_centroide'], ['dendrograma', 'dendrograma'], ['eps', 'eps'], ['ruido', 'ruido'],
+  ['boxplot|bigotes?', 'g_boxplot'], ['histograma', 'g_histograma'], ['(?:gráfico de )?dispersión', 'g_dispersion'], ['mapa de calor', 'g_calor'], ['matriz de confusión', 'g_matriz'],
+  ['sesgo', 'sesgo'], ['storytelling', 'storytelling'],
+];
+
+const Terminos = {
+  SALTEAR: 'button, .sello, h1, h2, table, canvas, .quien, .matriz, .etiqueta, .pestanas',
+  // Lo más largo primero, para que "regresión logística" gane sobre "regresión"
+  fuentes: TERMINOS.map(([fuente, clave]) => [new RegExp(`^(?:${fuente})$`, 'iu'), clave]),
+  patron: new RegExp(`(?<![\\p{L}\\p{N}-])(?:${TERMINOS.flatMap(([f]) => f.split(/\|(?![^(]*\))/)).sort((a, b) => b.length - a.length).join('|')})(?![\\p{L}\\p{N}])`, 'giu'),
+
+  clave(palabra) { return this.fuentes.find(([r]) => r.test(palabra))?.[1]; },
+
+  enlazar(raiz) {
+    const paseo = document.createTreeWalker(raiz, NodeFilter.SHOW_TEXT);
+    const nodos = [];
+    while (paseo.nextNode()) if (!paseo.currentNode.parentElement.closest(this.SALTEAR)) nodos.push(paseo.currentNode);
+    nodos.forEach((n) => this.enlazarNodo(n));
+  },
+
+  // Cada término se subraya una sola vez por bloque de texto, para no llenar el párrafo de rayitas
+  enlazarNodo(nodo) {
+    const bloque = nodo.parentElement.closest('p, li, figcaption, div') ?? nodo.parentElement;
+    const vistos = new Set([...bloque.querySelectorAll('.termino')].map((t) => t.dataset.ayuda));
+    const partes = document.createDocumentFragment();
+    let cursor = 0;
+    for (const m of nodo.data.matchAll(this.patron)) {
+      const clave = this.clave(m[0]);
+      if (!clave || vistos.has(clave)) continue;
+      vistos.add(clave);
+      const boton = Object.assign(document.createElement('button'), { type: 'button', className: 'termino', textContent: m[0] });
+      boton.dataset.ayuda = clave;
+      boton.setAttribute('aria-haspopup', 'dialog');
+      partes.append(nodo.data.slice(cursor, m.index), boton);
+      cursor = m.index + m[0].length;
+    }
+    if (!cursor) return;
+    partes.append(nodo.data.slice(cursor));
+    nodo.replaceWith(partes);
   },
 };
 
@@ -3265,6 +3401,7 @@ const Juego = {
       panel.querySelector('.acciones').append(ok);
     }
     $('#contenido').replaceChildren(pizarra, panel);
+    Terminos.enlazar($('#contenido'));
     lista_.querySelector('button').focus({ preventScroll: true });
     scrollTo({ top: 0, behavior: quieto ? 'auto' : 'smooth' });
   },
@@ -3273,15 +3410,8 @@ const Juego = {
     const ficha = FICHAS[op.ficha], texto = this.textoOpcion(op);
     const nodo = html(`<div class="opcion" data-id="${op.id}">
       <button type="button">${etapa.tipo === 'multi' ? '<span class="check" aria-hidden="true"></span>' : `<span class="num">${k + 1}</span>`}<span>${texto}</span></button>
-      <button type="button" class="btn-ficha" aria-expanded="false" aria-label="Ficha: ${ficha.titulo}">?</button>
-      <p class="ficha" hidden><span class="sello">Ficha · ${ficha.titulo}</span>${ficha.texto}</p></div>`).firstChild;
-    const [elegir, verFicha] = nodo.querySelectorAll('button'), cuadro = nodo.querySelector('.ficha');
-    verFicha.onclick = () => {
-      cuadro.hidden = !cuadro.hidden;
-      verFicha.setAttribute('aria-expanded', String(!cuadro.hidden));
-      Sonido.efecto('pagina');
-      Libro.desbloquear(op.ficha);
-    };
+      <button type="button" class="btn-ficha" data-ayuda="${op.ficha}" aria-haspopup="dialog" aria-label="Ficha: ${ficha.titulo}">?</button></div>`).firstChild;
+    const elegir = nodo.querySelector('button');
     elegir.onclick = () => {
       if (panel.classList.contains('resuelta')) return;
       if (etapa.tipo !== 'multi') return this.resolver(etapa, op, panel);
@@ -3298,8 +3428,6 @@ const Juego = {
   },
 
   explicar(nodo, nivel, texto, oculta = false) {
-    nodo.querySelector('.ficha').hidden = true;
-    nodo.querySelector('.btn-ficha').setAttribute('aria-expanded', 'false');
     const por = html(`<p class="por ${nivel}"><span class="sello">${NIVEL[nivel].sello}</span>${texto}</p>`).firstChild;
     por.hidden = oculta;
     nodo.append(por);
@@ -3359,6 +3487,7 @@ const Juego = {
     const boton = cierre.querySelector('button');
     boton.onclick = () => { Sonido.efecto('clic'); this.siguiente(); };
     panel.querySelector('.acciones').replaceWith(cierre);
+    Terminos.enlazar(panel);
     boton.focus({ preventScroll: true });
     panel.querySelector('.marcada')?.scrollIntoView({ block: 'start', behavior: quieto ? 'auto' : 'smooth' });
   },
@@ -3386,6 +3515,7 @@ const Juego = {
         </div>
       </section>`);
     $('#contenido').replaceChildren(resultado, recorrido);
+    Terminos.enlazar($('#contenido'));
     $('#otro-caso').onclick = () => Menu.casos();
     $('#repetir').onclick = () => this.iniciar(caso, p.semilla);
     $('#nueva').onclick = () => this.iniciar(caso);
@@ -3417,6 +3547,7 @@ const Menu = {
           <button type="button" id="menu-libro">★ Libro de fichas<small>${Libro.cuenta()} conceptos</small></button>
           <button type="button" id="menu-musica">♪ Música<small></small></button>
           <button type="button" id="menu-efectos">✦ Efectos<small></small></button>
+          <a href="https://fedetrus.github.io/guias/" id="menu-guias">← Guías<small>Volver a todas las guías</small></a>
         </div>
         <details class="como-jugar">
           <summary>¿Cómo se juega?</summary>
@@ -3429,7 +3560,7 @@ const Menu = {
             <li>En compu: teclas <span class="tecla">1</span>–<span class="tecla">5</span> para elegir y <span class="tecla">Esc</span> para volver al menú.</li>
           </ul>
         </details>
-        <p class="nota creditos">By F. Suárez · 2026 · Saludos pal IFTS 24 · <a href="https://fedetrus.github.io/guias/">Más guías</a></p>
+        <p class="nota creditos">By F. Suárez · 2026 · Saludos pal IFTS 24</p>
       </section>`));
     Config.pintar();
     if (g) $('#menu-continuar').onclick = () => { Sonido.efecto('clic'); Juego.cargar(g); };
@@ -3485,7 +3616,7 @@ const Menu = {
 
 /* ════════════ Teclado y arranque ════════════ */
 addEventListener('keydown', (e) => {
-  if (e.altKey || e.ctrlKey || e.metaKey || $('#libro').open) return;
+  if (e.altKey || e.ctrlKey || e.metaKey || $('#libro').open || $('#ayuda').open) return;
   if (e.key === 'Escape' && !$('#barra-sup').hidden) return Menu.mostrar();
   const n = Number(e.key);
   const panel = document.querySelector('#contenido .opciones')?.closest('section');
@@ -3499,6 +3630,12 @@ const vieja = Progreso.leer().partida;
 if (vieja) { Partidas.guardar(vieja.caso, vieja); Progreso.actualizar({ partida: undefined }); }
 
 Config.cargar();
+document.addEventListener('click', (e) => {
+  const con = e.target.closest('[data-ayuda]');
+  if (con) Ayuda.abrir(con.dataset.ayuda);
+});
+$('#cerrar-ayuda').onclick = () => $('#ayuda').close();
+$('#ayuda').addEventListener('click', (e) => { if (e.target === $('#ayuda')) $('#ayuda').close(); });   // tocar afuera cierra
 $('#btn-menu').onclick = () => { Sonido.efecto('clic'); Menu.mostrar(); };
 $('#cerrar-libro').onclick = () => { $('#libro').close(); if (!$('#menu-libro')) return; Menu.mostrar(); };
 Menu.mostrar();
